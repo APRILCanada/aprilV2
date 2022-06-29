@@ -1,0 +1,145 @@
+<div class="container pb-100">
+  <!-- Header -->
+  <div class="row">
+    <div class="col-md-6"></div>
+    <div class="col-md-6">
+      <div class="
+          half-circle
+          bg-optional
+          d-flex
+          text-center
+          justify-content-center
+          align-items-center
+        ">
+        <h2 class="mx-5 px-5">{{ "MEET_TEAM" | translate }}</h2>
+      </div>
+    </div>
+  </div>
+  <!-- Directors grid -->
+  <div class="row">
+    <div class="col-lg-4 my-md-5 col-md-6" (click)="openModal(contact, ceo)" [attr.click-text]="ceo.fullName"
+      data-analytics="AboutExpert">
+      <div class="
+          d-flex
+          flex-column
+          justify-content-center
+          align-items-center
+          text-center
+          pointer
+          mt-5 mt-xl-0
+          mb-5
+        ">
+        <img ixImg class="directors" path="a-propos/directors/{{ceo?.picture}}"
+        sizes="280px"
+         />
+
+        <div class="h3 pt-3">{{ ceo.fullName }}</div>
+        <div class="mx-4" [innerHtml]="language.get() == 'fr' ? ceo.title?.fr : ceo.title?.en"></div>
+      </div>
+    </div>
+    <div class="col-lg-8 col-md-6 d-flex align-items-center">
+      <div class="featured-block py-5 my-md-5 ms-lg-5">
+        {{ "SEO_DESC" | translate }}
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6" *ngFor="let d of directors" (click)="openModal(contact, d)"
+      data-analytics="AboutExpert" [attr.click-text]="d.fullName">
+      <div class="
+          d-flex
+          flex-column
+          justify-content-center
+          align-items-center
+          text-center
+          pointer
+          my-5
+        ">
+        <img ixImg class="directors" path="a-propos/directors/{{d.picture}}" 
+        sizes="280px" />
+        <div class="h3 pt-3">{{ d.fullName }}</div>
+        <div class="mx-4" [innerHtml]="language.get() == 'fr' ? d.title?.fr : d.title?.en"></div>
+      </div>
+    </div>
+    <!-- BDM grid-->
+    <div class="row">
+      <div class="
+          col-12 col-md-0 col-lg-4
+          px-4
+          my-5
+          pb-5
+          d-block d-md-none d-lg-block
+        ">
+        <div class="featured-links-bubble">
+          <div class="d-flex flex-column justify-content-center align-items-center">
+            <h2 class="">{{ "YOUR_CONTACTS" | translate }}</h2>
+            <p class="text-white d-lg-none d-xl-block text-small">
+              {{ "YOUR_CONTACTS_DETAILS" | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="row">
+          <div class="col-md-6" *ngFor="let b of bdm" (click)="openModal(contact, b)" data-analytics="AboutExpert"
+            [attr.click-text]="b.fullName">
+            <div class="
+                d-flex
+                flex-column
+                justify-content-center
+                align-items-center
+                text-center
+                pointer
+                my-5
+              ">
+              <img ixImg class="directors" path="a-propos/directors/{{b.picture}}" sizes="280px" />
+              <div class="h3 pt-3">{{ b.fullName }}</div>
+              <div [innerHtml]="language.get() == 'fr' ? b.title?.fr : b.title?.en" class="mx-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<ng-template #contact let-modal>
+  <div class="modal-header d-flex justify-content-center align-items-center">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true"><img class="icon" src="../../../../../assets/img/icons/close.svg" alt="" /></span>
+    </button>
+  </div>
+  <div class="modal-body move-up">
+    <div class="row">
+      <div class="col-lg-6 d-flex justify-content-center">
+
+        <img ixImg class="directors" path="a-propos/directors/{{data.picture}}" sizes="280px" />
+      </div>
+      <div class="col-lg-6">
+        <div class="
+            d-flex
+            flex-column
+            justify-content-center
+            align-items-center
+            text-center
+            pointer
+            my-5
+          ">
+          <div class="h3 pt-3">{{ data.fullName }}</div>
+          <div [innerHtml]="language.get() == 'fr' ? data.title?.fr : data.title?.en" class="m-4"></div>
+          <div class="social-icon d-flex">
+            <div class="mx-3">
+              <a [href]="'mailto:' + data.email" target="_blank" data-analytics="AboutExpertContact"
+                [attr.click-text]="data.fullName + ' email'"><img class="icon"
+                  src="../../../../assets/img/icons/envelope.svg" alt="" /></a>
+            </div>
+            <div class="mx-3" *ngIf="data.linkedIn">
+              <a [href]="data.linkedIn" target="_blank" data-analytics="AboutExpertContact"
+                [attr.click-text]="data.fullName + ' LinkedIn'"><img class="icon"
+                  src="../../../../assets/img/icons/linkedin.svg" alt="" /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

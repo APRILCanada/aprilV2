@@ -1,0 +1,63 @@
+<div class="side-nav my-5">
+  <ul>
+    <span *ngFor="let n of niches">
+      <li
+        *ngIf="!n.subsection"
+        data-analytics="NichesSideNavLink"
+        (click)="getNiche(n.id)"
+        class="d-flex justify-content-between align-items-center"
+      >
+        <div [routerLink]="'../../niches/' + n.id">
+          {{ language.get() == "fr" ? n.titleFr : n.titleEn }}
+        </div>
+        <div class="icon pe-5 carret-right"></div>
+        <ul class="dropdown-menu">
+          <li class="p-3" *ngFor="let p of menuFilter(products, n.id)">
+            <div [routerLink]="'../../produits/' + p.id">
+              {{ language.get() == "fr" ? p.fr.title : p.en.title }}
+            </div>
+          </li>
+
+          <li class="p-3" *ngIf="n.id == 'marine-plaisance'">
+            <a
+              class="txt-main"
+              href="https://aprilmarine.ca/"
+              target="_blank"
+              ref="noreferrer noopener"
+              >{{ "PERSONAL_MARINE" | translate }}</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li
+        *ngIf="n.subsection"
+        data-analytics="NichesSideNavLink"
+        (click)="switchNiche(n.id)"
+        class="d-flex justify-content-between align-items-center second-level"
+      >
+        <span [routerLink]="'../' + n.id">{{
+          language.get() == "fr" ? n.titleFr : n.titleEn
+        }}</span>
+        <div class="icon pe-5 carret-right"></div>
+        <ul class="dropdown-menu">
+          <li
+            class="d-flex justify-content-between align-items-center p-3"
+            *ngFor="let s of n.subsection"
+          >
+            <span>{{ language.get() == "fr" ? s.titleFr : s.titleEn }}</span>
+            <div class="icon pe-5 carret-right"></div>
+            <ul class="dropdown-menu">
+              <li
+                class="p-3"
+                *ngFor="let p of s.products"
+                [routerLink]="'../../produits/' + p.id"
+              >
+                {{ language.get() == "fr" ? p.titleFr : p.titleEn }}
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </span>
+  </ul>
+</div>

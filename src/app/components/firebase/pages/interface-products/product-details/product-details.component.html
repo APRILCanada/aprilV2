@@ -1,0 +1,103 @@
+<section class="interface-style mt-3 pb-100 pt-200">
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto form-container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a routerLink="/interface/products" class="btn btn-secondary px-3">{{ 'BACK' | translate }}</a>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="float-end">
+                            <div class="btn-group "><a routerLink="../../update/{{id}}" class="btn btn-secondary px-3">{{ 'EDIT' | translate }}</a></div>
+                            <button (click)="onDelete()" class="btn btn-danger ml-3">{{ 'DELETE' | translate }}</button>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="form-action my-4" >
+                    <div  class="card">
+                        <h2 class="card-header text-center">{{ 'PRODUCT_DETAILS' | translate }}</h2>
+                        <div class="card-body">
+                            <h3 class="mt-1">Introduction</h3>
+
+                            <div class="row mb-3">
+                                <div class="col-md-8">
+                                    Niches: {{product.parent}}
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="float-end">{{ 'ONLINE' | translate }}: <span *ngIf="product.isActive == 'isActive'"> {{ 'YES' | translate }}</span><span  *ngIf="product.isActive == 'notActive'"> {{ 'NO' | translate }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item" *ngIf="product.provinces">
+                                    Provinces: {{product.provinces}}
+                                </li>
+                                <li class="list-group-item" >id: {{ product.id }}</li>
+                                <li class="list-group-item" >{{ 'MAIN_IMG' | translate }}: {{ product.mainImg }}</li>
+                                <li class="list-group-item">{{ 'COVERAGE_IMG' | translate }}: {{ product.coverageImg }}</li>
+                                <li class="list-group-item">{{ 'UNDERWRITING_IMG' | translate }}: {{ product.underwritingImg }}</li>
+                            </ul>
+                            <hr>
+                            <h3>{{ 'FRENCH' | translate }}</h3>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item" *ngIf="product.fr.title">
+                                    <h5>{{ 'TITLE' | translate}}</h5>
+                                    <div [innerHtml]="product.fr.title"></div>
+                                </li>
+                                <li class="list-group-item" *ngIf="product.fr.desc">
+                                    <h5>{{ 'DESCRIPTION' | translate}}</h5>
+                                    <div [innerHtml]="product.fr.desc"></div>
+                                </li>
+                                <li class="list-group-item" *ngIf="product.fr.target">
+                                    <h5>{{ 'TARGET' | translate}}</h5>
+                                    <div [innerHtml]="product.fr.target"></div>
+                                </li>
+                                <li class="list-group-item" *ngIf="product.fr.coverage">
+                                    <h5>{{ 'COVERAGE' | translate}}</h5>
+                                    <div [innerHtml]="product.fr.coverage"></div>
+                                </li>
+                                <li class="list-group-item" *ngIf="product.fr.underwriting">
+                                    <h5>{{ 'UNDERWRITING_NORMS' | translate}}</h5>
+                                    <div [innerHtml]="product.fr.underwriting"></div>
+                                </li>
+                                <li class="list-group-item" >{{ 'MAIN_IMG' | translate }} alt: {{ product.fr.mainImgAlt }}</li>
+                                <li class="list-group-item">{{ 'COVERAGE_IMG' | translate }} alt: {{ product.fr.coverageImgAlt }}</li>
+                                <li class="list-group-item">{{ 'UNDERWRITING_IMG' | translate }} alt: {{ product.fr.underwritingImgAlt }}</li>
+                            </ul>
+
+                            <h3>{{ 'ENGLISH' | translate }}</h3>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item" *ngIf="product.en.title">
+                                    <h5>{{ 'TITLE' | translate}}</h5>
+                                    <div [innerHtml]="product.en.title"></div>
+                                </li>
+                                <li class="list-group-item" *ngIf="product.en.desc">
+                                    <h5>{{ 'DESCRIPTION' | translate}}</h5>
+                                    <div [innerHtml]="product.en.desc"></div>
+                                </li>
+                                <li class="list-group-item" *ngIf="product.en.target">
+                                    <h5>{{ 'TARGET' | translate}}</h5>
+                                    <div [innerHtml]="product.en.target"></div>
+                                </li>
+                                <li class="list-group-item" *ngIf="product.en.coverage">
+                                    <h5>{{ 'COVERAGE' | translate}}</h5>
+                                    <div [innerHtml]="product.en.coverage"></div>
+                                </li>
+                                <li class="list-group-item" *ngIf="product.en.underwriting">
+                                    <h5>{{ 'UNDERWRITING_NORMS' | translate}}</h5>
+                                    <div [innerHtml]="product.en.underwriting"></div>
+                                </li>
+                                <li class="list-group-item" >{{ 'MAIN_IMG' | translate }} alt: {{ product.en.mainImgAlt }}</li>
+                                <li class="list-group-item">{{ 'COVERAGE_IMG' | translate }} alt: {{ product.en.coverageImgAlt }}</li>
+                                <li class="list-group-item">{{ 'UNDERWRITING_IMG' | translate }} alt: {{ product.en.underwritingImgAlt }}</li>
+                            </ul>
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

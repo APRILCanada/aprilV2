@@ -1,0 +1,20 @@
+<div class="home-hero pt-200 pb-70">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 d-flex flex-column justify-content-center pe-lg-5 pb-5">
+        <h1>{{ "OFFER_BEST_EXPERIENCE" | translate }}</h1>
+        <p class="w-80 my-5" style="font-size: 18px">
+          {{ "BEST_EXPERIENCE_DETAILS" | translate }}
+        </p>
+        <button class="btn-april btn-april-white d-block" (click)="scrollToJobs()" data-analytics="CareerSeeJobs"
+          click-text="Voir nos offres">
+          {{ "SEE_OFFERS" | translate }}
+        </button>
+      </div>
+      <div class="col-lg-6 ps-lg-5 pb-5 d-flex d-lg-block justify-content-center">
+
+        <img ixImg (load)="loader.loading(false)" path="career/hero.png" sizes="100vw" />
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="container position-relative carousel" #owlParent>
+  <div class="d-flex justify-content-between align-items-center">
+    <h2 class="pb-4">{{ "OUR_EXPERTISE" | translate }}</h2>
+    <button
+      class="btn-april mb-4 d-none d-sm-block me-4"
+      routerLink="/niches"
+      click-text="Voir nos produits"
+      data-analytics="HomeExpertise"
+    >
+      {{ "SEE_OUR_PRODUCTS" | translate }}
+    </button>
+  </div>
+  <div class="mx-3">
+    <owl-carousel-o [options]="customOptions">
+      <ng-container *ngFor="let niche of niches">
+        <ng-template carouselSlide [id]="niche.id">
+          <div class="slide-margin text-center">
+            <div
+              class="slide HomeExpertise"
+              [routerLink]="'/niches/' + niche.id"
+              data-analytics="HomeExpertise"
+              [attr.click-text]="niche.titleFr"
+            >
+              <div
+                class="
+                  d-flex
+                  flex-column
+                  justify-content-center
+                  align-items-center
+                  text-center
+                "
+              >
+                <img
+                  class="carousel-icon pb-2"
+                  [src]="'../../../../../assets/img/icons/' + niche.icon"
+                />
+                <p>
+                  {{
+                    this.language.get() == "fr" ? niche.titleFr : niche.titleEn
+                  }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+  </div>
+</div>

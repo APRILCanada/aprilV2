@@ -1,0 +1,39 @@
+<div
+  class="cookie"
+  id="cookie"
+  [ngClass]="!cookies.get() ? 'showed' : ''"
+  click="hideCookiesBar()"
+>
+  <div class="container">
+    <div
+      class="
+        d-block d-sm-flex
+        justify-content-between
+        align-items-center
+        py-4
+        w-100
+      "
+    >
+      <p class="txt-white">
+        {{ "COOKIE_ALERT" | translate }}
+        <a
+          href="javascript:void(0)"
+          class="txt-white text-decoration-underline"
+          (click)="openTerms()"
+          >{{ "TERMS_CONDITIONS" | translate }}</a
+        >
+      </p>
+      <button
+        (click)="cookies.set(true)"
+        class="
+          d-block d-sm-flex
+          btn-april btn-april-white-main
+          float-end
+          my-3 my-sm-0
+        "
+      >
+        {{ "I_GET_IT" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

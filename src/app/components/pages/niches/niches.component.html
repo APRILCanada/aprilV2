@@ -1,0 +1,126 @@
+<div class="niche-wrapper">
+  <div class="niche pt-200">
+    <div class="container">
+      <!-- Back button -->
+      <div routerLink="../" class="d-none d-md-flex align-items-center pointer">
+        <img src="../../../../assets/img/icons/carret-left.svg" class="icon-sm pe-3" alt="carret right" />
+        {{ "BACK" | translate }}
+      </div>
+      <div class="row pb-70">
+        <div class="col-lg-8 py-5 pe-lg-5">
+          <h1 class="pb-3">
+            {{ language.get() == "fr" ? niche.fr?.title : niche.en?.title }}
+          </h1>
+          <p [innerHtml]="
+              language.get() == 'fr' ? niche.fr?.desc : niche.en?.desc
+            " class="pb-4 pe-lg-4"></p>
+        </div>
+        <div class="col-lg-4">
+          <!-- <img ixImg *ngIf="niche?.mainImg" path="niches/{{niche?.mainImg}}" [alt]="
+              language.get() == 'fr'
+                ? niche.fr?.mainImgAlt
+                : niche.en?.mainImgAlt
+            " sizes="100vw" (load)="loader.loading(false)" /> -->
+          <picture ixPicture>
+            <source ixSource path="niches/{{niche?.mainImg}}" media="(min-width: 991px)"
+              [imgixParams]="{w: '350', fit: 'crop', crop: 'entropy', ar:'0.85:1'}" />
+            <source ixSource path="niches/{{niche?.mainImg}}" media="(max-width: 991px)" sizes="80vw" />
+            <img ixImg path="niches/{{niche?.mainImg}}" />
+          </picture>
+        </div>
+      </div>
+    </div>
+
+    <div class="products-wrapper ptb-70">
+      <div class="container">
+        <div class="row my-5" id="offered-products">
+          <div class="ps-lg-5 col-12 d-flex">
+            <img [src]="'../../../../assets/img/niches/' + niche?.icon" alt="" class="d-inline-block icon" />
+            <h2 class="ps-3 pb-3 d-inline-block">
+              {{ "DISCOVER_PRODUCTS" | translate }}
+            </h2>
+          </div>
+
+          <div class="row p-5">
+            <ng-container *ngIf="niche?.id != 'marine-plaisance'">
+              <ng-container *ngFor="let p of filteredProducts">
+                <div class="col-lg-4 col-md-6 p-3" *ngIf="p.isActive != 'notActive'">
+                  <div class="card py-2 px-3 d-flex flex-column" [routerLink]="'../../produits/' + p.id"
+                    data-analytics="NichesProducts" [attr.click-text]="p.titleFr" [attr.niche]="niche.titleFr">
+                    <img [src]="'../../../../assets/img/icons/' + p?.icon" alt="" class="icon" />
+                    <div class="mb-auto" *ngIf="p.fr.subNiche">
+                      {{
+                      language.get() == "fr" ? p.fr.subNiche : p.en.subNiche
+                      }}
+                    </div>
+                    <div class="mb-auto" *ngIf="!p.fr.subNiche">
+                      {{
+                      language.get() == "fr" ? niche.fr.title : niche.en.title
+                      }}
+                    </div>
+                    <div class="fw-bold mx-1 mx-lg-2 mx-xxl-4 px-5 my-auto text-center">
+                      {{ language.get() == "fr" ? p.fr.title : p.en.title }}
+                    </div>
+                    <div class="mt-auto ms-auto">
+                      <span *ngFor="let pr of p.provinces; let i = index">
+                        <span class="">{{ pr }}</span><span *ngIf="i < p.provinces.length - 2">,&nbsp;</span><span
+                          *ngIf="i == p.provinces.length - 2">{{ "AND" | translate }}
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <!-- <li *ngIf="niche.id == 'marine-plaisance'">
+                      <a
+                        href="https://aprilmarine.ca/"
+                        target="_blank"
+                        ref="noreferrer noopener"
+                        >{{ "PERSONAL_MARINE" | translate }}</a
+                      >
+                    </li> -->
+                </div>
+              </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="niche?.id == 'marine-plaisance'">
+              <a href="https://aprilmarine.ca/" target="_blank" ref="noreferrer noopener"
+                data-analytics="MarineExternalSite">
+                <div class="col-lg-4 col-md-6 p-3">
+                  <div class="card py-2 px-3 d-flex flex-column">
+                    <img src="'../../../../assets/img/icons/marine.svg" alt="" class="icon" />
+                    <div class="mb-auto">
+                      {{ "PERSONAL_MARINE" | translate }}
+                    </div>
+
+                    <div class="fw-bold mx-1 mx-lg-2 mx-xxl-4 px-5 my-auto text-center">
+                      {{ "PERSONAL_MARINE" | translate }}
+                    </div>
+                    <div class="mt-auto ms-auto">
+                      <span class="">QC</span>
+                    </div>
+                  </div>
+
+                  <!-- <li *ngIf="niche.id == 'marine-plaisance'">
+                      <a
+                        href="https://aprilmarine.ca/"
+                        target="_blank"
+                        ref="noreferrer noopener"
+                        >{{ "PERSONAL_MARINE" | translate }}</a
+                      >
+                    </li> -->
+                </div>
+              </a>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center">
+          <button class="btn-april btn-april-full-orange" [routerLink]="['', { outlets: { modals: ['soumission'] } }]"
+            data-analytics="NichesSubmission">
+            {{ "QUOTE" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

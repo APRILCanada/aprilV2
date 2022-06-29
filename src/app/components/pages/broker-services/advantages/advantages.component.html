@@ -1,0 +1,61 @@
+<div class="row m-0 advantages">
+  <div class="col-lg-6">
+    <div class="row h-100">
+      <div class="
+          col-0
+          d-none d-md-block
+          col-md-2
+          d-lg-none
+          col-lg-0
+          d-xl-block
+          col-xl-2
+          p-0
+        ">
+        <div class="square">
+          <img class="" src="../../../../../assets/img/services/half-circle.png" alt="" />
+        </div>
+      </div>
+      <div class="
+          col-12 col-md-10 col-lg-12 col-xl-10
+          d-flex
+          flex-column
+          align-items-center
+          justify-content-center
+          p-2 p-sm-5 p-lg-4 p-xl-5
+          h-100
+        ">
+        <div class="mx-4 mx-sm-5">
+          <h2 class="d-block d-lg-none">
+            {{ "PARTNER_BENEFITS" | translate }}
+          </h2>
+          <ngb-accordion activeIds="ngb-panel-0">
+            <ngb-panel [cardClass]="'accordion'" *ngFor="let value of values">
+              <ng-template ngbPanelTitle>
+                <div class="d-flex justify-content-between ServicesCollapsible" data-analytics="ServicesCollapsible"
+                  [attr.click-text]="value.fr.title">
+                  <div class="fw-bold text-start pe-4">
+                    {{
+                    language.get() == "fr" ? value.fr.title : value.en.title
+                    }}
+                  </div>
+                  <div class="collapse-plus">
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template ngbPanelContent>
+                {{ language.get() == "fr" ? value.fr.desc : value.en.desc }}
+              </ng-template>
+            </ngb-panel>
+          </ngb-accordion>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 bg-lime p-0 d-none d-lg-block">
+    <img ixImg class="avantages-img" [alt]="language.get() == 'fr' ? 'Valeurs' : 'Values'" path="{{this.language.get() == 'fr'
+    ? 'services/avantages_partenaires.jpg' : 'services/partner_benefits.png'}}" sizes="100vw" />
+
+  </div>
+</div>

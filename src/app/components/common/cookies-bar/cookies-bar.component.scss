@@ -1,0 +1,23 @@
+.cookie {
+  display: none;
+  background-color: var(--mainColor);
+  list-style-type: none;
+  position: fixed;
+  bottom: -270px;
+  width: 100%;
+  transform: translateY(0px);
+  transition: all 0.5s ease-in-out;
+  z-index: 9999;
+}
+
+p {
+  font-size: 14px;
+  max-width: 75%;
+  margin-bottom: 0;
+}
+
+.showed {
+  display: block;
+  transform: translateY(-270px);
+  transition: all 0.5s ease-in-out;
+}

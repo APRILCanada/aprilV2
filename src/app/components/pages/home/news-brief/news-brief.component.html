@@ -1,0 +1,32 @@
+<div class="home-hero pb-100 move">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 pb-5 pe-2 pe-md-5">
+        <img ixImg [alt]="language.get() == 'fr' ? 'Actualités' : 'News'"
+          path="home/marque_employeur.png" sizes="100vw" />
+      </div>
+      <div
+        class="
+          col-md-6
+          d-flex
+          flex-column
+          justify-content-center
+          pb-5
+          ps-2 ps-md-5
+        "
+      >
+        <h2>{{ "ACTUALITY_INFORMATION" | translate }}</h2>
+        <p class="my-5">{{ "NEWS_BRIEF" | translate }}</p>
+        <button
+          routerLink="actualites"
+          class="btn-april btn-april-white d-block"
+          style="max-width: 400px"
+          click-text="Découvrir nos dernières actualités"
+          data-analytics="HomeCTA"
+        >
+          {{ "DISCOVER_LATEST_NEWS" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

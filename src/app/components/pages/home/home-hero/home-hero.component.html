@@ -1,0 +1,27 @@
+<div class="home-hero pt-200 pb-250">
+  <div class="container">
+    <div class="row">
+      <div
+        class="col-md-6 d-flex flex-column justify-content-center pe-md-5 pb-5"
+      >
+        <h1>{{ "SLOGAN" | translate }}</h1>
+        <p class="my-5">{{ "RAISON_DETRE" | translate }}</p>
+        <button
+          routerLink="a-propos"
+          class="btn-april btn-april-white d-block"
+          click-text="Qui sommes nous?"
+          data-analytics="HomeCTA"
+        >
+          {{ "WHO_ARE_WE" | translate }}
+        </button>
+      </div>
+      <div class="col-md-6 ps-md-5 pb-5">
+        <img ixImg
+          [alt]="language.get() == 'fr' ? 'Travailleurs' : 'Workers'" 
+          path="home/hero.png"
+          sizes="600px"
+        />
+      </div>
+    </div>
+  </div>
+</div>

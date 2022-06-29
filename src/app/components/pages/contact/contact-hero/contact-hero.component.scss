@@ -1,0 +1,18 @@
+h1{
+    color: var(--whiteColor)
+}
+
+p{
+    max-width: 300px;
+}
+
+.bg-hero{
+    min-height: 600px;
+    background-image: url(../../../../../assets/img/contact/hero.png) !important;
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+}
+
+.hero-height{
+    height: 520px;
+}

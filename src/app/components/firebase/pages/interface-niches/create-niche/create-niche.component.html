@@ -1,0 +1,252 @@
+
+
+<!-- Start User Area -->
+<section class="interface-style pb-100 pt-200">
+    <div class="container">
+            <div class=" mx-auto form-container">
+                <div class="row">
+                    <div class="col">
+                        <a routerLink="/interface/niches" class="btn btn-secondary px-3 mb-3">{{ 'BACK' | translate}}</a>
+                    </div>
+                </div>
+                 <!-- Progress Bar -->
+                 <div class="progress-bar-wrapper my-5">
+                    <div class="bar-background">
+                        <div class="bar-progress" [ngStyle]="{'width': progress + '%'}"></div>
+                    </div>
+                    <div class="d-flex justify-content-between ">
+                        <button class="btn-progress-1 completed" (click)="completeIntro()"[ngClass]="{'completed': introCompleted }"><h4 class="bar-title-1 text-center"> Introduction</h4></button>
+                        <button class="btn-progress-2" (click)="completeFr()" [ngClass]="{'completed': frCompleted} " ><h4 class="bar-title-2 text-center" > {{ 'FRENCH' | translate }} &nbsp;</h4></button>
+                        <button class="btn-progress-3" (click)="completeEn()" [ngClass]="{'completed': enCompleted }"><h4 class="bar-title-3 text-center"> {{ 'ENGLISH' | translate }}</h4></button>
+                    </div>
+                </div>
+
+
+                <!-- Formulaires -->
+                <div class="form-action my-5">
+                    <form   [formGroup]="nicheForm" (ngSubmit)="onSubmit()">
+                        <div class="form-title">
+                            <h2>{{ 'CREATE_NICHE_FORM' | translate}}</h2>
+                        </div>
+
+                        <!-- SECTION INTRO -->
+                        <div class="section-wrapper" *ngIf="sectionIntro">
+                            <h3>Introduction</h3>
+                            <div class="form-group">
+                                <label>{{ 'IS_ACTIVE' | translate}}:</label>
+                                <div class="btn-group-toggle" ngbRadioGroup formControlName="isActive" ngDefaultControl>
+                                    <label  ngbButtonLabel class="btn-primary px-4">
+                                        <input  ngbButton type="radio"  value="isActive"><span>{{ 'YES' | translate }}</span>
+                                    </label>
+                                    <label ngbButtonLabel class="btn-primary px-4 ms-4">
+                                        <input ngbButton type="radio" value="notActive"><span>{{ 'NO' | translate }}</span>
+                                    </label>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Type:</label>
+                                <div class="">
+                                    <ngx-bootstrap-multiselect [options]="niches" [settings]="nicheSettings" formControlName="type" [(ngModel)]="niches"></ngx-bootstrap-multiselect>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Id:</label>
+                                <input class="form-control" type="text" formControlName="id" > 
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'MAIN_IMG' | translate}}:</label>
+                                <input class="form-control" type="text" formControlName="mainImg" > 
+                            </div>
+                          
+                            <div class="form-group">
+                                <label>{{ 'SECONDARY_IMG' | translate}}:</label>
+                                <input class="form-control" type="text" formControlName="secondaryImg" > 
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>{{ 'ICON' | translate}}:</label>
+                                <input class="form-control" type="text" formControlName="icon" > 
+                            </div>
+                            <!-- Director -->
+                            <h5>{{ 'DIRECTOR' | translate}}</h5>
+                            <div formGroupName="director">
+                                <div class="form-group">
+                                    <label>{{ 'NAME' | translate}}:</label>
+                                    <input class="form-control" type="text" formControlName="name" > 
+                                </div>
+                                <div class="form-group">
+                                    <label>LinkedIn:</label>
+                                    <input class="form-control" type="text" formControlName="linkedIn" > 
+                                </div>
+                                <div class="form-group">
+                                    <label>{{ 'EMAIL' | translate}}:</label>
+                                    <input class="form-control" type="email" formControlName="email" > 
+                                </div>
+                                <div class="form-group">
+                                    <label>Photo:</label>
+                                    <input class="form-control" type="text" formControlName="img" > 
+                                </div>
+                                <div class="form-group">
+                                    <label>Photo alt:</label>
+                                    <input class="form-control" type="text" formControlName="imgAlt" > 
+                                </div>
+                            </div> 
+                        </div>
+
+                        <!-- SECTION FR -->
+                        <div class="section-wrapper"  *ngIf="sectionFr" formGroupName="fr">
+                            <h3>{{ 'FRENCH' | translate}}</h3>
+                            <div class="form-group">
+                                <label>{{ 'NICHE_TITLE' | translate}}:</label>
+                                <textarea class="form-control" type="text" formControlName="title"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'DESCRIPTION' | translate}}:</label>
+                                <textarea class="form-control" type="text" formControlName="desc"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'DIRECTOR_TITLE' | translate}}:</label>
+                                <textarea class="form-control" type="text" formControlName="directorTitle"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'DESCRIPTION' | translate}}:</label>
+                                <textarea class="form-control" type="text" formControlName="directorDesc"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'MAIN_IMG' | translate}} alt:</label>
+                                <input class="form-control" type="text" formControlName="mainImgAlt" > 
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'SECONDARY_IMG' | translate}} alt:</label>
+                                <input class="form-control" type="text" formControlName="secondaryImgAlt" > 
+                            </div>
+                        </div>
+
+                        <!-- SECTION EN -->
+                        <div class="section-wrapper"  *ngIf="sectionEn" formGroupName="en">
+                         <h3>{{ 'ENGLISH' | translate}}</h3>
+                             <div class="form-group">
+                                <label>{{ 'NICHE_TITLE' | translate}}:</label>
+                                <textarea class="form-control" type="text" formControlName="title"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'DESCRIPTION' | translate}}:</label>
+                                <textarea class="form-control" type="text" formControlName="desc"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'DIRECTOR_TITLE' | translate}}:</label>
+                                <textarea class="form-control" type="text" formControlName="directorTitle"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'DESCRIPTION' | translate}}:</label>
+                                <textarea class="form-control" type="text" formControlName="directorDesc"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'MAIN_IMG' | translate}} alt:</label>
+                                <input class="form-control" type="text" formControlName="mainImgAlt" > 
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'SECONDARY_IMG' | translate}} alt:</label>
+                                <input class="form-control" type="text" formControlName="secondaryImgAlt" > 
+                            </div>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="row align-items-center mt-5 mb-3">
+                            <div class="col-lg-6 col-sm-6">
+                                <button style="min-width: 150px" *ngIf="sectionEn == true || sectionFr == true" class="default-btn register" (click)="previous()" type="button">{{ 'PREV' | translate}}</button>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <button style="min-width: 150px" *ngIf="sectionIntro == true"class="default-btn register float-end" (click)="next()" type="button">{{ 'NEXT' | translate}}</button>
+                                <button style="min-width: 150px" [disabled]="!nicheForm.get('fr')?.valid" *ngIf="sectionFr == true "class="default-btn register float-end" (click)="next()" type="button">{{ 'NEXT' | translate}}</button>
+                                <button style="min-width: 150px" [disabled]="!nicheForm.get('en')?.valid" *ngIf="sectionEn == true"class="default-btn register float-end" type="button" (click)="openModal(confirmNiche)">{{ 'CONFIRM' | translate}}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </div>
+</section>
+<!-- End User Area -->
+<!-- Modal -->
+<ng-template #confirmNiche let-modal>
+    <div class="modal-header">
+      <h3 class="modal-title">{{ 'CONFIRM_INFORMATION' | translate }}</h3>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <p class="m-2">{{ 'CONFIRM_DETAILS' | translate}}</p>
+        <hr>
+        <h5 class="mt-3">{{ 'INTRODUCTION' | translate }}</h5>
+        <ul class="list-group">
+            <li class="list-group-item">{{ 'IS_ACTIVE' | translate}} : 
+                <span *ngIf="nicheForm.value.isActive == 'isActive'">{{ 'YES' | translate }}</span>
+                <span *ngIf="nicheForm.value.isActive == 'notActive'">{{ 'NO' | translate }}</span>
+            </li>
+            <li class="list-group-item" >Type: {{ nicheForm.value.type }}</li>
+            <li class="list-group-item" >Id: {{ nicheForm.value.id }}</li>
+            <li class="list-group-item" >{{ 'MAIN_IMG' | translate }}: {{ nicheForm.value.mainImg }}</li>
+            
+            <li class="list-group-item">{{ 'SECONDARY_IMG' | translate }}: {{ nicheForm.value.secondaryImg }}</li>
+            <li class="list-group-item">{{ 'ICON' | translate }}: {{ nicheForm.value.icon }}</li>
+        </ul>
+        <h5 class="mt-3">{{ 'DIRECTOR' | translate }}</h5>
+        <ul class="list-group">
+            <li class="list-group-item" >{{ 'NAME' | translate }}: {{ nicheForm.value.director.name }}</li>
+            <li class="list-group-item">LinkedIn: {{ nicheForm.value.director.linkedIn }}</li>
+            <li class="list-group-item">{{ 'EMAIL' | translate }}: {{ nicheForm.value.director.email }}</li>
+            <li class="list-group-item">Photo: {{ nicheForm.value.director.img }}</li>
+            <li class="list-group-item">Photo alt: {{ nicheForm.value.director.imgAlt }}</li>
+        </ul>
+
+        <h5 class="mt-3">{{ 'FRENCH' | translate }}</h5>
+        <ul class="list-group">
+            <li class="list-group-item">
+                {{ 'TITLE' | translate}}
+                <div [innerHtml]="nicheForm.value.fr.title"></div>
+            </li>
+            <li class="list-group-item">
+                {{ 'DESCRIPTION' | translate}}
+                <div [innerHtml]="nicheForm.value.fr.desc"></div>
+            </li>
+            <li class="list-group-item">
+                {{ 'DIRECTOR_TITLE' | translate}}
+                <div [innerHtml]="nicheForm.value.fr.directorTitle"></div>
+            </li>
+            <li class="list-group-item">
+                {{ 'DESCRIPTION' | translate}}
+                <div [innerHtml]="nicheForm.value.fr.directorDesc"></div>
+            </li>
+            <li class="list-group-item" >{{ 'MAIN_IMG' | translate }} alt: {{ nicheForm.value.fr.mainImgAlt }}</li>
+            <li class="list-group-item">{{ 'SECONDARY_IMG' | translate }} alt: {{ nicheForm.value.fr.secondaryImgAlt }}</li>
+        </ul>
+        <h5 class="mt-3">{{ 'ENGLISH' | translate }}</h5>
+        <ul class="list-group">
+            <li class="list-group-item">
+                {{ 'TITLE' | translate}}
+                <div [innerHtml]="nicheForm.value.en.title"></div>
+            </li>
+            <li class="list-group-item">
+                {{ 'DESCRIPTION' | translate}}
+                <div [innerHtml]="nicheForm.value.en.desc"></div>
+            </li>
+            <li class="list-group-item">
+                {{ 'DIRECTOR_TITLE' | translate}}
+                <div [innerHtml]="nicheForm.value.en.directorTitle"></div>
+            </li>
+            <li class="list-group-item">
+                {{ 'DESCRIPTION' | translate}}
+                <div [innerHtml]="nicheForm.value.en.directorDesc"></div>
+            </li>
+            <li class="list-group-item" >{{ 'MAIN_IMG' | translate }} alt: {{ nicheForm.value.en.mainImgAlt }}</li>
+            <li class="list-group-item">{{ 'SECONDARY_IMG' | translate }} alt: {{ nicheForm.value.en.secondaryImgAlt }}</li>
+        </ul>
+        
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" ngbAutofocus  (click)="send()">{{ 'SEND' | translate}}</button>
+    </div>
+  </ng-template>
+

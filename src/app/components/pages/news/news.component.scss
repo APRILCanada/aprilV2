@@ -1,0 +1,36 @@
+.featured-article {
+  border: 2px solid var(--greyColor);
+  cursor: pointer;
+}
+
+.article-content {
+  padding: 0 1rem;
+}
+
+.close-icon-white {
+  height: 24px !important;
+  width: auto;
+}
+
+.brief {
+  text-overflow: ellipsis;
+}
+
+.title-line-height {
+  line-height: 1.5;
+}
+
+.height-buffer {
+  max-height: 10px;
+}
+
+.rotate0 {
+  transform: rotate(0) !important;
+  transition: all 0.1s ease-in !important;
+}
+
+@media screen and (max-width: 576px) {
+  h1 {
+    font-size: 36px !important;
+  }
+}

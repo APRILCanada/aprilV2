@@ -1,0 +1,211 @@
+<div class="submission">
+  <div class="modal-header mx-0 mx-sm-3 py-0 mt-4">
+    <h2 class="m-0">{{ "BROKER_INDIVIDUAL" | translate }}</h2>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+      <span aria-hidden="true"
+        ><img
+          class="icon"
+          src="../../../../../assets/img/icons/close.svg"
+          alt=""
+      /></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="m-2 mx-0 mx-sm-3 px-3 mb-4">
+      {{ "BROKER_INDIVIDUAL_DETAILS" | translate }}
+    </p>
+    <div class="d-flex justify-content-between px-0 px-sm-4">
+      <button
+        class="btn-april btn-april-full-green px-4 me-2"
+        data-analytics="SubmissionBrokerIndividual"
+        click-text="Je suis un courtier"
+        (click)="openModal(broker, 'md')"
+      >
+        {{ "I_AM_BROKER" | translate }}
+      </button>
+      <button
+        class="ms-2 btn-april btn-april-white px-4"
+        data-analytics="SubmissionBrokerIndividual"
+        (click)="openModal(individual, 'lg')"
+        click-text="Je suis un particulier"
+      >
+        {{ "I_AM_INDIVIDUAL" | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Step 2 Broker -->
+<ng-template #broker let-modal>
+  <div class="submission">
+    <div class="modal-header mx-0 mx-sm-3 py-0 mt-4">
+      <h2 class="m-0">{{ "I_AM_BROKER" | translate }}</h2>
+      <button type="button" class="close" aria-label="Close" (click)="close()">
+        <span aria-hidden="true"
+          ><img
+            class="icon"
+            src="../../../../../assets/img/icons/close.svg"
+            alt=""
+        /></span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="m-2 mx-0 mx-sm-3 px-3 mb-4">
+        {{ "BROKER_STEP_2_DETAILS" | translate }}
+      </p>
+      <div class="d-flex justify-content-between px-0 px-sm-4">
+        <a href="https://april-on.ca" rel="noreferrer noopener" target="_blank"
+          ><button
+            class="btn-april btn-april-full-green px-4 me-2"
+            data-analytics="SubmissionBroker"
+            click-text="Visitez APRIL ON"
+          >
+            {{ "VISIT_APRIL_ON" | translate }}
+          </button></a
+        >
+        <a
+          href="https://april-on.ca/partner"
+          target="_blank"
+          ref="noreferrer noopener"
+        >
+          <button
+            class="btn-april btn-april-white px-4 ms-2"
+            data-analytics="SubmissionBroker"
+            click-text="M'inscrire gratuitement"
+          >
+            {{ "REGISTER_FOR_FREE" | translate }}
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Step 2 client -->
+<ng-template #individual let-modal>
+  <div class="submission">
+    <div class="modal-header mx-0 mx-sm-3 py-0 mt-4">
+      <h2 class="m-0">{{ "I_AM_INDIVIDUAL" | translate }}</h2>
+      <button type="button" class="close" aria-label="Close" (click)="close()">
+        <span aria-hidden="true"
+          ><img
+            class="icon"
+            src="../../../../../assets/img/icons/close.svg"
+            alt=""
+        /></span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="m-2 mx-0 mx-sm-3 px-3 mb-4">
+        {{ "INDIVIDUAL_STEP_2_DETAILS" | translate }}
+      </p>
+
+      <form [formGroup]="brokerForm" (ngSubmit)="onSubmit()">
+        <div class="row px-2 px-sm-5 pt-2">
+          <div class="col-md-6 pb-3">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="firstName"
+              [placeholder]="language.get() == 'fr' ? 'Prénom' : 'First name'"
+            />
+          </div>
+          <div class="col-md-6 pb-3">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="lastName"
+              [placeholder]="language.get() == 'fr' ? 'Nom' : 'Last name'"
+            />
+          </div>
+          <div class="col-md-6 pb-3">
+            <ngx-bootstrap-multiselect
+              class="form-control p-0 no-border"
+              [options]="this.language.get() == 'fr' ? provFr : provEn"
+              formControlName="province"
+              [texts]="textProv"
+              [settings]="settings"
+            ></ngx-bootstrap-multiselect>
+          </div>
+          <div class="col-md-6 pb-3">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="email"
+              [placeholder]="language.get() == 'fr' ? 'Courriel' : 'Email'"
+            />
+            <span
+              *ngIf="
+                !brokerForm.get('email').valid &&
+                brokerForm.get('email').touched
+              "
+              class=""
+              >**{{ "INVALID_EMAIL" | translate }}</span
+            >
+          </div>
+          <div class="col-md-6 pb-3">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="phone"
+              [placeholder]="
+                language.get() == 'fr' ? 'Téléphone' : 'Phone Number'
+              "
+              mask="(000) 000-0000"
+            />
+          </div>
+          <div class="col-md-6 pb-3">
+            <ngx-bootstrap-multiselect
+              class="form-control p-0 no-border"
+              [options]="this.language.get() == 'fr' ? riskFr : riskEn"
+              formControlName="insurance"
+              [texts]="this.language.get() == 'fr' ? textRiskFr : textRiskEn"
+              [settings]="settings"
+            ></ngx-bootstrap-multiselect>
+          </div>
+          <div class="col-12 d-flex">
+            <div
+              class="ms-auto"
+              *ngIf="!brokerForm.valid && brokerForm.touched"
+            >
+              **{{ "REQUIRED_FIELDS" | translate }}
+            </div>
+          </div>
+        </div>
+        <div class="px-2 px-sm-5 pt-3 mb-4 d-flex justify-content-end">
+          <button
+            [disabled]="!brokerForm.valid || !brokerForm.dirty"
+            class="btn-april mt-3"
+            (click)="openModal(confirmIndividual, 'md')"
+            data-analytics="SubmissionIndividual"
+            click-text="Trouvez votre courtier"
+          >
+            {{ "FIND_BROKER" | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Confirm individual -->
+<ng-template #confirmIndividual let-modal>
+  <div class="modal-header d-flex justify-content-center align-items-center">
+    <h2 class="modal-title m-0">{{ "THANK_YOU" | translate }}</h2>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+      <span aria-hidden="true"
+        ><img
+          class="icon"
+          src="../../../../../assets/img/icons/close.svg"
+          alt=""
+      /></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="m-2 mx-3">{{ "CONTACT_FORM_DETAILS" | translate }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn-april btn-april-white" (click)="close()">
+      {{ "CLOSE" | translate }}
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,449 @@
+<div class="d-flex alig-items-center ps-lg-5">
+  <ng-container *ngIf="prov.get() == 'QC'" class="w-100">
+    <!-- QC - Contracteur -->
+    <ng-container
+      *ngIf="
+        id === 'contracteur' ||
+        id === 'contractor' ||
+        id === 'responsabilite-civile-entrepreneur-construction'
+      "
+    >
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="http://192.168.202.159/flash/en/11000"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="http://192.168.202.159/flash/en/11000 "
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+    <!-- QC - Paysagiste -->
+    <ng-container *ngIf="id === 'paysagiste' || id === 'landscaper'">
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/en/00008"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/fr/00008"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+    <!-- QC - menuisier -->
+    <ng-container *ngIf="id === 'menuisier' || id === 'carpenter'">
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/en/00009"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/fr/00009"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+    <!-- QC - peintre -->
+    <ng-container *ngIf="id === 'peintre' || id === 'painter'">
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/en/00010"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/fr/00010"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+    <!-- QC Assurance entrepreneur -->
+    <ng-container *ngIf="id === 'assurance-entrepreneur-construction'">
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/en/00027"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/fr/00027"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+    <!-- QC - poseur-systeme-interieur -->
+    <ng-container
+      *ngIf="
+        id === 'poseur-systeme-interieur' || id === 'interior-system-installer'
+      "
+    >
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/en/00011"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/fr/00011"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+    <!-- QC - macon -->
+    <ng-container *ngIf="id === 'macon' || id === 'bricklayer'">
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/en/00012"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/fr/00012"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+    <!-- QC - electricien -->
+    <ng-container *ngIf="id === 'electricien' || id === 'electrician'">
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/en/00013"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/fr/00013"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+    <!-- QC - Presse -->
+    <ng-container
+      *ngIf="id === 'presse-contracteur' || id === 'press-contractor'"
+    >
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/en/00033"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/fr/00033"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="prov.get() != 'QC'">
+    <!-- Outside QC - Contracteur -->
+    <ng-container *ngIf="id === 'contracteur' || id === 'contractor'">
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/en/00014"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/fr/00014"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+    <!-- Outside QC - Paysagiste -->
+    <ng-container *ngIf="id === 'paysagiste' || id === 'landscaper'">
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/en/00015"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/fr/00015"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+    <!-- Outside QC - menuisier -->
+    <ng-container *ngIf="id === 'menuisier' || id === 'carpenter'">
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/en/00016"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/fr/00016"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+    <!-- Outside QC - peintre -->
+    <ng-container *ngIf="id === 'peintre' || id === 'painter'">
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/en/00017"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/fr/00017"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+    <!-- Outside QC - poseur-systeme-interieur -->
+    <ng-container
+      *ngIf="
+        id === 'poseur-systeme-interieur' || id === 'interior-system-installer'
+      "
+    >
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/en/00018"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/fr/00018"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+    <!-- Outside QC - macon -->
+    <ng-container *ngIf="id === 'macon' || id === 'bricklayer'">
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/en/00019"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/fr/00019"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+    <!-- Outside QC - electricien -->
+    <ng-container *ngIf="id === 'electricien' || id === 'electrician'">
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/en/00020"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/fr/00013"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+    <!-- Outside QC - Presse -->
+    <ng-container
+      *ngIf="id === 'presse-contracteur' || id === 'press-contractor'"
+    >
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'en' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/en/00026"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div
+        class="w-100"
+        [ngClass]="language.get() === 'fr' ? 'd-block' : 'd-none'"
+      >
+        <iframe
+          src="https://april-on.ca/flash/fr/00026"
+          width="100%"
+          height="1294px"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>

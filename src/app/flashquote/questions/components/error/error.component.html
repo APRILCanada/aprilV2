@@ -1,0 +1,29 @@
+<mat-error
+  @fadeSlideInOut
+  *ngIf="
+    error?.required &&
+    (control.isDirty || control.isTouched || control.isSubmitted)
+  "
+>
+  <small>Field is required</small>
+</mat-error>
+
+<mat-error
+  @fadeSlideInOut
+  *ngIf="
+    error?.unfilledRepartition &&
+    (control.isDirty || control.isTouched || control.isSubmitted)
+  "
+>
+  <small> You must allocate a percentage to all activities. Please reallocate or remove activities.</small>
+</mat-error>
+
+<mat-error
+  @fadeSlideInOut
+  *ngIf="
+    error?.valRep &&
+    (control.isDirty || control.isTouched || control.isSubmitted)
+  "
+>
+  <small>The final distribution of all activities must equal 100%</small>
+</mat-error>

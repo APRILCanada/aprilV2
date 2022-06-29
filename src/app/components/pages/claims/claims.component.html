@@ -1,0 +1,465 @@
+<app-claims-hero></app-claims-hero>
+
+<div class="container my-5">
+  <p>
+    {{ "CLAIM_FORM_DETAILS" | translate }}
+  </p>
+  <p
+    class="fw-bold pointer text-decoration-underline mb-4"
+    (click)="openModal(cyberMod)"
+  >
+    {{ "CYBER_CLAIM" | translate }}
+  </p>
+  <div class="contact-form py-4 px-3 px-sm-1 ps-lg-5">
+    <div class="d-flex align-items-center">
+      <img
+        src="../../../../assets/img/icons/title-bar.svg"
+        class="pe-2 title-bar d-none d-lg-flex"
+        alt="title bar"
+      />
+      <h3 class="pt-1 mb-3">{{ "CLAIM_TYPE" | translate }}</h3>
+    </div>
+    <div class="row p-2 px-sm-5 pt-2">
+      <div class="col-12 col-lg-6 col-xl-4 pb-3">
+        <ngx-bootstrap-multiselect
+          class="form-control p-0 no-border"
+          [options]="this.language.get() == 'fr' ? riskFr : riskEn"
+          [(ngModel)]="claimType"
+          (change)="onChange(claimType)"
+          [texts]="this.language.get() == 'fr' ? textRiskFr : textRiskEn"
+          [settings]="settings"
+        ></ngx-bootstrap-multiselect>
+      </div>
+    </div>
+    <div class="d-flex align-items-center">
+      <img
+        src="../../../../assets/img/icons/title-bar.svg"
+        class="pe-2 title-bar d-none d-lg-flex"
+        alt="title bar"
+      />
+      <h3 class="pt-1 mb-3">{{ "POLICY_INFORMATION" | translate }}</h3>
+    </div>
+    <form [formGroup]="claimForm" (ngSubmit)="onSubmit()">
+      <div class="row p-2 px-sm-5 pt-2">
+        <div class="col-12 col-lg-6 col-xl-4 pb-3">
+          <input
+            type="text"
+            class="form-control grey-input no-border"
+            formControlName="policyNumber"
+            [placeholder]="
+              language.get() == 'fr' ? 'Numéro de police' : 'Policy Number'
+            "
+          />
+        </div>
+        <div class="col-12 col-lg-6 col-xl-4 pb-3">
+          <input
+            type="text"
+            class="form-control grey-input no-border"
+            formControlName="insured"
+            [placeholder]="
+              language.get() == 'fr' ? 'Nom de l\'assuré' : 'Insured Name'
+            "
+          />
+        </div>
+        <div class="col-12 col-lg-6 col-xl-4 pb-3">
+          <input
+            type="text"
+            class="form-control grey-input no-border"
+            formControlName="company"
+            [placeholder]="
+              language.get() == 'fr'
+                ? 'Nom de la compagnie (optionnel)'
+                : 'Company Name (optional)'
+            "
+          />
+        </div>
+        <div class="col-12 col-lg-6 col-xl-4 pb-3">
+          <input
+            type="text"
+            class="form-control grey-input no-border"
+            formControlName="phoneNumber"
+            [placeholder]="
+              language.get() == 'fr' ? 'Téléphone' : 'Phone Number'
+            "
+            mask="(000) 000-0000"
+          />
+        </div>
+        <div class="col-12 col-lg-6 col-xl-4 pb-3">
+          <input
+            type="email"
+            class="form-control grey-input no-border"
+            formControlName="email"
+            [placeholder]="
+              language.get() == 'fr' ? 'Courrier électronique' : 'Email'
+            "
+          />
+          <span
+            *ngIf="
+              !claimForm.get('email')?.valid && claimForm.get('email')?.touched
+            "
+            class=""
+            >**{{ "INVALID_EMAIL" | translate }}</span
+          >
+        </div>
+        <div class="col-12 col-lg-6 col-xl-4 pb-3">
+          <div class="input-group">
+            <input
+              class="form-control grey-input no-border"
+              [placeholder]="
+                language.get() == 'fr' ? 'Date de réclamation' : 'Claim date'
+              "
+              formControlName="date"
+              ngbDatepicker
+              #d="ngbDatepicker"
+            />
+            <div class="input-group-append">
+              <button
+                class="bg-grey px-3 calendar"
+                (click)="d.toggle()"
+                type="button"
+              >
+                <img src="../../../../../../assets/img/icons/calendar.png" />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-4 pb-3">
+          <ngx-bootstrap-multiselect
+            class="form-control p-0 no-border"
+            [options]="this.language.get() == 'fr' ? provFr : provEn"
+            formControlName="province"
+            [texts]="textProv"
+            [settings]="settings"
+          ></ngx-bootstrap-multiselect>
+        </div>
+      </div>
+      <div *ngIf="claimType == 'automobile'">
+        <div class="d-flex align-items-center">
+          <img
+            src="../../../../assets/img/icons/title-bar.svg"
+            class="pt-2 pe-2 title-bar"
+            alt="title bar"
+          />
+          <h3 class="mb-0">{{ "CLAIM_INFORMATION" | translate }}</h3>
+        </div>
+        <div class="row px-5 pt-2" [formGroup]="autoForm">
+          <div class="col-12 col-lg-6 col-xl-4 pb-3">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="year"
+              [placeholder]="
+                language.get() == 'fr' ? 'Année du véhicule' : 'Vehicule year'
+              "
+            />
+          </div>
+          <div class="col-12 col-lg-6 col-xl-4 pb-3">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="builder"
+              [placeholder]="
+                language.get() == 'fr' ? 'Constructeur' : 'Builder'
+              "
+            />
+          </div>
+          <div class="col-12 col-lg-6 col-xl-4 pb-3">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="model"
+              [placeholder]="language.get() == 'fr' ? 'Modèle' : 'Model'"
+            />
+          </div>
+          <div class="col-12 col-lg-6 col-xl-4 pb-3">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="VIN"
+              placeholder="VIN"
+            />
+          </div>
+          <div class="col-12 col-lg-6 col-xl-4 pb-3">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="driver"
+              [placeholder]="
+                language.get() == 'fr'
+                  ? 'Nom du conducteur (optionnel)'
+                  : 'Driver\'s name (optional)'
+              "
+            />
+          </div>
+          <div class="col-12 col-lg-6 col-xl-4 pb-3">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="licenceNumber"
+              [placeholder]="
+                language.get() == 'fr'
+                  ? 'Numéro de permis (optionnel)'
+                  : 'Licence number (optional)'
+              "
+            />
+          </div>
+          <div class="col-md-12 pb-3">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="accidentLocation"
+              [placeholder]="
+                language.get() == 'fr'
+                  ? 'Localisation de l\'accident (optionnel)'
+                  : 'Accident location (optional)'
+              "
+            />
+          </div>
+          <h3 class="my-3">{{ "THIRD_PARTY_INFORMATION" | translate }}</h3>
+          <div class="row px-0 ms-0" formGroupName="thirdParty">
+            <div class="col-12 col-lg-6 col-xl-4 pb-3">
+              <input
+                type="text"
+                class="form-control grey-input no-border"
+                formControlName="driver"
+                [placeholder]="
+                  language.get() == 'fr'
+                    ? 'Nom du conducteur (optionnel)'
+                    : 'Driver\'s name (optional)'
+                "
+              />
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 pb-3">
+              <input
+                type="text"
+                class="form-control grey-input no-border"
+                formControlName="licenceNumber"
+                [placeholder]="
+                  language.get() == 'fr'
+                    ? 'Numéro de permis (optionnel)'
+                    : 'Licence number (optional)'
+                "
+              />
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 pb-3">
+              <input
+                type="text"
+                class="form-control grey-input no-border"
+                formControlName="phone"
+                [placeholder]="
+                  language.get() == 'fr' ? 'Téléphone' : 'Phone Number'
+                "
+              />
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 pb-3">
+              <input
+                type="text"
+                class="form-control grey-input no-border"
+                formControlName="licenceNumber"
+                [placeholder]="
+                  language.get() == 'fr'
+                    ? 'Assureur (optionnel)'
+                    : 'Insurer (optional)'
+                "
+              />
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 pb-3">
+              <input
+                type="text"
+                class="form-control grey-input no-border"
+                formControlName="VIN"
+                [placeholder]="
+                  language.get() == 'fr' ? 'VIN (optionnel)' : 'VIN (optional)'
+                "
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mx-2 mx-sm-5 pb-3 pe-5">
+        <div class="pe-5">
+          <textarea
+            rows="5"
+            class="form-control grey-input no-border"
+            formControlName="reason"
+            [placeholder]="
+              language.get() == 'fr'
+                ? 'Décrire la réclamation...'
+                : 'Please describe the claim...'
+            "
+          ></textarea>
+        </div>
+      </div>
+      <div class="mx-2 mx-sm-5 pb-3">
+        <div
+          class="form-control file-input d-flex justify-content-center align-items-center"
+        >
+          <input
+            formControlName="file"
+            type="file"
+            id="file"
+            name="file"
+            class="custom-file-input"
+            (change)="uploadFile($event)"
+          />
+          <label for="file"
+            ><div class="btn-april btn-april-white-otpionnal">
+              {{ "BROWSE" | translate }}
+            </div></label
+          >
+          <span
+            *ngIf="!claimForm.get('file')?.valid || !claimForm.get('file')?.dirty"
+            class="ps-5 txt-optional d-none d-lg-block"
+            >{{ "UPLOAD_POLICY_CLAIM" | translate }}</span
+          >
+          <span
+            *ngIf="claimForm.get('file')?.valid"
+            class="ps-5 txt-optional d-none d-lg-block"
+            >{{ fileName }}</span
+          >
+        </div>
+        <div>
+          <span
+            *ngIf="!claimForm.get('file')?.valid || !claimForm.get('file')?.dirty"
+            class="ps-5 txt-optional d-block d-lg-none pt-3"
+            >{{ "UPLOAD_POLICY_CLAIM" | translate }}</span
+          >
+          <span
+            *ngIf="claimForm.get('file')?.valid"
+            class="ps-5 txt-optional d-block d-lg-none pt-3"
+            >{{ fileName }}</span
+          >
+        </div>
+      </div>
+      <div class="col-12 d-flex">
+        <div
+          class="ms-auto"
+          *ngIf="!claimForm.valid && claimForm.touched"
+          class=""
+        >
+          **{{ "REQUIRED_FIELDS" | translate }}
+        </div>
+      </div>
+      <div
+        class="px-5 pt-3 mb-4 d-flex justify-content-between align-items-center"
+      >
+        <div></div>
+        <button
+          class="btn-april mt-3"
+          (click)="openModal(confirmClaim)"
+          data-analytics="ClaimSend"
+          [disabled]="!claimForm.valid || !claimForm.dirty"
+        >
+          {{ "SEND" | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #confirmClaim let-modal>
+  <div class="modal-header d-flex justify-content-center align-items-center">
+    <h2 class="modal-title m-0">{{ "THANK_YOU" | translate }}</h2>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true"
+        ><img
+          class="icon"
+          src="../../../../../assets/img/icons/close.svg"
+          alt=""
+      /></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="m-2 mx-3">{{ "CONTACT_FORM_DETAILS" | translate }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn-april btn-april-white" (click)="close()">
+      {{ "CLOSE" | translate }}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #errorMod let-modal>
+  <div class="modal-header d-flex justify-content-center align-items-center">
+    <h2 class="modal-title m-0">{{ "WE_ARE_SORRY" | translate }}</h2>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true"
+        ><img
+          class="icon"
+          src="../../../../../assets/img/icons/close.svg"
+          alt=""
+      /></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="m-2 mx-3">{{ "CURRENTLY_UNAVAILBE" | translate }}</p>
+    <p class="m-2 mx-3">
+      QC:
+      <a
+        href="mailTo:reclamations@april.ca"
+        target="_blank"
+        ref="noopener noreferrer"
+        >reclamations@april.ca</a
+      ><br />
+      {{ "OUTSIDE_QC" | translate }}:
+      <a href="mailTo:claims@april.ca" target="_blank" ref="noopener noreferrer"
+        >claims@april.ca</a
+      >
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn-april btn-april-white" (click)="close()">
+      {{ "CLOSE" | translate }}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #cyberMod let-modal>
+  <div class="modal-header d-flex justify-content-center align-items-center">
+    <h2 class="modal-title m-0">{{ "CYBER_CLAIM" | translate }}</h2>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true"
+        ><img
+          class="icon"
+          src="../../../../../assets/img/icons/close.svg"
+          alt=""
+      /></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{ "CYBER_CLAIM_DETAILS" | translate }}
+    </p>
+    <p>
+      {{ "CYBER_CLAIM_DETAILS_2" | translate }}
+    </p>
+    <p>
+      {{ "CYBER_CLAIM_DETAILS_3" | translate }}
+    </p>
+    <p>{{ "CYBER_SCOUT" | translate }}</p>
+    <p>
+      <a href="http://canadaCL.cyberctrl.com">http://canadaCL.cyberctrl.com</a>
+    </p>
+    <p class="mb-4">{{ "CYBER_SCOUT_PHONE" | translate }} 1-883-801-9268</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn-april btn-april-white" (click)="close()">
+      {{ "CLOSE" | translate }}
+    </button>
+  </div>
+</ng-template>

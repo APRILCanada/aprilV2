@@ -1,0 +1,22 @@
+<span class="navbar-toggler-icon">
+  <a class="lang d-xxl-none" (click)="this.language.switch()">{{
+    "LANG" | translate
+  }}</a>
+
+  <div
+    class="icon d-xxl-none"
+    id="burger"
+    (click)="toggleNav()"
+    [ngClass]="{ active: mobile.getState() }"
+  >
+    <div class="first">
+      <div class="left"></div>
+      <div class="right"></div>
+    </div>
+    <div class="second"></div>
+    <div class="last">
+      <div class="left"></div>
+      <div class="right"></div>
+    </div>
+  </div>
+</span>

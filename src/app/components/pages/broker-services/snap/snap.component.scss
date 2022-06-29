@@ -1,0 +1,63 @@
+h2 {
+  font-size: 36px !important;
+}
+
+.bubble-wrapper {
+  position: relative;
+}
+
+.bubble-position {
+  position: relative;
+  transform: translateY();
+  img {
+    width: 100%;
+  }
+
+  &::before {
+    content: url(../../../../../assets/img/services/green-bubble.png);
+    position: relative;
+    top: 30px;
+  }
+}
+
+.carousel-wrapper {
+  position: absolute;
+  margin-top: 0px;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  color: #fff;
+  transform: translate(-50%, -105px);
+  z-index: 1;
+}
+
+.nav-btn {
+  color: var(--mainColor) !important;
+}
+
+.carousel-icon {
+  height: 70px;
+  width: auto;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.snap {
+  font-size: 24px;
+}
+
+.slide {
+  height: 360px;
+}
+
+@media screen and (max-width: 576px) {
+  .bubble-position {
+    &::before {
+      top: -30px;
+    }
+  }
+}

@@ -1,0 +1,127 @@
+<div class="container pt-200 pb-100">
+  <div class="d-flex align-items-center mb-5 pb-3">
+    <img
+      class="title-sticker d-none d-sm-block"
+      src="../../../../assets/img/niches/sticker_niche.svg"
+      alt="APRIL sticker"
+    />
+    <h1 class="ms-0 ms-md-5 title-underline">
+      {{ "DISCOVER_OUR_OFFER" | translate }}
+    </h1>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 pe-4">
+      <!-- Menu -->
+      <div
+        class="mt-5 d-flex flex-column align-items-start justify-content-center"
+        *ngFor="let niche of niches.slice(0, 5)"
+      >
+        <div class="d-flex justify-content-start align-items-center">
+          <img
+            class="icon icon-lg pe-2"
+            [src]="'../../../../assets/img/icons/' + niche.icon"
+            alt=""
+          />
+          <!-- Niche title -->
+          <h2
+            class="pointer"
+            [routerLink]="'../niches/' + niche.id"
+            data-analytics="LandingNiches"
+            [attr.click-text]="niche.titleFr"
+            [attr.niche]="niche.titleFr"
+          >
+            {{ language.get() == "fr" ? niche.titleFr : niche.titleEn }}
+          </h2>
+        </div>
+        <div class="p-3" *ngFor="let s of niche.subsection">
+          <!-- Niche subsection -->
+          <h6 class="fst-italic subsection ps-2" *ngIf="s.titleFr">
+            {{ language.get() == "fr" ? s.titleFr : s.titleEn }}
+          </h6>
+          <!-- Prodcuts -->
+          <ng-container *ngIf="niche.id != 'marine-plaisance'">
+            <div
+              *ngFor="let p of s.products"
+              [routerLink]="'../produits/' + p.id"
+              class="py-3 product pointer d-flex justify-content-start align-items-center"
+              data-analytics="LandingProducts"
+              [attr.click-text]="p.titleFr"
+              [attr.niche]="niche.titleFr"
+            >
+              <img
+                class="pe-2 icon"
+                src="../../../../assets/img/icons/know-more.svg"
+                alt=""
+              />
+              {{ language.get() == "fr" ? p.titleFr : p.titleEn }}
+            </div>
+          </ng-container>
+          <ng-container *ngIf="niche.id == 'marine-plaisance'">
+            <a
+              href="https://aprilmarine.ca/"
+              target="_blank"
+              ref="noreferrer noopener"
+              *ngFor="let p of s.products"
+              class="py-3 product pointer d-flex justify-content-start align-items-center"
+              data-analytics="LandingProducts"
+              [attr.click-text]="p.titleFr"
+              [attr.niche]="niche.titleFr"
+            >
+              <img
+                class="pe-2 icon"
+                src="../../../../assets/img/icons/know-more.svg"
+                alt=""
+              />
+              {{ "PERSONAL_MARINE" | translate }}</a
+            >
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 pe-4">
+      <!-- Commercial -->
+      <div
+        class="mt-5 d-flex flex-column align-items-start justify-content-center"
+        *ngFor="let niche of niches.slice(5)"
+      >
+        <div class="d-flex justify-content-start align-items-center">
+          <img 
+            class="icon icon-lg pe-2"
+            [src]="'../../../../assets/img/icons/' + niche.icon"
+            alt=""
+          />
+          <h2
+            class="pointer"
+            [routerLink]="'../niches/' + niche.id"
+            data-analytics="LandingNiches"
+            [attr.click-text]="niche.titleFr"
+            [attr.niche]="niche.titleFr"
+          >
+            {{ language.get() == "fr" ? niche.titleFr : niche.titleEn }}
+          </h2>
+        </div>
+        <div class="p-3" *ngFor="let s of niche.subsection">
+          <h6 class="fst-italic subsection ps-2">
+            {{ language.get() == "fr" ? s.titleFr : s.titleEn }}
+          </h6>
+
+          <div
+            *ngFor="let p of s.products"
+            [routerLink]="'../produits/' + p.id"
+            class="py-3 product pointer d-flex justify-content-start align-items-center"
+            data-analytics="LandingProducts"
+            [attr.click-text]="p.titleFr"
+            [attr.niche]="niche.titleFr"
+          >
+            <img
+              class="pe-2 icon"
+              src="../../../../assets/img/icons/know-more.svg"
+              alt=""
+            />
+            {{ language.get() == "fr" ? p.titleFr : p.titleEn }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

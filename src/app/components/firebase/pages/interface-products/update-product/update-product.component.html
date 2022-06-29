@@ -1,0 +1,296 @@
+<!-- Start User Area -->
+<section class="interface-style pb-100 pt-200">
+  <div class="container">
+    <div class="row">
+      <div class="mx-auto form-container">
+        <div class="row">
+          <div class="col-sm-6">
+            <a
+              routerLink="/interface/products/details/{{ id }}"
+              class="btn btn-secondary px-3"
+              >{{ "BACK" | translate }}</a
+            >
+          </div>
+          <div class="col-sm-6">
+            <!-- <button style="min-width: 150px"class="default-btn register float-end" type="submit"data-toggle="modal" data-target="#successMessage">{{ 'SAVE' | translate}}</button> -->
+          </div>
+        </div>
+
+        <!-- Formulaires -->
+        <div class="form-action my-5">
+          <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+            <div class="form-title">
+              <h2>{{ "CREATE_PRODUCT_FORM" | translate }}</h2>
+            </div>
+
+            <!-- SECTION INTRO -->
+            <div class="section-wrapper">
+              <h3>Introduction</h3>
+              <div class="form-group">
+                <label>Niches:</label>
+                <div class="">
+                  <ngx-bootstrap-multiselect
+                    [options]="niches"
+                    formControlName="parent"
+                    [(ngModel)]="this.product.parent"
+                  ></ngx-bootstrap-multiselect>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Provinces:</label>
+                <div class="">
+                  <ngx-bootstrap-multiselect
+                    [options]="provinces"
+                    formControlName="provinces"
+                    [(ngModel)]="this.product.provinces"
+                  ></ngx-bootstrap-multiselect>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>{{ "IS_ACTIVE" | translate }}:</label>
+                <div
+                  class="btn-group-toggle"
+                  ngbRadioGroup
+                  formControlName="isActive"
+                  ngDefaultControl
+                >
+                  <label
+                    ngbButtonLabel
+                    class="btn-primary px-4"
+                    [ngClass]="
+                      product.isActive == 'isActive' &&
+                      !productForm.get('isActive')?.dirty
+                        ? 'active'
+                        : ''
+                    "
+                  >
+                    <input ngbButton type="radio" value="isActive" />{{
+                      "YES" | translate
+                    }}
+                  </label>
+                  <label
+                    ngbButtonLabel
+                    class="btn-primary px-4 ms-5"
+                    [ngClass]="
+                      product.isActive == 'notActive' &&
+                      !productForm.get('isActive')?.dirty
+                        ? 'active'
+                        : ''
+                    "
+                  >
+                    <input ngbButton type="radio" value="notActive" />
+                    {{ "NO" | translate }}
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>{{ "MAIN_IMG" | translate }}:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="mainImg"
+                  [value]="product.mainImg"
+                />
+              </div>
+              <div class="form-group">
+                <label>{{ "COVERAGE_IMG" | translate }}:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="coverageImg"
+                  [value]="product.coverageImg"
+                />
+              </div>
+              <div class="form-group">
+                <label>{{ "UNDERWRITING_IMG" | translate }}:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="underwritingImg"
+                  [value]="product.underwritingImg"
+                />
+              </div>
+            </div>
+            <!-- SECTION FR -->
+            <div class="section-wrapper" formGroupName="fr">
+              <h3>{{ "FRENCH" | translate }}</h3>
+              <div class="form-group">
+                <label>{{ "PRODUCT_TITLE" | translate }}:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="title"
+                  [value]="product.fr.title"
+                />
+              </div>
+              <div class="form-group">
+                <label>{{ "DESCRIPTION" | translate }}:</label>
+                <textarea
+                  class="form-control"
+                  type="text"
+                  formControlName="desc"
+                  [value]="product.fr.desc"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label>{{ "TARGET" | translate }}:</label>
+                <textarea
+                  class="form-control"
+                  type="text"
+                  formControlName="target"
+                  [value]="product.fr.target"
+                >
+                </textarea>
+              </div>
+              <div class="form-group">
+                <label>{{ "COVERAGE" | translate }}:</label>
+                <textarea
+                  class="form-control"
+                  type="text"
+                  formControlName="coverage"
+                  [value]="product.fr.coverage"
+                >
+                </textarea>
+              </div>
+              <div class="form-group">
+                <label>{{ "UNDERWRITING_NORMS" | translate }}:</label>
+                <textarea
+                  class="form-control"
+                  type="text"
+                  formControlName="underwriting"
+                  [value]="product.fr.underwriting"
+                >
+                </textarea>
+              </div>
+              <div class="form-group">
+                <label>{{ "MAIN_IMG" | translate }} alt:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="mainImgAlt"
+                  [value]="product.fr.mainImgAlt"
+                />
+              </div>
+              <div class="form-group">
+                <label>{{ "COVERAGE_IMG" | translate }} alt:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="coverageImgAlt"
+                  [value]="product.fr.coverageImgAlt"
+                />
+              </div>
+              <div class="form-group">
+                <label>{{ "UNDERWRITING_IMG" | translate }} alt:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="underwritingImgAlt"
+                  [value]="product.fr.underwritingImgAlt"
+                />
+              </div>
+            </div>
+
+            <!-- SECTION EN -->
+            <div class="section-wrapper" formGroupName="en">
+              <h3>{{ "ENGLISH" | translate }}</h3>
+              <div class="form-group">
+                <label>{{ "PRODUCT_TITLE" | translate }}:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="title"
+                  [value]="product.en.title"
+                />
+              </div>
+              <div class="form-group">
+                <label>{{ "DESCRIPTION" | translate }}:</label>
+                <textarea
+                  class="form-control"
+                  type="text"
+                  formControlName="desc"
+                  [value]="product.en.desc"
+                >
+                </textarea>
+              </div>
+              <div class="form-group">
+                <label>{{ "TARGET" | translate }}:</label>
+                <textarea
+                  class="form-control"
+                  type="text"
+                  formControlName="target"
+                  [value]="product.en.target"
+                >
+                </textarea>
+              </div>
+              <div class="form-group">
+                <label>{{ "COVERAGE" | translate }}:</label>
+                <textarea
+                  class="form-control"
+                  type="text"
+                  formControlName="coverage"
+                  [value]="product.en.coverage"
+                >
+                </textarea>
+              </div>
+              <div class="form-group">
+                <label>{{ "UNDERWRITING_NORMS" | translate }}:</label>
+                <textarea
+                  class="form-control"
+                  type="text"
+                  formControlName="underwriting"
+                  [value]="product.en.underwriting"
+                >
+                </textarea>
+              </div>
+              <div class="form-group">
+                <label>{{ "MAIN_IMG" | translate }} alt:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="mainImgAlt"
+                  [value]="product.en.mainImgAlt"
+                />
+              </div>
+              <div class="form-group">
+                <label>{{ "COVERAGE_IMG" | translate }} alt:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="coverageImgAlt"
+                  [value]="product.en.coverageImgAlt"
+                />
+              </div>
+              <div class="form-group">
+                <label>{{ "UNDERWRITING_IMG" | translate }} alt:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="underwritingImgAlt"
+                  [value]="product.en.underwritingImgAlt"
+                />
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="row align-items-center mt-5 mb-3">
+              <div class="col-lg-6 col-sm-6"></div>
+              <div class="col-lg-6 col-sm-6">
+                <button
+                  style="min-width: 150px"
+                  class="default-btn register float-end"
+                  type="submit"
+                  data-toggle="modal"
+                  data-target="#successMessage"
+                >
+                  {{ "SAVE" | translate }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End User Area -->

@@ -1,0 +1,48 @@
+.input-field {
+  width: 100%;
+  max-width: 900px;
+}
+
+.open-dialog-btn {
+  padding: 1rem;
+  padding-left: 0;
+}
+
+mat-label {
+  margin-bottom: 1.5rem;
+}
+
+.add {
+  margin-right: 1rem;
+}
+
+.container {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #848484;
+  background-color: rgb(248, 248, 248);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 0.5rem;
+
+}
+
+.button-select {
+  padding: 10px 20px;
+  margin-right: 1.5rem;
+}
+
+.button-select > span {
+  word-wrap: break-word;
+}
+
+.select-single {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem;
+}
+
+mat-label {
+  color: rgb(106, 106, 106);
+}
+

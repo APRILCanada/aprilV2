@@ -1,0 +1,59 @@
+[debug] [2021-11-29T17:36:55.832Z] ----------------------------------------------------------------------
+[debug] [2021-11-29T17:36:55.836Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-11-29T17:36:55.836Z] CLI Version:   9.18.0
+[debug] [2021-11-29T17:36:55.837Z] Platform:      win32
+[debug] [2021-11-29T17:36:55.837Z] Node Version:  v12.10.0
+[debug] [2021-11-29T17:36:55.838Z] Time:          Mon Nov 29 2021 12:36:55 GMT-0500 (GMT-05:00)
+[debug] [2021-11-29T17:36:55.838Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-11-29T17:36:55.974Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-11-29T17:36:55.974Z] > authorizing via signed-in user (april.outofbox@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\User\Desktop\april.ca\april
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  .firebaserc already has a default project, using april-canada-c5f17. 
+[debug] [2021-11-29T17:38:02.969Z] > refreshing access token with scopes: []
+[debug] [2021-11-29T17:38:02.969Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-11-29T17:38:03.104Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","pragma":"no-cache","date":"Mon, 29 Nov 2021 17:38:03 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-11-29T17:38:03.204Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/april-canada-c5f17 [none]
+[debug] [2021-11-29T17:38:03.496Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/april-canada-c5f17 200
+[debug] [2021-11-29T17:38:03.496Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/april-canada-c5f17 {"projectId":"april-canada-c5f17","projectNumber":"898159706086","displayName":"APRIL Canada","name":"projects/april-canada-c5f17","resources":{"hostingSite":"april-canada-c5f17","storageBucket":"april-canada-c5f17.appspot.com","locationId":"northamerica-northeast1"},"state":"ACTIVE"}
+[info] 
+=== Database Setup
+[info] i  database: ensuring required API firebasedatabase.googleapis.com is enabled... 
+[debug] [2021-11-29T17:38:03.500Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-11-29T17:38:03.501Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-11-29T17:38:03.562Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","date":"Mon, 29 Nov 2021 17:38:04 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-11-29T17:38:03.684Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/april-canada-c5f17/services/firebasedatabase.googleapis.com  
+ 
+[debug] [2021-11-29T17:38:04.307Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 29 Nov 2021 17:38:05 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] +  database: required API firebasedatabase.googleapis.com is enabled 
+[info] 
+[debug] [2021-11-29T17:38:04.310Z] > refreshing access token with scopes: []
+[debug] [2021-11-29T17:38:04.311Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-11-29T17:38:04.367Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","pragma":"no-cache","date":"Mon, 29 Nov 2021 17:38:05 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-11-29T17:38:04.490Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/april-canada-c5f17 [none]
+[debug] [2021-11-29T17:38:04.746Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/april-canada-c5f17 200
+[debug] [2021-11-29T17:38:04.746Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/april-canada-c5f17 {"projectId":"april-canada-c5f17","projectNumber":"898159706086","displayName":"APRIL Canada","name":"projects/april-canada-c5f17","resources":{"hostingSite":"april-canada-c5f17","storageBucket":"april-canada-c5f17.appspot.com","locationId":"northamerica-northeast1"},"state":"ACTIVE"}

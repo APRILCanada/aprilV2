@@ -1,0 +1,12 @@
+@media screen and (max-width: 576px) {
+  .w-80 {
+    width: 100%;
+  }
+}
+
+button a {
+  color: var(--mainColor) !important;
+}
+button:hover a {
+  color: var(--whiteColor) !important;
+}

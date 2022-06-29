@@ -1,0 +1,147 @@
+<!-- Start User Area -->
+<section class="interface-style pb-100 pt-200">
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto form-container">
+                <div class="row">
+                    <div class="col">
+                        <a routerLink="/interface/niches/details/{{id}}" class="btn btn-secondary px-3">{{ 'BACK' | translate}}</a>
+                    </div>
+                </div>
+
+                <!-- Formulaires -->
+                <div class="form-action my-5">
+                    <form   [formGroup]="nicheForm" (ngSubmit)="onSubmit()">
+                        <div class="form-title">
+                            <h2>{{ 'CREATE_NICHE_FORM' | translate}}</h2>
+                        </div>
+
+                        <!-- SECTION INTRO -->
+                        <div class="section-wrapper" >
+                            <h3>Introduction</h3> 
+                            <div class="form-group"> 
+                                <label>{{ 'IS_ACTIVE' | translate}}:</label>
+                                <div class="btn-group-toggle" ngbRadioGroup  formControlName="isActive">
+                                    <label  ngbButtonLabel class="btn-primary px-4"  [ngClass]="niche.isActive == 'isActive' && !nicheForm.get('isActive')?.dirty ? 'active': '' ">
+                                        <input  ngbButton type="radio"  value="isActive">{{ 'YES' | translate}}
+                                    </label>
+                                    <label ngbButtonLabel class="btn-primary px-4 ms-5" [ngClass]="niche.isActive == 'notActive' && !nicheForm.get('isActive')?.dirty ? 'active': '' ">
+                                        <input ngbButton type="radio" value="notActive"> {{ 'NO' | translate}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Niches:</label>
+                                <div class="">
+                                    <ngx-bootstrap-multiselect [options]="niches" [settings]="nicheSettings" formControlName="type" [(ngModel)]="niche.type"></ngx-bootstrap-multiselect>
+                                </div>                            
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'MAIN_IMG' | translate}}:</label>
+                                <input class="form-control" type="text" formControlName="mainImg" [value]="niche.mainImg"> 
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'SECONDARY_IMG' | translate}}:</label>
+                                <input class="form-control" type="text" formControlName="secondaryImg" [value]="niche.secondaryImg" > 
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>{{ 'ICON' | translate}}:</label>
+                                <input class="form-control" type="text" formControlName="icon" [value]="niche.icon"> 
+                            </div>
+                        </div>
+                        <div formGroupName="director">
+                            <div class="form-group">
+                                <label>{{ 'NAME' | translate}}:</label>
+                                <input class="form-control" type="text" formControlName="name" [value]="niche.director.name" > 
+                            </div>
+                            <div class="form-group">
+                                <label>LinkedIn:</label>
+                                <input class="form-control" type="text" formControlName="linkedIn" [value]="niche.director.linkedIn" > 
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'EMAIL' | translate}}:</label>
+                                <input class="form-control" type="email" formControlName="email" [value]="niche.director.email" > 
+                            </div>
+                            <div class="form-group">
+                                <label>Photo:</label>
+                                <input class="form-control" type="text" formControlName="img" [value]="niche.director.img" > 
+                            </div>
+                            <div class="form-group">
+                                <label>Photo Alt:</label>
+                                <input class="form-control" type="text" formControlName="img" [value]="niche.director.imgAlt" > 
+                            </div>
+                        </div>
+                        <!-- SECTION FR -->
+                        <div class="section-wrapper"  formGroupName="fr">
+                            <h3>{{ 'FRENCH' | translate}}</h3>
+                            <div class="form-group">
+                                <label>{{ 'NICHE_TITLE' | translate}}:</label>
+                                <input class="form-control" type="text" formControlName="title" [value]="niche.fr.title" > 
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'DESCRIPTION' | translate}}:</label>
+                                <textarea class="form-control" type="text" formControlName="desc" [value]="niche.fr.desc"> </textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'DIRECTOR_TITLE' | translate}}:</label>
+                                <textarea class="form-control" type="text" formControlName="directorTitle" [value]="niche.fr.directorTitle"> </textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'DESCRIPTION' | translate}}:</label>
+                                <textarea class="form-control" type="text" formControlName="directorDesc" [value]="niche.fr.directorDesc"> </textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'MAIN_IMG' | translate}} alt:</label>
+                                <input class="form-control" type="text" formControlName="mainImgAlt" [value]="niche.fr.mainImgAlt"> 
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'SECONDARY_IMG' | translate}} alt:</label>
+                                <input class="form-control" type="text" formControlName="secondaryImgAlt" [value]="niche.fr.secondaryImgAlt" > 
+                            </div>
+                        </div>
+
+                        <!-- SECTION EN -->
+                        <div class="section-wrapper"   formGroupName="en">
+                            <h3>{{ 'ENGLISH' | translate}}</h3>
+                            <div class="form-group">
+                                <label>{{ 'NICHE_TITLE' | translate}}:</label>
+                                <input class="form-control" type="text" formControlName="title" [value]="niche.en.title" > 
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'DESCRIPTION' | translate}}:</label>
+                                <textarea class="form-control" type="text" formControlName="desc" [value]="niche.en.desc"> </textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'DIRECTOR_TITLE' | translate}}:</label>
+                                <textarea class="form-control" type="text" formControlName="directorTitle" [value]="niche.en.directorTitle"> </textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'DESCRIPTION' | translate}}:</label>
+                                <textarea class="form-control" type="text" formControlName="directorDesc" [value]="niche.en.directorDesc"> </textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'MAIN_IMG' | translate}} alt:</label>
+                                <input class="form-control" type="text" formControlName="mainImgAlt" [value]="niche.en.mainImgAlt"> 
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'SECONDARY_IMG' | translate}} alt:</label>
+                                <input class="form-control" type="text" formControlName="secondaryImgAlt" [value]="niche.en.secondaryImgAlt" > 
+                            </div>
+                        </div>
+                        <!-- Buttons -->
+                        <div class="row align-items-center mt-5 mb-3">
+                            <div class="col-lg-6 col-sm-6">
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <button style="min-width: 150px"class="default-btn register float-end" type="submit"data-toggle="modal" data-target="#successMessage">{{ 'SAVE' | translate}}</button>
+                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End User Area -->

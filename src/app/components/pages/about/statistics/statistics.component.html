@@ -1,0 +1,120 @@
+<div class="bg-optional ptb-70">
+  <div class="container">
+    <div class="row">
+      <div
+        class="col-lg-3 col-md-6 my-4 stat"
+        (mouseover)="creation = true"
+        (mouseleave)="creation = false"
+        [ngStyle]="{
+          color: creation == true ? 'var(--whiteColor)' : 'var(--greyColor)'
+        }"
+      >
+        <div
+          class="d-flex flex-column justify-content-center align-items-center"
+        >
+          <img
+            class="icon icon-lg mb-4 px-5"
+            [src]="
+              creation == true
+                ? '../../../../../assets/img/icons/creation-white.svg'
+                : '../../../../../assets/img/icons/creation.svg'
+            "
+            alt=""
+          />
+          <div
+            class="d-flex flex-column align-items-center white-separator px-5"
+          >
+            <div class="large-number" #year>0</div>
+            <div class="text-center">{{ "CREATION_YEAR" | translate }}</div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-lg-3 col-md-6 my-4 stat"
+        (mouseover)="plane = true"
+        (mouseleave)="plane = false"
+        [ngStyle]="{
+          color: plane == true ? 'var(--whiteColor)' : 'var(--greyColor)'
+        }"
+      >
+        <div
+          class="d-flex flex-column justify-content-center align-items-center"
+        >
+          <img
+            class="icon icon-lg mb-4 px-5"
+            [src]="
+              plane == true
+                ? '../../../../../assets/img/icons/plane-white.svg'
+                : '../../../../../assets/img/icons/plane-grey.svg'
+            "
+            alt=""
+          />
+          <div
+            class="d-flex flex-column align-items-center white-separator px-5"
+          >
+            <div class="large-number" #country>0</div>
+            <div class="text-center">{{ "OPERATION_COUNTRY" | translate }}</div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-lg-3 col-md-6 my-4 stat"
+        (mouseover)="employee = true"
+        (mouseleave)="employee = false"
+        [ngStyle]="{
+          color: employee == true ? 'var(--whiteColor)' : 'var(--greyColor)'
+        }"
+      >
+        <div
+          class="d-flex flex-column justify-content-center align-items-center"
+        >
+          <img
+            class="icon icon-lg mb-4 px-5"
+            [src]="
+              employee == true
+                ? '../../../../../assets/img/icons/family-white.svg'
+                : '../../../../../assets/img/icons/family.svg'
+            "
+            alt=""
+          />
+          <div
+            class="d-flex flex-column align-items-center white-separator px-5"
+          >
+            <div class="large-number" #people>0</div>
+            <div class="text-center">{{ "NUMBER_EMPLOYEE" | translate }}</div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-lg-3 col-md-6 my-4 stat"
+        (mouseover)="office = true"
+        (mouseleave)="office = false"
+        [ngStyle]="{
+          color: office == true ? 'var(--whiteColor)' : 'var(--greyColor)'
+        }"
+      >
+        <div
+          class="d-flex flex-column justify-content-center align-items-center"
+        >
+          <img
+            class="icon icon-lg mb-4 px-5"
+            [src]="
+              office == true
+                ? '../../../../../assets/img/icons/office-white.svg'
+                : '../../../../../assets/img/icons/office-grey.svg'
+            "
+            alt=""
+          />
+          <div
+            class="d-flex flex-column align-items-center white-separator px-5"
+          >
+            <div class="large-number" #building>0</div>
+            <div class="text-center px-5">
+              {{ "NUMBER_OFFICE" | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

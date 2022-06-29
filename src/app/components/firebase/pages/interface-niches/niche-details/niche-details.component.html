@@ -1,0 +1,94 @@
+<section class="interface-style mt-3 pb-100 pt-200">
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto form-container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a routerLink="/interface/niches" class="btn btn-secondary px-3">{{ 'BACK' | translate }}</a>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="float-end">
+                            <div class="btn-group "><a routerLink="../../update/{{id}}" class="btn btn-secondary px-3">{{ 'EDIT' | translate }}</a></div>
+                            <button (click)="onDelete()" class="btn btn-danger ml-3">{{ 'DELETE' | translate }}</button>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="form-action my-4" >
+                    <div  class="card">
+                        <h2 class="card-header text-center">{{ 'NICHE_DETAILS' | translate }}</h2>
+                        <div class="card-body">
+                            <h3 class="mt-1">Introduction</h3>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div class="float-end">{{ 'ONLINE' | translate }}: <span *ngIf="niche.isActive =='isActive'"> {{ 'YES' | translate }}</span><span  *ngIf="niche.isActive == 'notActive'"> {{ 'NO' | translate }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item" >Type: {{ niche.type }}</li>
+                                <li class="list-group-item" >Id: {{ niche.id }}</li>
+                                <li class="list-group-item" >{{ 'MAIN_IMG' | translate }}: {{ niche.mainImg }}</li>
+                                <li class="list-group-item">{{ 'SECONDARY_IMG' | translate }}: {{ niche.secondaryImg }}</li>
+                                <li class="list-group-item">{{ 'ICON' | translate }}: {{ niche.icon }}</li>
+                            </ul>
+                            <h5>{{ 'DIRECTOR' | translate }}</h5>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item" *ngIf="niche.director.name" >{{ 'NAME' | translate }}: {{ niche.director.name }}</li>
+                                <li class="list-group-item" *ngIf="niche.director.linkedIn">LinkedIn: {{ niche.director.linkedIn }}</li>
+                                <li class="list-group-item" *ngIf="niche.director.email">{{ 'EMAIL' | translate }}: {{ niche.director.email }}</li>
+                                <li class="list-group-item" *ngIf="niche.director.img">Photo: {{ niche.director.img }}</li>
+                                <li class="list-group-item" *ngIf="niche.director.imgAlt">Photo alt: {{ niche.director.imgAlt }}</li>
+                            </ul>
+                            <h3>{{ 'FRENCH' | translate }}</h3>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item" *ngIf="niche.fr.title">
+                                    <h5>{{ 'TITLE' | translate}}</h5>
+                                    <div [innerHtml]="niche.fr.title"></div>
+                                </li>
+                                <li class="list-group-item" *ngIf="niche.fr.desc">
+                                    <h5>{{ 'DESCRIPTION' | translate}}</h5>
+                                    <div [innerHtml]="niche.fr.desc"></div>
+                                </li>
+                                <li class="list-group-item" *ngIf="niche.fr.directorTitle">
+                                    <h5>{{ 'DIRECTOR_TITLE' | translate}}</h5>
+                                    <div [innerHtml]="niche.fr.directorTitle"></div>
+                                </li>
+                                <li class="list-group-item" *ngIf="niche.fr.directorTitle">
+                                    <h5>{{ 'DESCRIPTION' | translate}}</h5>
+                                    <div [innerHtml]="niche.fr.directorDesc"></div>
+                                </li>
+                                <li class="list-group-item" >{{ 'MAIN_IMG' | translate }} alt: {{ niche.fr.mainImgAlt }}</li>
+                                <li class="list-group-item">{{ 'SECONDARY_IMG' | translate }} alt: {{ niche.fr.secondaryImgAlt }}</li>
+                            </ul>
+
+                            <h3>{{ 'ENGLISH' | translate }}</h3>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item" *ngIf="niche.en.title">
+                                    <h5>{{ 'TITLE' | translate}}</h5>
+                                    <div [innerHtml]="niche.en.title"></div>
+                                </li>
+                                <li class="list-group-item" *ngIf="niche.en.desc">
+                                    <h5>{{ 'DESCRIPTION' | translate}}</h5>
+                                    <div [innerHtml]="niche.en.desc"></div>
+                                </li>
+                                <li class="list-group-item" *ngIf="niche.en.directorTitle">
+                                    <h5>{{ 'DIRECTOR_TITLE' | translate}}</h5>
+                                    <div [innerHtml]="niche.en.directorTitle"></div>
+                                </li>
+                                <li class="list-group-item" *ngIf="niche.en.directorTitle">
+                                    <h5>{{ 'DESCRIPTION' | translate}}</h5>
+                                    <div [innerHtml]="niche.en.directorDesc"></div>
+                                </li>
+                                <li class="list-group-item" >{{ 'MAIN_IMG' | translate }} alt: {{ niche.en.mainImgAlt }}</li>
+                                <li class="list-group-item">{{ 'SECONDARY_IMG' | translate }} alt: {{ niche.en.secondaryImgAlt }}</li>
+                            </ul>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

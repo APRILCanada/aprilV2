@@ -1,0 +1,129 @@
+<div class="position-relative">
+  <div class="background"></div>
+  <div class="container newsletter">
+    <img
+      class="sticker"
+      src="../../../../../assets/img/home/newsletter_sticker.svg"
+      alt="Sticker"
+    />
+    <div class="row">
+      <div class="col-lg-8 py-5 px-0 px-sm-5">
+        <div class="mx-5 d-flex flex-column justify-content-center">
+          <h2 class="mb-4 text-white">
+            {{ "SUBSCRIBE_NEWSLETTER" | translate }}
+          </h2>
+          <form [formGroup]="newsLetterForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-6 pb-3">
+                <input
+                  type="text"
+                  class="form-control no-border"
+                  formControlName="email"
+                  [placeholder]="
+                    language.get() == 'fr'
+                      ? 'Adresse courriel'
+                      : 'Email address'
+                  "
+                />
+                <span
+                  *ngIf="
+                    !newsLetterForm.get('email')?.valid &&
+                    newsLetterForm.get('email')?.touched
+                  "
+                  class="text-white"
+                  >**{{ "INVALID_EMAIL" | translate }}</span
+                >
+              </div>
+              <div class="col-md-6 pb-3">
+                <input
+                  type="text"
+                  class="form-control no-border"
+                  formControlName="name"
+                  [placeholder]="
+                    language.get() == 'fr' ? 'Nom complet' : 'Full name'
+                  "
+                />
+              </div>
+              <div class="col-md-6 pb-3">
+                <ngx-bootstrap-multiselect
+                  class="form-control p-0 no-border"
+                  [options]="this.language.get() == 'fr' ? provFr : provEn"
+                  formControlName="province"
+                  [texts]="textProv"
+                  [settings]="settings"
+                ></ngx-bootstrap-multiselect>
+              </div>
+              <div class="col-md-6 pb-3">
+                <ngx-bootstrap-multiselect
+                  class="form-control p-0 no-border"
+                  [options]="this.language.get() == 'fr' ? langFr : langEn"
+                  formControlName="lang"
+                  [texts]="this.language.get() == 'fr' ? textFr : textEn"
+                  [settings]="settings"
+                ></ngx-bootstrap-multiselect>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <button
+                [disabled]="!newsLetterForm.valid || !newsLetterForm.dirty"
+                class="btn-april mt-3"
+                (click)="openModal(confirm)"
+                data-analytics="HomeNewsLetter"
+              >
+                {{ "SUBSCRIBE" | translate }}
+              </button>
+              <div
+                *ngIf="!newsLetterForm.valid && newsLetterForm.touched"
+                class="text-white mt-3"
+              >
+                **{{ "REQUIRED_FIELDS" | translate }}
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div
+        class="
+          col-lg-4
+          d-none d-lg-flex
+          justify-content-center
+          align-items-center
+        "
+      >
+        <img
+          class="newsletter-icon"
+          src="../../../../../assets/img/icons/email-white.svg"
+          alt=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<ng-template #confirm let-modal>
+  <div class="modal-header d-flex justify-content-center align-items-center">
+    <h2 class="modal-title m-0">{{ "THANK_YOU" | translate }}</h2>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true"
+        ><img
+          class="icon"
+          src="../../../../../assets/img/icons/close.svg"
+          alt=""
+      /></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="m-2 mx-3">{{ "NEWSLETTER_SUBSCRIPTION_DETAILS" | translate }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn-april btn-april-white" (click)="close()">
+      {{ "CLOSE" | translate }}
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,57 @@
+<div class="container pb-100 pt-200">
+    <div class="row my-3">
+        <div class="col-12">
+            <h2>{{ "PRODUCT_LIST" | translate }}</h2>
+        </div>
+        
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-4">
+            <a routerLink="../" class="btn btn-secondary px-3">{{ 'BACK' | translate }}</a>
+        </div>
+        <div class="col-md-4 text-center">
+            <input type="text" class="form-control" id="product" [(ngModel)]="productValue" [placeholder]='language.get() == "en" ? "Search by product name..." : "Cherchez par nom de produit..."' (input)="onSearchChange($event)">
+        </div>
+        <div class="col-md-4">
+            <div class="float-end">
+                <div class="btn-group "><a routerLink="../create-product" class="btn btn-secondary px-3">{{ 'CREATE_NEW_PRODUCT' | translate }}</a></div>
+        
+            </div>
+            
+        </div>
+    </div>
+
+
+    <table  class="table table-stripped">
+        <thead>
+               <tr>
+               <th>{{ 'PRODUCT' | translate }}</th>
+               <th>{{ 'PRODUCT_PARENT' | translate }}</th>
+               <th>{{ 'ONLINE' | translate }}</th>
+               <th></th>
+           </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products | productsFilter: productValue | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalLength}">
+                <td>{{ this.language.get() == "fr" ? product.fr.title :product.en.title }} </td>
+                <td>{{ product.parent }} </td>
+                <td>
+                    <span *ngIf="product.isActive == 'isActive'">{{ 'YES' | translate }}</span>
+                    <span *ngIf="product.isActive == 'notActive'">{{ 'NO' | translate }}</span>
+                </td>
+                <td><a routerLink="details/{{product.id}}" class="btn btn-secondary btn-sm text-center">{{ 'DETAILS' | translate }}</a></td>
+           </tr>
+        </tbody>
+    </table>
+    <pagination-controls 
+        class="text-center custom-pagination" 
+        (pageChange)="page = $event"
+        [previousLabel]='language.get() == "en" ? "Previous" : "Précédent"'
+        [nextLabel]='language.get() == "en" ? "Next" : "Suivant"'>
+    </pagination-controls>
+       
+    <ng-template #noJobs>
+        <hr>
+        <h5>There are no product offer in the system</h5>
+    </ng-template>
+</div>

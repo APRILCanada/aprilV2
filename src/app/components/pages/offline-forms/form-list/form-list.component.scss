@@ -1,0 +1,17 @@
+h2 {
+  font-size: 36px !important;
+  color: var(--green);
+}
+
+a {
+  color: var(--mainColor);
+  text-decoration: underline !important;
+}
+
+.small-card:hover {
+  border: 1px solid var(--mainColor);
+}
+
+ul {
+  padding-left: 0 !important;
+}

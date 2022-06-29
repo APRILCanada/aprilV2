@@ -1,0 +1,18 @@
+<div class="career-brief pt-100 pb-70">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 pe-md-5 pb-5">
+        <img ixImg [alt]="language.get() == 'fr' ? 'Actualités' : 'News'"
+          path="home/marque_employeur.png" sizes="800px" />
+      </div>
+      <div class="col-md-6 d-flex flex-column justify-content-center ps-md-5 pb-5">
+        <h2>{{ "CAREER_BRIEF_TITLE" | translate }}</h2>
+        <p class="my-5">{{ "CAREER_BRIEF" | translate }}</p>
+        <button routerLink="carriere" class="btn-april btn-april-white d-block" click-text="Rejoignez-nous"
+          data-analytics="HomeCTA">
+          {{ "JOIN_US" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

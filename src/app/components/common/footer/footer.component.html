@@ -1,0 +1,180 @@
+<!-- Start Footer Area -->
+<footer class="footer-area bg-main pt-5">
+  <div class="container">
+    <div class="d-flex justify-content-around justify-content-lg-between">
+      <div class="showcase d-none d-lg-block">
+        <div class="single-footer-widget bg-white px-4 py-5">
+          <a routerLink="/" class="logo mb-4">
+            <img src="../../../../assets/img/logo/logo-april.svg" alt="Image" />
+          </a>
+          <p class="text-center mb-4 mx-4">
+            {{ "SLOGAN" | translate }}
+          </p>
+          <div class="social-icon d-flex justify-content-evenly">
+            <div>
+              <a
+                href="https://www.facebook.com/AprilCanInc/"
+                target="_blank"
+                data-analytics="FooterFacebook"
+                ><img
+                  class="icon"
+                  src="../../../../assets/img/icons/facebook.svg"
+                  alt=""
+              /></a>
+            </div>
+            <div>
+              <a
+                href="https://www.linkedin.com/company/april-canada/"
+                data-analytics="FooterLinkedIn"
+                target="_blank"
+                ><img
+                  class="icon"
+                  src="../../../../assets/img/icons/linkedin.svg"
+                  alt=""
+              /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="">
+        <div class="single-footer-widget">
+          <div class="">
+            <h3 class="col-12 px-0 mx-0 d-block">
+              {{ "SITE_MAP" | translate }}
+            </h3>
+            <div class="d-block d-md-flex justify-content-between">
+              <ul class="import-link">
+                <li>
+                  <a routerLink="/" data-analytics="FooterLinkHome">{{
+                    "HOME" | translate
+                  }}</a>
+                </li>
+                <li>
+                  <a routerLink="/niches" data-analytics="FooterProducts">{{
+                    "PRODUCTS" | translate
+                  }}</a>
+                </li>
+                <li>
+                  <a
+                    routerLink="/actualites"
+                    data-analytics="FooterActuality"
+                    >{{ "ACTUALITY" | translate }}</a
+                  >
+                </li>
+                <li>
+                  <a routerLink="/services" data-analytics="FooterServices"
+                    >Services</a
+                  >
+                </li>
+                <li>
+                  <a routerLink="/formulaires" data-analytics="FooterForms">{{
+                    "FORMS" | translate
+                  }}</a>
+                </li>
+                <li>
+                  <a routerLink="/a-propos" data-analytics="FooterAbout">{{
+                    "ABOUT" | translate
+                  }}</a>
+                </li>
+                <li>
+                  <a routerLink="/carriere" data-analytics="FooterCareer">{{
+                    "CAREER" | translate
+                  }}</a>
+                </li>
+              </ul>
+              <ul class="import-link ps-0 ps-md-4 ps-lg-4">
+                <li>
+                  <a routerLink="reclamation" data-analytics="FooterClaim">{{
+                    "CLAIM" | translate
+                  }}</a>
+                </li>
+                <li>
+                  <a
+                    [routerLink]="['', { outlets: { modals: ['soumission'] } }]"
+                    data-analytics="FooterQuote"
+                    >{{ "QUOTE" | translate }}</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://april-on.ca/partner"
+                    target="_blank"
+                    ref="noreferrer noopener"
+                    data-analytics="FooterPartner"
+                    >{{ "BECOME_PARTNER" | translate }}</a
+                  >
+                </li>
+                <li>
+                  <a routerLink="/contact" data-analytics="FooterContact">{{
+                    "CONTACT" | translate
+                  }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="">
+        <div class="single-footer-widget float-end">
+          <h3>Sites externes</h3>
+          <ul class="import-link">
+            <li>
+              <a
+                href="https://april-on.ca/home"
+                target="_blank"
+                data-analytics="FooterExternalSitesContact"
+                >APRIL ON</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://aprilmarine.ca/"
+                target="_blank"
+                data-analytics="FooterExternalSitesContact"
+                >APRIL Marine</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://april.com/"
+                target="_blank"
+                data-analytics="FooterExternalSitesContact"
+                >april.com</a
+              >
+            </li>
+          </ul>
+          <h3 class="mt-lg-4">Contact</h3>
+          <ul class="address">
+            <li data-analytics="FooterLinkExternalSitesContact">
+              {{ "PHONE_NUMBER" | translate }}
+            </li>
+            <li>
+              <a
+                href="mailto:info@april.ca "
+                data-analytics="FooterLinkExternalSitesContact"
+                >info@april.ca
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- End Footer Area -->
+
+<!-- Start Copy Right Area -->
+<div class="copy-right-area bg-main pb-5">
+  <div class="container white-line d-block d-lg-flex justify-content-between">
+    <div class="pt-2">© {{ "RIGHTS_RESERVED" | translate }}</div>
+    <div class="pt-2" (click)="openModal(privacy)">
+      <a href="javascript:void(0)">{{ "PRIVACY_POLICY" | translate }}</a>
+    </div>
+    <div class="pt-2" (click)="openModal(terms)">
+      <a href="javascript:void(0)">{{ "TERMS_CONDITIONS" | translate }}</a>
+    </div>
+  </div>
+</div>
+<!-- End Copy Right Area -->

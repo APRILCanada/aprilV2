@@ -1,0 +1,48 @@
+:root {
+  --bodyFontFamily: "Poppins", sans-serif;
+  --headingFontFamily: "Poppins", sans-serif;
+  --mainColor: #004161;
+  --optionalColor: #3eaac4;
+  --green: #639e30;
+  --orange: #f7aa36;
+  --pink: #d7488f;
+  --lime: #add04e;
+  --whiteColor: #ffffff;
+  --greyColor: #f2f2f2;
+  --darkGrey: #9ea0a9;
+  --blackColor: #000000;
+  --fontSize: 16px;
+  --transition: all ease 0.3s;
+  --borderRadius: 4px;
+  --boxShadow: 0 0 20px 3px rgba(0, 0, 0, 0.05);
+  --darkShadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.3);
+}
+
+// colors
+$main-color: #4190d5;
+$main-focus: #3c7cb4;
+$secondary-color: #49c4a8;
+$menu-color: var(--mainColor);
+$bg-contrast: #f1f1f1;
+$bg-contrast-focus: #f3f3f3;
+$bg-color: var(--orange);
+
+$backdrop: #1b1b1b3d;
+
+// fonts families
+$font-main: "Poppins", sans-serif;
+$font-secondary: "Montserrat", sans-serif;
+// font-size
+$nav-font-size: 1rem;
+
+// border-radius
+$button-radius: 0;
+
+// transition
+$short-tran: 0.25s;
+
+// box-shadow
+$mobile-shadow: rgba(0, 0, 0, 0.4) 3px 3px 30px;
+
+// logo
+$logoheight: 40px;

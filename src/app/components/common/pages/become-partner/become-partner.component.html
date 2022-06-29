@@ -1,0 +1,315 @@
+<div class="routable-modal p-2 p-sm-5">
+  <div class="modal-header d-block">
+    <h2 class="modal-title m-0">{{ "BECOME_BROKER_PARTNER" | translate }}</h2>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true"
+        ><img
+          class="icon"
+          src="../../../../../assets/img/icons/close.svg"
+          alt=""
+      /></span>
+    </button>
+    <p class="my-4 w-80">{{ "BECOME_BROKER_PARTNER_DETAILS" | translate }}</p>
+  </div>
+  <div class="modal-body">
+    <div class="contact-form py-4 px-1 ps-3 ps-sm-5">
+      <div class="d-flex align-items-center">
+        <img
+          src="../../../../assets/img/icons/title-bar.svg"
+          class="pt-2 pe-2 title-bar d-none d-xl-block"
+          alt="title bar"
+        />
+        <h3 class="mb-2">{{ "CONTACT_INFORMATION" | translate }}</h3>
+      </div>
+      <form [formGroup]="partnerForm" (ngSubmit)="onSubmit()">
+        <div class="row ps-xl-5 pe-3 pe-sm-5 pt-2">
+          <div class="col-12 col-lg-6 pb-3">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="broker"
+              [placeholder]="
+                language.get() == 'fr' ? 'Nom du cabinet' : 'Brokerage Firm'
+              "
+            />
+          </div>
+          <div class="col-12 col-lg-6 pb-3">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="certificateNumber"
+              [placeholder]="
+                language.get() == 'fr'
+                  ? 'Numéro de certificat'
+                  : 'Licence number'
+              "
+            />
+          </div>
+          <div formGroupName="address">
+            <div class="row">
+              <div class="col-12 col-lg-3 pb-3">
+                <input
+                  type="number"
+                  class="form-control grey-input no-border"
+                  formControlName="number"
+                  [placeholder]="
+                    language.get() == 'fr' ? 'Numéro civic' : 'Civic number'
+                  "
+                />
+              </div>
+              <div class="col-12 col-lg-9 pb-3">
+                <input
+                  type="text"
+                  class="form-control grey-input no-border"
+                  formControlName="street"
+                  [placeholder]="
+                    language.get() == 'fr' ? 'Nom de rue' : 'Street name'
+                  "
+                />
+              </div>
+              <div class="col-12 col-lg-9 pb-3">
+                <input
+                  type="text"
+                  class="form-control grey-input no-border"
+                  formControlName="city"
+                  [placeholder]="language.get() == 'fr' ? 'Ville' : 'City'"
+                />
+              </div>
+              <div class="col-12 col-lg-3 pb-3">
+                <input
+                  type="text"
+                  class="form-control grey-input no-border"
+                  formControlName="unit"
+                  [placeholder]="language.get() == 'fr' ? 'Unité' : 'Unit'"
+                />
+              </div>
+              <div class="col-12 col-lg-4 pb-3">
+                <ngx-bootstrap-multiselect
+                  class="form-control p-0 no-border"
+                  [options]="this.language.get() == 'fr' ? provFr : provEn"
+                  formControlName="province"
+                  [texts]="textProv"
+                  [settings]="settings"
+                ></ngx-bootstrap-multiselect>
+              </div>
+              <div class="col-12 col-lg-4 pb-3">
+                <input
+                  type="text"
+                  class="form-control grey-input no-border"
+                  formControlName="postalCode"
+                  [placeholder]="
+                    language.get() == 'fr' ? 'Code postal' : 'Postal code'
+                  "
+                />
+              </div>
+              <div class="col-12 col-lg-4 pb-3">
+                <input
+                  type="text"
+                  class="form-control grey-input no-border"
+                  formControlName="phone"
+                  [placeholder]="
+                    language.get() == 'fr' ? 'Téléphone' : 'Phone Number'
+                  "
+                  mask="(000) 000-0000"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-6 pb-3">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="email"
+              [placeholder]="language.get() == 'fr' ? 'Courriel' : 'Email'"
+            />
+            <span
+              *ngIf="
+                !partnerForm.get('email')?.valid &&
+                partnerForm.get('email')?.touched
+              "
+              class=""
+              >**{{ "INVALID_EMAIL" | translate }}</span
+            >
+          </div>
+          <div class="col-12 col-lg-6 pb-3">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="billingContact"
+              [placeholder]="
+                language.get() == 'fr'
+                  ? 'Responsable de la facturation'
+                  : 'Billing contact'
+              "
+            />
+          </div>
+
+          <div class="col-12 d-flex">
+            <div
+              class="ms-auto"
+              *ngIf="!partnerForm.valid && partnerForm.touched"
+              class=""
+            >
+              **{{ "REQUIRED_FIELDS" | translate }}
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <img
+            src="../../../../assets/img/icons/title-bar.svg"
+            class="pt-2 pe-2 title-bar d-none d-xl-block"
+            alt="title bar"
+          />
+          <h3 class="my-2 pe-3 pe-sm-5">
+            {{ "INSURANCE_INFORMATION" | translate }}
+          </h3>
+        </div>
+        <div class="">
+          <div class="row ps-xl-5 pe-3 pe-sm-5 pt-2">
+            <div class="col-12 col-lg-4 pb-3">
+              <input
+                type="text"
+                class="form-control grey-input no-border"
+                formControlName="insurer"
+                [placeholder]="language.get() == 'fr' ? 'Assureur' : 'Insurer'"
+              />
+            </div>
+            <div class="col-12 col-lg-4 pb-3">
+              <input
+                type="text"
+                class="form-control grey-input no-border"
+                formControlName="policyNumber"
+                [placeholder]="
+                  language.get() == 'fr' ? 'Numéro de police' : 'Policy Number'
+                "
+              />
+            </div>
+            <div class="col-12 col-lg-4 pb-3">
+              <input
+                type="text"
+                class="form-control grey-input no-border"
+                formControlName="limit"
+                [placeholder]="language.get() == 'fr' ? 'Limite' : 'Limit'"
+              />
+            </div>
+            <div class="col-12 pb-3">
+              <div
+                class="
+                  form-control
+                  file-input
+                  d-flex
+                  justify-content-center
+                  align-items-center
+                "
+              >
+                <input
+                  formControlName="file"
+                  type="file"
+                  id="file"
+                  class="custom-file-input"
+                  (change)="fileProgress($event)"
+                />
+                <label for="file"
+                  ><div class="btn-april btn-april-green">
+                    {{ "BROWSE" | translate }}
+                  </div></label
+                >
+                <span
+                  *ngIf="!partnerForm.get('file')?.valid"
+                  class="ps-5 txt-green d-none d-lg-block"
+                  >{{ "UPLOAD_POLICY" | translate }}</span
+                >
+                <span
+                  *ngIf="partnerForm.get('file')?.valid"
+                  class="ps-5 txt-green d-none d-lg-block"
+                  >{{ fileName }}</span
+                >
+              </div>
+            </div>
+          </div>
+          <div>
+            <span
+              *ngIf="
+                !partnerForm.get('file')?.valid || !partnerForm.get('file')?.dirty
+              "
+              class="pe-5 txt-green d-block d-lg-none pt-3"
+              >{{ "UPLOAD_POLICY_CLAIM" | translate }}</span
+            >
+            <span
+              *ngIf="partnerForm.get('file')?.valid"
+              class="pe-5 txt-green d-block d-lg-none pt-3"
+              >{{ fileName }}</span
+            >
+          </div>
+        </div>
+
+        <div
+          class="
+            pe-5
+            ps-lg-5
+            pt-3
+            mb-4
+            d-block d-sm-flex
+            justify-content-between
+            align-items-center
+          "
+        >
+          <div>
+            <input
+              type="checkbox"
+              formControlName="newsLetter"
+              id="checkbox-partner-form"
+            />
+            <label for="checkbox-partner-form">{{
+              "SUSCRIBE_CHECKBOX" | translate
+            }}</label>
+          </div>
+          <button
+            *ngIf="partnerForm.get('newsLetter')?.value != true"
+            class="btn-april mt-0 mt-sm-3 PartnerForm"
+            (click)="openModal(confirmPartner)"
+            data-analytics="PartnerForm"
+          >
+            {{ "SEND" | translate }}
+          </button>
+          <button
+            *ngIf="partnerForm.get('newsLetter')?.value == true"
+            class="btn-april mt-0 mt-sm-3 PartnerFormNewsLetter"
+            (click)="openModal(confirmPartner)"
+            data-analytics="PartnerFormNewsLetter"
+          >
+            {{ "SEND" | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<ng-template #confirmPartner let-modal>
+  <div class="modal-header d-flex justify-content-center align-items-center">
+    <h2 class="modal-title m-0">{{ "THANK_YOU" | translate }}</h2>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true"
+        ><img
+          class="icon"
+          src="../../../../../assets/img/icons/close.svg"
+          alt=""
+      /></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="m-2 mx-3">{{ "CONTACT_FORM_DETAILS" | translate }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn-april btn-april-white" (click)="close()">
+      {{ "CLOSE" | translate }}
+    </button>
+  </div>
+</ng-template>

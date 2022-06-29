@@ -1,0 +1,114 @@
+<!-- Start Footer Area -->
+<footer class="footer-area bg-orange pt-5 d-flex">
+  <div class="container d-flex">
+    <a routerLink="/" class="logo mx-5 d-none d-lg-block">
+      <img src="../../../assets/img/logo/april-white.png" alt="Image" />
+    </a>
+
+    <div
+      class="d-flex flex-column flex-md-row justify-content-between text-center text-md-start w-100"
+    >
+      <div class="single-footer-widget">
+        <h3 class="col-12 px-0 mx-0 d-block">
+          {{ "SITE_MAP" | translate }}
+        </h3>
+        <div class="d-block d-md-flex justify-content-between">
+          <ul class="import-link">
+            <li>
+              <a
+                class="text-white"
+                (click)="scrollToSection('Meet With Us')"
+                data-analytics="Obtenez votre soumission"
+                click-text="Rencontrez-nous"
+                >{{ "GET_QUOTE" | translate }}</a
+              >
+            </li>
+            <li>
+              <a
+                class="text-white"
+                (click)="scrollToSection('Meet With Us')"
+                data-analytics="FooterAppointment"
+                click-text="Rencontrez-nous"
+                >{{ "GET_APPOINTMENT" | translate }}</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="single-footer-widget">
+        <h3>Sites externes</h3>
+        <div class="d-flex justify-content-md-between justify-content-center">
+          <ul class="import-link">
+            <li>
+              <a
+                href="https://april-on.ca/home"
+                target="_blank"
+                data-analytics="FooterExternalSitesContact"
+                >APRIL ON</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://aprilmarine.ca/"
+                target="_blank"
+                data-analytics="FooterExternalSitesContact"
+                >APRIL Marine</a
+              >
+            </li>
+          </ul>
+          <ul class="import-link ms-4">
+            <li>
+              <a
+                href="https://april.ca/"
+                target="_blank"
+                data-analytics="FooterExternalSitesContact"
+                >april.ca</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://april.com/"
+                target="_blank"
+                data-analytics="FooterExternalSitesContact"
+                >april.com</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="single-footer-widget float-md-end">
+        <h3 class="">Contact</h3>
+        <ul class="address">
+          <li data-analytics="FooterLinkExternalSitesContact">
+            <a href="tel:18009937070">1 (800) 993-7070</a>
+          </li>
+          <li>
+            <a
+              href="mailto:info@april.ca "
+              data-analytics="FooterLinkExternalSitesContact"
+              >info@april.ca
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- End Footer Area -->
+
+<!-- Start Copy Right Area -->
+<div class="copy-right-area bg-orange pb-5">
+  <div class="container white-line d-block d-lg-flex justify-content-between">
+    <div class="pt-2">
+      <a href="javascript:void(0)">© {{ "RIGHTS_RESERVED" | translate }}</a>
+    </div>
+    <div class="pt-2" (click)="openModal(privacy)">
+      <a href="javascript:void(0)">{{ "PRIVACY_POLICY" | translate }}</a>
+    </div>
+    <div class="pt-2" (click)="openModal(terms)">
+      <a href="javascript:void(0)">{{ "TERMS_CONDITIONS" | translate }}</a>
+    </div>
+  </div>
+</div>
+<!-- End Copy Right Area -->

@@ -1,0 +1,75 @@
+<div class="topnav" id="topNav">
+  <a
+    class="logo py-3"
+    routerLink=""
+    style="width: 125px"
+    data-analytics="MainNavLogo"
+    ><img src="../../../../assets/img/logo/logo-april.svg" alt="logo"
+  /></a>
+
+  <a
+    routerLink="niches"
+    class="nav-link"
+    data-analytics="MainNavAbout"
+    (click)="toggleNav()"
+    >{{ "PRODUCTS" | translate }}</a
+  >
+
+  <a
+    routerLink="services"
+    class="nav-link"
+    data-analytics="MainNavServices"
+    (click)="toggleNav()"
+    >Services</a
+  >
+  <a
+    routerLink="a-propos"
+    class="nav-link"
+    data-analytics="MainNavAbout"
+    (click)="toggleNav()"
+    >{{ "ABOUT" | translate }}</a
+  >
+  <a
+    routerLink="actualites"
+    class="nav-link"
+    data-analytics="MainNavActuality"
+    (click)="toggleNav()"
+    >{{ "ACTUALITY" | translate }}</a
+  >
+  <a
+    routerLink="carriere"
+    class="nav-link"
+    data-analytics="MainNavAbout"
+    (click)="toggleNav()"
+    >{{ "CAREER" | translate }}</a
+  >
+  <a
+    routerLink="reclamation"
+    class="nav-link"
+    data-analytics="MainNavClaim"
+    (click)="toggleNav()"
+    >{{ "CLAIM" | translate }}</a
+  >
+  <a
+    href="https://april-on.ca/partner"
+    target="_blank"
+    ref="noreferrer noopener"
+    class="nav-link"
+    data-analytics="MainNavClaim"
+    (click)="toggleNav()"
+    >{{ "BECOME_PARTNER" | translate }}</a
+  >
+  <a
+    [routerLink]="['', { outlets: { modals: ['soumission'] } }]"
+    class="nav-link"
+    data-analytics="MainNavSubmission"
+    (click)="toggleNav()"
+    >{{ "QUOTE" | translate }}</a
+  >
+  <a
+    href="javascript:void(0);"
+    style="font-size: 15px"
+    class="icon"
+    (click)="toggleNav()"
+  ></a>
+</div>

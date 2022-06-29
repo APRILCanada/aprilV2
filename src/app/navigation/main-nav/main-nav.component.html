@@ -1,0 +1,89 @@
+<div class="DirectNav">
+
+  <nav class="navbar navbar-expand-xxl fixed-top" id="navbar">
+    <div class="container">
+      <span class="navbar-brand" data-analytics="MainNavLogo"
+        ><img
+          class="nav-logo"
+          src="../../../assets/img/logo/april-construction.png"
+      /></span>
+
+      <app-hamburger></app-hamburger>
+
+      <div class="collapse navbar-collapse main-nav" id="navbarNav">
+        <ul class="navbar-nav ms-auto d-flex align-items-center">
+          <ng-container *ngFor="let item of menu">
+            <li
+              *ngIf="!item.cta && !item.lang"
+              [ngClass]="{ dropdown: item.en?.dropdown }"
+            >
+              <a
+                class="navigation-link"
+                (click)="scrollToSection(item.en?.title)"
+                routerLinkActive="active"
+                *ngIf="!item.en.dropdown"
+                [attr.data-analytics]="'MainNav' + item.en?.title"
+              >
+                {{
+                  language.get() == "en" ? item.en?.title : item.fr?.title
+                }}</a
+              >
+              <a
+                *ngIf="item.en.dropdown"
+                class="dropdown-toggle navigation-link"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >{{ language.get() == "en" ? item.en?.title : item.fr?.title }}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <ng-container *ngIf="language.get() === 'en'">
+                  <li *ngFor="let subItem of item.en?.dropdown">
+                    <a
+                      class="dropdown-item"
+                      [routerLink]="item.en.link + subItem.link"
+                      [attr.data-analytics]="'MainNav' + subItem.link"
+                    >
+                      {{ subItem.title }}
+                    </a>
+                  </li>
+                </ng-container>
+                <ng-container *ngIf="language.get() === 'fr'">
+                  <li *ngFor="let subItem of item.fr?.dropdown">
+                    <a
+                      class="dropdown-item navigation-link"
+                      [routerLink]="item.fr.link + subItem.link"
+                      [attr.data-analytics]="'MainNav' + subItem.link"
+                    >
+                      {{ subItem.title }}
+                    </a>
+                  </li>
+                </ng-container>
+              </ul>
+            </li>
+            <li *ngIf="item.lang" (click)="language.switch()">
+              <a
+                class="lang"
+                [attr.data-analytics]="'SwitchLangTo' + language.get()"
+                >{{ "LANG" | translate }}</a
+              >
+            </li>
+            <li *ngIf="item.cta">
+              <button
+                class="btn-april btn-april-orange"
+                (click)="scrollToSection(item.en.title)"
+                *ngIf="item.cta"
+                [attr.data-analytics]="'MainNav' + item.en?.title"
+              >
+                {{ language.get() == "en" ? item.en?.title : item.fr?.title }}
+              </button>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+    <app-mobile-nav class="d-block d-xxl-none"></app-mobile-nav>
+  </nav>
+</div>

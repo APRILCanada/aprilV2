@@ -1,0 +1,200 @@
+.navbar {
+  .navbar-nav {
+    .nav-item {
+      position: relative;
+      padding: 0;
+
+      a {
+        cursor: pointer;
+        color: var(--mainColor);
+        transition: var(--transition);
+        padding: 40px 0;
+        position: relative;
+        z-index: 1;
+        margin: 0 12px;
+        font: {
+          size: 16px;
+          weight: 700;
+        }
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background-color: var(--mainColor);
+          transition: var(--transition);
+        }
+        &:hover {
+          color: var(--mainColor);
+
+          &::before {
+            width: 100%;
+            left: auto;
+            right: 0;
+          }
+        }
+        &.active {
+          color: var(--mainColor);
+        }
+      }
+      .dropdown-menu {
+        position: absolute;
+        top: 130%;
+        right: auto !important;
+        left: 12px !important;
+        text-align: left;
+        opacity: 0;
+        width: 275px !important;
+        visibility: hidden;
+        z-index: 99;
+        display: block;
+        padding: 0;
+        background-color: var(--whiteColor);
+        border: none;
+        border-radius: 0;
+        transition: all 0.2s ease-in-out;
+        box-shadow: var(--boxShadow);
+
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0 !important;
+          width: 0;
+          height: 0;
+          width: 2px;
+          background-color: var(--whiteColor);
+          transition: var(--transition);
+        }
+        li {
+          position: relative;
+          padding: 0;
+
+          a {
+            color: var(--mainColor);
+            position: relative;
+            padding: 15px 15px;
+            border-bottom: 1px dashed #eeeeee;
+            display: block;
+            font: {
+              weight: 600;
+              size: 15.5px;
+            }
+            margin: {
+              left: 0;
+              right: 0;
+            }
+            i {
+              float: left;
+              top: 8px;
+              transition: var(--transition);
+              font-size: 20px;
+            }
+            &::before {
+              content: "";
+              position: absolute;
+              bottom: 0;
+              left: 0 !important;
+              width: 2px;
+              height: 0;
+              background-color: var(--mainColor);
+              transition: var(--transition);
+              opacity: 0;
+            }
+            &:hover {
+              color: var(--mainColor);
+
+              &::before {
+                opacity: 1;
+                bottom: auto;
+                top: 0;
+                height: 100%;
+              }
+            }
+            &.active {
+              color: var(--mainColor);
+            }
+          }
+          .dropdown-menu {
+            left: 100% !important;
+            top: 0;
+          }
+          &:last-child {
+            a {
+              border-bottom: none;
+            }
+          }
+          .dropdown-menu {
+            position: absolute;
+            right: -98%;
+            top: 20px !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+
+            li {
+              .dropdown-menu {
+                position: absolute;
+                left: -100%;
+                top: 0;
+                opacity: 0 !important;
+                visibility: hidden !important;
+              }
+              a {
+                color: var(--mainColor);
+
+                &:hover {
+                  color: var(--mainColor);
+                }
+                &:focus {
+                  color: var(--mainColor);
+                }
+                &.active {
+                  color: var(--mainColor);
+                }
+              }
+            }
+          }
+          &:hover {
+            .dropdown-menu {
+              opacity: 1 !important;
+              visibility: visible !important;
+              top: -4px !important;
+
+              li {
+                &:hover {
+                  .dropdown-menu {
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    top: -20px !important;
+                  }
+                }
+              }
+            }
+          }
+        }
+        &:last-child {
+          .dropdown-menu {
+            right: auto;
+            left: -100%;
+          }
+        }
+      }
+      &:hover {
+        ul {
+          opacity: 1;
+          visibility: visible;
+          top: 98%;
+        }
+        .dropdown-menu {
+          &::before {
+            height: 100%;
+            left: auto;
+            bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}

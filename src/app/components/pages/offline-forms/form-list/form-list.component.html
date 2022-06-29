@@ -1,0 +1,90 @@
+<div id="offlineFormList" class="container pb-100">
+  <div class="grey-border p-5">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>{{ "FORM_LIST" | translate }}</h2>
+        <p class="txt-green">{{ "FORM_LIST_DETAILS" | translate }}</p>
+      </div>
+      <div class="col-md-6">
+        <form [formGroup]="riskCategory">
+          <ngx-bootstrap-multiselect
+            class="form-control p-0 no-border"
+            [options]="this.language.get() == 'fr' ? riskFr : riskEn"
+            formControlName="risk"
+            [texts]="this.language.get() == 'fr' ? textRiskFr : textRiskEn"
+            [settings]="settings"
+            [(ngModel)]="riskModel"
+          ></ngx-bootstrap-multiselect>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div
+      class="col-md-4 mb-3"
+      *ngFor="
+        let form of forms
+          | riskFilter: riskModel
+          | paginate
+            : { itemsPerPage: 15, currentPage: page, totalItems: totalLength }
+      "
+    >
+      <div class="mt-3 small-card p-2">
+        <div class="row">
+          <div class="col-4 p-3">
+            <img
+              class="icon icon-lg"
+              [src]="'../../../../../assets/img/icons/' + form.icon"
+              [alt]="form.icon"
+              (load)="loader.loading(false)"
+            />
+          </div>
+          <div class="col-8 d-flex flex-column justify-content-center">
+            <div>
+              {{ this.language.get() == "fr" ? form.titleFr : form.titleEn }}
+            </div>
+            <div class="fst-italic pt-1">
+              <a
+                *ngIf="form.linkFr != null"
+                data-analytics="FormsDownload"
+                href="javascript:void(0)"
+                [attr.click-text]="form.titleFr"
+                (click)="
+                  downloadPdf(
+                    '../../../../../assets/offlineForms/' + form.linkFr,
+                    form.linkFr
+                  )
+                "
+                >Fr</a
+              >
+              <span *ngIf="form.linkEn != null && form.linkFr != null">
+                |
+              </span>
+              <a
+                *ngIf="form.linkEn != null"
+                data-analytics="FormsDownload"
+                [attr.click-text]="form.titleFr"
+                href="javascript:void(0)"
+                (click)="
+                  downloadPdf(
+                    '../../../../../assets/offlineForms/' + form.linkEn,
+                    form.linkEn
+                  )
+                "
+                >En</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <pagination-controls
+    class="text-center custom-pagination"
+    (pageChange)="page = $event"
+    [previousLabel]="language.get() == 'en' ? 'Previous' : 'Précédent'"
+    [nextLabel]="language.get() == 'en' ? 'Next' : 'Suivant'"
+  >
+  </pagination-controls>
+</div>

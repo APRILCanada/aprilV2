@@ -1,0 +1,16 @@
+h2 {
+  font-size: 36px !important;
+  color: var(--greyColor);
+  text-decoration: underline;
+}
+.img-bg {
+  background: url("../../../../assets/img/logo/sticker-blanc.png") 90% center
+    no-repeat;
+  background-size: contain;
+}
+
+@media only screen and (max-width: 576px) {
+  .img-bg {
+    background: none;
+  }
+}

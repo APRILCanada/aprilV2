@@ -1,0 +1,27 @@
+<div
+  class="
+    container
+    mt-100
+    ptb-100
+    d-flex
+    flex-column
+    justify-content-center
+    align-items-center
+    w-100
+  "
+>
+  <img
+    src="../../../../assets/img/404.svg"
+    alt="404"
+    (load)="loader.loading(false)"
+  />
+  <div
+    class="d-flex flex-column justify-content-center align-items-center w-100"
+  >
+    <h1>Oups!!!</h1>
+    <p class="my-4">{{ "PAGE_NOT_EXIST" | translate }}</p>
+    <button class="btn-april mt-2" routerLink="../">
+      {{ "GO_HOME" | translate }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,142 @@
+<div class="upper-nav" style="height: 45px">
+  <div class="container">
+    <div class="d-flex justify-content-between">
+      <div class="">
+        <ul class="header-left-content d-none d-sm-flex">
+          <!-- <li class="m-0 p-0">
+            <img
+              class="icon"
+              src="../../../../assets/img/icons/phone-white.svg"
+              alt=""
+            />
+            <span data-analytics="UpperNavLinkPhoneNum">{{
+              "PHONE_NUMBER" | translate
+            }}</span>
+          </li> -->
+        </ul>
+      </div>
+      <div class="">
+        <div class="header-right-content">
+          <!-- Language -->
+          <ul class="right-list">
+            <li class="d-none d-lg-inline">
+              <a
+                href="https://april-on.ca/partner"
+                target="_blank"
+                ref="noreferrer noopener"
+                data-analytics="UpperNavLinkBecomePartner"
+                >{{ "BECOME_PARTNER" | translate }}</a
+              >
+            </li>
+            <li class="d-none d-lg-inline">
+              <a routerLink="reclamation" data-analytics="UpperNavLinkClaim">{{
+                "CLAIM" | translate
+              }}</a>
+            </li>
+            <li class="d-none d-lg-inline">
+              <a routerLink="carriere" data-analytics="UpperNavLinkCareer">{{
+                "CAREER" | translate
+              }}</a>
+            </li>
+            <li>
+              <a
+                href="https://april-on.ca"
+                target="_blank"
+                ref="noreferrer noopener"
+                data-analytics="UpperNavLinkAprilOn"
+                >APRIL ON</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://aprilmarine.ca"
+                target="_blank"
+                ref="noreferrer noopener"
+                data-analytics="UpperNavLinkAprilMarine"
+                >APRIL Marine</a
+              >
+            </li>
+            <li class="language-item-top d-none d-lg-inline">
+              <a href="javascript:void(0)" class="language-bar">
+                <span>{{ "LANGUAGE" | translate }}</span>
+                <img
+                  class="icon icon-sm"
+                  src="../../../../assets/img/icons/carret-down.svg"
+                  alt=""
+                />
+              </a>
+              <ul class="language-item-bottom">
+                <li
+                  class="language-item"
+                  click-text="Anglais"
+                  data-analytics="UpperNavLanguage"
+                  (click)="this.language.set('en')"
+                >
+                  <span class="language-link">
+                    <!-- <img src="assets/img/language/english.png" alt="Image"> -->
+                    {{ "ENGLISH" | translate }}
+                  </span>
+                </li>
+                <li
+                  class="language-item"
+                  click-text="Français"
+                  data-analytics="UpperNavLanguage"
+                  (click)="this.language.set('fr')"
+                >
+                  <span class="language-link">
+                    <!-- <img src="assets/img/language/french.png" alt="Image"> -->
+                    {{ "FRENCH" | translate }}
+                  </span>
+                </li>
+              </ul>
+            </li>
+            <li
+              class="d-inline d-lg-none"
+              click-text="Anglais"
+              data-analytics="UpperNavLanguage"
+              (click)="this.language.set('en')"
+            >
+              <span class="">
+                <!-- <img src="assets/img/language/english.png" alt="Image"> -->
+                EN
+              </span>
+            </li>
+            <li
+              class="d-inline d-lg-none"
+              click-text="Français"
+              data-analytics="UpperNavLanguage"
+              (click)="this.language.set('fr')"
+            >
+              <span class="lk">
+                <!-- <img src="assets/img/language/french.png" alt="Image"> -->
+                FR
+              </span>
+            </li>
+            <li class="m-0 p-0 d-none d-sm-inline">
+              <a
+                target="_blank"
+                data-analytics="UpperNavFacebook"
+                href="https://www.facebook.com/AprilCanInc"
+                ><img
+                  class="icon"
+                  src="../../../../assets/img/icons/facebook-white.svg"
+                  alt=""
+              /></a>
+            </li>
+            <li class="m-0 p-0 d-none d-sm-inline">
+              <a
+                target="_blank"
+                data-analytics="UpperNavLinkedIn"
+                href="https://www.linkedin.com/company/april-canada"
+                ><img
+                  class="icon m-0"
+                  src="../../../../assets/img/icons/linkedin-white.svg"
+                  alt=""
+              /></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

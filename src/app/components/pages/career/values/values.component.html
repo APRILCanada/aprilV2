@@ -1,0 +1,37 @@
+<div class="row m-0">
+  <div class="col-lg-6 bg-optional p-0 d-none d-lg-block">
+    <img ixImg [alt]="language.get() == 'fr' ? 'Valeurs' : 'Values'" path="career/valeur.jpg" sizes="100vw" />
+  </div>
+  <div
+    class="col-lg-6 d-flex flex-column justify-content-center p-5 bg-optional"
+  >
+    <div class="p-0 p-sm-5 m-0 m-sm-5">
+      <h2 class="mb-4">{{ "OUR_VALUES" | translate }}</h2>
+      <ngb-accordion activeIds="ngb-panel-0 w-100">
+        <ngb-panel
+          [cardClass]="'bg-optional accordion w-100'"
+          *ngFor="let value of values"
+        >
+          <ng-template ngbPanelTitle>
+            <div
+              class="d-flex justify-content-between w-100 CareerCollapsible"
+              data-analytics="CareerCollapsible"
+              [attr.click-text]="value.fr.title"
+            >
+              <span>{{
+                language.get() == "fr" ? value.fr.title : value.en.title
+              }}</span>
+              <div class="collapse-plus">
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            {{ language.get() == "fr" ? value.fr.desc : value.en.desc }}
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+    </div>
+  </div>
+</div>

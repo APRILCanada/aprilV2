@@ -1,0 +1,92 @@
+<section class="interface-style mt-3 pb-100 pt-200">
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto form-container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a routerLink="/interface/jobs" class="btn btn-secondary px-3">{{ 'BACK' | translate }}</a>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="float-end">
+                            <div class="btn-group "><a routerLink="../../update/{{id}}" class="btn btn-secondary px-3">{{ 'EDIT' | translate }}</a></div>
+                            <button (click)="onDelete()" class="btn btn-danger ml-3">{{ 'DELETE' | translate }}</button>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="form-action my-4" >
+                    <div  class="card">
+                        <h3 class="card-header text-center">{{ this.language.get() == "fr" ? job.fr.title :job.en.title }} - {{ this.language.get() == "fr" ? job.fr.city :job.en.city }}</h3>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    ID: {{job.id}}
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="float-end">{{ 'ONLINE' | translate }}: <span *ngIf="job.isActive == 'isActive'"> {{ 'YES' | translate }}</span><span  *ngIf="job.isActive == 'notActive'"> {{ 'NO' | translate }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <h3>{{ 'FRENCH' | translate }}</h3>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item" *ngIf="job.fr.aprilDesc.title != null">
+                                    <h5>{{ 'PICTURE' | translate}} alt:</h5>
+                                    <p [innerHtml]="job.fr.pictureAlt"></p>
+                                </li>
+                                <li class="list-group-item" *ngIf="job.fr.aprilDesc.title != null || job.fr.aprilDesc.desc != null">
+                                    <h5>{{ job.fr.aprilDesc.title }}</h5>
+                                    <p [innerHtml]="job.fr.aprilDesc.desc"></p>
+                                </li>
+                                <li class="list-group-item" *ngIf="job.fr.jobSummary.title != null || job.fr.jobSummary.desc != null">
+                                    <h5>{{ job.fr.jobSummary.title }}</h5>
+                                    <p [innerHtml]="job.fr.jobSummary.desc"></p>
+                                </li>
+                                <li class="list-group-item" *ngIf="job.fr.requirement.title != null || job.fr.requirement.desc != null">
+                                    <h5>{{ job.fr.requirement.title }}</h5>
+                                    <p [innerHtml]="job.fr.requirement.desc"></p>
+                                </li>
+                                <li class="list-group-item" *ngIf="job.fr.skills.title != null || job.fr.skills.desc != null">
+                                    <h5>{{ job.fr.skills.title }}</h5>
+                                    <p [innerHtml]="job.fr.skills.desc"></p>
+                                </li> <li class="list-group-item" *ngIf="job.fr.aprilAdvantages.title != null || job.fr.aprilAdvantages.desc != null">
+                                    <h5>{{ job.fr.aprilAdvantages.title }}</h5>
+                                    <p [innerHtml]="job.fr.aprilAdvantages.desc"></p>
+                                </li>
+                            </ul>
+
+                            <h3>{{ 'ENGLISH' | translate }}</h3>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item" *ngIf="job.en.aprilDesc.title != null">
+                                    <h5>{{ 'PICTURE' | translate}} alt:</h5>
+                                    <p [innerHtml]="job.en.pictureAlt"></p>
+                                </li>
+                                <li class="list-group-item" *ngIf="job.en.aprilDesc.title != null || job.en.aprilDesc.desc != null">
+                                    <h5>{{ job.en.aprilDesc.title }}</h5>
+                                    <p [innerHtml]="job.en.aprilDesc.desc"></p>
+                                </li>
+                                <li class="list-group-item" *ngIf="job.en.jobSummary.title != null || job.en.jobSummary.desc != null">
+                                    <h5>{{ job.en.jobSummary.title }}</h5>
+                                    <p [innerHtml]="job.en.jobSummary.desc"></p>
+                                </li>
+                                <li class="list-group-item" *ngIf="job.en.requirement.title != null || job.en.requirement.desc != null">
+                                    <h5>{{ job.en.requirement.title }}</h5>
+                                    <p [innerHtml]="job.en.requirement.desc"></p>
+                                </li>
+                                <li class="list-group-item" *ngIf="job.en.skills.title != null || job.en.skills.desc != null">
+                                    <h5>{{ job.en.skills.title }}</h5>
+                                    <p [innerHtml]="job.en.skills.desc"></p>
+                                </li> <li class="list-group-item" *ngIf="job.en.aprilAdvantages.title != null || job.en.aprilAdvantages.desc != null">
+                                    <h5>{{ job.en.aprilAdvantages.title }}</h5>
+                                    <p [innerHtml]="job.en.aprilAdvantages.desc"></p>
+                                </li>
+                            </ul>
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

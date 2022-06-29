@@ -1,0 +1,38 @@
+.carousel{
+    transform: translateY(-60%);
+}
+
+
+.nav-btn{
+    color: var(--mainColor)!important;
+}
+
+.carousel-icon{
+    height:70px;
+    width: auto;
+}
+
+.slide{
+    background: var(--whiteColor);
+    box-shadow: var(--darkShadow);
+    margin: 5%;
+    width: 90%;
+	padding-top: 90%;
+    position: relative;
+    transition: var(--transition);
+
+    div{
+        position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+    }
+
+    &:hover{
+        border-radius: 50%;
+    }
+}
+
+h2{
+    font-size: 30px !important;
+}

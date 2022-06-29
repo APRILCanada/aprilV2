@@ -1,0 +1,100 @@
+<section class="interface-style mt-3 pb-100  pt-200">
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto form-container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a routerLink="/interface/articles" class="btn btn-secondary px-3">{{ 'BACK' | translate }}</a>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="float-end">
+                            <div class="btn-group "><a routerLink="../../update/{{id}}" class="btn btn-secondary px-3">{{ 'EDIT' | translate }}</a></div>
+                            <button (click)="onDelete()" class="btn btn-danger ml-3">{{ 'DELETE' | translate }}</button>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="form-action my-4" >
+                    <div  class="card">
+                        <h2 class="card-header text-center">{{ 'ARTICLE_DETAILS' | translate }}</h2>
+                        <div class="card-body">
+                            <h3 class="mt-1">Introduction</h3>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="">{{ 'ONLINE' | translate }}: <span *ngIf="article.isActive == 'isActive'"> {{ 'YES' | translate }}</span><span  *ngIf="article.isActive == 'notActive'"> {{ 'NO' | translate }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="float-end">{{ 'IS_FEATURED' | translate }}: <span *ngIf="article.isFeatured == 'isFeatured'"> {{ 'YES' | translate }}</span><span  *ngIf="article.isFeatured == 'notFeatured'"> {{ 'NO' | translate }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="list-group">
+                                <li class="list-group-item" >Id: {{ article.id }}</li>
+                                <li class="list-group-item" >{{ 'MAIN_IMG' | translate }}: {{ article.mainImg }}</li>
+                                <li class="list-group-item">{{ 'SMALL_IMG' | translate }}: {{ article.smallImg }}</li>
+                                <li class="list-group-item">
+                                    {{ 'DATE' | translate}} 
+                                    <div>
+                                        <span *ngIf="article.date?.day<10">0</span>{{ article?.date?.day}} - <span *ngIf="article?.date?.month<10">0</span>{{ article.date?.month}} - {{ article.date?.year}}
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    {{ 'TAGS' | translate}}
+                                    <div [innerHtml]="article.tags"></div>
+                                </li>
+                            </ul>
+                            <h3 class="mt-4">{{ 'FRENCH' | translate }}</h3>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    {{ 'TITLE' | translate}}
+                                    <div [innerHtml]="article.fr.title"></div>
+                                </li>
+                                <li class="list-group-item">
+                                    {{ 'BRIEF' | translate}}
+                                    <div [innerHtml]="article.fr.brief"></div>
+                                </li>
+                                <li class="list-group-item" >{{ 'MAIN_IMG' | translate }}: {{ article.fr.mainImgAlt }}</li>
+                                <li class="list-group-item">{{ 'SMALL_IMG' | translate }}: {{ article.fr.smallImgAlt }}</li>
+                                <li *ngFor="let p of article.fr.paragraphs; let i = index" class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-md-8" [innerHtml]="article.fr.paragraphs[i].title"></div>
+                                        <div class="col-md-4">
+                                            <div class="float-end">{{ article.fr.paragraphs[i].order }}</div>
+                                        </div>
+                                    </div>
+                                    <div [innerHtml]="article.fr.paragraphs[i].desc"></div>
+                                </li>
+                            </ul>
+
+                            <h3 class="mt-4">{{ 'ENGLISH' | translate }}</h3>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    {{ 'TITLE' | translate}}
+                                    <div [innerHtml]="article.en.title"></div>
+                                </li>
+                                <li class="list-group-item">
+                                    {{ 'BRIEF' | translate}}
+                                    <div [innerHtml]="article.en.brief"></div>
+                                </li>
+                                <li class="list-group-item" >{{ 'MAIN_IMG' | translate }}: {{ article.en.mainImgAlt }}</li>
+                                <li class="list-group-item">{{ 'SMALL_IMG' | translate }}: {{ article.en.smallImgAlt }}</li>
+                                <li *ngFor="let p of article.en.paragraphs; let i = index" class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-md-8" [innerHtml]="article.en.paragraphs[i].title"></div>
+                                        <div class="col-md-4">
+                                            <div class="float-end">{{ article.en.paragraphs[i].order }}</div>
+                                        </div>
+                                    </div>
+                                    <div [innerHtml]="article.en.paragraphs[i].desc"></div>
+                                </li>
+                            </ul>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

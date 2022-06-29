@@ -1,0 +1,33 @@
+<div class="row m-0">
+  <div class="
+      col-lg-6
+      d-flex
+      flex-column
+      justify-content-center
+      p-0 p-sm-5
+      px-lg-3
+      p-xl-5
+      my-5
+    ">
+    <h2 class="mb-4 px-5">{{ "APRIL_LIFE" | translate }}</h2>
+    <ul class="px-5">
+      <li class="ms-3 mb-3">{{ "VALUE_ONE" | translate }}</li>
+      <li class="ms-3 mb-3">{{ "VALUE_TWO" | translate }}</li>
+      <li class="ms-3 mb-3">{{ "VALUE_THREE" | translate }}</li>
+      <li class="ms-3 mb-3">{{ "VALUE_FOUR" | translate }}</li>
+      <li class="ms-3">{{ "VALUE_FIVE" | translate }}</li>
+    </ul>
+  </div>
+  <div class="
+      col-lg-6
+      p-0
+      bg-grey
+      d-none d-lg-flex
+      justify-content-center
+      align-items-center
+      img-fluid
+    ">
+
+    <img ixImg [alt]="language.get() == 'fr' ? 'Valeurs' : 'Values'" path="career/equipe.jpg" sizes="100vw" />
+  </div>
+</div>

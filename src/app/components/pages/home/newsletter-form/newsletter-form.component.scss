@@ -1,0 +1,42 @@
+h2 {
+  font-size: 30px !important;
+}
+
+.background {
+  height: 50%;
+  width: 100%;
+  background-color: var(--greyColor);
+  position: absolute;
+  top: 50%;
+}
+.newsletter {
+  margin-top: 40px;
+  background: var(--optionalColor);
+  position: relative;
+}
+
+.newsletter-icon {
+  height: 175px;
+}
+.sticker {
+  position: absolute;
+  top: 0;
+  right: 10%;
+  transform: translateY(-90%);
+  height: 180px;
+  width: auto;
+}
+form {
+  .form-control {
+    background-color: var(--whiteColor);
+  }
+  .btn-april {
+    background: transparent;
+    border: 1px solid var(--whiteColor);
+
+    &:hover {
+      background: var(--whiteColor);
+      color: var(--optionalColor);
+    }
+  }
+}

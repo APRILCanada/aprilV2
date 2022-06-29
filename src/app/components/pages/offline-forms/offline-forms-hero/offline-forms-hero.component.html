@@ -1,0 +1,33 @@
+<div class="bg-green pt-200 pb-3">
+  <div class="container bg-hero">
+    <div
+      class="
+        px-3
+        float-end
+        hero-height
+        d-flex
+        flex-column
+        justify-content-center
+        text-end
+        pt-100
+      "
+    >
+      <h1 class="mb-4">{{ "OFFLINE_FORMS" | translate }}</h1>
+      <div>
+        <p class="text-align-right float-end mb-4">
+          {{ "OFFLINE_FORMS_DETAILS" | translate }}
+        </p>
+      </div>
+      <div>
+        <button
+          (click)="scrollToBottom()"
+          class="float-end btn-april btn-april-white-green"
+          data-analytics="FormsList"
+          click-text="Voir les formulaires"
+        >
+          {{ "SEE_FORMS" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

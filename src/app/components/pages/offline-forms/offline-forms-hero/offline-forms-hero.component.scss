@@ -1,0 +1,22 @@
+h1{
+    color: var(--whiteColor);
+    font-size: 50px !important;
+}
+
+p{
+    max-width: 600px;
+    color: var(--whiteColor);
+    font-size: 20px;
+}
+
+.bg-hero{
+    min-height: 700px;
+    background-image: url(../../../../../assets/img/offline-forms/hero.png);
+    background-repeat: no-repeat;
+    background-position: 0  0;
+    background-size: 65%;
+}
+
+.hero-height{
+    height: 520px;
+}

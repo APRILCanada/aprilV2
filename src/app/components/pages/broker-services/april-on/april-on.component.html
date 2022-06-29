@@ -1,0 +1,77 @@
+<div class="row m-0 short">
+  <div class="
+      col-lg-6
+      bg-optional
+      p-5
+      d-flex
+      flex-column
+      justify-content-center
+      align-items-center
+      short
+    ">
+    <div class="
+        px-xl-5
+        py-5
+        mx-xxl-5
+        d-flex
+        flex-column
+        justify-content-center
+        align-items-center
+      ">
+      <h2 class="mb-5 txt-white text-start smaller-title">
+        {{ "INNOVATION_AT_HEART" | translate }}
+      </h2>
+      <p class="mb-5 smaller-text">
+        {{ "INNOVATION_AT_HEART_DETAILS" | translate }}
+      </p>
+      <a href="https://april-on.ca" target="_blank" rel="noopener noreferrer">
+        <button class="btn-april btn-april-grey" click-text="Découvrir APRIL ON" data-analytics="ServicesCTA">
+          {{ "DISCOVER_APRIL_ON" | translate }}
+        </button>
+      </a>
+    </div>
+  </div>
+  <div class="d-none col-lg-6 p-0 d-lg-block video-wrapper short">
+    <div class="play-btn" (click)="toggleVideo($event)">
+      <img class="icon icon-xl" src="../../../../../assets/img/icons/play.svg" alt="" #videoBtn />
+    </div>
+    <div class="play-overlay d-flex align-items-center justify-content-center" #videoOverlay>
+      <img ixImg [alt]="language.get() == 'fr' ? 'Valeurs' : 'Values'" path="{{this.language.get() == 'fr'
+      ? 'services/movie_img_fr.JPG' : 'services/movie_img_en.JPG'}}" sizes="100vw" />
+    </div>
+    <video (click)="toggleVideo($event)" #videoPlayer>
+      <source [src]="
+          this.language.get() == 'fr'
+            ? '../../../../../assets/APRIL_ON_FR.mp4'
+            : '../../../../../assets/APRIL_ON_EN.mp4'
+        " type="video/mp4" />
+      Sorry, your browser doesn't support embedded videos.
+    </video>
+  </div>
+</div>
+<div class="row m-0">
+  <div class="col-lg-6 p-5">
+    <div class="d-flex justify-content-center align-items-center">
+      <img ixImg path="services/equipe.png" sizes="100vw" />
+    </div>
+  </div>
+  <div class="col-lg-6 p-0 bg-grey py-5">
+    <div class="
+        px-xl-5
+        py-5
+        mx-xxl-5
+        d-flex
+        flex-column
+        justify-content-center
+        align-items-center
+        h-100
+      ">
+      <h2 class="my-5 mx-3">{{ "TEAM_UP" | translate }}</h2>
+      <a href="https://april-on.ca/partner" target="_blank" ref="noreferrer noopener">
+        <button class="btn-april btn-april-green" click-text="Devenir partenaire" data-analytics="ServicesCTA">
+          {{ "BECOME_PARTNER" | translate }}
+        </button>
+      </a>
+    </div>
+  </div>
+</div>

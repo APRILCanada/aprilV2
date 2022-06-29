@@ -1,0 +1,430 @@
+<!-- Start User Area -->
+<section class="interface-style pb-100 pt-200">
+  <div class="container">
+    <div class="mx-auto form-container">
+      <div class="row">
+        <div class="col">
+          <a
+            routerLink="/interface/products"
+            class="btn btn-secondary px-3 mb-3"
+            >{{ "BACK" | translate }}</a
+          >
+        </div>
+      </div>
+      <!-- Progress Bar -->
+      <div class="progress-bar-wrapper my-5">
+        <div class="bar-background">
+          <div class="bar-progress" [ngStyle]="{ width: progress + '%' }"></div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <button
+            class="btn-progress-1 completed"
+            (click)="completeIntro()"
+            [ngClass]="{ completed: introCompleted }"
+          >
+            <h4 class="bar-title-1 text-center">Introduction</h4>
+          </button>
+          <button
+            class="btn-progress-2"
+            (click)="completeFr()"
+            [ngClass]="{ completed: frCompleted }"
+          >
+            <h4 class="bar-title-2 text-center">
+              {{ "FRENCH" | translate }} &nbsp;
+            </h4>
+          </button>
+          <button
+            class="btn-progress-3"
+            (click)="completeEn()"
+            [ngClass]="{ completed: enCompleted }"
+          >
+            <h4 class="bar-title-3 text-center">{{ "ENGLISH" | translate }}</h4>
+          </button>
+        </div>
+      </div>
+
+      <!-- Formulaires -->
+      <div class="form-action my-5">
+        <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+          <div class="form-title">
+            <h2>{{ "CREATE_PRODUCT_FORM" | translate }}</h2>
+          </div>
+
+          <!-- SECTION INTRO -->
+          <div class="section-wrapper" *ngIf="sectionIntro">
+            <h3>Introduction</h3>
+            <div class="form-group">
+              <label>Niche:</label>
+              <div class="">
+                <ngx-bootstrap-multiselect
+                  [options]="niches"
+                  formControlName="parent"
+                  [(ngModel)]="nichesModel"
+                ></ngx-bootstrap-multiselect>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Provinces:</label>
+              <div class="">
+                <ngx-bootstrap-multiselect
+                  [options]="provinces"
+                  formControlName="provinces"
+                  [(ngModel)]="provincesModel"
+                ></ngx-bootstrap-multiselect>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>{{ "IS_ACTIVE" | translate }}:</label>
+              <div
+                class="btn-group-toggle"
+                ngbRadioGroup
+                formControlName="isActive"
+                ngDefaultControl
+              >
+                <label ngbButtonLabel class="btn-primary px-4">
+                  <input ngbButton type="radio" value="isActive" /><span>{{
+                    "YES" | translate
+                  }}</span>
+                </label>
+                <label ngbButtonLabel class="btn-primary px-4 ms-4">
+                  <input ngbButton type="radio" value="notActive" /><span>{{
+                    "NO" | translate
+                  }}</span>
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Id:</label>
+              <input class="form-control" type="text" formControlName="id" />
+            </div>
+            <div class="form-group">
+              <label>{{ "MAIN_IMG" | translate }}:</label>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="mainImg"
+              />
+            </div>
+            <div class="form-group">
+              <label>{{ "COVERAGE_IMG" | translate }}:</label>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="coverageImg"
+              />
+            </div>
+            <div class="form-group">
+              <label>{{ "UNDERWRITING_IMG" | translate }}:</label>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="underwritingImg"
+              />
+            </div>
+          </div>
+          <!-- SECTION FR -->
+          <div class="section-wrapper" *ngIf="sectionFr" formGroupName="fr">
+            <h3>{{ "FRENCH" | translate }}</h3>
+            <div class="form-group">
+              <label>{{ "PRODUCT_TITLE" | translate }}*:</label>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="title"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label>{{ "DESCRIPTION" | translate }}:</label>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="desc"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label>{{ "TARGET" | translate }}:</label>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="target"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label>{{ "COVERAGE" | translate }}:</label>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="coverage"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label>{{ "UNDERWRITING_NORMS" | translate }}:</label>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="underwriting"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label>{{ "MAIN_IMG" | translate }} alt:</label>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="mainImgAlt"
+              />
+            </div>
+            <div class="form-group">
+              <label>{{ "COVERAGE_IMG" | translate }} alt:</label>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="coverageImgAlt"
+              />
+            </div>
+            <div class="form-group">
+              <label>{{ "UNDERWRITING_IMG" | translate }} alt:</label>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="underwritingImgAlt"
+              />
+            </div>
+          </div>
+
+          <!-- SECTION EN -->
+          <div class="section-wrapper" *ngIf="sectionEn" formGroupName="en">
+            <h3>{{ "ENGLISH" | translate }}</h3>
+            <div class="form-group">
+              <label>{{ "PRODUCT_TITLE" | translate }}:</label>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="title"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label>{{ "DESCRIPTION" | translate }}:</label>
+              <textarea class="form-control" type="text" formControlName="desc">
+              </textarea>
+            </div>
+            <div class="form-group">
+              <label>{{ "TARGET" | translate }}:</label>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="target"
+              >
+              </textarea>
+            </div>
+            <div class="form-group">
+              <label>{{ "COVERAGE" | translate }}:</label>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="coverage"
+              >
+              </textarea>
+            </div>
+            <div class="form-group">
+              <label>{{ "UNDERWRITING_NORMS" | translate }}:</label>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="underwriting"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label>{{ "MAIN_IMG" | translate }} alt:</label>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="mainImgAlt"
+              />
+            </div>
+            <div class="form-group">
+              <label>{{ "COVERAGE_IMG" | translate }} alt:</label>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="coverageImgAlt"
+              />
+            </div>
+            <div class="form-group">
+              <label>{{ "UNDERWRITING_IMG" | translate }} alt:</label>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="underwritingImgAlt"
+              />
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="row align-items-center mt-5 mb-3">
+            <div class="col-lg-6 col-sm-6">
+              <button
+                style="min-width: 150px"
+                *ngIf="sectionEn == true || sectionFr == true"
+                class="default-btn register"
+                (click)="previous()"
+                type="button"
+              >
+                {{ "PREV" | translate }}
+              </button>
+            </div>
+            <div class="col-lg-6 col-sm-6">
+              <button
+                style="min-width: 150px"
+                *ngIf="sectionIntro == true"
+                class="default-btn register float-end"
+                (click)="next()"
+                type="button"
+              >
+                {{ "NEXT" | translate }}
+              </button>
+              <button
+                style="min-width: 150px"
+                [disabled]="!productForm.get('fr')?.valid"
+                *ngIf="sectionFr == true"
+                class="default-btn register float-end"
+                (click)="next()"
+                type="button"
+              >
+                {{ "NEXT" | translate }}
+              </button>
+              <button
+                style="min-width: 150px"
+                [disabled]="!productForm.get('en')?.valid"
+                *ngIf="sectionEn == true"
+                class="default-btn register float-end"
+                type="button"
+                (click)="openModal(confirmProduct)"
+              >
+                {{ "CONFIRM" | translate }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End User Area -->
+<!-- Modal -->
+<ng-template #confirmProduct let-modal>
+  <div class="modal-header">
+    <h3 class="modal-title">{{ "CONFIRM_INFORMATION" | translate }}</h3>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="m-2">{{ "CONFIRM_DETAILS" | translate }}</p>
+    <hr />
+    <h5 class="mt-3">{{ "INTRODUCTION" | translate }}</h5>
+    <ul class="list-group">
+      <li class="list-group-item">Niche: {{ productForm.value.parent }}</li>
+      <li class="list-group-item">
+        Provinces: {{ productForm.value.provinces }}
+      </li>
+      <li class="list-group-item">
+        {{ "IS_ACTIVE" | translate }} :
+        <span *ngIf="productForm.value.isActive == 'isActive'">{{
+          "YES" | translate
+        }}</span>
+        <span *ngIf="productForm.value.isActive == 'notActive'">{{
+          "NO" | translate
+        }}</span>
+      </li>
+      <li class="list-group-item">Id: {{ productForm.value.id }}</li>
+      <li class="list-group-item">
+        {{ "MAIN_IMG" | translate }}: {{ productForm.value.mainImg }}
+      </li>
+      <li class="list-group-item">
+        {{ "COVERAGE_IMG" | translate }}: {{ productForm.value.coverageImg }}
+      </li>
+      <li class="list-group-item">
+        {{ "UNDERWRITING_IMG" | translate }}:
+        {{ productForm.value.underwritingImg }}
+      </li>
+    </ul>
+    <h5 class="mt-3">{{ "FRENCH" | translate }}</h5>
+    <ul class="list-group">
+      <li class="list-group-item">
+        {{ "TITLE" | translate }}
+        <div [innerHtml]="productForm.value.fr.title"></div>
+      </li>
+      <li class="list-group-item">
+        {{ "DESCRIPTION" | translate }}
+        <div [innerHtml]="productForm.value.fr.desc"></div>
+      </li>
+      <li class="list-group-item">
+        {{ "TARGET" | translate }}
+        <div [innerHtml]="productForm.value.fr.target"></div>
+      </li>
+      <li class="list-group-item">
+        {{ "COVERAGE" | translate }}
+        <div [innerHtml]="productForm.value.fr.coverage"></div>
+      </li>
+      <li class="list-group-item">
+        {{ "UNDERWRITING_NORMS" | translate }}
+        <div [innerHtml]="productForm.value.fr.underwriting"></div>
+      </li>
+      <li class="list-group-item">
+        {{ "MAIN_IMG" | translate }} alt: {{ productForm.value.fr.mainImgAlt }}
+      </li>
+      <li class="list-group-item">
+        {{ "COVERAGE_IMG" | translate }} alt:
+        {{ productForm.value.fr.coverageImgAlt }}
+      </li>
+      <li class="list-group-item">
+        {{ "UNDERWRITING_IMG" | translate }} alt:
+        {{ productForm.value.fr.underwritingImgAlt }}
+      </li>
+    </ul>
+    <h5 class="mt-3">{{ "ENGLISH" | translate }}</h5>
+    <ul class="list-group">
+      <li class="list-group-item">
+        {{ "TITLE" | translate }}
+        <div [innerHtml]="productForm.value.en.title"></div>
+      </li>
+      <li class="list-group-item">
+        {{ "DESCRIPTION" | translate }}
+        <div [innerHtml]="productForm.value.en.desc"></div>
+      </li>
+      <li class="list-group-item">
+        {{ "TARGET" | translate }}
+        <div [innerHtml]="productForm.value.en.target"></div>
+      </li>
+      <li class="list-group-item">
+        {{ "COVERAGE" | translate }}
+        <div [innerHtml]="productForm.value.en.coverage"></div>
+      </li>
+      <li class="list-group-item">
+        {{ "UNDERWRITING_NORMS" | translate }}
+        <div [innerHtml]="productForm.value.en.underwriting"></div>
+      </li>
+      <li class="list-group-item">
+        {{ "MAIN_IMG" | translate }} alt: {{ productForm.value.en.mainImgAlt }}
+      </li>
+      <li class="list-group-item">
+        {{ "COVERAGE_IMG" | translate }} alt:
+        {{ productForm.value.en.coverageImgAlt }}
+      </li>
+      <li class="list-group-item">
+        {{ "UNDERWRITING_IMG" | translate }} alt:
+        {{ productForm.value.en.underwritingImgAlt }}
+      </li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" ngbAutofocus (click)="send()">
+      {{ "SEND" | translate }}
+    </button>
+  </div>
+</ng-template>

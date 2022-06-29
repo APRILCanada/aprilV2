@@ -1,0 +1,24 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, max-content));
+  gap: 0.75rem;
+}
+
+.button-select > span {
+  word-wrap: break-word;
+}
+
+.mat-dialog-content {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+mat-form-field {
+  width: 100%;
+}

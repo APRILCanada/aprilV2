@@ -1,0 +1,76 @@
+<div class="overlay" [ngClass]="{ show: mobile.getState() }" id="overlay">
+  <div
+    class="mobile-wrapper d-flex flex-column justify-content-between align-items-center"
+    [ngClass]="{ show: mobile.getState() }"
+  >
+    <span class="logo-placeholder"></span>
+    <ul class="d-flex flex-column align-items-center mobile-links">
+      <!-- <ng-container *ngFor="let item of menu">
+        <li [ngClass]="{ ' dropdown': item.en?.dropdown }" *ngIf="!item.lang">
+          <a
+            (click)="scrollToSection(item.en?.title)"
+            *ngIf="!item.en.dropdown"
+            [attr.data-analytics]="'MainNav' + item.en?.title"
+            class="text-center w-100 d-block"
+          >
+            {{ language.get() === "fr" ? item.fr?.title : item.en?.title }}</a
+          >
+          <a
+            *ngIf="item.en.dropdown"
+            class="dropdown-toggle"
+            (click)="item.dropped = !item.dropped"
+            >{{ language.get() === "fr" ? item.fr?.title : item.en?.title }}
+          </a>
+          <ul class="dropdown-mobile" [ngClass]="{ 'dropped ': item.dropped }">
+            <ng-container *ngIf="language.get() === 'en'">
+              <li *ngFor="let subItem of item.en.dropdown">
+                <a
+                  class="dropdown-item"
+                  [routerLink]="item.en.link + subItem.link"
+                  [attr.data-analytics]="'MainNav' + subItem.link"
+                  >{{ subItem.title }}</a
+                >
+              </li>
+            </ng-container>
+            <ng-container *ngIf="language.get() === 'fr'">
+              <li *ngFor="let subItem of item.fr.dropdown">
+                <a
+                  class="dropdown-item"
+                  [routerLink]="item.fr.link + subItem.link"
+                  [attr.data-analytics]="'MainNav' + subItem.link"
+                  >{{ subItem.title }}</a
+                >
+              </li>
+            </ng-container>
+          </ul>
+        </li>
+      </ng-container> -->
+    </ul>
+    <div class="footer">
+      <div class="socials">
+        <ul class="d-flex justify-content-around align-items-center">
+          <li *ngFor="let social of socials">
+            <a
+              [href]="social.url"
+              target="_blank"
+              ref="noreferrer noopener"
+              [attr.data-analytics]="'MainNav' + social.name"
+            >
+              <img
+                class="icons"
+                [src]="'../../../assets/img/icons/' + social.name + '.svg'"
+                (mouseover)="social.name = social.name + '-main'"
+                (mouseout)="
+                  social.name = social.name.substring(0, social.name.length - 5)
+                "
+                [alt]="social.name"
+            /></a>
+          </li>
+        </ul>
+      </div>
+      <div class="copyrights">
+        © APRIL Canada {{ year }}. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</div>

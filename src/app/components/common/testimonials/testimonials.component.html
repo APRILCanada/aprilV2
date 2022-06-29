@@ -1,0 +1,38 @@
+<!-- Start Testimonials Area -->
+<section
+  class="testimonials-area"
+  [ngClass]="router.url === '/' ? 'pb-100  move' : ' ptb-100 bg-grey'"
+>
+  <div class="container" [ngClass]="router.url === '/' ? 'pb-100' : ''">
+    <div class="section-title">
+      <h2 class="pb-5">{{ "WHAT_BROKER_SAY" | translate }}:</h2>
+    </div>
+
+    <div class="testimonials" #owlParent>
+      <div class="testimonials-slider">
+        <owl-carousel-o [options]="testimonialsSliderOptions">
+          <ng-template
+            carouselSlide
+            *ngFor="let testimonial_item of testimonials"
+          >
+            <div
+              class="testimonials-item d-flex flex-column align-items-center"
+            >
+          <img ixImg src="https://april.imgix.net/a-propos/{{testimonial_item.img}}?auto=format" alt="Image" />
+              <p>“ {{ testimonial_item.text | translate }} ”</p>
+              <h3>{{ testimonial_item.name }}</h3>
+              <span>{{ testimonial_item.title | translate }}</span>
+
+              <!--
+                <img src="../../../../assets/img/a-propos/adam.png" alt="Image" />
+                <p>“ {{ "ADAM_TEXT" | translate }} ”</p>
+                <h3>Adam Ray</h3>
+                <span>{{ "ADAM_TITLE" | translate }}</span>
+              -->
+            </div>
+          </ng-template>
+        </owl-carousel-o>
+      </div>
+    </div>
+  </div>
+</section>

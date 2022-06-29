@@ -1,0 +1,237 @@
+<div id="send-form m-3">
+  <div class="contact-form my-5 py-4 px-1 ps-2 ms-lg-5 ps-lg-4">
+    <div class="d-flex align-items-center">
+      <img
+        src="../../../../assets/img/icons/title-bar.svg"
+        class="pt-2 pe-2 title-bar d-none d-sm-block"
+        alt="title bar"
+      />
+      <h3 class="mb-2">{{ "GET_QUOTE" | translate }}</h3>
+    </div>
+    <form [formGroup]="flashForm" (ngSubmit)="onSubmit()">
+      <div class="row px-2 px-md-5 pt-2">
+        <div class="col-12 pb-4">
+          <div class="mb-2">
+            {{ language.get() == "fr" ? "Nom complet" : "Full Name" }}
+          </div>
+          <input
+            type="text"
+            class="form-control grey-input no-border"
+            formControlName="fullName"
+          />
+        </div>
+        <!-- <div class="col-12 pb-4">
+          <div class="mb-2">
+            {{
+              language.get() == "fr" ? "Nom de la compagnie" : "Company Name"
+            }}
+          </div>
+          <input
+            type="text"
+            class="form-control grey-input no-border"
+            formControlName="companyName"
+          />
+        </div> -->
+        <div class="col-12 pb-4">
+          <div class="mb-2">
+            {{ language.get() == "fr" ? "Courriel" : "Email" }}
+          </div>
+          <input
+            type="text"
+            class="form-control grey-input no-border"
+            formControlName="email"
+          />
+          <span
+            *ngIf="
+              !flashForm.get('email')?.valid && flashForm.get('email')?.touched
+            "
+            class=""
+            >**{{ "INVALID_EMAIL" | translate }}</span
+          >
+        </div>
+        <div class="col-12 pb-4">
+          <div class="mb-2">
+            {{
+              language.get() == "fr" ? "Numéro de téléphone" : "Phone Number"
+            }}
+          </div>
+          <input
+            type="text"
+            class="form-control grey-input no-border"
+            formControlName="phoneNumber"
+            mask="(000) 000-0000"
+          />
+          <span
+            *ngIf="
+              !flashForm.get('phoneNumber')?.valid &&
+              flashForm.get('phoneNumber')?.touched
+            "
+            class=""
+            >**{{ "INVALID_PHONE" | translate }}</span
+          >
+        </div>
+        <div class="col-12 pb-4">
+          <div class="mb-2">
+            {{
+              language.get() == "fr"
+                ? "Quel est votre activité principale ?"
+                : "What is your principal activity?"
+            }}
+          </div>
+          <div #mainActivity>
+            <ngx-bootstrap-multiselect
+              class="form-control p-0 no-border w-100"
+              [options]="this.language.get() == 'fr' ? activityFr : activityEn"
+              formControlName="risk"
+              [texts]="
+                this.language.get() == 'fr' ? textActivityFr : textActivityEn
+              "
+              [settings]="settingsLong"
+            ></ngx-bootstrap-multiselect>
+          </div>
+        </div>
+
+        <!-- <div class="col-12 pb-4">
+          <div class="mb-2">
+            {{
+              language.get() == "fr"
+                ? "Limite de responsabilité civile"
+                : "Liability Limit"
+            }}
+          </div>
+          <ngx-bootstrap-multiselect
+            class="form-control p-0 no-border"
+            [options]="this.language.get() == 'fr' ? limitFr : limitEn"
+            formControlName="limit"
+            [texts]="
+              this.language.get() == 'fr' ? textActivityFr : textActivityEn
+            "
+            [settings]="settings"
+          ></ngx-bootstrap-multiselect>
+        </div> -->
+
+        <div class="col-12 pb-4">
+          <div class="mb-2">
+            {{
+              language.get() == "fr"
+                ? "Chiffre d'affaires annuel"
+                : "Annual revenue"
+            }}
+          </div>
+          <ng-container *ngIf="language.get() === 'fr'">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="revenue"
+              suffix=" $"
+              mask="0*"
+            />
+          </ng-container>
+          <ng-container *ngIf="language.get() === 'en'">
+            <input
+              type="text"
+              class="form-control grey-input no-border"
+              formControlName="revenue"
+              prefix="$ "
+              mask="0*"
+            />
+          </ng-container>
+        </div>
+        <div class="col-12 pb-4">
+          <div class="mb-2">
+            {{
+              language.get() == "fr"
+                ? "Années d'expérience continue dans ce type d’activité"
+                : "Number of years of experience"
+            }}
+          </div>
+          <input
+            type="number"
+            class="form-control grey-input no-border"
+            formControlName="yExperience"
+          />
+        </div>
+        <!-- <div class="col-12 pb-4">
+          <div class="mb-2">
+            {{
+              language.get() == "fr"
+                ? "Années en affaires"
+                : "Number of years in business"
+            }}
+          </div>
+          <input
+            type="number"
+            class="form-control grey-input no-border"
+            formControlName="yBusiness"
+          />
+        </div> -->
+        <!-- <div class="col-12 pb-4">
+          <div class="mb-2">
+            {{
+              language.get() == "fr"
+                ? "Informations additionnelles (optionnel)"
+                : "Additional information (optional)"
+            }}
+          </div>
+          <textarea
+            rows="5"
+            class="form-control grey-input no-border"
+            formControlName="message"
+          ></textarea>
+        </div> -->
+      </div>
+      <div class="col-12 d-flex ps-sm-5">
+        <div
+          class="ms-auto"
+          *ngIf="!flashForm.valid && flashForm.touched"
+          class=""
+        >
+          **{{ "REQUIRED_FIELDS_OPTIONAL" | translate }}
+        </div>
+      </div>
+      <div
+        class="px-2 px-md-5 pt-3 mb-4 d-block d-sm-flex justify-content-between align-items-center"
+      >
+        <div></div>
+
+        <button
+          [disabled]="!flashForm.valid || !flashForm.dirty"
+          class="btn-april mt-4 mt-sm-0"
+          (click)="openModal(confirmContact)"
+          click-text="Envoyez"
+          data-analytics="DirectForm"
+        >
+          {{ "SEND" | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal -->
+<ng-template #confirmContact let-modal>
+  <div class="modal-header d-flex justify-content-center align-items-center">
+    <h2 class="modal-title m-0">{{ "THANK_YOU" | translate }}</h2>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true"
+        ><img
+          class="icon"
+          src="../../../../../assets/img/icons/close.svg"
+          alt=""
+      /></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="m-2 mx-3">{{ "CONTACT_FORM_DETAILS" | translate }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn-april btn-april-white" (click)="close()">
+      {{ "CLOSE" | translate }}
+    </button>
+  </div>
+</ng-template>

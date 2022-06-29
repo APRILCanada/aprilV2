@@ -1,0 +1,21 @@
+<div class="pt-200">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 ps-md-5 pb-5">
+        <img ixImg (load)="loader.loading(false)" [alt]="language.get() == 'fr' ? 'Travailleurs' : 'Workers'"
+          path="a-propos/hero.png" 
+          sizes="100vw" />
+      </div>
+      <div
+        class="col-lg-6 d-flex flex-column justify-content-center pe-md-5 pb-5"
+      >
+        <h1>{{ "SLOGAN" | translate }}</h1>
+        <div class="my-5">
+          <p>{{ "ABOUT_ONE" | translate }}</p>
+          <p>{{ "ABOUT_TWO" | translate }}</p>
+          <p>{{ "ABOUT_THREE" | translate }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

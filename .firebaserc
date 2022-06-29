@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "april-canada-c5f17": {
+      "hosting": {
+        "april": [
+          "april-canada-c5f17"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "april-canada-c5f17"
+  }
+}

@@ -1,0 +1,68 @@
+<div class="direct-hero p-nav pb-100">
+  <div class="container pt-70">
+    <div class="row">
+      <div
+        class="col-lg-6 d-flex flex-column justify-content-center pe-lg-5 pb-5 pb-lg-0"
+      >
+        <h1 class="h4 text-white pb-lg-3 pb-4 pt-4 pt-md-0">
+          <span *ngIf="language.get() == 'fr'"
+            >{{ "CONTRACTOR_INSURANCE" | translate }}
+          </span>
+          {{
+            this.language.get() == "fr"
+              ? page.get(id).titleFr
+              : page.get(id).titleEn
+          }}
+          <span *ngIf="language.get() == 'en'">
+            {{ "CONTRACTOR_INSURANCE" | translate }}</span
+          >
+        </h1>
+
+        <h4 class="h1 txt-white">
+          {{ "FROM" | translate }}
+          <span *ngIf="language.get() == 'en'">$ </span>
+          {{ page.get(id).price }}
+          <span *ngIf="language.get() == 'fr'"> $</span> /
+          {{ "MONTH" | translate }}
+        </h4>
+        <p class="my-3 accroche pb-4 d-none d-sm-block">
+          <span class="">
+            {{ "FEATURED_CONTRACTOR" | translate }}
+          </span>
+          <span>{{ "FEATURED_CONTRACTOR_SHORT" | translate }}</span>
+          <strong>{{ "FEATURED_CONTRACTOR_2" | translate }}</strong
+          >.
+        </p>
+        <div class="d-none d-sm-flex">
+          <button
+            (click)="scrollToSection('Get a quote')"
+            class="btn-april btn-april-orange"
+            click-text="Mon estimation"
+            data-analytics="DirectCTA"
+          >
+            {{ "MY_QUOTE" | translate }}
+          </button>
+          <!-- Début de widget de lien Calendly -->
+
+          <a
+            class="btn-april btn-april-full-orange d-block ms-5"
+            click-text="Parler à un expert"
+            data-analytics="DirectCTA"
+            onclick="Calendly.initPopupWidget({url: 'https:/\/calendly.com/april-construction'});return false;"
+            >{{ "TALK_TO_EXPERT" | translate }}</a
+          >
+          <!-- Fin de widget de lien Calendly -->
+        </div>
+      </div>
+      <div
+        class="col-lg-6 ps-lg-5 pb-5 pb-lg-0 d-none d-md-flex justify-content-center align-items-center"
+      >
+        <img
+          [src]="page.get(id).heroImg"
+          [alt]="language.get() == 'fr' ? 'Travailleurs' : 'Workers'"
+          (load)="loader.loading(false)"
+        />
+      </div>
+    </div>
+  </div>
+</div>

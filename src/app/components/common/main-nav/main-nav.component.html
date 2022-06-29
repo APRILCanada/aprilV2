@@ -1,0 +1,115 @@
+<!-- Start Header Area -->
+<header class="header-area">
+  <app-upper-nav></app-upper-nav>
+
+  <div class="navbar-area">
+    <!-- Mobile-nav -->
+    <div class="mobile-nav">
+      <app-mobile-nav></app-mobile-nav>
+    </div>
+
+    <!-- Desktop Nav -->
+    <div class="desktop-nav container" id="to-change">
+      <div class="m-auto" id="to-stick">
+        <nav class="container navbar navbar-expand-md navbar-light">
+          <div class="logo col-md-2 col-xl-3">
+            <a class="navbar-brand" routerLink="/" data-analytics="MainNavLogo"
+              ><img src="../../../../assets/img/logo/logo-april.svg" alt="logo"
+            /></a>
+          </div>
+          <div class="collapse navbar-collapse mean-menu col-md-10 col-xl-9">
+            <ul
+              class="
+                navbar-nav
+                ms-auto
+                d-flex
+                align-items-center
+                justify-content-center
+              "
+            >
+              <li class="nav-item">
+                <a
+                  href="javascript:void(0)"
+                  class="nav-link"
+                  routerLink="niches"
+                  data-analytics="MainNavProducts"
+                  >{{ "PRODUCTS" | translate }}
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  routerLink="services"
+                  class="nav-link"
+                  data-analytics="MainNavServices"
+                  >Services</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  routerLink="a-propos"
+                  class="nav-link"
+                  data-analytics="MainNavAbout"
+                  >{{ "ABOUT" | translate }}</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  routerLink="actualites"
+                  class="nav-link"
+                  data-analytics="MainNavActuality"
+                  >{{ "ACTUALITY" | translate }}</a
+                >
+              </li>
+              <li class="nav-item pe-0 pe-lg-5 pe-xl-0">
+                <a
+                  routerLink="contact"
+                  class="nav-link"
+                  data-analytics="MainNavContact"
+                  >{{ "CONTACT" | translate }}</a
+                >
+              </li>
+            </ul>
+
+            <div class="others-option">
+              <div class="get-quote">
+                <a
+                  [routerLink]="['', { outlets: { modals: ['soumission'] } }]"
+                  class="btn-april btn-april-full-orange me-4"
+                  data-analytics="MainNavSubmission"
+                  >{{ "QUOTE" | translate }}</a
+                >
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <div class="others-option-for-responsive">
+      <div class="container">
+        <div class="container">
+          <div class="option-inner">
+            <div class="others-option">
+              <!-- <div class="call-us">
+                                <i class="bx bx-phone-call"></i>
+                                <a href="tel:+1-(514)-312-5678">+1 (514) 312-5678</a>
+                            </div> -->
+
+              <!-- <div class="get-quote">
+                                <a routerLink="/quoteForm" class="default-btn">{{ 'QUOTE' | translate}}</a>
+                            </div> -->
+
+              <!-- <form class="search-box">
+                                <input type="text" name="Search" placeholder="Search for..." class="form-control">
+                                <button type="submit" class="search-btn"><i class="bx bx-search"></i></button>
+                                <button type="submit" class="close-btn"><i class="bx bx-x"></i></button>
+                            </form> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Navbar Area -->
+</header>
+<!-- End Header Area -->

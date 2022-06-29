@@ -1,0 +1,77 @@
+.flash-card {
+  height: 300px;
+  border-radius: 20px;
+  box-shadow: var(--boxShadow);
+  transition: all 0.25s ease-in !important;
+  position: relative;
+  background: var(--whiteColor);
+  margin: 1rem 0;
+
+  svg {
+    fill: var(--orange);
+    transition: all 0.25s ease-in;
+    opacity: 0.15;
+  }
+
+  &:hover {
+    background: var(--orange);
+    transition: all 0.25s ease-in !important;
+
+    svg {
+      fill: var(--whiteColor);
+      transition: all 0.25s ease-in;
+    }
+
+    h5,
+    p {
+      color: var(--whiteColor);
+      transition: all 0.25s ease-in !important;
+    }
+  }
+
+  h5 {
+    color: var(--orange);
+    transition: all 0.25s ease-in;
+
+    span {
+      font-size: 10px;
+      font-weight: 400;
+    }
+  }
+  p {
+    transition: all 0.25s ease-in !important;
+  }
+
+  .construction-svg,
+  .clock-svg {
+    fill-rule: evenodd;
+    clip-rule: evenodd;
+  }
+
+  .replace {
+    transform: translate(171px, 135px);
+  }
+
+  .flash-icon {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+  }
+}
+
+h3 {
+  font-size: 36px !important;
+}
+
+@media screen and (max-width: 575px) {
+  .flash-card {
+    height: 250px;
+    border-radius: 20px;
+    box-shadow: var(--boxShadow);
+    transition: all 0.25s ease-in !important;
+    position: relative;
+    background: var(--whiteColor);
+    margin: 0.5rem 0;
+  }
+}

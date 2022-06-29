@@ -1,0 +1,219 @@
+<div class="contact-form my3- my-sm-5 py-4 px-1 ps-2 ps-sm-5">
+  <div class="d-flex align-items-center">
+    <img
+      src="../../../../assets/img/icons/title-bar.svg"
+      class="pt-2 pe-2 title-bar d-none d-sm-block"
+      alt="title bar"
+    />
+    <h3 class="mb-2">{{ "CONTACT_FORM" | translate }}</h3>
+  </div>
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <div class="row px-2 px-sm-5 pt-2">
+      <div class="col-md-6 pb-3">
+        <input
+          type="text"
+          class="form-control grey-input no-border"
+          formControlName="firstName"
+          [placeholder]="language.get() == 'fr' ? 'Prénom' : 'First Name'"
+        />
+      </div>
+      <div class="col-md-6 pb-3">
+        <input
+          type="text"
+          class="form-control grey-input no-border"
+          formControlName="lastName"
+          [placeholder]="
+            language.get() == 'fr' ? 'Nom de famille' : 'Last Name'
+          "
+        />
+      </div>
+      <div class="col-md-6 pb-3">
+        <input
+          type="text"
+          class="form-control grey-input no-border"
+          formControlName="email"
+          [placeholder]="language.get() == 'fr' ? 'Courriel' : 'Email'"
+        />
+        <span
+          *ngIf="
+            !contactForm.get('email')?.valid && contactForm.get('email')?.touched
+          "
+          class=""
+          >**{{ "INVALID_EMAIL" | translate }}</span
+        >
+      </div>
+      <div class="col-md-6 pb-3">
+        <input
+          type="text"
+          class="form-control grey-input no-border"
+          formControlName="phone"
+          [placeholder]="language.get() == 'fr' ? 'Téléphone' : 'Phone Number'"
+          mask="(000) 000-0000"
+        />
+      </div>
+      <div class="col-12 pb-3">
+        <textarea
+          rows="5"
+          class="form-control grey-input no-border"
+          formControlName="message"
+          [placeholder]="
+            language.get() == 'fr'
+              ? 'Comment pouvons nous vous aider...'
+              : 'How can we help you...'
+          "
+        ></textarea>
+      </div>
+      <div class="col-12 pb-3">
+        <div
+          class="
+            form-control
+            file-input
+            d-flex
+            justify-content-center
+            align-items-center
+          "
+        >
+          <input
+            formControlName="file"
+            type="file"
+            id="file"
+            name="file"
+            class="custom-file-input"
+            (change)="uploadFile($event)"
+          />
+          <label for="file"
+            ><div class="btn-april btn-april-white-optional">
+              Parcourir
+            </div></label
+          >
+          <span
+            *ngIf="!contactForm.get('file')?.valid"
+            class="ps-5 txt-optional d-none d-lg-block"
+            >{{ "UPLOAD_POLICY_CLAIM" | translate }}</span
+          >
+          <span
+            *ngIf="contactForm.get('file')?.valid"
+            class="ps-5 txt-optional d-none d-lg-block"
+            >{{ fileName }}</span
+          >
+        </div>
+      </div>
+      <span
+        *ngIf="
+          !contactForm.get('file')?.valid && contactForm.get('file')?.touched
+        "
+        class=""
+        >**{{ "INVALID_FILE" | translate }}</span
+      >
+    </div>
+    <div class="text-center">
+      <span
+        *ngIf="!contactForm.get('file')?.valid || !contactForm.get('file')?.dirty"
+        class="pe-0 pe-sm-5 txt-optional d-block d-lg-none pt-3"
+        >{{ "UPLOAD_POLICY_CLAIM" | translate }}</span
+      >
+      <span
+        *ngIf="contactForm.get('file')?.valid"
+        class="pe-0 pe-sm-5 txt-optional d-block d-lg-none pt-3"
+        >{{ fileName }}</span
+      >
+    </div>
+    <div
+      class="
+        px-2 px-sm-5
+        pt-3
+        mb-4
+        d-block d-sm-flex
+        justify-content-between
+        align-items-center
+      "
+    >
+      <div>
+        <input
+          type="checkbox"
+          formControlName="newsLetter"
+          id="checkbox-contact-form"
+        />
+        <label for="checkbox-contact-form">{{
+          "SUSCRIBE_CHECKBOX" | translate
+        }}</label>
+      </div>
+      <button
+        *ngIf="contactForm.get('newsLetter')?.value == true"
+        [disabled]="!contactForm.valid || !contactForm.dirty"
+        class="btn-april CareerFormNewsLetter mt-4 mt-sm-0"
+        (click)="openModal(confirmContact)"
+        data-analytics="CareerFormNewsLetter"
+      >
+        {{ "SEND" | translate }}
+      </button>
+      <button
+        *ngIf="contactForm.get('newsLetter')?.value != true"
+        [disabled]="!contactForm.valid || !contactForm.dirty"
+        class="btn-april CareerForm mt-4 mt-sm-0"
+        (click)="openModal(confirmContact)"
+        data-analytics="CareerForm"
+      >
+        {{ "SEND" | translate }}
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- Modal -->
+<ng-template #confirmContact let-modal>
+  <div class="modal-header d-flex justify-content-center align-items-center">
+    <h2 class="modal-title m-0">{{ "THANK_YOU" | translate }}</h2>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true"
+        ><img
+          class="icon"
+          src="../../../../../assets/img/icons/close.svg"
+          alt=""
+      /></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="m-2 mx-3">{{ "CONTACT_FORM_DETAILS" | translate }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn-april btn-april-white" (click)="close()">
+      {{ "CLOSE" | translate }}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #errorMod let-modal>
+  <div class="modal-header d-flex justify-content-center align-items-center">
+    <h2 class="modal-title m-0">{{ "WE_ARE_SORRY" | translate }}</h2>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true"
+        ><img
+          class="icon"
+          src="../../../../../assets/img/icons/close.svg"
+          alt=""
+      /></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="m-2 mx-3">{{ "CURRENTLY_UNAVAILBE" | translate }}</p>
+    <a class="m-2 mx-3" href="mailTo:ressources.humaines@april.ca"
+      >ressources.humaines@april.ca</a
+    >
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn-april btn-april-white" (click)="close()">
+      {{ "CLOSE" | translate }}
+    </button>
+  </div>
+</ng-template>

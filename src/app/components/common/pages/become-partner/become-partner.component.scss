@@ -1,0 +1,9 @@
+h2 {
+  font-size: 36px !important;
+  color: var(--green);
+}
+@media screen and (max-width: 992px) {
+  .w-80 {
+    width: 100% !important;
+  }
+}

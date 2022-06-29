@@ -1,0 +1,177 @@
+<div class="container pb-70 news pt-200">
+  <div class="d-flex align-items-center">
+    <img
+      class="title-sticker d-none d-sm-block"
+      src="../../../../assets/img/news/sticker_news.svg"
+      alt="APRIL sticker"
+    />
+    <h1 class="ms-2 ms-sm-5 title-underline">
+      {{ "ACTUALITY_INFORMATION" | translate }}
+    </h1>
+  </div>
+  <div class="row is-flex">
+    <!-- Featured article -->
+    <div class="col-lg-8 overflow-hidden">
+      <div
+        class="featured-article mt-5 mb-3"
+        [routerLink]="featuredArticle?.id"
+        #featuredContainer
+      >
+        <img ixImg
+          *ngIf="featuredArticle?.mainImg"
+          path="/news/{{featuredArticle?.mainImg}}"
+          [alt]="
+            language.get() == 'fr'
+              ? featuredArticle?.fr?.mainImgAlt
+              : featuredArticle?.en?.mainImgAlt
+          "
+          class="main-img mb-5 img-fluid"
+          (load)="loader.loading(false)"
+          sizes="100vw"
+        />
+
+        <div class="article-content">
+          <h1 class="d-flex align-items-center mb-3">
+            {{
+              language.get() == "fr"
+                ? featuredArticle?.fr?.title
+                : featuredArticle?.en?.title
+            }}
+          </h1>
+          <p
+            [innerHtml]="
+              language.get() == 'fr'
+                ? featuredArticle?.fr?.brief
+                : featuredArticle?.en?.brief
+            "
+            class="pb-4"
+          ></p>
+        </div>
+
+        <!-- Featured article footer -->
+        <div class="d-flex justify-content-between align-items-center m-3 py-3">
+          <div class="tags">
+            <!-- <div
+              class="d-inline-flex tag me-2"
+              *ngFor="let tag of featuredArticle?.tags; let i = index"
+              [ngStyle]="{
+                'background-color': colorArray[i % colorArray.length]
+              }"
+            > -->
+            <!-- {{ tag | translate }}
+            </div> -->
+          </div>
+          <div class="date" #articleGrid>
+            {{ date.getDate(featuredArticle?.date) }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Side nav : Filters-->
+    <div class="col-lg-4">
+      <div
+        *ngIf="loader.get() == false"
+        class="side-nav tag-nav mt-lg-5 mb-lg-4"
+        [ngStyle]="{ 'height.px': featuredHeight }"
+      >
+        <h4 class="w-100 pb-2" style="padding-left: 5%">
+          {{ "FILTERS" | translate }}:
+        </h4>
+        <ul
+          class="
+            d-flex
+            flex-column
+            justify-content-between
+            align-items-center
+            px-0
+          "
+        >
+          <li
+            height="24px"
+            class="d-inline-flex justify-content-center align-items-center mx-3"
+            *ngFor="let tag of tagList; let i = index"
+            (mouseover)="tagHoverArray[i] = true"
+            (mouseout)="tagHoverArray[i] = false"
+            (click)="toggleFilters(i)"
+            [ngStyle]="{
+              'border-color': colorArray[i % colorArray.length],
+              'background-color':
+                tagHoverArray[i] || tagList[i].isActive
+                  ? colorArray[i % colorArray.length]
+                  : 'white'
+            }"
+          >
+            <span
+              class="d-flex"
+              [ngStyle]="{
+                color:
+                  tagHoverArray[i] || tagList[i].isActive
+                    ? 'white'
+                    : colorArray[i % colorArray.length]
+              }"
+              >{{ tag?.id | translate }}</span
+            >
+            <div
+              class="icon pe-2 icon-sm plus-icon"
+              [ngClass]="tagList[i].isActive ? 'rotate0' : ''"
+              [style.background-image]="getPlusUrl(i)"
+            ></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Article grid -->
+  <div class="mb-5 row">
+    <div
+      class="col-lg-4 pb-3"
+      *ngFor="
+        let art of filteredArticles
+          | paginate
+            : { itemsPerPage: 9, currentPage: page, totalItems: totalLength };
+        let i = index
+      "
+    >
+      <div class="article" [routerLink]="art.id">
+        <img ixImg
+          *ngIf="art.smallImg"
+          path="news/{{art.smallImg}}"
+          [alt]="
+            language.get() == 'fr' ? art.fr.smallImgAlt : art.en.smallImgAlt
+          "
+          class="small-img mb-5"
+          sizes="100vw"
+        />
+        <span
+          class="tag d-inline"
+          [ngStyle]="{
+            'background-color': colorArray[i % colorArray.length]
+          }"
+          >{{ art.tags[0] | translate }}</span
+        >
+        <div class="article-content">
+          <h3 class="title-line-height">
+            {{ language.get() == "fr" ? art.fr.title : art.en.title }}
+          </h3>
+          <p
+            [innerHtml]="language.get() == 'fr' ? art.fr.brief : art.en.brief"
+            class="brief"
+          ></p>
+        </div>
+        <div class="date float-end mt-4 pe-3">
+          {{ date.getDate(art.date) }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <pagination-controls
+      (click)="scrollToArticleGrid()"
+      class="text-center custom-pagination"
+      (pageChange)="page = $event"
+      [previousLabel]="language.get() == 'en' ? '' : ''"
+      [nextLabel]="language.get() == 'en' ? '' : ''"
+    >
+    </pagination-controls>
+  </div>
+</div>

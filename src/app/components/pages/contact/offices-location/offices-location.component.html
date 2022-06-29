@@ -1,0 +1,90 @@
+<div class="container ptb-100">
+  <div class="d-flex align-items-center w-50 mb-5 pb-5">
+    <img
+      class="title-sticker d-none d-sm-block"
+      src="../../../../assets/img/contact/orange-bubble.png"
+      alt="APRIL sticker"
+    />
+    <h2 class="ms-0 ms-sm-5 title-underline">
+      {{ "COMMUNICATE_OFFICES" | translate }}
+    </h2>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 pb-5">
+      <div class="d-flex flex-column office-card h-100">
+        <div class="img-wrapper">
+          <img src="../../../../../assets/img/contact/brossard.jpg" alt="" />
+          <div class="overlay"></div>
+          <div class="h1 text-white city">Brossard</div>
+        </div>
+        <div class="d-flex flex-column justify-content-center m-5">
+          <div class="mb-3">
+            3250 Boulevard Lapinière, suite 100, Brossard, Québec – J4Z 3T8
+          </div>
+          <div class="">{{ "PHONE_NUMBER" | translate }}</div>
+          <div class="">Fax: 450-672-5533</div>
+          <div class="mb-5">info@april.ca</div>
+          <button
+            class="btn-april btn-april-orange"
+            (click)="scrollToContact()"
+            data-analytics="ContactOffices"
+            click-text="Brossard"
+          >
+            {{ "CONTACT_US" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 pb-5">
+      <div class="d-flex flex-column office-card">
+        <div class="img-wrapper">
+          <img src="../../../../../assets/img/contact/laval.jpg" alt="" />
+          <div class="overlay"></div>
+          <div class="h1 text-white city">Laval</div>
+        </div>
+        <div class="d-flex flex-column justify-content-center m-5">
+          <div class="mb-3">
+            500, boulevard Saint Martin Ouest, suite 550, Laval, Québec – H7M
+            3Y2
+          </div>
+          <div class="">{{ "PHONE_NUMBER" | translate }}</div>
+          <div class="">Fax: 450-681-7313</div>
+          <div class="mb-5">info@april.ca</div>
+          <button
+            class="btn-april btn-april-orange"
+            (click)="scrollToContact()"
+            data-analytics="ContactOffices"
+            click-text="Laval"
+          >
+            {{ "CONTACT_US" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 pb-5">
+      <div class="d-flex flex-column office-card h-100">
+        <div class="img-wrapper">
+          <img src="../../../../../assets/img/contact/toronto.jpg" alt="" />
+          <div class="overlay"></div>
+          <div class="h1 text-white city">Toronto</div>
+        </div>
+        <div class="d-flex flex-column justify-content-center m-5">
+          <div class="mb-3">
+            200 Consumers Rd, suite 901, Toronto, ON – M2J 4R4
+          </div>
+          <div class="">{{ "PHONE_NUMBER" | translate }}</div>
+          <div class="">Fax: 416-925-7260</div>
+          <div class="mb-5">toronto@april.ca</div>
+          <button
+            class="btn-april btn-april-orange"
+            (click)="scrollToContact()"
+            data-analytics="ContactOffices"
+            click-text="Toronto"
+          >
+            {{ "CONTACT_US" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+.half-circle {
+  padding: 0;
+  background-color: var(--green);
+  position: relative;
+  overflow: hidden;
+  width: 400px !important;
+  height: 800px !important;
+  border-top-right-radius: 400px;
+  border-bottom-right-radius: 400px;
+  transform: translateX(-60%);
+}
+.square {
+  height: 100%;
+}
+
+img {
+  height: 100%;
+  object-fit: cover;
+  object-position: top right;
+  overflow: hidden;
+}
+
+.faq-img {
+  min-height: 100%;
+  min-width: 610px;
+  overflow-x: hidden;
+  object-fit: cover;
+  object-position: top left;
+}
+
+h2 {
+  font-size: 36px;
+  color: var(--greyColor);
+}
+
+a {
+  color: var(--whiteColor) !important;
+  text-decoration: underline !important;
+
+  &:hover {
+    color: var(--whiteColor) !important;
+  }
+}

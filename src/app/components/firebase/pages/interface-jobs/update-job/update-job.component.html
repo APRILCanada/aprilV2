@@ -1,0 +1,208 @@
+<!-- Start User Area -->
+<section class="interface-style pb-100 pt-200">
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto form-container">
+                <div class="row">
+                    <div class="col">
+                        <a routerLink="/interface/jobs/details/{{job.id}}" class="btn btn-secondary px-3">{{ 'BACK' | translate}}</a>
+                    </div>
+                </div>
+
+                <!-- Formulaires -->
+                <div class="form-action my-5">
+                    <form   [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+                        <div class="form-title">
+                            <h2>{{ 'CREATE_JOB_FORM' | translate}}</h2>
+                        </div>
+
+                        <!-- SECTION INTRO -->
+                        <div class="section-wrapper" >
+                            <h3>Introduction</h3> 
+                            <div class="form-group  "> 
+                                <label>{{ 'IS_ACTIVE' | translate}}:</label>
+                                <div class="btn-group-toggle" ngbRadioGroup formControlName="isActive" ngDefaultControl>
+                                    <label  ngbButtonLabel class="btn-primary px-4"  [ngClass]="job.isActive == 'isActive' && !jobForm.get('isActive')?.dirty ? 'active': '' ">
+                                        <input  ngbButton type="radio"  value="isActive">{{ 'YES' | translate}}
+                                    </label>
+                                    <label ngbButtonLabel class="btn-primary px-4 ms-5" [ngClass]="job.isActive == 'notActive' && !jobForm.get('isActive')?.dirty ? 'active': '' ">
+                                        <input ngbButton type="radio" value="notActive"> {{ 'NO' | translate}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- SECTION FR -->
+                        <div class="section-wrapper"  formGroupName="fr">
+                            <h3>{{ 'FRENCH' | translate}}</h3>
+                            <div class="form-group">
+                                <label>{{ 'JOB_TITLE' | translate}}:</label>
+                                <input class="form-control" type="text" formControlName="title" [value]="job.fr.title" > 
+                                <span *ngIf="!jobForm.get('fr.title')?.valid && jobForm.get('fr.title')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                             
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'PICTURE' | translate}} alt:</label>
+                                <input class="form-control" type="text" formControlName="pictureAlt" [value]="job.fr.pictureAlt" > 
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'CITY' | translate}}:</label>
+                                <input class="form-control" type="text" formControlName="city" [value]="job.fr.city"> 
+                                <span *ngIf="!jobForm.get('fr.city')?.valid && jobForm.get('fr.city')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                             
+                            </div>
+                            <h5 class="mt-4">{{'APRIL_DESCRIPTION' | translate }}</h5>
+                            <div formGroupName="aprilDesc" >
+                                <div class="form-group">
+                                    <label>{{ 'TITLE' | translate}}:</label>
+                                    <input class="form-control" type="text" formControlName="title" [value]="job.fr.aprilDesc.title"> 
+                                </div>
+
+                                <div class="form-group" >
+                                    <label>{{ 'DESCRIPTION' | translate}}: </label>
+                                    <textarea class="form-control" formControlName="desc"  rows="4" cols="50" [value]="job.fr.aprilDesc.desc"></textarea>
+                                </div>
+                            </div>
+                            <h5 class="mt-4">{{'JOB_SUMMARY' | translate }}</h5>
+                            <div formGroupName="jobSummary">
+                                <div class="form-group">
+                                    <label>{{ 'TITLE' | translate}}:</label>
+                                    <input class="form-control" type="text" formControlName="title" [value]="job.fr.jobSummary.title"> 
+                                </div>
+
+                                <div class="form-group">
+                                    <label>{{ 'DESCRIPTION' | translate}}: </label>
+                                    <textarea class="form-control" formControlName="desc"  rows="4" cols="50" [value]="job.fr.jobSummary.desc"></textarea>
+                                </div>
+                            </div>
+                            <h5 class="mt-4">{{'REQUIREMENT' | translate }}</h5>
+                            <div formGroupName="requirement">
+                                <div class="form-group">
+                                    <label>{{ 'TITLE' | translate}}:</label>
+                                    <input class="form-control" type="text" formControlName="title" [value]="job.fr.requirement.title"> 
+                                </div>
+
+                                <div class="form-group">
+                                    <label>{{ 'DESCRIPTION' | translate}}: </label>
+                                    <textarea class="form-control" formControlName="desc"  rows="4" cols="50" [value]="job.fr.requirement.desc"></textarea>
+                                </div>
+                            </div>
+                            <h5 class="mt-4">{{'SKILLS' | translate }}</h5>
+                            <div formGroupName="skills">
+                                <div class="form-group">
+                                    <label>{{ 'TITLE' | translate}}:</label>
+                                    <input class="form-control" type="text" formControlName="title" [value]="job.fr.skills.title"> 
+                                </div>
+
+                                <div class="form-group">
+                                    <label>{{ 'DESCRIPTION' | translate}}: </label>
+                                    <textarea class="form-control" formControlName="desc"  rows="4" cols="50" [value]="job.fr.skills.desc"></textarea>
+                                </div>
+                            </div>
+                            <h5 class="mt-4">{{'APRIL_ADVANTAGES' | translate }}</h5>
+                            <div formGroupName="aprilAdvantages">
+                                <div class="form-group">
+                                    <label>{{ 'TITLE' | translate}}:</label>
+                                    <input class="form-control" type="text" formControlName="title" [value]="job.fr.aprilAdvantages.title"> 
+                                </div>
+
+                                <div class="form-group">
+                                    <label>{{ 'DESCRIPTION' | translate}}: </label>
+                                    <textarea class="form-control" formControlName="desc"  rows="4" cols="50"[value]="job.fr.aprilAdvantages.desc"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION EN -->
+                        <div class="section-wrapper"   formGroupName="en">
+                            <h3>{{ 'ENGLISH' | translate}}</h3>
+                            <div class="form-group">
+                                <label>{{ 'JOB_TITLE' | translate}}:</label>
+                                <input class="form-control" type="text" formControlName="title" [value]="job.en.title"> 
+                                <span *ngIf="!jobForm.get('en.title')?.valid && jobForm.get('en.title')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                            
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'PICTURE' | translate}} alt:</label>
+                                <input class="form-control" type="text" formControlName="pictureAlt" [value]="job.en.pictureAlt" > 
+                            </div>
+                            <div class="form-group">
+                                <label>{{ 'CITY' | translate}}:</label>
+                                <input class="form-control" type="text" formControlName="city" [value]="job.en.city"> 
+                                <span *ngIf="!jobForm.get('en.city')?.valid && jobForm.get('en.city')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>
+                            </div>
+                            <h5 class="mt-4">{{'APRIL_DESCRIPTION' | translate }}</h5>
+                            <div formGroupName="aprilDesc">
+                                <div class="form-group">
+                                    <label>{{ 'TITLE' | translate}}:</label>
+                                    <input class="form-control" type="text" formControlName="title" [value]="job.en.aprilDesc.title"> 
+                                    
+                                </div>
+
+                                <div class="form-group">
+                                    <label>{{ 'DESCRIPTION' | translate}}: </label>
+                                    <textarea class="form-control" formControlName="desc"  rows="4" cols="50" [value]="job.en.aprilDesc.desc"></textarea>
+                                </div>
+                            </div>
+                            <h5 class="mt-4">{{'JOB_SUMMARY' | translate }}</h5>
+                            <div formGroupName="jobSummary">
+                                <div class="form-group">
+                                    <label>{{ 'TITLE' | translate}}:</label>
+                                    <input class="form-control" type="text" formControlName="title" [value]="job.en.jobSummary.title"> 
+                                </div>
+
+                                <div class="form-group">
+                                    <label>{{ 'DESCRIPTION' | translate}}: </label>
+                                    <textarea class="form-control" formControlName="desc"  rows="4" cols="50" [value]="job.en.jobSummary.desc"></textarea>
+                                </div>
+                            </div>
+                            <h5 class="mt-4">{{'REQUIREMENT' | translate }}</h5>
+                            <div formGroupName="requirement">
+                                <div class="form-group">
+                                    <label>{{ 'TITLE' | translate}}:</label>
+                                    <input class="form-control" type="text" formControlName="title" [value]="job.en.requirement.title"> 
+                                </div>
+
+                                <div class="form-group">
+                                    <label>{{ 'DESCRIPTION' | translate}}: </label>
+                                    <textarea class="form-control" formControlName="desc"  rows="4" cols="50" [value]="job.en.requirement.desc"></textarea>
+                                </div>
+                            </div>
+                            <h5 class="mt-4">{{'SKILLS' | translate }}</h5>
+                            <div formGroupName="skills">
+                                <div class="form-group">
+                                    <label>{{ 'TITLE' | translate}}:</label>
+                                    <input class="form-control" type="text" formControlName="title" [value]="job.en.skills.title"> 
+                                </div>
+
+                                <div class="form-group">
+                                    <label>{{ 'DESCRIPTION' | translate}}: </label>
+                                    <textarea class="form-control" formControlName="desc"  rows="4" cols="50" [value]="job.en.skills.desc"></textarea>
+                                </div>
+                            </div>
+                            <h5 class="mt-4">{{'APRIL_ADVANTAGES' | translate }}</h5>
+                            <div formGroupName="aprilAdvantages">
+                                <div class="form-group">
+                                    <label>{{ 'TITLE' | translate}}:</label>
+                                    <input class="form-control" type="text" formControlName="title" [value]="job.en.aprilAdvantages.title"> 
+                                </div>
+
+                                <div class="form-group">
+                                    <label>{{ 'DESCRIPTION' | translate}}: </label>
+                                    <textarea class="form-control" formControlName="desc"  rows="4" cols="50" [value]="job.en.aprilAdvantages.desc"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Buttons -->
+                        <div class="row align-items-center mt-5 mb-3">
+                            <div class="col-lg-6 col-sm-6">
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <button style="min-width: 150px"class="default-btn register float-end" type="submit"data-toggle="modal" data-target="#successMessage">{{ 'SAVE' | translate}}</button>
+                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End User Area -->

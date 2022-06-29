@@ -1,0 +1,57 @@
+.niche-wrapper {
+  background-color: var(--greyColor);
+
+  img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 32px;
+  }
+
+  .products-wrapper {
+    background: var(--whiteColor);
+    border-top-left-radius: 265px;
+  }
+
+  h2 {
+    font-size: 56px !important;
+    font-weight: 400 !important;
+  }
+
+  .icon {
+    height: 70px;
+    width: auto;
+  }
+
+  .icon-sm {
+    height: 20px;
+    width: auto;
+  }
+
+  .card {
+    position: relative;
+    cursor: pointer;
+    height: 220px;
+    border-radius: 12px;
+    box-shadow: var(--boxShadow);
+    transition: all 0.2s ease-in;
+
+    &:hover {
+      box-shadow: 0px 0px 5px 5px rgba(0, 65, 97, 0.2);
+      transition: all 0.2s ease-in;
+    }
+
+    .icon {
+      height: 110px;
+      position: absolute;
+      transition: all 0.25s ease-in;
+      opacity: 0.12;
+      top: 0;
+      right: 0;
+    }
+  }
+}
