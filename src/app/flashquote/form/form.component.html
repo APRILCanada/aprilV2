@@ -1,26 +1,33 @@
 <div *ngIf="formState$ | async as formState">
-  <!-- DYNAMIC FORM -->
-  <form *ngIf="!submittingForm" [ngrxFormState]="formState" (submit)="submit()">
-    <ng-container *ngFor="let question of questions">
-      <app-question-base [question]="question" [control]="formState.controls[question.id]">
-        <app-error [control]="formState.controls[question.id]" [error]="(errors$ | async)['_' + question.id]">
-        </app-error>
-      </app-question-base>
-    </ng-container>
+  <div class="ms-lg-5 ps-lg-4 mt-5">
+    <!-- <div class="d-flex align-items-center">
+      <img src="../../../../assets/img/icons/title-bar.svg" class="pt-2 pe-2 title-bar d-none d-sm-block"
+        alt="title bar" />
+      <h3 class="mb-2">{{ "GET_QUOTE" | translate }}</h3>
+    </div> -->
+    <!-- DYNAMIC FORM -->
+    <form *ngIf="!submittingForm" [ngrxFormState]="formState" (submit)="submit()">
+      <ng-container *ngFor="let question of questions">
+        <app-question-base [question]="question" [control]="formState.controls[question.id]">
+          <app-error [control]="formState.controls[question.id]" [error]="(errors$ | async)['_' + question.id]">
+          </app-error>
+        </app-question-base>
+      </ng-container>
 
-    <button type="submit" mat-raised-button color="primary"
-      [disabled]="!(formValid$ | async) && (formSubmitted$ | async)">
-      SOUMETTRE
-    </button>
-  </form>
+      <button type="submit" mat-raised-button color="primary" data-analytics="DirectForm"
+        [disabled]="!(formValid$ | async) && (formSubmitted$ | async)">
+        {{ "SEND" | translate }}
+      </button>
+    </form>
 
-  <app-loader *ngIf="submittingForm"></app-loader>
+    <app-loader *ngIf="submittingForm"></app-loader>
 
-  <!-- FOR TESTING THE FORM -->
-  <!-- <br />
+    <!-- FOR TESTING THE FORM -->
+    <!-- <br />
   <div *ngIf="submittedValue$ | async">
     The form was submitted with the following value:
     <br />
     <pre>{{ submittedValue$ | async | json }}</pre>
+  </div> -->
   </div>
-</div> -->
+</div>

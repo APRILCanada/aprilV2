@@ -32,7 +32,7 @@ import { CardsComponent } from './flash-quote/cards/cards.component';
     ProvinceModalComponent,
     FlashWidgetComponent,
     FlashFormComponent,
-    CardsComponent,
+    CardsComponent
   ],
   imports: [
     CommonModule,

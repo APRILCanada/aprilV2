@@ -25,11 +25,26 @@ import { SearchFilterPipe } from './pipes/search-filter.pipe';
 import { MatButtonModule } from '@angular/material/button';
 import { ChipComponent } from './questions/components/chip/chip.component';
 import { RepartitionComponent } from './questions/components/repartition/repartition.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorComponent } from './questions/components/error/error.component';
 import { PrimeComponent } from './prime/prime.component';
 import { InputNumberFormatDirective } from './directives/input-number-format.directive';
 import { LoaderComponent } from './shared/loader/loader.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { DirectHeroComponent } from './home/direct-hero/direct-hero.component';
+import { StepsComponent } from './home/steps/steps.component';
+import { ExtensionsComponent } from './home/extensions/extensions.component';
+import { DirectCtaComponent } from './home/direct-cta/direct-cta.component';
+import { ExclusionComponent } from './home/exclusion/exclusion.component';
+import { FlashQuoteComponent } from './home/flash-quote/flash-quote.component';
+import { CardsComponent } from './home/flash-quote/cards/cards.component';
+import { NavigationModule } from '../navigation/navigation.module';
+
+// Exports
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
+}
 
 
 @NgModule({
@@ -46,7 +61,14 @@ import { LoaderComponent } from './shared/loader/loader.component';
     ErrorComponent,
     PrimeComponent,
     InputNumberFormatDirective,
-    LoaderComponent
+    LoaderComponent,
+    DirectHeroComponent,
+    StepsComponent,
+    ExtensionsComponent,
+    DirectCtaComponent,
+    ExclusionComponent,
+    FlashQuoteComponent,
+    CardsComponent
   ],
   imports: [
     CommonModule,
@@ -60,11 +82,19 @@ import { LoaderComponent } from './shared/loader/loader.component';
     MatIconModule,
     MatTableModule,
     MatButtonModule,
+    NavigationModule,
     EffectsModule.forFeature([FlashquoteEffects]),
     StoreModule.forFeature(
       'form',
       reducer
     ),
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [FlashquoteResolver, HttpClientModule]
 })

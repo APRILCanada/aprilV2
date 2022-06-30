@@ -1,0 +1,40 @@
+<div class="container pb-3" id="Meet">
+  <div class="cta-wrapper p-5">
+    <div
+      class="d-flex flex-column justify-content-center align-items-center text-center"
+    >
+      <p class="mb-3">{{ "CONTACT_US" | translate }}</p>
+      <h3 class="mb-3">{{ "NEED_SUPPORT" | translate }}</h3>
+      <p class="mb-3">
+        {{ "EXPERTS_AVAILABLE" | translate }}
+      </p>
+      <!-- Calendly link widget begin -->
+      <!-- <link
+        href="https://assets.calendly.com/assets/external/widget.css"
+        rel="stylesheet"
+      />
+      <script
+        src="https://assets.calendly.com/assets/external/widget.js"
+        type="text/javascript"
+        async
+      ></script> -->
+      <a
+        class="btn-april btn-april-orange my-3"
+        click-text="Rencontrez-nous"
+        data-analytics="DirectCTA"
+        onclick="Calendly.initPopupWidget({url: 'https:/\/calendly.com/april-construction'});return false;"
+        >{{ "TALK_TO_EXPERT" | translate }}</a
+      >
+      <!-- <a href="https://calendly.com/april-construction"
+        ><button
+          class="btn-april btn-april-orange my-3"
+          click-text="Rencontrez-nous"
+          data-analytics="DirectCTA"
+        >
+          {{ "GET_APPOINTMENT" | translate }}
+        </button>
+      </a> -->
+      <!-- Calendly link widget end -->
+    </div>
+  </div>
+</div>

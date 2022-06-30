@@ -10,7 +10,6 @@ export class PageService {
   constructor() {}
 
   get(id: any) {
-    console.log('what id', id)
     this.page = this.pages.filter((x: any) => x.id == id);
 
     return this.page[0];

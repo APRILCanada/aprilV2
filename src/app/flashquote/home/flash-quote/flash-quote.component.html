@@ -1,0 +1,41 @@
+<div class="container mt-0 mt-sm-5 mb-5 py-lg-5">
+  <div class="row">
+    <div class="col-lg-6 pe-lg-5 mt-5 mb-4 d-none d-sm-block">
+      <h3>{{ "SUBSCRIBE_CONSTRUCTION_EASY" | translate }}</h3>
+    </div>
+    <div class="col-lg-6 ps-lg-5 mt-lg-5 pt-lg-5 d-none d-sm-block">
+      <p innerHTML="{{ 'PRECIOUS_TIME' | translate }}"></p>
+    </div>
+  </div>
+
+  <div class="mx-md-5">
+    <!-- <div class="row align-items-center"> -->
+    <div class="row">
+      <div class="col-lg-4 order-2 order-lg-1">
+        <app-cards [price]="page.get(id).price"></app-cards>
+      </div>
+      <div class="col-lg-8 p-0 order-1 order-lg-2" id="Form">
+        <app-flash-widget
+          *ngIf="
+            id !== 'contracteurs' &&
+            id !== 'alashop' &&
+            id !== 'contractors' &&
+            id !== 'assurance-entrepreneurs-construction' &&
+            id !== 'responsabilite-civile-entrepreneurs-construction'
+          "
+        ></app-flash-widget>
+        <!-- <app-flash-form
+          *ngIf="
+            id === 'contracteurs' ||
+            id === 'alashop' ||
+            id === 'contractors' ||
+            id === 'assurance-entrepreneurs-construction' ||
+            id === 'responsabilite-civile-entrepreneurs-construction'
+          "
+        ></app-flash-form> -->
+        <app-form></app-form>
+        <app-direct-cta class="d-block d-sm-none"></app-direct-cta>
+      </div>
+    </div>
+  </div>
+</div>
