@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Question } from 'src/app/flashquote/models/Question';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-select-dialog',
@@ -22,7 +23,8 @@ export class SelectDialogComponent implements OnInit {
       selectedOpts: any[];
     },
     // get a ref of the currently opened dialog
-    private dialogRef: MatDialogRef<SelectDialogComponent>
+    private dialogRef: MatDialogRef<SelectDialogComponent>,
+    public language: LanguageService
   ) {}
 
   ngOnInit(): void {

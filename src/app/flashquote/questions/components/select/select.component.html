@@ -10,7 +10,7 @@
     >
       <mat-icon>add</mat-icon>
     </button>
-    <mat-label>{{ question.title.LabelEn }}</mat-label>
+    <mat-label>{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</mat-label>
   </div>
 
   <mat-chip-list  #chipList *ngIf="selectedOptions.length > 0">
@@ -27,14 +27,14 @@
 
 <!-- SELECT UNIQUE/MULTIPLE WITH LESS THAN 10 CHOICES-->
 <div class="select-single container" *ngIf="question.responses.length <= 10">
-  <mat-label>{{ question.title.LabelEn }}</mat-label>
+  <mat-label>{{ language.get() == "fr" ? question.title.LabelFr : question.title.LabelEn }}</mat-label>
   <mat-chip-list>
     <app-chip
       *ngFor="let option of question.responses"
       (click)="select(option)"
       [selected]="isSelected(option.id)"
     >
-      {{ option.label.LabelEn }}
+    {{ language.get() == "fr" ? option.label.LabelFr : option.label.LabelEn }}
     </app-chip>
   </mat-chip-list>
   <input type="hidden" [ngrxFormControlState]="control" />

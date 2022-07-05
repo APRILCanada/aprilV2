@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControlState } from 'ngrx-forms';
 import { Question } from 'src/app/flashquote/models/Question';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-input',
@@ -13,7 +14,7 @@ export class InputComponent implements OnInit {
   @Input() error: any
   inputType: string;
 
-  constructor() {}
+  constructor(public language: LanguageService) {}
 
   ngOnInit(): void {
     this.inputType = this.question.type.toLocaleLowerCase();

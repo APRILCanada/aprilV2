@@ -5,6 +5,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SelectDialogComponent } from '../select-dialog/select-dialog.component';
 import { Store } from '@ngrx/store';
 import { Response } from 'src/app/flashquote/models/Response';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-select',
@@ -16,7 +17,7 @@ export class SelectComponent {
   @Input() control: FormControlState<string>;
   selectedOptions: any[] = [];
 
-  constructor(private matDialog: MatDialog, private store: Store) { }
+  constructor(private matDialog: MatDialog, private store: Store, public language: LanguageService) { }
 
   public get options(): any[] {
     return this.question.responses || [];

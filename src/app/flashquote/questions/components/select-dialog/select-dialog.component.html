@@ -1,32 +1,22 @@
-<h1 mat-dialog-title>{{ question.title.LabelEn }}</h1>
+<h1 mat-dialog-title>{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</h1>
 
 <mat-dialog-actions>
   <!-- set the property searchText to the value of the template ref variable #input -->
   <mat-form-field>
-    <mat-icon matPrefix>search</mat-icon>
-    <input
-      #input
-      (input)="searchText = input.value"
-      [value]="searchText"
-      matInput
-      type="search"
-      placeholder="Recherche"
-      class="search-input"
-    />
+    <mat-icon matPrefix></mat-icon>
+    <input #input (input)="searchText = input.value" [value]="searchText" matInput type="search"
+      placeholder="{{ language.get() == 'fr' ? 'Recherche' : 'Search' }}" class="search-input" />
   </mat-form-field>
 </mat-dialog-actions>
 
 <mat-dialog-content class="grid">
   <!-- get all the options and filtered them out -->
-  <app-chip
-    *ngFor="let option of data.options | searchFilter: searchText"
-    (click)="select(option.id)"
-    [selected]="isSelected(option.id)"
-  >
-    {{ option.label.LabelEn }}
+  <app-chip *ngFor="let option of data.options | searchFilter: searchText" (click)="select(option.id)"
+    [selected]="isSelected(option.id)">
+    {{ language.get() == "fr" ? option.label.LabelFr: option.label.LabelEn }}
   </app-chip>
 </mat-dialog-content>
 
 <mat-dialog-actions *ngIf="question.type === 'MULTIPLE'">
-  <button mat-raised-button color="primary" (click)="close()">Soumettre</button>
+  <button mat-raised-button color="primary" (click)="close()">{{ "SEND" | translate }}</button>
 </mat-dialog-actions>

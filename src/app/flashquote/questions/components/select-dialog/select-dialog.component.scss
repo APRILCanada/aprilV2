@@ -1,3 +1,7 @@
+:host {
+  z-index: 1111;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, max-content));
@@ -22,3 +26,4 @@
 mat-form-field {
   width: 100%;
 }
+

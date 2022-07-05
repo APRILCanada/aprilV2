@@ -18,6 +18,12 @@ tr.mat-footer-row {
   font-weight: bold;
 }
 
+tr.mat-row,
+th.mat-header-cell,
+tr.mat-footer-row {
+  vertical-align: middle;
+}
+
 .mat-cell:last-of-type,
 .mat-header-cell:last-of-type,
 .mat-footer-cell:last-of-type {

@@ -5,7 +5,7 @@
     (control.isDirty || control.isTouched || control.isSubmitted)
   "
 >
-  <small>Field is required</small>
+  <small>{{ "REQUIRED" | translate }}</small>
 </mat-error>
 
 <mat-error
@@ -15,7 +15,7 @@
     (control.isDirty || control.isTouched || control.isSubmitted)
   "
 >
-  <small> You must allocate a percentage to all activities. Please reallocate or remove activities.</small>
+  <small>{{ "ALLOCATION" | translate }}</small>
 </mat-error>
 
 <mat-error
@@ -25,5 +25,5 @@
     (control.isDirty || control.isTouched || control.isSubmitted)
   "
 >
-  <small>The final distribution of all activities must equal 100%</small>
+  <small>{{ "DISTRIBUTION" | translate }}</small>
 </mat-error>

@@ -2978,3 +2978,13 @@ input[type="radio"] {
 // }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+//  dialog on top
+.cdk-overlay-container {
+    z-index: 1111 !important;
+}
+
+.mat-chip-list-wrapper {
+    column-gap: 1rem;
+    row-gap: 1rem;
+  }

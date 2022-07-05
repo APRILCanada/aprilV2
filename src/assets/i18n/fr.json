@@ -417,7 +417,10 @@
     "BROKER_CONSTRUCTION":"Un courtier <strong>expert en construction</strong> pour vous accompagner.",
     "94":"de nos clients satisfaits ",
     "CUSTOMER_OPINION":"<strong>L’avis de nos clients</strong> est important et nos permet de progresser afin de mieux répondre à leurs attentes.",
-    "WHAT_PROVINCE": "Pour quel territoire cherchez-vous à être assuré?"
+    "WHAT_PROVINCE": "Pour quel territoire cherchez-vous à être assuré?",
+    "DISTRIBUTION": "La répartition de toutes les activités doit être égale à 100 %",
+    "ALLOCATION": "Vous devez allouer un pourcentage à toutes les activités. Veuillez réaffecter ou supprimer des activités.",
+    "SEARCH": "Recherche"
 
 }
 
