@@ -61,9 +61,9 @@ export class AppComponent {
         this.isDirect = this.currentUrl.includes('direct');
       });
     this.router.events
-      .pipe(filter((event) => event instanceof NavigationStart))
+  .pipe(filter((event) => event instanceof NavigationStart))
       .subscribe(() => {
-        this.loader.loading(true);
+        //this.loader.loading(true);
       });
   }
 

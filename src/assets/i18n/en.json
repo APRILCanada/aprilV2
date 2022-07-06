@@ -420,7 +420,12 @@
     "WHAT_PROVINCE": "For which territory are looking to get insured?",
     "DISTRIBUTION": "The distribution of all activities must equal 100%",
     "ALLOCATION": "You must allocate a percentage to all activities. Please reallocate or remove activities.",
-    "SEARCH": "Search"
+    "SEARCH": "Search",
+    "ESTIMATION": "Please note that the premium estimate obtained above is established according to the information that you have provided. This estimate may be modified during the collection of additional information",
+    "CONTACT_SOON": "We will contact you shortly to finalize your request.",
+    "MORE_INFO": "For more information:",
+    "MONTH_TAXES": "Month + Taxes",
+    "ESTIMATED": "Your estimated <b>prime</b>"
 
 
 

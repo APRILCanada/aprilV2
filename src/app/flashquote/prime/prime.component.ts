@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-prime',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrimeComponent implements OnInit {
 
-  constructor() { }
+  constructor(public language: LanguageService) { }
 
   ngOnInit(): void {
   }

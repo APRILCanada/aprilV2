@@ -420,8 +420,12 @@
     "WHAT_PROVINCE": "Pour quel territoire cherchez-vous à être assuré?",
     "DISTRIBUTION": "La répartition de toutes les activités doit être égale à 100 %",
     "ALLOCATION": "Vous devez allouer un pourcentage à toutes les activités. Veuillez réaffecter ou supprimer des activités.",
-    "SEARCH": "Recherche"
-
+    "SEARCH": "Recherche",
+    "ESTIMATION": "Veuillez noter que l'estimation de prime obtenue plus haut est établie selon les informations que nous nous avez fournies. Il se peut que cet estimé soit modifié durant la collecte d'informations complémentaires",
+    "CONTACT_SOON": "Nous vous contacterons sous peu pour finaliser votre demande.",
+    "MORE_INFO": "Pour plus d'informations:",
+    "MONTH_TAXES": "Mois + Taxes",
+    "ESTIMATED": "<b>Votre prime </b>estimée"
 }
 
 

@@ -17,7 +17,6 @@ import {
   selectFormValid,
   selectFormSubmitted,
 } from '../selectors';
-import { INITIAL_STATE } from '../reducers/formStateReducer';
 import { Router } from '@angular/router';
 
 @Component({

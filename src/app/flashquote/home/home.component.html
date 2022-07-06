@@ -1,9 +1,4 @@
-<!-- <main class="container">
-  <h1>Page du flashquote</h1>
-  <app-form></app-form>
-</main> -->
-
-<div class="wrapper">
+<div class="wrapper" [ngClass]="{'loading-wrapper': (formValid$ && formSubmitted$ | async) }">
   <app-direct-nav></app-direct-nav>
   <app-direct-hero [id]="marketId"></app-direct-hero>
   <app-flash-quote [id]="marketId"></app-flash-quote>
@@ -14,3 +9,5 @@
   <app-exclusion></app-exclusion>
   <app-new-footer></app-new-footer>
 </div>
+
+<app-loader *ngIf="(formValid$ && formSubmitted$ | async)"></app-loader>

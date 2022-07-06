@@ -1,21 +1,20 @@
 <section class="prime-section">
   <div class="prime-box">
-    <img class="forms" src="../../../assets/images/forms.svg" />
-    <h1 class="prime-header"><span class="highlight">Votre prime </span>estimée</h1>
+    <img class="forms" src="../../../assets/img/home/newsletter_sticker.svg" />
+
+    <h1 class="prime-header" [innerHTML]="'ESTIMATED' | translate"></h1>
+
+
     <p class="prime-box__prime">
-      <span class="heading prime-box__prime--highlight">188,17</span><span>$</span> / Mois + Taxes
+      <span class="heading prime-box__prime--highlight">188,17</span><span>$</span> / {{ "MONTH_TAXES" | translate }}
     </p>
-    <p>Nous vous contacterons sous peu pour finaliser votre demande.<br />
-    Pour plus d'informations:</p>
+    <p>{{ "CONTACT_SOON" | translate }}<br />
+      {{ "MORE_INFO" | translate }}</p>
     <p class="prime-box__phone">1 855 745-2020</p>
   </div>
 
   <div class="more-info">
     <p class="more-info__header">D'autres protections, frais et rabais peuvent s'appliquer.</p>
-      <p>Veuillez noter que l'estimation de prime obtenue plus haut est établie selon les informations que nous nous
-      avez
-      fournies. Il se peut que cet estimé soit modifié durant la
-      collected d'informations complémentaires.
-    </p>
+    <p>{{ "ESTIMATION" | translate }}</p>
   </div>
 </section>

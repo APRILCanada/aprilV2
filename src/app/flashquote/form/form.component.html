@@ -1,5 +1,5 @@
-<div *ngIf="formState$ | async as formState">
-  <div class="ms-lg-5 ps-lg-4 mt-5">
+<div class="wrapper" *ngIf="formState$ | async as formState">
+  <div>
     <div class="d-flex align-items-center">
       <img src="../../../../assets/img/icons/title-bar.svg" class="pt-2 pe-2 title-bar d-none d-sm-block"
         alt="title bar" />
@@ -20,15 +20,5 @@
         {{ "SEND" | translate }}
       </button>
     </form>
-
-    <app-loader *ngIf="submittingForm"></app-loader>
-
-    <!-- FOR TESTING THE FORM -->
-    <!-- <br />
-  <div *ngIf="submittedValue$ | async">
-    The form was submitted with the following value:
-    <br />
-    <pre>{{ submittedValue$ | async | json }}</pre>
-  </div> -->
   </div>
 </div>
