@@ -1,6 +1,11 @@
+.wrapper {
+    margin-left: 3rem;
+}
+
 @media (max-width: 581px) {
     .wrapper {
         width: 90vw;
+        margin-left: 0;
         margin: 3rem auto;
     }
 }

@@ -1,4 +1,4 @@
-<div class="wrapper" [ngClass]="{'loading-wrapper': (formValid$ && formSubmitted$ | async) }">
+<div class="wrapper" [ngClass]="{'loading-wrapper': (formValid$ | async) && (formSubmitted$ | async) }">
   <app-direct-nav></app-direct-nav>
   <app-direct-hero [id]="marketId"></app-direct-hero>
   <app-flash-quote [id]="marketId"></app-flash-quote>
@@ -10,4 +10,4 @@
   <app-new-footer></app-new-footer>
 </div>
 
-<app-loader *ngIf="(formValid$ && formSubmitted$ | async)"></app-loader>
+<app-loader *ngIf="(formValid$ | async) && (formSubmitted$ | async)"></app-loader>
