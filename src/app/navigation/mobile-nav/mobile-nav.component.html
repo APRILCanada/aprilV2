@@ -5,7 +5,7 @@
   >
     <span class="logo-placeholder"></span>
     <ul class="d-flex flex-column align-items-center mobile-links">
-      <!-- <ng-container *ngFor="let item of menu">
+      <ng-container *ngFor="let item of menu">
         <li [ngClass]="{ ' dropdown': item.en?.dropdown }" *ngIf="!item.lang">
           <a
             (click)="scrollToSection(item.en?.title)"
@@ -44,7 +44,7 @@
             </ng-container>
           </ul>
         </li>
-      </ng-container> -->
+      </ng-container>
     </ul>
     <div class="footer">
       <div class="socials">
