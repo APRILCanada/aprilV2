@@ -7,7 +7,6 @@
   </div>
 
   <div class="mx-md-5">
-    <!-- <div class="row align-items-center"> -->
     <div class="row">
       <div class="col-lg-4 order-2 order-lg-1">
         <app-cards [price]="page.get(id).price"></app-cards>
@@ -22,15 +21,6 @@
             id !== 'responsabilite-civile-entrepreneurs-construction'
           "
         ></app-flash-widget>
-        <!-- <app-flash-form
-          *ngIf="
-            id === 'contracteurs' ||
-            id === 'alashop' ||
-            id === 'contractors' ||
-            id === 'assurance-entrepreneurs-construction' ||
-            id === 'responsabilite-civile-entrepreneurs-construction'
-          "
-        ></app-flash-form> -->
         <app-form></app-form>
         <app-direct-cta class="d-block d-sm-none"></app-direct-cta>
       </div>

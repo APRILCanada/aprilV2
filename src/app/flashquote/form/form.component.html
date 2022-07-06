@@ -15,7 +15,7 @@
         </app-question-base>
       </ng-container>
 
-      <button type="submit" mat-raised-button color="primary" data-analytics="DirectForm"
+      <button class="btn-block" type="submit" mat-raised-button color="primary" data-analytics="DirectForm"
         [disabled]="!(formValid$ | async) && (formSubmitted$ | async)">
         {{ "SEND" | translate }}
       </button>

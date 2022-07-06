@@ -2,10 +2,17 @@
     margin-left: 3rem;
 }
 
+.btn-block {
+    width: 100%;
+    height: 3rem;
+    text-transform: uppercase;
+}
+
 @media (max-width: 581px) {
     .wrapper {
         width: 90vw;
-        margin-left: 0;
+        margin-left: 1.5rem;
         margin: 3rem auto;
+        margin-right: 3rem;
     }
 }
