@@ -8,15 +8,29 @@
           <div class="pb-5">
             <span [routerLink]="'../../niches/'" class="pointer">
               {{ language.get() == "fr" ? "Produits " : "Products " }}
-              <img src="../../../../assets/img/icons/carret-right.svg" class="icon" />
+              <img
+                src="../../../../assets/img/icons/carret-right.svg"
+                class="icon"
+              />
             </span>
-            <span *ngIf="product.parent" [routerLink]="'../../niches/' + product.parent[0]" class="pointer">
+            <span
+              *ngIf="product.parent"
+              [routerLink]="'../../niches/' + product.parent[0]"
+              class="pointer"
+            >
               {{ language.get() == "fr" ? nicheS.fr : nicheS.en }}
-              <img src="../../../../assets/img/icons/carret-right.svg" class="icon" />
+              <img
+                src="../../../../assets/img/icons/carret-right.svg"
+                class="icon"
+              />
             </span>
-            <span *ngIf="product" [routerLink]="'../../niches/' + product.id" class="pointer">
+            <span
+              *ngIf="product"
+              [routerLink]="'../../niches/' + product.id"
+              class="pointer"
+            >
               {{
-              language.get() == "fr" ? product.fr?.title : product.en?.title
+                language.get() == "fr" ? product.fr?.title : product.en?.title
               }}
             </span>
           </div>
@@ -24,38 +38,62 @@
             {{ language.get() == "fr" ? product.fr?.title : product.en?.title }}
           </h1>
           <div class="me-lg-5 pe-lg-5">
-            <p [innerHtml]="
+            <p
+              [innerHtml]="
                 language.get() == 'fr' ? product.fr?.desc : product.en?.desc
-              " class="pb-5 product-desc"></p>
+              "
+              class="pb-5 product-desc"
+            ></p>
             <!-- boutons soumission -->
             <div class="d-flex">
-              <a class="btn-april btn-april-blue fw-bold me-5" href="https://april-on.ca"
-                data-analytics="AprilOnSubmission">{{ "ON_APRIL_ON" | translate }}</a>
+              <a
+                class="btn-april btn-april-blue fw-bold me-5"
+                href="https://april-on.ca"
+                data-analytics="AprilOnSubmission"
+                >{{ "ON_APRIL_ON" | translate }}</a
+              >
 
-              <a class="btn-april btn-april-white fw-bold" routerLink="../../formulaires"
+              <!-- <a class="btn-april btn-april-white fw-bold" routerLink="../../formulaires"
                 data-analytics="ProductsSubmission">{{ "FORMS_TO_DOWNLOAD" | translate }}
-              </a>
+              </a> -->
             </div>
           </div>
         </div>
         <!-- Image -->
         <div class="col-lg-4">
           <picture ixPicture>
-            <source ixSource path="products/{{product?.mainImg}}" media="(min-width: 991px)"
-              [imgixParams]="{w: '400', fit: 'crop', ar:'0.85:1'}" />
-            <source ixSource path="products/{{product?.mainImg}}" media="(max-width: 991px)" sizes="80vw" />
-            <img class="main-img img-fluid" ixImg path="products/{{product?.mainImg}}" />
+            <source
+              ixSource
+              path="products/{{ product?.mainImg }}"
+              media="(min-width: 991px)"
+              [imgixParams]="{ w: '400', fit: 'crop', ar: '0.85:1' }"
+            />
+            <source
+              ixSource
+              path="products/{{ product?.mainImg }}"
+              media="(max-width: 991px)"
+              sizes="80vw"
+            />
+            <img
+              class="main-img img-fluid"
+              ixImg
+              path="products/{{ product?.mainImg }}"
+            />
           </picture>
           <div class="py-4">
             <div class="text-center">
               **{{ "AVAILABLE" | translate }}&nbsp;
-              <ng-container *ngFor="let prov of product.provinces; let i = index">
+              <ng-container
+                *ngFor="let prov of product.provinces; let i = index"
+              >
                 <span *ngIf="this.language.get() === 'fr'">
                   {{ getPreposition(prov) }}&nbsp;
                 </span>
                 <span>{{ prov | translate }}&nbsp;</span>
                 <span *ngIf="i < product.provinces.length - 2">,&nbsp;</span>
-                <span *ngIf="i === product.provinces.length - 2">{{ "AND" | translate }}&nbsp;</span>
+                <span *ngIf="i === product.provinces.length - 2"
+                  >{{ "AND" | translate }}&nbsp;</span
+                >
               </ng-container>
             </div>
           </div>
@@ -65,35 +103,57 @@
     <div class="pb-70" id="bgcolor">
       <div class="container products-wrapper pt-5">
         <div class="row pt-4">
-          <div class="col-xl-8 col-lg-7 ps-0 pe-lg-5 d-flex flex-column justify-content-center">
+          <div
+            class="col-xl-8 col-lg-7 ps-0 pe-lg-5 d-flex flex-column justify-content-center"
+          >
             <!-- Target -->
             <div class="pb-3">
               <h2 class="d-inline">{{ "TARGET" | translate }}</h2>
             </div>
-            <p [innerHtml]="
+            <p
+              [innerHtml]="
                 language.get() == 'fr' ? product.fr?.target : product.en?.target
-              "></p>
+              "
+            ></p>
           </div>
           <!-- contact -->
-          <div class="container col-xl-4 col-lg-5 ps-lg-5 d-flex justify-content-center">
-            <div class="card py-5 px-4 my-5 ps-sm-5 d-flex flex-column justify-content-center align-items-start"
-              id="contact">
-              <h5 class="d-inline" [innerHtml]="
+          <div
+            class="container col-xl-4 col-lg-5 ps-lg-5 d-flex justify-content-center"
+          >
+            <div
+              class="card py-5 px-4 my-5 ps-sm-5 d-flex flex-column justify-content-center align-items-start"
+              id="contact"
+            >
+              <h5
+                class="d-inline"
+                [innerHtml]="
                   language.get() == 'fr' ? 'Pour nous joindre' : 'Contact'
-                ">
+                "
+              >
                 {{ "TO_CONTACT_US" | translate }}
               </h5>
               <div class="my-2">
-                <img src="../../../../assets/img/icons/email.svg" class="icon" />
-                <a class="text-decoration-underline d-inline" [href]="'mailTo:' + product.department?.email">
-                  {{ product?.department?.email }}</a>
+                <img
+                  src="../../../../assets/img/icons/email.svg"
+                  class="icon"
+                />
+                <a
+                  class="text-decoration-underline d-inline"
+                  [href]="'mailTo:' + product.department?.email"
+                >
+                  {{ product?.department?.email }}</a
+                >
               </div>
               <div class="my-2">
-                <img src="../../../../assets/img/icons/phone.svg" class="icon" />
+                <img
+                  src="../../../../assets/img/icons/phone.svg"
+                  class="icon"
+                />
                 <a class="d-inline py-3" [href]="'tel:+18557452020'">
                   {{ "PHONE_NUMBER" | translate }} #{{
-                  product?.department?.extension
-                  }}</a>
+                    product?.department?.extension
+                  }}</a
+                >
                 <span class="py-3 d-inline"> </span>
               </div>
             </div>
@@ -102,44 +162,73 @@
       </div>
       <!-- coverage -->
       <div class="container">
-        <div class="row my-md-5 d-flex align-items-center justify-content-center" id="coverage">
+        <div
+          class="row my-md-5 d-flex align-items-center justify-content-center"
+          id="coverage"
+        >
           <div class="col-lg-7 pt-4 pt-lg-0 d-flex align-items-center">
             <div class="me-lg-4">
               <h3>{{ "COVERAGE" | translate }}</h3>
-              <p [innerHtml]="
+              <p
+                [innerHtml]="
                   language.get() == 'fr'
                     ? product.fr?.coverage
                     : product.en?.coverage
-                " #lists></p>
+                "
+                #lists
+              ></p>
             </div>
           </div>
-          <div class="col-lg-5 py-4 py-lg-0 d-flex align-items-center justify-content-center">
-            <img ixImg *ngIf="product?.coverageImg" path="products/{{product?.coverageImg}}"
-              sizes="(max-width: 991px) 96vw, (min-width: 991px) 40vw" class="w-100" />
+          <div
+            class="col-lg-5 py-4 py-lg-0 d-flex align-items-center justify-content-center"
+          >
+            <img
+              ixImg
+              *ngIf="product?.coverageImg"
+              path="products/{{ product?.coverageImg }}"
+              sizes="(max-width: 991px) 96vw, (min-width: 991px) 40vw"
+              class="w-100"
+            />
           </div>
         </div>
       </div>
       <!-- underwriting norm -->
       <div class="container products-wrapper">
         <div class="row my-3 my-md-5 py-5" id="underwriting">
-          <div class="d-none d-xl-block col-xl-5 d-flex justify-content-center align-items-center">
-            <img ixImg *ngIf="product?.underwritingImg" path="products/{{product?.underwritingImg}}"
-              sizes="(max-width: 991px) 0vw, (min-width: 991px) 40vw" class="h-100 img-fluid" />
+          <div
+            class="d-none d-xl-block col-xl-5 d-flex justify-content-center align-items-center"
+          >
+            <img
+              ixImg
+              *ngIf="product?.underwritingImg"
+              path="products/{{ product?.underwritingImg }}"
+              sizes="(max-width: 991px) 0vw, (min-width: 991px) 40vw"
+              class="h-100 img-fluid"
+            />
           </div>
-          <div class="col-12 col-xl-7 d-block d-xl-flex align-items-center justify-content-center">
+          <div
+            class="col-12 col-xl-7 d-block d-xl-flex align-items-center justify-content-center"
+          >
             <div class="ms-lg-4">
               <h3>{{ "UNDERWRITING_NORMS" | translate }}</h3>
-              <p [innerHtml]="
+              <p
+                [innerHtml]="
                   language.get() == 'fr'
                     ? product.fr?.underwriting
                     : product.en?.underwriting
-                " class="" #lists></p>
+                "
+                class=""
+                #lists
+              ></p>
             </div>
           </div>
         </div>
         <div class="d-flex justify-content-center align-items-center">
-          <button class="btn-april btn-april-full-orange" [routerLink]="['', { outlets: { modals: ['soumission'] } }]"
-            data-analytics="ProductsSubmission">
+          <button
+            class="btn-april btn-april-full-orange"
+            [routerLink]="['', { outlets: { modals: ['soumission'] } }]"
+            data-analytics="ProductsSubmission"
+          >
             {{ "QUOTE" | translate }}
           </button>
         </div>
