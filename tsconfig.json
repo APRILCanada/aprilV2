@@ -18,6 +18,8 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
+    "allowJs": true, // allow to import js files in our TS files
+    "checkJs": false, // determines if type errors should be reported in JavaScript files.
     "lib": [
       "es2020",
       "dom"

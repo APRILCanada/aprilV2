@@ -1,11 +1,11 @@
 import { ScullyConfig, registerPlugin, HandledRoute } from '@scullyio/scully';
-import { niches, products, articles, direct } from './src/data/routes'
+import { niches, products, articles, direct } from './src/data/routes.js'
 
 // plugin to create all niches/* routes
-function nichePlugin(route: string, config = {}): Promise<HandledRoute[]> {
-  const routes = [];
+function nichePlugin(route: any, config: any): Promise<HandledRoute[]> {
+  const routes: any = [];
 
-  niches.forEach(nicheId => {
+  niches.forEach((nicheId: any) => {
     routes.push({ route: `/niches/${nicheId}` })
   })
 
@@ -13,10 +13,10 @@ function nichePlugin(route: string, config = {}): Promise<HandledRoute[]> {
 }
 
 // plugin to create all produits/* routes
-function produitPlugin(route: string, config = {}): Promise<HandledRoute[]> {
-  const routes = [];
+function produitPlugin(route: any, config: any): Promise<HandledRoute[]> {
+  const routes: any = [];
 
-  products.forEach(productId => {
+  products.forEach((productId: any) => {
     routes.push({ route: `/produits/${productId}` })
   })
 
@@ -24,10 +24,10 @@ function produitPlugin(route: string, config = {}): Promise<HandledRoute[]> {
 }
 
 // plugin to create all actualites/* routes
-function actualitePlugin(route: string, config = {}): Promise<HandledRoute[]> {
-  const routes = [];
+function actualitePlugin(route: any, config: any): Promise<HandledRoute[]> {
+  const routes: any = [];
 
-  articles.forEach(articleId => {
+  articles.forEach((articleId: any) => {
     routes.push({ route: `/actualites/${articleId}` })
   })
 
@@ -35,10 +35,10 @@ function actualitePlugin(route: string, config = {}): Promise<HandledRoute[]> {
 }
 
 // plugin to create all direct/* routes
-function directPlugin(route: string, config = {}): Promise<HandledRoute[]> {
-  const routes = [];
+function directPlugin(route: any, config: any): Promise<HandledRoute[]> {
+  const routes: any = [];
 
-  direct.forEach(dId => {
+  direct.forEach((dId: any)=> {
     routes.push({ route: `/direct/${dId}` })
   })
 

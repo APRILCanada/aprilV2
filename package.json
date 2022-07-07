@@ -1,5 +1,5 @@
 {
-  "name": "april-v2",
+  "name": "april",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -32,9 +32,10 @@
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "@popperjs/core": "^2.11.5",
-    "@scullyio/init": "^1.1.4",
-    "@scullyio/ng-lib": "^1.0.0",
-    "@scullyio/scully": "^1.0.0",
+    "@scullyio/init": "^2.1.36",
+    "@scullyio/ng-lib": "^2.1.0",
+    "@scullyio/scully": "^2.1.0",
+    "@scullyio/scully-plugin-puppeteer": "^2.1.0",
     "animate.css": "^4.1.1",
     "bootstrap": "^5.1.3",
     "file-saver": "^2.0.5",

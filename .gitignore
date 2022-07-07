@@ -48,3 +48,9 @@ Thumbs.db
 
 # scully
 scully.log
+
+scullyStats.json
+.scully
+/scully/**/*.js
+/scully/**/*.js.map
+/scully/**/*.d.ts
