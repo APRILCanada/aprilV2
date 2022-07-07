@@ -18,5 +18,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions *ngIf="question.type === 'MULTIPLE'">
+  <button mat-raised-button color="secondary" (click)="close()">{{ "CLOSE" | translate }}</button>
   <button mat-raised-button color="primary" (click)="close()">{{ "SEND" | translate }}</button>
 </mat-dialog-actions>
