@@ -27,15 +27,15 @@ const childrenRoutes = [
   },
   {
     path: 'a-propos',
-    component: AboutComponent,
+    component: AboutComponent
   },
   {
     path: 'services',
-    component: BrokerServicesComponent,
+    component: BrokerServicesComponent
   },
   {
     path: 'carriere',
-    component: CareerComponent,
+    component: CareerComponent
   },
   {
     path: 'contact',

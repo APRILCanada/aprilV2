@@ -177,7 +177,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     AngularFireModule.initializeApp(environment.firebase, 'APRIL Canada'),
     AngularFireFunctionsModule,
     AngularFirestoreModule,
-    ScullyLibModule,
+    ScullyLibModule.forRoot({ useTransferState: true, alwaysMonitor: false, manualIdle:true }),
     ImgixAngularModule.forRoot({
       domain: "april.imgix.net",
       defaultImgixParams: {
@@ -192,6 +192,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router'
     }),
+    ScullyLibModule,
   ],
   bootstrap: [AppComponent],
 })

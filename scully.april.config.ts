@@ -1,8 +1,9 @@
 import { ScullyConfig, registerPlugin, HandledRoute } from '@scullyio/scully';
 import { niches, products, articles, direct } from './src/data/routes.js'
+import '@scullyio/scully-plugin-puppeteer';
 
 // plugin to create all niches/* routes
-function nichePlugin(route: any, config: any): Promise<HandledRoute[]> {
+async function nichePlugin(route: any, config: any): Promise<HandledRoute[]> {
   const routes: any = [];
 
   niches.forEach((nicheId: any) => {
@@ -13,7 +14,7 @@ function nichePlugin(route: any, config: any): Promise<HandledRoute[]> {
 }
 
 // plugin to create all produits/* routes
-function produitPlugin(route: any, config: any): Promise<HandledRoute[]> {
+async function produitPlugin(route: any, config: any): Promise<HandledRoute[]> {
   const routes: any = [];
 
   products.forEach((productId: any) => {
@@ -24,7 +25,7 @@ function produitPlugin(route: any, config: any): Promise<HandledRoute[]> {
 }
 
 // plugin to create all actualites/* routes
-function actualitePlugin(route: any, config: any): Promise<HandledRoute[]> {
+async function actualitePlugin(route: any, config: any): Promise<HandledRoute[]> {
   const routes: any = [];
 
   articles.forEach((articleId: any) => {
@@ -35,10 +36,10 @@ function actualitePlugin(route: any, config: any): Promise<HandledRoute[]> {
 }
 
 // plugin to create all direct/* routes
-function directPlugin(route: any, config: any): Promise<HandledRoute[]> {
+async function directPlugin(route: any, config: any): Promise<HandledRoute[]> {
   const routes: any = [];
 
-  direct.forEach((dId: any)=> {
+  direct.forEach((dId: any) => {
     routes.push({ route: `/direct/${dId}` })
   })
 
@@ -64,7 +65,7 @@ export const config: ScullyConfig = {
     '/actualites/:id': {
       type: 'actualite'
     },
-    '/direct/:id': {
+    '/direct/:marketId': {
       type: 'direct'
     }
   }

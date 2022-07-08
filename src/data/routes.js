@@ -86,7 +86,8 @@ const direct = [
     "assurance-entrepreneur-construction",
     "responsabilite-civile-entrepreneur-construction",
     "assurance-entrepreneurs-construction",
-    "responsabilite-civile-entrepreneurs-construction"
+    "responsabilite-civile-entrepreneurs-construction",
+    "76"
 ];
 
 module.exports = { niches, products, articles, direct }
