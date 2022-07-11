@@ -5,11 +5,21 @@ import { FlashquoteService } from './services/flashquote.service';
 import { FlashFormDTO } from './models/Flashquote';
 import { concatMap, map, switchMap } from 'rxjs/operators';
 import { FlashquoteLoadedAction } from './actions/flashquote.actions';
-import { AddGroupControlAction, createFormGroupState, validate, } from 'ngrx-forms';
-import { lessThanOrEqualTo } from 'ngrx-forms/validation';
+import { AddGroupControlAction } from 'ngrx-forms';
 
 @Injectable()
 export class FlashquoteEffects {
+  loadQuestions$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FlashquoteActions.loadFlashquote),
+      concatMap((action) => this.flashquoteService.getFlashquote()),
+      //concatMap((action) => this.flashquoteService.getFlashquote(action.marketId)),
+      map((flashquote: FlashFormDTO) => {
+        return new FlashquoteLoadedAction('FLASHQUOTE_LOADED', flashquote);
+      })
+    )
+  );
+
   loadFlashquote$ = createEffect(() =>
     this.actions$.pipe(
       ofType(FlashquoteActions.loadFlashquote),
@@ -23,17 +33,6 @@ export class FlashquoteEffects {
         });
       }),
       switchMap((res: any) => [res])
-    )
-  );
-
-  loadQuestions$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(FlashquoteActions.loadFlashquote),
-      concatMap((action) => this.flashquoteService.getFlashquote()),
-      //concatMap((action) => this.flashquoteService.getFlashquote(action.marketId)),
-      map((flashquote: FlashFormDTO) => {
-        return new FlashquoteLoadedAction('FLASHQUOTE_LOADED', flashquote);
-      })
     )
   );
 

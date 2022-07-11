@@ -1,6 +1,5 @@
 import {
   addGroupControl,
-  AddGroupControlAction,
   createFormGroupState,
   formGroupReducer,
   FormGroupState,
@@ -60,9 +59,7 @@ export const validateForm = (s: FormGroupState<any> = INITIAL_STATE) => {
 /* *** *** ***  *** *** ***  *** *** ***  *** *** *** */
 export function formStateReducer(
   s: FormGroupState<any> = INITIAL_STATE,
-  a:
-    | AddGroupControlAction<any>
-    | CreateGroupElementAction
+  a: CreateGroupElementAction
     | RemoveGroupElementAction
 ) {
   switch (a.type) {
