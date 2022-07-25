@@ -43,16 +43,14 @@ export class NichesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // getIdfromUrl
     this.nicheSub = this.route.params.subscribe((route) => {
-      this.nicheService.getNiche(route as any).subscribe((niche) => {
+      this.nicheService.getNiche(route['id']).subscribe((niche) => {
         this.niche = niche;
-        console.log(this.niche);
       });
       this.productService.getProducts().subscribe((products) => {
         this.filteredProducts = this.productsListFilter.transform(
           products,
           this.niche.id!
         );
-        console.log(this.filteredProducts);
       });
       window.scroll(0, 0);
       this.pushGTM();
