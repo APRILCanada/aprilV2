@@ -1,12 +1,20 @@
-h2{
-    font-size: 36px !important;
+h2 {
+  font-size: 36px !important;
 }
 
-.title-sticker{
-    position: absolute;
-    bottom: 0;
-    width: 100% !important;
-    height: auto;
-    z-index: -1;
-    transform: translateY(-10%);
+.title-sticker {
+  position: absolute;
+  bottom: 0;
+  width: 100% !important;
+  height: auto;
+  z-index: -1;
+  transform: translateY(-10%);
+}
+
+a {
+  color: var(--mainColor);
+}
+
+.prov-sticker {
+  max-width: 70px;
 }
