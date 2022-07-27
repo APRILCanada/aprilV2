@@ -169,11 +169,15 @@
 <div class="copy-right-area bg-main pb-5">
   <div class="container white-line d-block d-lg-flex justify-content-between">
     <div class="pt-2">© {{ "RIGHTS_RESERVED" | translate }}</div>
-    <div class="pt-2" (click)="openModal(privacy)">
-      <a href="javascript:void(0)">{{ "PRIVACY_POLICY" | translate }}</a>
+    <div class="pt-2">
+      <a [routerLink]="['', { outlets: { modals: ['confidentialite'] } }]">{{
+        "PRIVACY_POLICY" | translate
+      }}</a>
     </div>
-    <div class="pt-2" (click)="openModal(terms)">
-      <a href="javascript:void(0)">{{ "TERMS_CONDITIONS" | translate }}</a>
+    <div class="pt-2">
+      <a [routerLink]="['', { outlets: { modals: ['conditions'] } }]">{{
+        "TERMS_CONDITIONS" | translate
+      }}</a>
     </div>
   </div>
 </div>

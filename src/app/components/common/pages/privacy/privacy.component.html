@@ -1,8 +1,23 @@
 <div class="routable-modal p-2 p-sm-5">
   <div class="modal-header d-block w-100">
-    <h2 class="modal-title m-0 text-center">
-      {{ "PRIVACY_POLICY" | translate }}
-    </h2>
+    <div class="d-flex justify-content-between">
+      <span></span>
+      <h2 class="modal-title m-0 text-center">
+        {{ "PRIVACY_POLICY" | translate }}
+      </h2>
+      <span
+        *ngIf="this.language.get() == 'fr'"
+        (click)="this.language.set('en')"
+        class="language"
+        >EN</span
+      >
+      <span
+        *ngIf="this.language.get() == 'en'"
+        (click)="this.language.set('fr')"
+        class="language"
+        >FR</span
+      >
+    </div>
     <button type="button" class="close" (click)="close()">
       <span aria-hidden="true"
         ><img

@@ -27,15 +27,15 @@ const childrenRoutes = [
   },
   {
     path: 'a-propos',
-    component: AboutComponent
+    component: AboutComponent,
   },
   {
     path: 'services',
-    component: BrokerServicesComponent
+    component: BrokerServicesComponent,
   },
   {
     path: 'carriere',
-    component: CareerComponent
+    component: CareerComponent,
   },
   {
     path: 'contact',
@@ -75,6 +75,16 @@ const childrenRoutes = [
     outlet: 'modals',
   },
   {
+    path: 'confidentialite',
+    component: RoutableModalComponent,
+    outlet: 'modals',
+  },
+  {
+    path: 'conditions',
+    component: RoutableModalComponent,
+    outlet: 'modals',
+  },
+  {
     path: 'reclamation',
     component: ClaimsComponent,
   },
@@ -106,13 +116,15 @@ const routes: Routes = [
     {
       path: 'direct/:marketId',
       loadChildren: () =>
-        import('./flashquote/flashquote.module').then((m) => m.FlashquoteModule),
-      data: { animation: 'flashquote' }
+        import('./flashquote/flashquote.module').then(
+          (m) => m.FlashquoteModule
+        ),
+      data: { animation: 'flashquote' },
     },
     {
       path: 'prime',
       component: PrimeComponent,
-      data: { animation: 'prime' }
+      data: { animation: 'prime' },
     },
     {
       path: '',
@@ -140,4 +152,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

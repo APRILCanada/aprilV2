@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { AfterContentInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -26,7 +26,7 @@ declare global {
   templateUrl: './submission.component.html',
   styleUrls: ['./submission.component.scss'],
 })
-export class SubmissionComponent implements OnInit {
+export class SubmissionComponent implements OnInit, OnDestroy {
   settings: IMultiSelectSettings = this.dropDown.settings;
   riskEn: IMultiSelectOption[] = this.dropDown.riskEn;
   riskFr: IMultiSelectOption[] = this.dropDown.riskFr;
@@ -92,7 +92,10 @@ export class SubmissionComponent implements OnInit {
   }
 
   close() {
-    this.location.back();
     this.modalService.dismissAll();
+  }
+
+  ngOnDestroy() {
+    this.location.back();
   }
 }
