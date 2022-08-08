@@ -113,19 +113,19 @@ const routes: Routes = [
     //   loadChildren: () =>
     //     import('./direct/direct.module').then((m) => m.DirectModule),
     // },
-    {
-      path: 'direct/:marketId',
+     {
+      path: 'direct/:id',
       loadChildren: () =>
         import('./flashquote/flashquote.module').then(
           (m) => m.FlashquoteModule
         ),
       data: { animation: 'flashquote' },
     },
-    {
-      path: 'prime',
-      component: PrimeComponent,
-      data: { animation: 'prime' },
-    },
+    // {
+    //   path: 'prime',
+    //   component: PrimeComponent,
+    //   data: { animation: 'prime' },
+    // },
     {
       path: '',
       loadChildren: () =>
