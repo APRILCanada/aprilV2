@@ -2,21 +2,21 @@ import { Action, createAction, props } from '@ngrx/store';
 import { FormControlState } from 'ngrx-forms';
 import { FlashFormDTO } from '../models/Flashquote';
 
-export const loadFlashquote = createAction(
-  '[Home Resolver] LOAD_FLASHQUOTE',
-  props<{ marketId: string }>()
-);
+// QUESTIONS
+export const loadQuestions = createAction('[QUESTIONS] Load Questions', props<{ marketId: string }>());
+export const loadQuestionsSuccess = createAction('[QUESTIONS] Load Questions Success', props<{ flashquote: FlashFormDTO }>());
+export const loadQuestionsError = createAction('[QUESTIONS] Load Questions Error');
 
-export const flashquoteLoaded = createAction(
-  '[Load Flashform Effect] FLASHQUOTE_LOADED',
-  props<{ flashquote: FlashFormDTO }>()
-);
+export const loadForm = createAction('[FORM] Load Form', props<{ flashquote: FlashFormDTO }>())
+// export const loadFlashquote = createAction(
+//   '[Home Resolver] LOAD_FLASHQUOTE',
+//   props<{ marketId: string }>()
+// );
 
 export const setValue = createAction(
   '[Dialog Set Value] Set Selected Value',
   props<{ control: FormControlState<any>; selectedOptions: string }>()
 );
-
 
 export class SetSubmittedValueAction implements Action {
   static readonly TYPE = 'form/SET_SUBMITTED_VALUE';
