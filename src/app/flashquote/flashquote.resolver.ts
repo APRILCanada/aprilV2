@@ -23,10 +23,7 @@ export class FlashquoteResolver implements Resolve<any> {
     state: RouterStateSnapshot
   ): Observable<any> {
     return this.store.pipe(
-      //select(selectAllQuestionsLoaded),
-      // tap((allQuestionsLoaded) => {
       tap(() => {
-        // if (!this.loading && !allQuestionsLoaded) {
         if (!this.loading) {
           this.loading = true;
           this.store.dispatch(
@@ -34,7 +31,6 @@ export class FlashquoteResolver implements Resolve<any> {
           );
         }
       }),
-      //filter((allQuestionsLoaded) => allQuestionsLoaded),
       first(),
       finalize(() => (this.loading = false))
     );

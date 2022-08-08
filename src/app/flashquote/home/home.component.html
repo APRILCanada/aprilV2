@@ -1,4 +1,4 @@
-<div *ngIf="marketId">
+<div *ngIf="!!marketId; else showLoading">
   <div class="wrapper" [ngClass]="{'loading-wrapper': (formValid$ | async) && (formSubmitted$ | async)}">
     <app-direct-nav></app-direct-nav>
     <app-direct-hero [id]="marketId"></app-direct-hero>
@@ -13,3 +13,7 @@
 
   <app-loader *ngIf="(formValid$ | async) && (formSubmitted$ | async)"></app-loader>
 </div>
+
+<ng-template #showLoading>
+  <app-loader></app-loader>
+</ng-template>

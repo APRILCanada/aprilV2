@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   formSubmitted$: Observable<boolean>;
   formValid$: Observable<boolean>;
   marketId: string;
+  load = false;
 
   constructor(private route: ActivatedRoute, private store: Store<State>,) { }
 
