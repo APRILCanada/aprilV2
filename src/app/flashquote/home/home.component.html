@@ -1,18 +1,25 @@
-<div *ngIf="!!marketId; else showLoading">
+<div *ngIf="!!broker.marketId; else showLoading">
   <div class="wrapper" [ngClass]="{'loading-wrapper': (formValid$ | async) && (formSubmitted$ | async)}">
-    <app-direct-nav></app-direct-nav>
-    <app-direct-hero [id]="marketId"></app-direct-hero>
-    <app-flash-quote [id]="marketId"></app-flash-quote>
+    <div *ngIf="broker.name === 'April'; else notApril">
 
-    <app-steps [id]="marketId"></app-steps>
-    <app-extensions></app-extensions>
-    <app-direct-cta class="d-none d-sm-block"></app-direct-cta>
-    <app-exclusion></app-exclusion>
-    <app-new-footer></app-new-footer>
+      <app-direct-nav></app-direct-nav>
+      <app-direct-hero [id]="broker.marketId"></app-direct-hero>
+      <app-flash-quote [id]="broker.marketId"></app-flash-quote>
+
+      <app-steps [id]="broker.marketId"></app-steps>
+      <app-extensions></app-extensions>
+      <app-direct-cta class="d-none d-sm-block"></app-direct-cta>
+      <app-exclusion></app-exclusion>
+      <app-new-footer></app-new-footer>
+    </div>
   </div>
 
   <app-loader *ngIf="(formValid$ | async) && (formSubmitted$ | async)"></app-loader>
 </div>
+
+<ng-template #notApril>
+  <app-flash-quote [id]="broker.marketId"></app-flash-quote>
+</ng-template>
 
 <ng-template #showLoading>
   <app-loader></app-loader>

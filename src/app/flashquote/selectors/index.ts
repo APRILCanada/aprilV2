@@ -15,11 +15,6 @@ export const selectQuestions = createSelector(
   (state) => state.questions
 );
 
-export const selectMarketId = createSelector(
-  selectForm,
-  (state) => state.broker.marketId
-);
-
 export const selectAllQuestionsLoaded = createSelector(
   selectForm,
   (state) => !!state.questions

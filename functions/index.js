@@ -12,7 +12,7 @@ const { getBrokers, getBrokerById } = require('./handlers/brokers')
 require('./services/email')
 
 // routes
-app.use(cors())
+app.use(cors({ origin: true }));
 app.get('/brokers', getBrokers)
 app.get('/brokers/:id', getBrokerById)
 

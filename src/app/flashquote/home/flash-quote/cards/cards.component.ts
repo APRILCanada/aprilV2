@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LanguageService } from 'src/app/services/language.service';
 
+
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
