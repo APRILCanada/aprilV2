@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectFormSubmitted, selectFormValid } from '../selectors';
+import { selectBroker, selectFormSubmitted, selectFormValid } from '../selectors';
 import { State } from '../store';
 
 @Component({
@@ -11,24 +11,25 @@ import { State } from '../store';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  marketId: string | null;
   flashFormDTO: any;
   formSubmitted$: Observable<boolean>;
   formValid$: Observable<boolean>;
+  broker: any;
+  load = false;
 
   constructor(private route: ActivatedRoute, private store: Store<State>,) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      this.marketId = params.get('marketId');
-    });
-
     this.getFormSubmitted()
     this.getFormValid()
+    this.getBroker()
   }
 
-  getFlashFormDTO(marketId: string) {
 
+  getBroker() {
+    this.store.pipe(select(selectBroker)).subscribe(broker => {
+      this.broker = broker
+    })
   }
 
   getFormSubmitted() {

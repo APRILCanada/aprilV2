@@ -9,29 +9,28 @@ import { Observable } from 'rxjs';
 import { tap, first, finalize, filter } from 'rxjs/operators';
 import { AppState } from '../reducers/app.reducer';
 import { FlashFormDTO } from './models/Flashquote';
-import { loadFlashquote } from './actions/flashquote.actions';
+import { loadQuestions } from './actions/flashquote.actions';
+import { loadBroker } from './actions/broker.actions';
 import { selectAllQuestionsLoaded } from './selectors';
 
 @Injectable()
-export class FlashquoteResolver implements Resolve<FlashFormDTO> {
+export class FlashquoteResolver implements Resolve<any> {
   loading = false;
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) { }
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
     return this.store.pipe(
-      select(selectAllQuestionsLoaded),
-      tap((allQuestionsLoaded) => {
-        if (!this.loading && !allQuestionsLoaded) {
+      tap(() => {
+        if (!this.loading) {
           this.loading = true;
           this.store.dispatch(
-            loadFlashquote({ marketId: route.params['marketId'] })
+            loadBroker({ id: route.params['id'] })
           );
         }
       }),
-      filter((allQuestionsLoaded) => allQuestionsLoaded),
       first(),
       finalize(() => (this.loading = false))
     );

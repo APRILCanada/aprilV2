@@ -1,5 +1,6 @@
 <div class="container mt-0 mt-sm-5 mb-5 py-lg-5">
-  <div class="row">
+    <img class="logo" *ngIf="broker" src="{{'https://firebasestorage.googleapis.com/v0/b/april-canada-c5f17.appspot.com/o/' + logo + '?alt=media'}}" />
+  <div *ngIf="broker.name === 'April'" class="row">
     <div class="mt-2 mb-5 text-center">
       <h3>{{ "SUBSCRIBE_CONSTRUCTION_EASY" | translate }}</h3>
       <p innerHTML="{{ 'PRECIOUS_TIME' | translate }}"></p>
@@ -8,7 +9,7 @@
 
   <div class="mx-md-5">
     <div class="row">
-      <div class="col-lg-4 order-2 order-lg-1">
+      <div *ngIf="broker.name === 'April'" class="col-lg-4 order-2 order-lg-1">
         <app-cards [price]="page.get(id).price"></app-cards>
       </div>
       <div class="col-lg-8 p-0 order-1 order-lg-2" id="Form">

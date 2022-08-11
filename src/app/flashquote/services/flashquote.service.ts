@@ -3211,7 +3211,6 @@ export class FlashquoteService {
 
   getFlashquote(): Observable<any> {
     return new Observable(subscriber => {
-      console.log('dodo', this.dataJSON)
       subscriber.next(this.dataJSON)
     })
   }

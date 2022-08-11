@@ -1,11 +1,9 @@
-import { FlashquoteLoadedAction } from "../actions/flashquote.actions";
+import { createReducer, on } from "@ngrx/store";
+import { loadQuestionsSuccess } from "../actions/flashquote.actions";
+import { Question } from "../models/Question";
 
-export function questionsReducer(s: [], a: FlashquoteLoadedAction) {
-  switch (a.type) {
-    case FlashquoteLoadedAction.TYPE:
-      return [...a.flashquote.questions]
+const initialState: Question[] = [];
 
-    default:
-      return s
-  }
-}
+export const questionsReducer = createReducer(
+  initialState,
+  on(loadQuestionsSuccess, (state, { flashquote: { questions } }) => [...state, ...questions]))

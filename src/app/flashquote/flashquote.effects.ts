@@ -1,32 +1,72 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { FlashquoteActions } from './actions/action-types';
+import { BrokerActions, FlashquoteActions } from './actions/action-types';
 import { FlashquoteService } from './services/flashquote.service';
 import { FlashFormDTO } from './models/Flashquote';
-import { concatMap, map, switchMap } from 'rxjs/operators';
-import { FlashquoteLoadedAction } from './actions/flashquote.actions';
+import { concatMap, map, switchMap, catchError, mergeMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { loadForm, loadQuestions, loadQuestionsError, loadQuestionsSuccess } from './actions/flashquote.actions';
 import { AddGroupControlAction } from 'ngrx-forms';
+import { Store } from '@ngrx/store';
+import { AppState } from '../reducers/app.reducer';
+import { BrokerService } from './services/broker.service';
+import { loadBroker, loadBrokerError, loadBrokerSuccess } from './actions/broker.actions';
+import { BrokerDTO } from './models/Broker';
+
 
 @Injectable()
 export class FlashquoteEffects {
+
+  constructor(
+    private actions$: Actions,
+    private flashquoteService: FlashquoteService,
+    private brokerService: BrokerService,
+  ) { }
+
+  // https://newdevzone.com/posts/how-to-dispatch-multiple-actions-in-ngrxeffect-redux-observable
+  // https://www.angularfix.com/2022/04/ngrx-effects-type-is-not-assignable-to.html
+  loadBroker$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadBroker),
+      mergeMap((action) =>
+        this.brokerService.getBrokerById(action.id).pipe(
+          switchMap((broker: BrokerDTO) => {
+            return [
+              loadBrokerSuccess({ broker }),
+              loadQuestions({ marketId: broker.marketId })
+            ]
+          })
+        )),
+      catchError(() => {
+        return of(loadBrokerError())
+      })
+    )
+  )
+
   loadQuestions$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(FlashquoteActions.loadFlashquote),
-      concatMap((action) => this.flashquoteService.getFlashquote()),
-      //concatMap((action) => this.flashquoteService.getFlashquote(action.marketId)),
-      map((flashquote: FlashFormDTO) => {
-        return new FlashquoteLoadedAction('FLASHQUOTE_LOADED', flashquote);
-      })
+      ofType(loadQuestions),
+      mergeMap((action) =>
+        this.flashquoteService.getFlashquote().pipe(
+          switchMap((flashquote: FlashFormDTO) => {
+            return [
+              loadQuestionsSuccess({ flashquote }),
+              loadForm({ flashquote })
+            ]
+          })
+        )
+      ),
+      catchError(() => of(loadQuestionsError())
+      )
     )
   );
 
-  loadFlashquote$ = createEffect(() =>
+  createForm$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(FlashquoteActions.loadFlashquote),
-      //concatMap((action) => this.flashquoteService.getFlashquote(action.marketId)),
-      concatMap((action) => this.flashquoteService.getFlashquote()),
-      switchMap((flashquote: any) => {
-        return flashquote.questions.map((q: any) => {
+      ofType(loadForm),
+      switchMap((data: any) => {
+        const questions = data.flashquote.questions
+        return questions.map((q: any) => {
           if (q.type === 'REPARTITION')
             return new AddGroupControlAction('contracteur_v2', q.id, {});
           return new AddGroupControlAction('contracteur_v2', q.id, '');
@@ -35,9 +75,4 @@ export class FlashquoteEffects {
       switchMap((res: any) => [res])
     )
   );
-
-  constructor(
-    private actions$: Actions,
-    private flashquoteService: FlashquoteService
-  ) { }
 }
