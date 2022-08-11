@@ -4,7 +4,9 @@
       <div class="px-0 px-sm-5 mx-0 mx-sm-5">
         <h2 class="mb-4">{{ "FAQ" | translate }}</h2>
         <ngb-accordion activeIds="ngb-panel-0 w-100" class="accordion">
-          <ngb-panel [cardClass]="'bg-optional accordion card ng-star-inserted'">
+          <ngb-panel
+            [cardClass]="'bg-optional accordion card ng-star-inserted'"
+          >
             <ng-template ngbPanelTitle>
               <div
                 class="d-flex justify-content-between ContactCollapsible"
@@ -77,7 +79,7 @@
             <ng-template ngbPanelContent>
               <p>
                 {{ "FAQ_DESC_3" | translate }}
-                <a routerLink="reclamation">{{ "CLAIM_PAGE" | translate }}</a
+                <a routerLink="../reclamation">{{ "CLAIM_PAGE" | translate }}</a
                 >.
               </p>
               <p>{{ "FAQ_DESC_4" | translate }}</p>
