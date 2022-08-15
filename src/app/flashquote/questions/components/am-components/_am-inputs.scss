@@ -1,0 +1,27 @@
+.mat-form-field-underline {
+    display: none;
+}
+
+.mat-form-field-infix {
+    background-color: var(--greyColor);
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-label,
+.mat-form-field-appearance-legacy .mat-hint {
+    color: var(--mainColor);
+    margin-left: 1rem;
+}
+
+input.mat-input-element {
+    padding-left: 1rem;
+}
+
+.mat-form-field-label-wrapper {
+    top: -1rem;
+    color: var(--mainColor);
+}
+
+mat-label {
+    color: var(--mainColor);
+    padding-left: 0px;
+}

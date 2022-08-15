@@ -45,6 +45,7 @@ html {
 @import "assets/styles/variables.scss";
 @import "assets/styles/utilities.scss";
 @import "assets/styles/navigation.scss";
+@import "app/flashquote/questions/components/am-components/am-inputs";
 
 /*----------------------------------------------
   1. Root
@@ -544,6 +545,27 @@ button:focus {
   border: 1px solid var(--mainColor);
   border-radius: 25px;
   max-width: 250px;
+
+  &:hover {
+    color: var(--mainColor);
+    background-color: var(--whiteColor);
+  }
+}
+.btn-april-alt {
+  z-index: 1;
+  line-height: 1;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  padding: 13px 40px 14px;
+  color: var(--mainColor);
+  transition: var(--transition);
+  background-color: var(--whiteColor);
+  border: 1px solid var(--mainColor);
+  border-radius: 25px;
+  width: fit-content !important;
+  max-width: 250px;
+  margin-right: 1rem;
 
   &:hover {
     color: var(--mainColor);

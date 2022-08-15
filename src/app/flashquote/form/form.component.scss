@@ -10,5 +10,26 @@
         margin-left: 1.5rem;
         margin: 3rem auto;
         margin-right: 3rem;
+        position: relative;
     }
+}
+
+.logo {
+    max-width: 300px !important;
+    width: 100%;
+    height: auto;
+    margin-bottom: 1.5rem;
+}
+
+.lang-form {
+    color: var(--mainColor)!important;
+    text-decoration: underline;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.flash-form {
+    position: relative;
 }

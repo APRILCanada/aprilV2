@@ -1,4 +1,4 @@
-<mat-form-field class="input-field" appearance="fill">
+<mat-form-field class="input-field">
   <mat-label>{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</mat-label>
   <input type="{{ inputType }}" matInput [ngrxFormControlState]="control" />
 </mat-form-field>
