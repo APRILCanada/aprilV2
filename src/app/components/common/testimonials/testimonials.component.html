@@ -18,17 +18,16 @@
             <div
               class="testimonials-item d-flex flex-column align-items-center"
             >
-          <img ixImg src="https://april.imgix.net/a-propos/{{testimonial_item.img}}?auto=format" alt="Image" />
+              <img
+                ixImg
+                src="https://april.imgix.net/a-propos/{{
+                  testimonial_item.img
+                }}?auto=format"
+                alt="Image"
+              />
               <p>“ {{ testimonial_item.text | translate }} ”</p>
               <h3>{{ testimonial_item.name }}</h3>
               <span>{{ testimonial_item.title | translate }}</span>
-
-              <!--
-                <img src="../../../../assets/img/a-propos/adam.png" alt="Image" />
-                <p>“ {{ "ADAM_TEXT" | translate }} ”</p>
-                <h3>Adam Ray</h3>
-                <span>{{ "ADAM_TITLE" | translate }}</span>
-              -->
             </div>
           </ng-template>
         </owl-carousel-o>
@@ -36,3 +35,4 @@
     </div>
   </div>
 </section>
+
