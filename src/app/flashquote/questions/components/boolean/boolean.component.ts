@@ -19,7 +19,7 @@ export class BooleanComponent implements OnInit {
   constructor(public language: LanguageService, private store: Store) { }
 
   ngOnInit(): void {
-    // on component nounts, initialize the answer to 'false'
+    // on component mounts, initialize the answer to 'false'
     this.store.dispatch(new SetValueAction(this.control.id, this.selected));
   }
 

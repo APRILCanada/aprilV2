@@ -13,6 +13,7 @@ import { FormValue } from '../store';
 import { CreateGroupElementAction, RemoveGroupElementAction } from '../actions/flashquote.actions';
 import { ValidationErrors } from 'ngrx-forms/public_api';
 
+
 /* INTIAL STATE */
 /* *** *** ***  *** *** ***  *** *** ***  *** *** *** */
 export const FORM_ID = 'generic';

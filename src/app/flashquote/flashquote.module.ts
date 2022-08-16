@@ -41,6 +41,9 @@ import { FlashQuoteComponent } from './home/flash-quote/flash-quote.component';
 import { CardsComponent } from './home/flash-quote/cards/cards.component';
 import { NavigationModule } from '../navigation/navigation.module';
 import { BooleanComponent } from './questions/components/boolean/boolean.component';
+import { DateComponent } from './questions/components/date/date.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -70,7 +73,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ExclusionComponent,
     FlashQuoteComponent,
     CardsComponent,
-    BooleanComponent
+    BooleanComponent,
+    DateComponent
   ],
   imports: [
     CommonModule,
@@ -82,6 +86,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatDialogModule,
     MatChipsModule,
     MatIconModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
     MatTableModule,
     MatButtonModule,
     NavigationModule,
