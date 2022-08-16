@@ -40,6 +40,7 @@ import { ExclusionComponent } from './home/exclusion/exclusion.component';
 import { FlashQuoteComponent } from './home/flash-quote/flash-quote.component';
 import { CardsComponent } from './home/flash-quote/cards/cards.component';
 import { NavigationModule } from '../navigation/navigation.module';
+import { BooleanComponent } from './questions/components/boolean/boolean.component';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -68,7 +69,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DirectCtaComponent,
     ExclusionComponent,
     FlashQuoteComponent,
-    CardsComponent
+    CardsComponent,
+    BooleanComponent
   ],
   imports: [
     CommonModule,

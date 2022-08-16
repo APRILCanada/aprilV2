@@ -15,7 +15,7 @@ import { ValidationErrors } from 'ngrx-forms/public_api';
 
 /* INTIAL STATE */
 /* *** *** ***  *** *** ***  *** *** ***  *** *** *** */
-export const FORM_ID = 'contracteur_v2';
+export const FORM_ID = 'generic';
 export const INITIAL_STATE = createFormGroupState<FormValue>(FORM_ID, {});
 
 

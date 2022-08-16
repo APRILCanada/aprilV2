@@ -144,8 +144,8 @@ export class FormComponent implements OnInit, OnDestroy {
             }
           }
           const formData = {
-            Code: '5f9ddde6-4601-49e8-ba9c-7e0195ff3344',
-            MarketId: 76,
+            Code: this.broker.aprilonId,
+            MarketId: this.broker.marketId,
             Language: 'en',
             Answers: answers,
           };

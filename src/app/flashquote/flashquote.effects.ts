@@ -46,15 +46,18 @@ export class FlashquoteEffects {
   loadQuestions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadQuestions),
-      mergeMap((action) =>
-        this.flashquoteService.getFlashquote().pipe(
+      mergeMap((action) => {
+        console.log('action', action)
+        return this.flashquoteService.getFlashquote(action.marketId).pipe(
           switchMap((flashquote: FlashFormDTO) => {
+            console.log('questions', flashquote)
             return [
               loadQuestionsSuccess({ flashquote }),
               loadForm({ flashquote })
             ]
           })
         )
+      }
       ),
       catchError(() => of(loadQuestionsError())
       )
@@ -68,8 +71,8 @@ export class FlashquoteEffects {
         const questions = data.flashquote.questions
         return questions.map((q: any) => {
           if (q.type === 'REPARTITION')
-            return new AddGroupControlAction('contracteur_v2', q.id, {});
-          return new AddGroupControlAction('contracteur_v2', q.id, '');
+            return new AddGroupControlAction('generic', q.id, {});
+          return new AddGroupControlAction('generic', q.id, '');
         });
       }),
       switchMap((res: any) => [res])

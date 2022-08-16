@@ -3,6 +3,10 @@
     <app-input [question]="question" [control]="control"></app-input>
   </div>
 
+  <div *ngSwitchCase="'BOOLEAN'">
+    <app-boolean [question]="question" [control]="control"></app-boolean>
+  </div>
+
   <div *ngSwitchCase="'NUMBER'">
     <app-input [question]="question" [control]="control"></app-input>
   </div>

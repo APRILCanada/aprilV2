@@ -3204,16 +3204,16 @@ export class FlashquoteService {
 
   constructor(private http: HttpClient) { }
 
-  // getFlashquote(marketId: string): Observable<FlashFormDTO> {
-  //   return this.http.get<any>(`http://localhost:51668/api/publicflash/` + marketId);
-  // }
-
-
-  getFlashquote(): Observable<any> {
-    return new Observable(subscriber => {
-      subscriber.next(this.dataJSON)
-    })
+  getFlashquote(marketId: string): Observable<FlashFormDTO> {
+    return this.http.get<any>(`http://localhost:51668/api/publicflash/` + marketId);
   }
+
+
+  // getFlashquote(): Observable<any> {
+  //   return new Observable(subscriber => {
+  //     subscriber.next(this.dataJSON)
+  //   })
+  // }
 
 
   submitQuote(quote: any) {
