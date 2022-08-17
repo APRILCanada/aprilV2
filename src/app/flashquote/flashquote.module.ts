@@ -44,6 +44,8 @@ import { BooleanComponent } from './questions/components/boolean/boolean.compone
 import { DateComponent } from './questions/components/date/date.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { AddressComponent } from './questions/components/address/address.component';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -74,7 +76,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     FlashQuoteComponent,
     CardsComponent,
     BooleanComponent,
-    DateComponent
+    DateComponent,
+    AddressComponent
   ],
   imports: [
     CommonModule,
@@ -90,6 +93,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatDatepickerModule,
     MatTableModule,
     MatButtonModule,
+    MatAutocompleteModule,
     NavigationModule,
     EffectsModule.forFeature([FlashquoteEffects]),
     StoreModule.forFeature(

@@ -15,6 +15,10 @@
     <app-input [question]="question" [control]="control"></app-input>
   </div>
 
+  <div *ngSwitchCase="'ADDRESS'">
+    <app-address [question]="question" [control]="control"></app-address>
+  </div>
+
   <div *ngSwitchCase="'MULTIPLE'">
     <app-select [question]="question" [control]="control"></app-select>
   </div>
