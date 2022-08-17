@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { FormControlState } from 'ngrx-forms';
 import { Observable } from 'rxjs';

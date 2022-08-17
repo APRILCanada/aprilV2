@@ -28,7 +28,6 @@ import { RepartitionComponent } from './questions/components/repartition/reparti
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorComponent } from './questions/components/error/error.component';
 import { PrimeComponent } from './prime/prime.component';
-import { InputNumberFormatDirective } from './directives/input-number-format.directive';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -48,6 +47,7 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { AddressComponent } from './questions/components/address/address.component';
 import { MatSelectModule } from '@angular/material/select';
 import { NgrxMatSelectViewAdapter } from './shared/mat-select-view-adapter';
+import { NgxMaskModule } from 'ngx-mask';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -68,7 +68,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     RepartitionComponent,
     ErrorComponent,
     PrimeComponent,
-    InputNumberFormatDirective,
     LoaderComponent,
     DirectHeroComponent,
     StepsComponent,
@@ -99,6 +98,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatAutocompleteModule,
     MatSelectModule,
     NavigationModule,
+    NgxMaskModule.forChild(),
     EffectsModule.forFeature([FlashquoteEffects]),
     StoreModule.forFeature(
       'form',
