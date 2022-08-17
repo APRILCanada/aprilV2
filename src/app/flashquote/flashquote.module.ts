@@ -46,6 +46,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { AddressComponent } from './questions/components/address/address.component';
+import { MatSelectModule } from '@angular/material/select';
+import { NgrxMatSelectViewAdapter } from './shared/mat-select-view-adapter';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -77,7 +79,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     CardsComponent,
     BooleanComponent,
     DateComponent,
-    AddressComponent
+    AddressComponent,
+    NgrxMatSelectViewAdapter
   ],
   imports: [
     CommonModule,
@@ -94,6 +97,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatTableModule,
     MatButtonModule,
     MatAutocompleteModule,
+    MatSelectModule,
     NavigationModule,
     EffectsModule.forFeature([FlashquoteEffects]),
     StoreModule.forFeature(

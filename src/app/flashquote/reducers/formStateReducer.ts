@@ -79,7 +79,7 @@ export function formStateReducer(
         const newS = updateGroup<FormValue>({
           [a.destinationId]: (group: any) => {
             // group = nested repartition
-            return addGroupControl(group, a.responseKey, 0)
+            return addGroupControl(group, a.responseKey, '')
           }
         })(s);
         return formGroupReducer(newS, a);

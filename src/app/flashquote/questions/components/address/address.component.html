@@ -1,12 +1,13 @@
 <div class="d-flex flex-column">
 
+    <!-- input autocomplete -->
     <div [ngClass]="{'d-none':addressAutoCompleteHidden, 'input-group':!addressAutoCompleteHidden}">
         <div class="input-group-prepend"><span class="input-group-text">
                 <mat-icon>search</mat-icon>
             </span></div>
         <input class="form-control text-form" [matAutocomplete]="auto" [required]="question.isRequired"
-            #inputAutoComplete placeholder="Start writing" [ngrxFormControlState]="control">
-        <mat-autocomplete #auto="matAutocomplete">
+            #inputAutoComplete placeholder="Start writing" [ngrxFormControlState]="(group$ | async)['search']">
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event.option.value)">
             <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
             <ng-container *ngIf="!isLoading">
                 <mat-option *ngFor="let suggestion of suggestions" [value]="suggestion.locationId">
@@ -16,80 +17,91 @@
         </mat-autocomplete>
     </div>
 
-    <!-- <div [formGroup]="form" [ngClass]="{'d-none':!addressAutoCompleteHidden, 'd-flex flex-column':addressAutoCompleteHidden}">
+    <!-- btn to show empty form -->
+    <span (click)="showEmptyForm()" *ngIf="!addressAutoCompleteHidden"
+        style="text-decoration: underline; cursor: pointer;">
+        Can't find your address?
+    </span>
+
+    <!-- address form -->
+    <div *ngIf="showAddressForm"
+        [ngClass]="{'d-none':!addressAutoCompleteHidden, 'd-flex flex-column':addressAutoCompleteHidden}">
         <div class="container text-form" style="padding:0 !important;">
             <div class="row">
                 <div class="col-3">
                     <div class="d-flex flex-column justify-content-center">
-                        <span>{{ 'HOUSE_NUMBER' | translate}}</span>
-                        <div class="input-group mb-1" tabindex="1" [ngClass]="{'error-border':streetNumberError}">
-                            <input class="form-control" (focus)="focus.emit()" [formControlName]="question.identifier + '-StreetNumber'" [required]="question.required" type="text" (change)="addressChanged()">
+                        <span>House number</span>
+                        <div class="input-group mb-1" tabindex="1">
+                            <input class="form-control" [ngrxFormControlState]="(group$ | async)['houseNumber']"
+                                [required]="question.isRequired" type="text">
                         </div>
                     </div>
                 </div>
+
                 <div class="col-9">
                     <div class="d-flex flex-column justify-content-center">
-                        <span>{{ 'STREET' | translate}}</span>
-                        <div class="input-group mb-1" tabindex="2" [ngClass]="{'error-border':streetError}">
-                            <input class="form-control" (focus)="focus.emit()" [formControlName]="question.identifier + '-Street'" [required]="question.required" type="text" (change)="addressChanged()">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-9">
-                    <div class="d-flex flex-column justify-content-center">
-                        <span>{{ 'CITY' | translate}}</span>
-                        <div class="input-group mb-1" tabindex="3" [ngClass]="{'error-border':cityError}">
-                            <input class="form-control" (focus)="focus.emit()" [formControlName]="question.identifier + '-City'" [required]="question.required" type="text" (change)="addressChanged()">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="d-flex flex-column justify-content-center">
-                        <span>{{ 'APT_OTHER' | translate}}</span>
-                        <div class="input-group mb-1" tabindex="3">
-                            <input #unit class="form-control" (focus)="focus.emit()" placeholder="{{ 'OPTIONAL' | translate }}" [formControlName]="question.identifier + '-Unit'" type="text" (change)="addressChanged()">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-8">
-                    <div class="d-flex flex-column justify-content-center">
-                        <span>Province</span>
-                        <div class="input-group mb-1" tabindex="3" [ngClass]="{'error-border':provinceError}">
-                            <mat-select 
-                                class="form-control" 
-                                (focus)="focus.emit()" 
-                                [formControlName]="question.identifier + '-Province'" 
-                                [required]="question.required" 
-                                (selectionChange)="addressChanged()">
-                                <mat-option *ngFor="let p of PROVINCE" value="{{ p }}">
-                                    {{ p  | translate }}
-                                </mat-option>
-                            </mat-select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="d-flex flex-column justify-content-center">
-                        <span>{{ 'POSTAL_CODE' | translate }}</span>
-                        <div class="input-group mb-1" tabindex="3" [ngClass]="{'error-border':postalCodeError}">
-                            <input class="form-control" mask="S0S 0S0" (focus)="focus.emit()" [formControlName]="question.identifier + '-PostalCode'" [required]="question.required" type="text" (change)="addressChanged()">
+                        <span>Street</span>
+                        <div class="input-group mb-1" tabindex="2">
+                            <input class="form-control" [ngrxFormControlState]="(group$ | async)['street']"
+                                [required]="question.isRequired" type="text">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-9">
+                <div class="d-flex flex-column justify-content-center">
+                    <span>City</span>
+                    <div class="input-group mb-1" tabindex="3">
+                        <input class="form-control" [ngrxFormControlState]="(group$ | async)['city']"
+                            [required]="question.isRequired" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="d-flex flex-column justify-content-center">
+                    <span>Unit</span>
+                    <div class="input-group mb-1" tabindex="3">
+                        <input #unit class="form-control" type="text" [ngrxFormControlState]="(group$ | async)['unit']">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-8">
+                <div class="d-flex flex-column justify-content-center">
+                    <span>Province</span>
+                    <div class="input-group mb-1" tabindex="3">
+                        <mat-select class="form-control" [ngrxFormControlState]="(group$ | async)['state']"
+                            [required]="question.isRequired">
+                            <mat-option *ngFor="let p of ['AB', 'BC','MB','ON','QC','SK']" value="{{ p }}">
+                                {{ p }}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="d-flex flex-column justify-content-center">
+                    <span>Postal Code</span>
+                    <div class="input-group mb-1" tabindex="3">
+                        <input class="form-control" mask="S0S 0S0"
+                            [ngrxFormControlState]="(group$ | async)['postalCode']" [required]="question.isRequired"
+                            type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <!-- <span class="text-form text-error mt-2" *ngIf="error">{{ 'ERROR_FILL_ALL_ANSWER' | translate }}</span> -->
+            <span (click)="resetAddress()" *ngIf="addressAutoCompleteHidden"
+                style="text-decoration: underline; cursor: pointer;">
+                Wrong address
+            </span>
+        </div>
+
     </div>
-    <div>
-        <span class="text-form text-error mt-2" *ngIf="error">{{ 'ERROR_FILL_ALL_ANSWER' | translate }}</span>
-        <span (click)="addressAutoCompleteHidden = false" *ngIf="addressAutoCompleteHidden" style="text-decoration: underline; cursor: pointer;">
-            {{ 'WRONG_ADDRESS' | translate }}
-        </span>
-        <span (click)="addressAutoCompleteHidden = true" *ngIf="!addressAutoCompleteHidden" style="text-decoration: underline; cursor: pointer;">
-            {{ 'MISSING_ADDRESS' | translate }}
-        </span> 
-    </div> -->
-</div>

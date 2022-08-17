@@ -72,6 +72,16 @@ export class FlashquoteEffects {
         return questions.map((q: any) => {
           if (q.type === 'REPARTITION')
             return new AddGroupControlAction('generic', q.id, {});
+          if (q.type === 'ADDRESS')
+            return new AddGroupControlAction('generic', q.id, {
+              search: '',
+              street: '',
+              postalCode: '',
+              city: '',
+              houseNumber: '',
+              state: '',
+              unit: ''
+            });
           return new AddGroupControlAction('generic', q.id, '');
         });
       }),

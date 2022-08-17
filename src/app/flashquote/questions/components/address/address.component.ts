@@ -1,8 +1,8 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { FormControlState } from 'ngrx-forms';
-import { BehaviorSubject, debounceTime, Observable, switchMap, tap } from 'rxjs';
+import { FormControlState, SetValueAction } from 'ngrx-forms';
+import { debounceTime,  Observable, pluck, switchMap, tap } from 'rxjs';
 import { Question } from 'src/app/flashquote/models/Question';
 import { AddressService } from 'src/app/flashquote/services/address.service';
 import { State } from 'src/app/flashquote/store';
@@ -16,48 +16,26 @@ export class AddressComponent implements OnInit {
   @Input() question: Question;
   @Input() control: FormControlState<any>;
   @Input() error: any;
-  search$: Observable<any>
 
-  constructor(public translate: TranslateService, private store: Store<State>, private addressService: AddressService) { }
-
-  PROVINCE = [
-    "AB",
-    "BC",
-    "MB",
-    "ON",
-    "QC",
-    "SK"
-  ]
-
-  @ViewChild('unit') unitElement: ElementRef;
-
-  _validating: boolean = false;
-
-  @Input() public set isValidating(value) {
-    if (value == true) {
-      this.addressAutoCompleteHidden = true;
-    }
-    this._validating = value;
-  }
-
-  public get isValidating() {
-    return this._validating;
-  }
-
-  @Output() onValueChange = new EventEmitter();
-  @Output() focus = new EventEmitter();
-
-  identifier: string = "";
-
-  addressAutoCompleteHidden: boolean = false;
+  group$: Observable<any>
+  showAddressForm = false;
+  addressAutoCompleteHidden = false;
   isLoading = false;
   suggestions: any[];
 
+  constructor(
+    public translate: TranslateService,
+    private store: Store<State>,
+    private addressService: AddressService
+  ) { }
+
   ngOnInit() {
-    this.search$ = this.store.pipe(
-      select((s) => s.form.formState.controls[this.question.id].value)
+    this.group$ = this.store.pipe(
+      select((s) => s.form.formState.controls[this.question.id].controls)
     );
-    this.search$.pipe(
+
+    this.group$.pipe(
+      pluck('search', 'value'),
       debounceTime(500),
       tap(() => {
         this.suggestions = [];
@@ -66,11 +44,10 @@ export class AddressComponent implements OnInit {
       switchMap(value => this.addressService.getAutoComplete(value))
     ).subscribe({
       next: data => {
-        console.log('data address', data)
         this.suggestions = data['suggestions']
         this.isLoading = false
       },
-      error: err => {
+      error: () => {
         this.suggestions = []
         this.isLoading = false;
       }
@@ -85,5 +62,44 @@ export class AddressComponent implements OnInit {
     let state = !address.state ? '' : `${address.state}, `;
     let countryPostalCode = !address.postalCode ? 'Canada' : `Canada, ${address.postalCode}`;
     return `${houseNumber}${street}${city}${state}${countryPostalCode}`;
+  }
+
+  optionSelected(locationId: string) {
+    if (locationId) {
+      this.showAddressForm = true;
+      this.addressAutoCompleteHidden = true;
+
+      this.addressService.getLocationDetails(locationId).subscribe({
+        next: addressResult => {
+          this.store.dispatch(new SetValueAction(this.control.id, {
+            search: '',
+            street: addressResult['street'] || '',
+            postalCode: addressResult['postalCode'] || '',
+            city: addressResult['city'] || '',
+            houseNumber: addressResult['houseNumber'] || '',
+            state: addressResult['state'] || '',
+            unit: ''
+          }));
+        }
+      });
+    }
+  }
+
+  resetAddress() {
+    this.addressAutoCompleteHidden = false
+    this.store.dispatch(new SetValueAction(this.control.id, {
+      search: '',
+      street: '',
+      postalCode: '',
+      city: '',
+      houseNumber: '',
+      state: '',
+      unit: ''
+    }));
+  }
+
+  showEmptyForm() {
+    this.addressAutoCompleteHidden = true;
+    this.showAddressForm = true
   }
 }
