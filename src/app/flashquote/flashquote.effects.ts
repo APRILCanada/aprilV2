@@ -70,8 +70,11 @@ export class FlashquoteEffects {
       switchMap((data: any) => {
         const questions = data.flashquote.questions
         return questions.map((q: any) => {
-          if (q.type === 'REPARTITION')
+          if (q.type === 'REPARTITION') {
+            console.log('question', q)
             return new AddGroupControlAction('generic', q.id, {});
+          }
+            
           if (q.type === 'ADDRESS')
             return new AddGroupControlAction('generic', q.id, {
               search: '',

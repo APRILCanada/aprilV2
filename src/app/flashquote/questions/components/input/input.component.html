@@ -1,4 +1,9 @@
-<mat-form-field class="input-field">
+<!-- <mat-form-field class="input-field">
   <mat-label>{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</mat-label>
   <input type="{{ inputType }}" matInput [ngrxFormControlState]="control" />
-</mat-form-field>
+</mat-form-field> -->
+
+<div class="form-group">
+  <label for="{{control.id}}">{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</label>
+  <input class="form-control text-form" autocomplete="disabled" [ngrxFormControlState]="control" id="{{control.id}}">
+</div>

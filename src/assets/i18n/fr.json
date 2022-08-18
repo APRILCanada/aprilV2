@@ -1,4 +1,13 @@
 {
+    "HOUSE_NUMBER": "Numéro",
+    "STREET": "Rue",
+    "APT_OTHER": "Appt/Autre",
+    "POSTAL_CODE": "Code postal",
+    "PROVINCE": "Province",
+    "PHONE": "Téléphone",
+    "START_TYPING_ADDRESS": "Commencez à taper une adresse",
+    "MISSING_ADDRESS": "Vous ne trouvez pas votre adresse ?",
+    "WRONG_ADDRESS": "Pas la bonne adresse ?",
     "JOB_OFFER_LIST" : "Liste des offres d'emploi",
     "JOB_OFFER" : "Offre d'emploi",
     "CITY" : "Ville",

@@ -42,12 +42,17 @@ export function validateRepartition(values: any): ValidationErrors {
   }
 }
 
+export function validateAddress(values: any): ValidationErrors {
+  console.log('values', values)
+  return {}
+}
+
 export const validateForm = (s: FormGroupState<any> = INITIAL_STATE) => {
   const updateFns = Object.keys(s.controls).reduce(
     (fns, key) => {
       return {
         ...fns,
-        [key]: key == "2885" ? validate(validateRepartition) : validate(required)
+        [key]: key == "2885" || key == "257" ? validate(validateRepartition) : validate(required) && key == "235" ? validate(validateAddress) : validate(required)
       }
     },
     {} as StateUpdateFns<typeof s.value>
@@ -75,6 +80,7 @@ export function formStateReducer(
     case CreateGroupElementAction.TYPE:
       const value = s.controls[a.destinationId].value as {};
       if (!(a.responseKey in value)) {
+
         // newS = the whole formState
         const newS = updateGroup<FormValue>({
           [a.destinationId]: (group: any) => {

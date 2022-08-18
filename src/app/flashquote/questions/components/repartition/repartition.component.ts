@@ -41,6 +41,7 @@ export class RepartitionComponent implements OnInit {
         (q: Question) => q.id === this.question.id
       )!.responses;
     })
+    console.log('les reponses', this.responses)
 
     // get all the current active inputs inside the repartition thanks to an Observable selector
     this.groupOptions$ = this.store.pipe(

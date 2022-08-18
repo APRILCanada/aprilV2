@@ -6,6 +6,7 @@ import { debounceTime,  Observable, pluck, switchMap, tap } from 'rxjs';
 import { Question } from 'src/app/flashquote/models/Question';
 import { AddressService } from 'src/app/flashquote/services/address.service';
 import { State } from 'src/app/flashquote/store';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-address',
@@ -26,7 +27,8 @@ export class AddressComponent implements OnInit {
   constructor(
     public translate: TranslateService,
     private store: Store<State>,
-    private addressService: AddressService
+    private addressService: AddressService,
+    public language: LanguageService
   ) { }
 
   ngOnInit() {

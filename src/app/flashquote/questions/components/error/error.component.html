@@ -8,22 +8,16 @@
   <small>{{ "REQUIRED" | translate }}</small>
 </mat-error>
 
-<mat-error
-  @fadeSlideInOut
-  *ngIf="
+<mat-error @fadeSlideInOut *ngIf="
     error?.unfilledRepartition &&
     (control.isDirty || control.isTouched || control.isSubmitted)
-  "
->
+  ">
   <small>{{ "ALLOCATION" | translate }}</small>
 </mat-error>
 
-<mat-error
-  @fadeSlideInOut
-  *ngIf="
+<mat-error @fadeSlideInOut *ngIf="
     error?.valRep &&
     (control.isDirty || control.isTouched || control.isSubmitted)
-  "
->
+  ">
   <small>{{ "DISTRIBUTION" | translate }}</small>
 </mat-error>
