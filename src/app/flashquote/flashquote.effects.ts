@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { BrokerActions, FlashquoteActions } from './actions/action-types';
 import { FlashquoteService } from './services/flashquote.service';
 import { FlashFormDTO } from './models/Flashquote';
-import { concatMap, map, switchMap, catchError, mergeMap } from 'rxjs/operators';
+import { concatMap, map, switchMap, catchError, mergeMap, filter } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { loadForm, loadQuestions, loadQuestionsError, loadQuestionsSuccess } from './actions/flashquote.actions';
 import { AddGroupControlAction } from 'ngrx-forms';
@@ -69,12 +69,12 @@ export class FlashquoteEffects {
       ofType(loadForm),
       switchMap((data: any) => {
         const questions = data.flashquote.questions
-        return questions.map((q: any) => {
+        const filtered = questions.filter((q: any) => !q.isHidden)
+        return filtered.map((q: any) => {
           if (q.type === 'REPARTITION') {
-            console.log('question', q)
             return new AddGroupControlAction('generic', q.id, {});
           }
-            
+
           if (q.type === 'ADDRESS')
             return new AddGroupControlAction('generic', q.id, {
               search: '',

@@ -1,7 +1,7 @@
-<mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</mat-label>
-    <input matInput [matDatepicker]="picker" [ngrxFormControlState]="control" [ngrxValueConverter]="dateValueConverter">
-    <mat-hint>MM-DD-YYYY</mat-hint>
+<label for="{{control?.id}}">{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</label>
+<mat-form-field appearance="fill">
+    <input id="{{control?.id}}" matInput [matDatepicker]="picker" [ngrxFormControlState]="control"
+        [ngrxValueConverter]="dateValueConverter" placeholder="{{ 'DATE_PICKER' | translate }}">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>

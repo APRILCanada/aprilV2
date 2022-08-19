@@ -4,6 +4,7 @@ import { FormControlState, NgrxValueConverter, NgrxValueConverters } from 'ngrx-
 import { Question } from 'src/app/flashquote/models/Question';
 import { LanguageService } from 'src/app/services/language.service';
 import { format } from 'date-fns';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-date',
@@ -30,7 +31,7 @@ export class DateComponent implements OnInit {
   };
 
 
-  constructor(public language: LanguageService) { }
+  constructor(public language: LanguageService, public translate: TranslateService) { }
 
   ngOnInit() { }
 }

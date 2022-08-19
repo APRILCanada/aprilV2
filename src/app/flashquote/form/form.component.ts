@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { Question } from '../models/Question';
@@ -26,7 +26,7 @@ import { LanguageService } from 'src/app/services/language.service';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit, OnDestroy {
+export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
   questions: Question[];
   errors$: Observable<any>;
   formState$: Observable<any>;
@@ -44,7 +44,8 @@ export class FormComponent implements OnInit, OnDestroy {
     private actionService: ActionService,
     private flashquoteService: FlashquoteService,
     private router: Router,
-    public language: LanguageService
+    public language: LanguageService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -58,6 +59,10 @@ export class FormComponent implements OnInit, OnDestroy {
 
     this.onFormChange();
   }
+
+  ngAfterContentChecked() {
+    this.cdr.detectChanges();
+}
 
   ngOnDestroy() {
     this.formSubscription.unsubscribe();
@@ -77,7 +82,6 @@ export class FormComponent implements OnInit, OnDestroy {
 
   getBroker() {
     this.store.pipe(select(selectBroker)).subscribe(broker => {
-      console.log('broker', broker)
       this.broker = broker
       this.logo = encodeURIComponent(broker.logo)
     })

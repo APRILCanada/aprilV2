@@ -1,5 +1,5 @@
-<div class="select-single">
-    <mat-label>{{ language.get() == "fr" ? question.title.LabelFr : question.title.LabelEn }}</mat-label>
+<label>{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</label>
+<div class="container">
     <mat-chip-list>
         <app-chip [selected]="selected === 'true' ? true : false" (click)="select('true')">
             {{ 'YES' | translate | uppercase }}

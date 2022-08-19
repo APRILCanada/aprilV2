@@ -1,15 +1,8 @@
 .container {
     margin-bottom: 2rem;
-    border-bottom: 1px solid #848484;
-    background-color: var(--greyColor);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    padding: 0.5rem;
-}
-
-.select-single {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 1rem;
-}
+    padding: 0.5rem 0;
+  
+  }
+  

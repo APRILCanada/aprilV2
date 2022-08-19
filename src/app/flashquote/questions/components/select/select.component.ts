@@ -76,9 +76,13 @@ export class SelectComponent {
     } else {
       this.selectedOptions.splice(index, 1);
     }
-    this.store.dispatch(new SetValueAction(this.control.id, option.responseKey));
-  }
 
+    // update store - returns a string of all selected options
+    this.store.dispatch(new SetValueAction(this.control.id, this.selectedOptions.reduce((acc, opt) => {
+      acc.push(opt.responseKey)
+      return acc
+    }, []).join()));
+  }
 
   // apply some styles if the option is selected
   isSelected(option: string) {

@@ -35,8 +35,21 @@ export class ActionService {
         case 'RETRIEVE_RESPONSE':
           this.getResponsesFromPreviousAnswer(question, control, destinationId);
           break;
+        case 'HIDE':
+          //this.showHide(rule);
+          break;
+        case 'SHOW':
+          this.showHide(rule, destinationId);
+          break;
       }
     });
+  }
+
+  showHide(rule: any, destinationId: any) {
+    if(rule.value === "false") {
+
+    }
+
   }
 
   
