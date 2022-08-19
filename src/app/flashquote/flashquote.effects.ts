@@ -71,8 +71,16 @@ export class FlashquoteEffects {
         const questions = data.flashquote.questions
         const filtered = questions.filter((q: any) => !q.isHidden)
         return filtered.map((q: any) => {
+          //return questions.map((q: any) => {
           if (q.type === 'REPARTITION') {
             return new AddGroupControlAction('generic', q.id, {});
+          }
+
+          if (q.type === 'IDENTIFICATION') {
+            return new AddGroupControlAction('generic', q.id, {
+              firstName: '',
+              lastName: ''
+            })
           }
 
           if (q.type === 'ADDRESS')

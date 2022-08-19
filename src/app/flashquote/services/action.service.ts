@@ -9,6 +9,7 @@ import {
 } from '../store';
 import { CreateGroupElementAction, RemoveGroupElementAction } from '../actions/flashquote.actions';
 import { selectFormState, selectQuestions } from '../selectors';
+import { RuleService } from './rule.service';
 
 
 @Injectable({
@@ -18,7 +19,7 @@ export class ActionService {
   questions: Question[] = [];
   formState: FormState<FormValue>;
 
-  constructor(private store: Store<State>) {
+  constructor(private store: Store<State>, private ruleService: RuleService) {
     this.store.pipe(select(selectQuestions)).subscribe(questions => {
       this.questions = questions
     })
@@ -35,27 +36,27 @@ export class ActionService {
         case 'RETRIEVE_RESPONSE':
           this.getResponsesFromPreviousAnswer(question, control, destinationId);
           break;
-        case 'HIDE':
-          //this.showHide(rule);
-          break;
         case 'SHOW':
-          this.showHide(control, destinationId.toString());
+          this.showHide(question, control, destinationId.toString());
           break;
       }
     });
   }
 
-  showHide(control: any, destinationId: any) {
+  showHide(question: Question, control: any, destinationId: string) {
+    
     if(control.value === "true") {
       if(!this.formState.controls[destinationId]) {
         this.store.dispatch(new AddGroupControlAction('generic', destinationId, ''));
       }
     } else if(control.value === "false") {
       if(this.formState.controls[destinationId]) {
-      this.store.dispatch(new RemoveGroupControlAction('generic', '251'))
+      this.store.dispatch(new RemoveGroupControlAction('generic', destinationId))
       }
     }
   }
+
+
 
   
   getResponsesFromPreviousAnswer(

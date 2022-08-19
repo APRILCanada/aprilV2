@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormControlState } from '@angular/forms';
 import { Question } from '../models/Question';
 import { Rule } from '../models/Rule';
 
@@ -10,8 +11,8 @@ import { Rule } from '../models/Rule';
 export class RuleService {
   constructor() { }
 
-  rules:Rule[] = [];
-  questions:Question[] = [];
+  rules: Rule[] = [];
+  questions: Question[] = [];
   // triggers:string[] = [];
   // sequence:Map<string,Rule> = new Map<string, Rule>();
   // actions:Action[] = [];
@@ -47,7 +48,7 @@ export class RuleService {
 
   // }
 
-  checkRules(question:Question){
+  checkRules(question: Question){
     // question.rules.forEach(rule =>
     //   {
     //     var index = question.key.indexOf('_') == -1 ? "" : question.key.split('_')[1];
@@ -91,46 +92,13 @@ export class RuleService {
   //   }
   // }
 
-  validateRule(rule:Rule, question:Question) {}
-    // var value;
-    // var add = 0;
-    // var result;
-    // if(rule.isFromResponseList){
-    //   rule.responseList.forEach(r => {
-    //     var numberToAdd = parseFloat(question['options'].find(x => x.key == r).value.replace(",", ".").replace(/\s/g, ""));
-    //     add += numberToAdd;
-    //   });
-    //   value = add.toString();
-    // }
-    // else if(rule.fromIdentifier){
-    //   // console.log(rule, question);
-    //   for(var key in question.value){
-    //     if(key.toLowerCase().indexOf(rule.identifier.toLowerCase()) > -1){
-    //       value = question.value[key].toString();
-    //     }
-    //   }
-    // }
-    // else if(rule.isIdentifierGrouped){
-    //   value = [];
-    //   for(var key in question.value){
-    //     value.push(question.value[key] || "");
-    //   }
-    // }
-    // else if(rule.isSplittable){
-    //   try {
-    //     value = question.value.split();
-    //   }
-    //   catch{
-    //     value = question.value;
-    //   }
-    // }
-    // else {
-    //   value = question.value;
-    // }
-    // switch(rule.operation){
-    //   case 'EQUALS':
-    //     result = value == rule.value;
-    //     break;
+  validateRule(rule:Rule, inputValue: any) {
+    let result;
+
+    switch(rule.operation){
+       case 'EQUALS':
+         result = inputValue == rule.value;
+         break;
     //   case 'NOT_EQUAL':
     //     result = value != rule.value;
     //     break;
@@ -212,9 +180,9 @@ export class RuleService {
       // case 'YEAR_LESSER_EQUAL':
       //   result = this.yearLesserThan(value, rule.value, true);
       //   break;
-  //   }
-  //   return result;
-  // }
+     }
+     return result;
+  }
 
   // validateSequence(rule:Rule, key:string, index:string):void{
   //   var seqKey = rule.id.toString();

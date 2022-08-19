@@ -9,6 +9,7 @@ import { Question } from '../../models/Question';
 })
 export class QuestionBaseComponent {
   @Input() question: Question;
-  @Input() control: FormControlState<any> | null;
+  @Input() control: FormControlState<any>;
   @ViewChild('error') error: ElementRef;
+
 }

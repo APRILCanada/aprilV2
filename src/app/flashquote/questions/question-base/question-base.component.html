@@ -11,6 +11,10 @@
     <app-date [question]="question" [control]="control"></app-date>
   </div>
 
+  <div *ngSwitchCase="'IDENTIFICATION'">
+    <app-identification [question]="question" [control]="control"></app-identification>
+  </div>
+
   <div *ngSwitchCase="'NUMBER'">
     <app-input [question]="question" [control]="control"></app-input>
   </div>

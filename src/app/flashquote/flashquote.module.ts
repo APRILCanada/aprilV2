@@ -48,6 +48,7 @@ import { AddressComponent } from './questions/components/address/address.compone
 import { MatSelectModule } from '@angular/material/select';
 import { NgrxMatSelectViewAdapter } from './shared/mat-select-view-adapter';
 import { NgxMaskModule } from 'ngx-mask';
+import { IdentificationComponent } from './questions/components/identification/identification.component';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -79,6 +80,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     BooleanComponent,
     DateComponent,
     AddressComponent,
+    IdentificationComponent,
     NgrxMatSelectViewAdapter
   ],
   imports: [

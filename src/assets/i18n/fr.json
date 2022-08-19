@@ -1,4 +1,6 @@
 {
+    "FIRST_NAME":"Prénom",
+    "LAST_NAME": "Nom de famille",
     "DATE_PICKER": "AAAA-MM-JJ",
     "HOUSE_NUMBER": "Numéro",
     "STREET": "Rue",
