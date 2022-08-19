@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { FormControlState, FormState } from 'ngrx-forms';
+import { AddGroupControlAction, FormControlState, FormState, RemoveGroupControlAction } from 'ngrx-forms';
 import { Question } from '../models/Question';
 import { Response } from '../models/Response';
 import {
@@ -39,17 +39,22 @@ export class ActionService {
           //this.showHide(rule);
           break;
         case 'SHOW':
-          this.showHide(rule, destinationId);
+          this.showHide(control, destinationId.toString());
           break;
       }
     });
   }
 
-  showHide(rule: any, destinationId: any) {
-    if(rule.value === "false") {
-
+  showHide(control: any, destinationId: any) {
+    if(control.value === "true") {
+      if(!this.formState.controls[destinationId]) {
+        this.store.dispatch(new AddGroupControlAction('generic', destinationId, ''));
+      }
+    } else if(control.value === "false") {
+      if(this.formState.controls[destinationId]) {
+      this.store.dispatch(new RemoveGroupControlAction('generic', '251'))
+      }
     }
-
   }
 
   

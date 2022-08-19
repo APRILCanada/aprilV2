@@ -60,6 +60,7 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
     this.onFormChange();
   }
 
+  //https://stackoverflow.com/questions/34364880/expression-has-changed-after-it-was-checked
   ngAfterContentChecked() {
     this.cdr.detectChanges();
 }
