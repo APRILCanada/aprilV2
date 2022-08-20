@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormControlState, SetValueAction } from 'ngrx-forms';
 import { Question } from 'src/app/flashquote/models/Question';
@@ -19,8 +19,14 @@ export class BooleanComponent implements OnInit {
   constructor(public language: LanguageService, private store: Store) { }
 
   ngOnInit(): void {
-    // on component mounts, initialize the answer to 'false'
+    // on component mounts, initialize the answer to 'false' in the store
     this.store.dispatch(new SetValueAction(this.control.id, this.selected));
+  }
+
+  ngOnChanges(changes:SimpleChanges){
+    if(changes['control'].currentValue != changes['control'].previousValue){
+      this.selected = changes['control'].currentValue.value;
+     }
   }
 
   select(value: string) {

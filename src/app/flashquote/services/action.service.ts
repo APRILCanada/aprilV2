@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { AddGroupControlAction, FormControlState, FormState, RemoveGroupControlAction } from 'ngrx-forms';
+import { AddArrayControlAction, AddGroupControlAction, FormControlState, FormState, RemoveGroupControlAction } from 'ngrx-forms';
 import { Question } from '../models/Question';
 import { Response } from '../models/Response';
 import {
@@ -44,21 +44,27 @@ export class ActionService {
   }
 
   showHide(question: Question, control: any, destinationId: string) {
-    
     if(control.value === "true") {
       if(!this.formState.controls[destinationId]) {
+        // https://stackoverflow.com/questions/61311351/how-to-dynamically-add-formgroup-controls-to-formarray-in-angular-while-the-stat
+        if(question.identifier === "HasHadClaimsInLast6Years") {
+          this.store.dispatch(new AddGroupControlAction('generic', destinationId, [{date: '', details: '', amount: '', reserve: '', opened: ''}]))
+          return;
+        }
         this.store.dispatch(new AddGroupControlAction('generic', destinationId, ''));
       }
     } else if(control.value === "false") {
       if(this.formState.controls[destinationId]) {
+        if(question.identifier === "HasHadClaimsInLast6Years") {
+          this.store.dispatch(new RemoveGroupControlAction('generic', destinationId));
+          return;
+        }
       this.store.dispatch(new RemoveGroupControlAction('generic', destinationId))
       }
     }
   }
+                           
 
-
-
-  
   getResponsesFromPreviousAnswer(
     question: Question,
     control: FormControlState<any>,

@@ -7,11 +7,15 @@ import {
   StateUpdateFns,
   updateGroup,
   validate,
+  AddArrayControlAction,
+  addArrayControl,
+  updateArray
 } from 'ngrx-forms';
 import { required } from 'ngrx-forms/validation';
 import { FormValue } from '../store';
 import { CreateGroupElementAction, RemoveGroupElementAction } from '../actions/flashquote.actions';
-import { ValidationErrors } from 'ngrx-forms/public_api';
+import {  ValidationErrors } from 'ngrx-forms/public_api';
+import { Console } from 'console';
 
 
 /* INTIAL STATE */
@@ -66,9 +70,11 @@ export const validateForm = (s: FormGroupState<any> = INITIAL_STATE) => {
 export function formStateReducer(
   s: FormGroupState<any> = INITIAL_STATE,
   a: CreateGroupElementAction
-    | RemoveGroupElementAction
+    | RemoveGroupElementAction | AddArrayControlAction<any>
 ) {
   switch (a.type) {
+    //https://giters.com/MrWolfZ/ngrx-forms/issues/87
+
     case RemoveGroupElementAction.TYPE:
       const newS = updateGroup<FormValue>({
         [a.destinationId]: (group: any) => {

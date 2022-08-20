@@ -15,6 +15,10 @@
     <app-identification [question]="question" [control]="control"></app-identification>
   </div>
 
+  <div *ngSwitchCase="'RECLAMATION'">
+    <app-reclamation [question]="question" [control]="control"></app-reclamation>
+  </div>
+
   <div *ngSwitchCase="'NUMBER'">
     <app-input [question]="question" [control]="control"></app-input>
   </div>

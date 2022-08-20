@@ -6,7 +6,7 @@ import { FlashFormDTO } from './models/Flashquote';
 import { concatMap, map, switchMap, catchError, mergeMap, filter } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { loadForm, loadQuestions, loadQuestionsError, loadQuestionsSuccess } from './actions/flashquote.actions';
-import { AddGroupControlAction } from 'ngrx-forms';
+import { AddArrayControlAction, AddGroupControlAction } from 'ngrx-forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../reducers/app.reducer';
 import { BrokerService } from './services/broker.service';
@@ -82,6 +82,10 @@ export class FlashquoteEffects {
               lastName: ''
             })
           }
+
+          // if (q.type === 'RECLAMATION') {
+          //   return new AddGroupControlAction('generic', q.id, {})
+          // }
 
           if (q.type === 'ADDRESS')
             return new AddGroupControlAction('generic', q.id, {

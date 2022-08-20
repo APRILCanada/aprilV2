@@ -49,6 +49,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgrxMatSelectViewAdapter } from './shared/mat-select-view-adapter';
 import { NgxMaskModule } from 'ngx-mask';
 import { IdentificationComponent } from './questions/components/identification/identification.component';
+import { ReclamationComponent } from './questions/components/reclamation/reclamation.component';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -81,7 +82,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DateComponent,
     AddressComponent,
     IdentificationComponent,
-    NgrxMatSelectViewAdapter
+    NgrxMatSelectViewAdapter,
+    ReclamationComponent
   ],
   imports: [
     CommonModule,
