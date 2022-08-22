@@ -31,7 +31,6 @@ export class ReclamationComponent implements OnInit {
 
   ngOnInit(): void {
     this.group$ = this.store.pipe(select((s) => s.form.formState.controls[this.question.id]));
-    console.log('this.control', this.control)
   }
 
   removeClaim(index: number) {
@@ -55,7 +54,6 @@ export class ReclamationComponent implements OnInit {
 
   setClaimStatus(value: string, index: number) {
     this.claimsOpened.splice(index, 1, value)
-    console.log('claims', this.claimsOpened)
     this.actionsSubject.next(new SetValueAction(`${this.control.id}.${index}.opened`, this.claimsOpened[index]))
   }
 

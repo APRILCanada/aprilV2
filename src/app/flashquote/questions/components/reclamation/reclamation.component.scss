@@ -3,3 +3,18 @@
     background-color: var(--mainColor)!important;
     color: #fff;
 }
+
+.text-important {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 21px;
+    letter-spacing: 0.05em;
+    text-decoration: underline;
+    text-transform: uppercase;
+    color: var(--mainColor);
+  }
+  
+  .text-important:hover:not(.text-no-link) {
+    cursor: pointer;
+  }

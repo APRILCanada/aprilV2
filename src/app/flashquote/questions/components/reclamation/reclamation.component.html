@@ -1,15 +1,16 @@
 <div *ngIf="group$ | async as claims" class="d-flex flex-wrap text-form">
-    <div class="small-card mb-3 py-3 pb-3" style="background-color:#f1f1f1;"
+    <div class="w-100 mb-3 py-3 pb-3" style="background-color:#f1f1f1;"
         *ngFor="let claim of claims.controls; let i = index; trackBy:customTrackBy">
         <div class="container">
             <form>
-                <div class="d-flex justify-content-between align-items-center p-2" style="border-bottom: 1px solid #fff;">
-                    <span>{{ 'CLAIM' | translate }} {{ i + 1 }}</span>
+                <div class="d-flex justify-content-between align-items-center p-2"
+                    style="border-bottom: 1px solid #fff;">
+                    <span><b>{{ 'CLAIM' | translate }} {{ i + 1 }}</b></span>
                     <span (click)="removeClaim(i)" class="text-smoll text-right" style="cursor:pointer;">
                         <mat-icon>clear</mat-icon>
                     </span>
                 </div>
-                <div class="row justify-content-between align-items-center mt-2">
+                <div class="row justify-content-between align-items-center mt-2 mb-2">
                     <div class="col-lg-7">
                         <span>Date</span>
                         <div class="input-group">
@@ -24,23 +25,23 @@
                     </div>
                 </div>
 
-                <div class="row mt-2">
+                <div class="row mt-4">
                     <div class="col">
                         <span>{{ 'RECLAMATION_DETAILS' | translate }}</span>
                         <div class="input-group">
-                            <input #details class="form-control text-form" autocomplete="disabled"
-                                [required]="question.isRequired" [ngrxFormControlState]="claim.controls.details">
-                            <mat-select class="form-control text-form" [required]="question.isRequired"
-                                placeholder="{{ 'RECLAMATION_DETAILS' | translate }}">
-                                <mat-option>
-                                    OPTIONS
+                            <input *ngIf="!question['responses'].length" #details class="form-control text-form"
+                                autocomplete="disabled" [required]="question.isRequired"
+                                [ngrxFormControlState]="claim.controls.details">
+                            <mat-select [ngrxFormControlState]="claim.controls.details" class="form-control text-form" [required]="question.isRequired">
+                                <mat-option *ngFor="let opt of question['responses']" [value]="opt.id">
+                                    {{ language.get() == "fr" ? opt.label.LabelFr: opt.label.LabelEn}}
                                 </mat-option>
                             </mat-select>
                         </div>
                     </div>
                 </div>
 
-                <div class="row justify-content-between">
+                <div class="row justify-content-between mt-4">
                     <div class="col-6">
                         <span>{{ 'AMOUNT_PAID' | translate }}</span>
                         <div class="d-flex">
@@ -65,15 +66,17 @@
                 </div>
 
                 <!-- CLAIM STATUS: CLOSED / OPENED -->
-                <div class="col-lg-5 mt-4" style="border-top: 1px solid #fff;"> 
+                <div class="col-lg-5 mt-4" style="border-top: 1px solid #fff;">
                     <label class="mt-2" for="{{control.id}}">{{ 'CLAIM_STATUS' | translate }}</label>
                     <div class="d-flex" #reclamationButtonParent>
                         <div class="btn-group button-toggle-simple align-self-center mt-2" role="group">
-                            <button [ngClass]="{'toggle-active': claimsOpened[i] === 'true' }" type="button" class="btn text-button-option" (click)="setClaimStatus('true', i)">
+                            <button [ngClass]="{'toggle-active': claimsOpened[i] === 'true' }" type="button"
+                                class="btn text-button-option" (click)="setClaimStatus('true', i)">
                                 <span class="w-100 text-center">{{ 'OPENED' | translate | uppercase }}</span>
                             </button>
-                            
-                            <button [ngClass]="{'toggle-active':claimsOpened[i] === 'false' }" type="button" class="btn text-button-option" (click)="setClaimStatus('false', i)">
+
+                            <button [ngClass]="{'toggle-active':claimsOpened[i] === 'false' }" type="button"
+                                class="btn text-button-option" (click)="setClaimStatus('false', i)">
                                 <span class="w-100 text-center">{{ 'CLOSED' | translate | uppercase }}</span>
                             </button>
                         </div>
@@ -85,7 +88,7 @@
 </div>
 
 <!-- ADD NEW CLAIM -->
-<span (click)="addClaim()" class="btn-april mt-3 ml-2" style="cursor:pointer;">{{ 'ADD_CLAIMS' | translate}}</span>
+<span (click)="addClaim()" class="text-important mt-3 ml-2" style="cursor:pointer;">{{ 'ADD_CLAIMS' | translate}}</span>
 
 <!-- 
 
