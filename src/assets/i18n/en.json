@@ -1,4 +1,13 @@
 {
+    "YEAR":"Year",
+    "MAKE":"Make",
+    "MODEL":"Model",
+    "UPLOAD": "Upload",
+    "DROP_FILES": "Or drop files here",
+    "FILE_TYPE":"File type",
+    "FILE_NAME":"File name",
+    "UPLOAD_DOCUMENT": "Attach a document",
+    "CHOOSE_FILE_TYPE":"Choose a file type",
     "CLAIM_STATUS": "Status",
     "ADD_CLAIMS":"Add a claim",
     "AMOUNT_PAID":"Amount paid",

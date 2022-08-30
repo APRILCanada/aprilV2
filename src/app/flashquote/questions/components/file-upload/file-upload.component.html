@@ -1,0 +1,24 @@
+<div class="d-flex flex-column justify-content-around align-items-center" appFileDragDrop
+    (onFileDropped)="filesChanged($event)">
+    <div class="d-flex justify-content-between">
+        <input hidden [multiple]="multipleFiles" type="file" #fileInput (change)="filesChanged($event.target.files)"
+            accept="text/rtf, image/png, .jpeg, .jpg, .doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain, application/pdf" />
+        <div class="d-flex bg-transparent align-items-center">
+            <button class="btn-april" (click)="fileInput.click()"
+                type="button" data-analytics="uploadDocument" click-text="Parcourir">
+                {{ "BROWSE" | translate }}
+            </button>
+            <span class="ms-3">{{ "DROP_FILES" | translate }}</span>
+        </div>
+    </div>
+    <div *ngIf="uploadedFiles.length > 0" class="d-flex flex-column mt-3">
+        <div class="d-flex align-items-center" (click)="showFiles()">
+            <span class="text-info-title text-important mr-3">{{
+                "UPLOADED_FILES" | translate | uppercase
+                }}</span>
+            <span class="badge badge-pill status-badge text-info-title">{{
+                uploadedFiles.length
+                }}</span>
+        </div>
+    </div>
+</div>

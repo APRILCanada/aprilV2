@@ -63,7 +63,7 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
   //https://stackoverflow.com/questions/34364880/expression-has-changed-after-it-was-checked
   ngAfterContentChecked() {
     this.cdr.detectChanges();
-}
+  }
 
   ngOnDestroy() {
     this.formSubscription.unsubscribe();
@@ -71,12 +71,14 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
 
   onFormChange() {
     this.formSubscription = this.formState$.subscribe((state) => {
+      console.log('state', state)
       for (let control in state.controls) {
         const question = this.questions.find((q) => q.id === parseInt(control));
+       
         //validate rules if question has any
-        if (question && this.hasRules(question)) {
-          this.actionService.validate(question, state.controls[control]);
-        }
+          if (question && this.hasRules(question)) {
+            this.actionService.validate(question, state.controls[control]);
+          }
       }
     });
   }
@@ -115,8 +117,8 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
   }
 
   //check if a question has rules
-  hasRules(question: Question | undefined) {
-    return question?.rules.length ? true : false;
+  hasRules(question: Question) {
+    return question.rules.length ? true : false;
   }
 
   submit() {

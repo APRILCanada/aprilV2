@@ -1,4 +1,13 @@
 {
+    "YEAR":"Année",
+    "MAKE":"Marque",
+    "MODEL":"Modèle",
+    "UPLOAD": "Téléverser",
+    "DROP_FILES": "Ou déposer des fichiers ici",
+    "FILE_TYPE":"Type de fichier",
+    "FILE_NAME":"Nom du fichier",
+    "UPLOAD_DOCUMENT": "Joindre un document",
+    "CHOOSE_FILE_TYPE":"Choisir un type de fichier",
     "CLAIM_STATUS": "Status",
     "ADD_CLAIMS":"Ajouter une réclamation",
     "AMOUNT_PAID": "Montant payé",

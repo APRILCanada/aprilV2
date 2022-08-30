@@ -1,0 +1,5 @@
+<div class="form-group">
+    <label for="{{control.id}}">{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</label>
+    <textarea rows="5" [ngrxFormControlState]="control" class="form-control text-form" autocomplete="disabled" [id]="question.id">
+ </textarea>
+</div>

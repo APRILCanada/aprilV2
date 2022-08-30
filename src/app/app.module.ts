@@ -84,7 +84,10 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { RouterState } from '@angular/router';
+import {Overlay, OverlayModule } from '@angular/cdk/overlay'; 
+import { MatAutocompleteModule, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY } from '@angular/material/autocomplete';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -149,7 +152,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     JobListComponent,
     NichesLandingComponent,
     ClaimsComponent,
-    ClaimsHeroComponent,
+    ClaimsHeroComponent
   ],
   imports: [
     FlashquoteDemoModule,
@@ -162,7 +165,11 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     CarouselModule,
     BrowserAnimationsModule,
     NgbModule,
+    OverlayModule,
+    MatAutocompleteModule,
+    MatDialogModule,
     HttpClientModule,
+    MatSelectModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -194,6 +201,14 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     }),
     ScullyLibModule,
   ],
+  providers: [{
+    provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY, 
+    deps: [Overlay], 
+    useFactory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY
+  }, {
+    provide: MAT_DIALOG_DEFAULT_OPTIONS,
+    useValue: { hasBackdrop: true }
+  }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

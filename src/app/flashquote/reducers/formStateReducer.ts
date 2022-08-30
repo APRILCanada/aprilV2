@@ -14,7 +14,7 @@ import {
 import { required } from 'ngrx-forms/validation';
 import { FormValue } from '../store';
 import { CreateGroupElementAction, RemoveGroupElementAction } from '../actions/flashquote.actions';
-import {  ValidationErrors } from 'ngrx-forms/public_api';
+import { ValidationErrors } from 'ngrx-forms/public_api';
 import { Console } from 'console';
 
 
@@ -86,7 +86,6 @@ export function formStateReducer(
     case CreateGroupElementAction.TYPE:
       const value = s.controls[a.destinationId].value as {};
       if (!(a.responseKey in value)) {
-
         // newS = the whole formState
         const newS = updateGroup<FormValue>({
           [a.destinationId]: (group: any) => {

@@ -3,6 +3,10 @@
     <app-input [question]="question" [control]="control"></app-input>
   </div>
 
+  <div *ngSwitchCase="'TEXTAREA'">
+    <app-textarea [question]="question" [control]="control"></app-textarea>
+  </div>
+
   <div *ngSwitchCase="'BOOLEAN'">
     <app-boolean [question]="question" [control]="control"></app-boolean>
   </div>
@@ -11,12 +15,21 @@
     <app-date [question]="question" [control]="control"></app-date>
   </div>
 
+  <div *ngSwitchCase="'FILE'">
+    <app-file [question]="question" [control]="control"></app-file>
+  </div>
+
+
   <div *ngSwitchCase="'IDENTIFICATION'">
     <app-identification [question]="question" [control]="control"></app-identification>
   </div>
 
   <div *ngSwitchCase="'RECLAMATION'">
     <app-reclamation [question]="question" [control]="control"></app-reclamation>
+  </div>
+
+  <div *ngSwitchCase="'AUTO'">
+    <app-auto [question]="question" [control]="control"></app-auto>
   </div>
 
   <div *ngSwitchCase="'NUMBER'">

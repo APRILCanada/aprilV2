@@ -21,11 +21,13 @@ export class ReclamationComponent implements OnInit {
   @Input() error: any
   group$: Observable<any>
   claimsOpened: string[] = ['','','','',''];
+  claimNum: number;
 
   constructor(public language: LanguageService, public translate: TranslateService, private store: Store<State>, private actionsSubject: ActionsSubject) { }
 
   // keep input focused in for loop: https://github.com/ngrx/store/issues/176
   customTrackBy(index: number): any {
+    this.claimNum = index
     return index;
   }
 
@@ -47,14 +49,14 @@ export class ReclamationComponent implements OnInit {
   addClaim() {
     this.actionsSubject.next(
       new AddArrayControlAction<any>(
-        this.control.id, { date: '', details: '', amount: '', reserve: '', opened: '' }
+        this.control.id, { "Claim-date" : '', "Claim-actualDate-1": '', "Claim-details-1": '', "Claim-amount-1": '', "Claim-reserve-1": '', "Claim-opened-1": '' }
       )
     )
   }
 
   setClaimStatus(value: string, index: number) {
     this.claimsOpened.splice(index, 1, value)
-    this.actionsSubject.next(new SetValueAction(`${this.control.id}.${index}.opened`, this.claimsOpened[index]))
+    this.actionsSubject.next(new SetValueAction(`${this.control.id}.${index}.Claim-opened-1`, this.claimsOpened[index]))
   }
 
   dateValueConverter: NgrxValueConverter<Date | null, string | null> = {

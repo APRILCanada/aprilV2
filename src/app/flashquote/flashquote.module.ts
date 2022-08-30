@@ -6,7 +6,7 @@ import { FlashquoteEffects } from './flashquote.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { FlashquoteResolver } from './flashquote.resolver';
-import { reducer} from './reducers'
+import { reducer } from './reducers'
 import { FormComponent } from './form/form.component';
 import { NgrxFormsModule } from 'ngrx-forms';
 import { QuestionBaseComponent } from './questions/question-base/question-base.component';
@@ -15,10 +15,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { InputComponent } from './questions/components/input/input.component';
 
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatTableModule} from '@angular/material/table';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatTableModule } from '@angular/material/table';
 import { SelectComponent } from './questions/components/select/select.component';
 import { SelectDialogComponent } from './questions/components/select-dialog/select-dialog.component';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
@@ -43,13 +43,22 @@ import { BooleanComponent } from './questions/components/boolean/boolean.compone
 import { DateComponent } from './questions/components/date/date.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatAutocompleteModule, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY } from "@angular/material/autocomplete";
 import { AddressComponent } from './questions/components/address/address.component';
 import { MatSelectModule } from '@angular/material/select';
 import { NgrxMatSelectViewAdapter } from './shared/mat-select-view-adapter';
 import { NgxMaskModule } from 'ngx-mask';
 import { IdentificationComponent } from './questions/components/identification/identification.component';
 import { ReclamationComponent } from './questions/components/reclamation/reclamation.component';
+import { FileComponent } from './questions/components/file/file.component';
+import { FileUploadComponent } from './questions/components/file-upload/file-upload.component';
+import { DocumentViewerComponent } from './questions/components/document-viewer/document-viewer.component';
+import { FileUploadOverlayComponent } from './questions/components/file-upload-overlay/file-upload-overlay.component';
+import { UploadedFilesComponent } from './questions/components/uploaded-files/uploaded-files.component';
+import { LoaderInlineComponent } from './questions/components/loader-inline/loader-inline.component';
+import { Overlay, OverlayModule } from '@angular/cdk/overlay';
+import { AutoComponent } from './questions/components/auto/auto.component';
+import { TextareaComponent } from './questions/components/textarea/textarea.component';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -83,7 +92,15 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AddressComponent,
     IdentificationComponent,
     NgrxMatSelectViewAdapter,
-    ReclamationComponent
+    ReclamationComponent,
+    FileComponent,
+    FileUploadComponent,
+    DocumentViewerComponent,
+    FileUploadOverlayComponent,
+    UploadedFilesComponent,
+    LoaderInlineComponent,
+    AutoComponent,
+    TextareaComponent
   ],
   imports: [
     CommonModule,
@@ -100,8 +117,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatTableModule,
     MatButtonModule,
     MatAutocompleteModule,
+    MatDialogModule,
     MatSelectModule,
     NavigationModule,
+    OverlayModule,
     NgxMaskModule.forChild(),
     EffectsModule.forFeature([FlashquoteEffects]),
     StoreModule.forFeature(
@@ -115,7 +134,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         deps: [HttpClient],
       },
     }),
-  ],
-  providers: [FlashquoteResolver, HttpClientModule]
+  ]
 })
 export class FlashquoteModule { }

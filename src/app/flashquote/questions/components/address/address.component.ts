@@ -33,8 +33,10 @@ export class AddressComponent implements OnInit {
 
   ngOnInit() {
     this.group$ = this.store.pipe(
-      select((s) => s.form.formState.controls[this.question.id].controls)
+        select((s) => s.form.formState.controls[this.question.id].controls)
     );
+
+    this.group$.subscribe(address => console.log('address', address?.search))
 
     this.group$.pipe(
       pluck('search', 'value'),
@@ -74,13 +76,13 @@ export class AddressComponent implements OnInit {
       this.addressService.getLocationDetails(locationId).subscribe({
         next: addressResult => {
           this.store.dispatch(new SetValueAction(this.control.id, {
-            search: '',
-            street: addressResult['street'] || '',
-            postalCode: addressResult['postalCode'] || '',
-            city: addressResult['city'] || '',
-            houseNumber: addressResult['houseNumber'] || '',
-            state: addressResult['state'] || '',
-            unit: ''
+            "search": '',
+            "MailingAddress-Street": addressResult['street'] || '',
+            "MailingAddress-PostalCode": addressResult['postalCode'] || '',
+            "MailingAddress-City": addressResult['city'] || '',
+            "MailingAddress-StreetNumber": addressResult['houseNumber'] || '',
+            "MailingAddress-Province": addressResult['state'] || '',
+            "MailingAddress-Unit": ''
           }));
         }
       });
@@ -90,13 +92,13 @@ export class AddressComponent implements OnInit {
   resetAddress() {
     this.addressAutoCompleteHidden = false
     this.store.dispatch(new SetValueAction(this.control.id, {
-      search: '',
-      street: '',
-      postalCode: '',
-      city: '',
-      houseNumber: '',
-      state: '',
-      unit: ''
+      "search": '',
+      "MailingAddress-Street": '',
+      "MailingAddress-PostalCode": '',
+      "MailingAddress-City": '',
+      "MailingAddress-StreetNumber": '',
+      "MailingAddress-Province": '',
+      "MailingAddress-Unit": ''
     }));
   }
 

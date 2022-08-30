@@ -68,6 +68,7 @@ export class FlashquoteEffects {
     this.actions$.pipe(
       ofType(loadForm),
       switchMap((data: any) => {
+        console.log('data', data)
         const questions = data.flashquote.questions
         const filtered = questions.filter((q: any) => !q.isHidden)
         return filtered.map((q: any) => {
@@ -83,20 +84,25 @@ export class FlashquoteEffects {
             })
           }
 
-          // if (q.type === 'RECLAMATION') {
-          //   return new AddGroupControlAction('generic', q.id, {})
-          // }
-
           if (q.type === 'ADDRESS')
             return new AddGroupControlAction('generic', q.id, {
-              search: '',
-              street: '',
-              postalCode: '',
-              city: '',
-              houseNumber: '',
-              state: '',
-              unit: ''
+              "search": '',
+              "MailingAddress-Street": '',
+              "MailingAddress-PostalCode": '',
+              "MailingAddress-City": '',
+              "MailingAddress-StreetNumber": '',
+              "MailingAddress-Province": '',
+              "MailingAddress-Unit": ''
             });
+
+          if (q.type === 'AUTO')
+            return new AddGroupControlAction('generic', q.id, {
+              "Vehicle-Year-1": '',
+              "Vehicle-Make-1": '',
+              "Vehicle-Model-1": ''
+            });
+
+
           return new AddGroupControlAction('generic', q.id, '');
         });
       }),

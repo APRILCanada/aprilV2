@@ -1,0 +1,71 @@
+<div *ngIf="group$ | async as auto" class="d-flex flex-column">
+    <div class="d-flex flex-wrap">
+        <div class="d-flex flex-column year me-4">
+            <span class="text-smoll mb-1">{{ 'YEAR' | translate | uppercase }}</span>
+            <div class="input-group" tabindex="1">
+                <mat-select class="form-control text-form" (selectionChange)="yearSelected($event.value)"
+                    placeholder="{{ 'YEAR' | translate }}" [ngrxFormControlState]="auto.controls['Vehicle-Year-1']">
+                    <mat-option *ngFor="let year of years; let i = index" value="{{ year }}">
+                        {{ year }}
+                    </mat-option>
+                </mat-select>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column make">
+            <span class="text-smoll mb-1">{{ 'MAKE' | translate | uppercase }}</span>
+            <div class="input-group" *ngIf="!selectedMakeId">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <mat-icon>search</mat-icon>
+                    </span>
+                    <input class="form-control text-form" tabindex="2" [matAutocomplete]="autoMake" #inputAutoComplete
+                        [ngrxFormControlState]="auto.controls['Vehicle-Make-1']">
+                    <mat-autocomplete #autoMake="matAutocomplete" (optionSelected)="makeSelected($event.option.value)">
+                        <mat-option class="text-form" *ngFor="let opt of filteredMakeOptions$ | async" [value]="opt">
+                            {{ opt.make | uppercase }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </div>
+            </div>
+
+            <div *ngIf="selectedMakeId">
+                <div class="input-group" (click)="removeSelectedMake()">
+                    <span class="input-group-text" style="cursor:pointer;">
+                        <mat-icon>close</mat-icon>
+                    </span>
+                    <input readonly class="form-control text-form bg-transparent"
+                        [ngrxFormControlState]="auto.controls['Vehicle-Make-1']">
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column model mt-2">
+            <span class="text-smoll mb-1">{{ 'MODEL' | translate | uppercase }}</span>
+            <div class="input-group" *ngIf="!selectedModelId">
+                <div class="input-group-prepend"><span class="input-group-text">
+                        <mat-icon>search</mat-icon>
+                    </span></div>
+                <input class="form-control text-form" tabindex="3" [matAutocomplete]="autoModel" #inputAutoComplete
+                    [ngrxFormControlState]="auto.controls['Vehicle-Model-1']">
+                <mat-autocomplete #autoModel="matAutocomplete" (optionSelected)="modelSelected($event.option.value)">
+                    <mat-option class="text-form" *ngFor="let opt of filteredModelOptions$ | async" [value]="opt">
+                        {{ language.get() == "fr" ? opt.label.LabelFr: opt.label.LabelEn}}
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+
+            <div *ngIf="selectedModelId">
+                <div class="input-group" (click)="removeSelectedModel()"><span class="input-group-text"
+                        style="cursor:pointer;">
+                        <mat-icon>close</mat-icon>
+                    </span>
+                    <input readonly class="form-control text-form bg-transparent"
+                        [ngrxFormControlState]="auto.controls['Vehicle-Model-1']">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <span class="text-form text-error mt-2" *ngIf="error">{{ 'ERROR_FILL_ALL_ANSWER' | translate }}</span> -->
+    <!--<span class="text-form text-error mt-2" *ngIf="invalidVehicle">{{ 'INVALID_VEHICLE' | translate }}</span>-->
+</div>

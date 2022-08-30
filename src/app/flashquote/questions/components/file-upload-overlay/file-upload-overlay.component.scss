@@ -1,0 +1,66 @@
+.select-file-type {
+    width: 200px;
+}
+
+.file-name {
+    width: 200px;
+}
+
+.file-status {
+    min-width: 100px;
+    width: auto;
+}
+
+mat-spinner {
+    min-height: 30px !important;
+}
+
+.text-title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    /* identical to box height, or 133% */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.01em;
+}
+
+.button-back {
+    height: 40px;
+    width: 125px;
+    padding-left: 25px;
+    padding-right: 25px;
+    background-color: #ebf0f0;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+    color: #004161;
+}
+
+.button-back:hover {
+    background-color: #e0e6e9;
+    color: #004161;
+}
+
+.button-continue-small {
+    height: 40px;
+    width: auto;
+    padding: 12px 16px;
+    text-align: center;
+    background-color: #004161;
+    color: white;
+    border-radius: 8px;
+}
+
+.button-continue-small:disabled {
+    background-color: rgba(0, 65, 97, 0.5);
+    cursor: not-allowed;
+    color: white;
+}
+
+.button-continue-small:hover {
+    background-color: rgba(0, 65, 97, 0.9);
+    color: white;
+}

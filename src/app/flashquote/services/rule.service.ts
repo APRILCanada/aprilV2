@@ -21,11 +21,11 @@ export class RuleService {
   // sequenceTriggered: Map<string,Rule[]> = new Map<string, Rule[]>();
   // actionSequenceTriggered: Map<string, string[]> = new Map<string, string[]>();
 
-  // referred:Map<number,Rule> = new Map<number,Rule>();
-  // excluded:Map<number,Rule> = new Map<number,Rule>();
+  referred:Map<number,Rule> = new Map<number,Rule>();
+  excluded:Map<number,Rule> = new Map<number,Rule>();
 
   // excludedList: Rule[] = [];
-  // referredList: Rule[] = [];
+  referredList: Rule[] = [];
 
   // isReferred:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   // isExcluded:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -92,12 +92,12 @@ export class RuleService {
   //   }
   // }
 
-  validateRule(rule:Rule, inputValue: any) {
+  checkRule(rule:Rule, control: any) {
     let result;
 
-    switch(rule.operation){
+    switch(rule.operation) {
        case 'EQUALS':
-         result = inputValue == rule.value;
+         result = control.value == rule.value;
          break;
     //   case 'NOT_EQUAL':
     //     result = value != rule.value;
@@ -108,9 +108,9 @@ export class RuleService {
     //   case 'LESSER_THAN':
     //     result = this.isLesserThan(value, rule.value);
     //     break;
-    //   case 'GREATER_EQUAL':
-    //     result = this.isGreaterThan(value, rule.value, true);
-    //     break;
+      case 'GREATER_EQUAL':
+        result = this.isGreaterThan(control.value, rule.value, true);
+        break;
     //   case 'LESSER_EQUAL':
     //     result = this.isLesserThan(value, rule.value, true);
     //     break;
@@ -182,6 +182,18 @@ export class RuleService {
       //   break;
      }
      return result;
+  }
+
+  isGreaterThan(value1:string, value2:string, andEqual:boolean = false):boolean{
+    if((!value1) || !(value2)){
+      return false;
+    }
+    var number1 = parseFloat(value1.toString().replace(",",".").replace(/\s/g, ""));
+    var number2 = parseFloat(value2.toString().replace(",",".").replace(/\s/g, ""));
+    if(isNaN(number1) || isNaN(number2)){
+      return false;
+    }
+    return andEqual ? number1 >= number2 : number1 > number2;
   }
 
   // validateSequence(rule:Rule, key:string, index:string):void{
