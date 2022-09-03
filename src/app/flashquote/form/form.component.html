@@ -15,13 +15,18 @@
 
   <!-- DYNAMIC FORM -->
   <form *ngIf="!submittingForm" [ngrxFormState]="formState" (submit)="submit()">
-    <ng-container *ngFor="let question of questions">
-      <div *ngIf="formState.controls[question.id]">
-        <app-question-base [question]="question" [control]="formState.controls[question.id]">
-          <app-error [control]="formState.controls[question.id]" [error]="(errors$ | async)['_' + question.id]">
-          </app-error>
-        </app-question-base>
-      </div>
+
+    <ng-container *ngFor="let question of questionsBySection">
+        <div *ngFor="let group of formState.controls[this.activeSection.sectionId].controls; let i = index; trackBy:customTrackBy">
+          <div *ngIf="formState.controls[this.activeSection.sectionId].controls[i].controls[question.id]">
+            <app-question-base [question]="question"
+              [control]="formState.controls[this.activeSection.sectionId].controls[i].controls[question.id]">
+              <app-error [control]="formState.controls[this.activeSection.sectionId].controls[i].controls[question.id]"
+                [error]="(errors$ | async)['_' + question.id]">
+              </app-error>
+            </app-question-base>
+          </div>
+        </div>
     </ng-container>
 
     <button class="btn-april" type="submit" data-analytics="DirectForm"

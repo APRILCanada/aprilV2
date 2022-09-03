@@ -5,7 +5,7 @@ import { FormControlState } from 'ngrx-forms';
 import { Observable } from 'rxjs';
 import { Question } from 'src/app/flashquote/models/Question';
 import { Response } from 'src/app/flashquote/models/Response';
-import { selectQuestions } from 'src/app/flashquote/selectors';
+import { selectSections } from 'src/app/flashquote/selectors';
 import { State } from 'src/app/flashquote/store';
 
 @Component({
@@ -36,7 +36,7 @@ export class RepartitionComponent implements OnInit {
 
   ngOnInit() {
     // load all the responses for the current repartition
-    this.store.pipe(select(selectQuestions)).subscribe(questions => {
+    this.store.pipe(select(selectSections)).subscribe(questions => {
       this.responses = questions.find(
         (q: Question) => q.id === this.question.id
       )!.responses;

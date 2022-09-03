@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { AddGroupControlAction, FormControlState, FormState, RemoveGroupControlAction } from 'ngrx-forms';
+import { AddGroupControlAction, FormControlState, FormGroupControls, FormGroupState, FormState, RemoveGroupControlAction } from 'ngrx-forms';
 import { Question } from '../models/Question';
 import { Response } from '../models/Response';
 import {
@@ -8,8 +8,10 @@ import {
   State,
 } from '../store';
 import { CreateGroupElementAction, RemoveGroupElementAction } from '../actions/flashquote.actions';
-import { selectFormState, selectQuestions } from '../selectors';
+import { selectActiveSection, selectFormState, selectSections } from '../selectors';
 import { RuleService } from './rule.service';
+import { Rule } from '../models/Rule';
+import { FormGroup } from '@angular/forms';
 
 
 @Injectable({
@@ -18,14 +20,16 @@ import { RuleService } from './rule.service';
 export class ActionService {
   questions: Question[] = [];
   formState: FormState<FormValue>;
+  activeSection: any;
 
   constructor(private store: Store<State>, private ruleService: RuleService) {
-    this.store.pipe(select(selectQuestions)).subscribe(questions => {
+    this.store.pipe(select(selectSections)).subscribe(questions => {
       this.questions = questions
     })
     this.store.pipe(select(selectFormState)).subscribe(state => {
       this.formState = state
     })
+    this.store.pipe(select(selectActiveSection)).subscribe(state => this.activeSection = state)
   }
 
   validate(question: Question, control: FormControlState<any>) {
@@ -41,36 +45,37 @@ export class ActionService {
           break;
       }
     });
-
   }
 
-  showHide(question: Question, rule: any, control: any, destinationId: string) {
-  const result = this.ruleService.checkRule(rule, control)
+  showHide(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string) {
+    //TEMP SHOULD BE DYNAMIC INDEX
+    let controlId = 'generic.' + this.activeSection.sectionId + '.0'
+    const result = this.ruleService.checkRule(rule, control)
     console.log('infinite loop')
 
     if (result) {
-      if (typeof this.formState.controls[destinationId] === 'undefined') {
-        // console.log('nononononon', this.formState.controls[destinationId], destinationId)
+      if (!((this.formState.controls[this.activeSection.sectionId].controls[0] as any).controls[destinationId])) {
+
         // https://stackoverflow.com/questions/61311351/how-to-dynamically-add-formgroup-controls-to-formarray-in-angular-while-the-stat
         if (question.identifier === "HasHadClaimsInLast6Years") {
-          this.store.dispatch(new AddGroupControlAction('generic', destinationId, [
+          this.store.dispatch(new AddGroupControlAction(controlId, destinationId, [
             {
-              "Claim-date-1": '',
-              "Claim-actualDate-1": '',
-              "Claim-details-1": '',
-              "Claim-amount-1": '',
-              "Claim-reserve-1": '',
-              "Claim-opened-1": ''
+              "Claim-date": '',
+              "Claim-actualDate": '',
+              "Claim-details": '',
+              "Claim-amount": '',
+              "Claim-reserve": '',
+              "Claim-opened": ''
             }
           ]))
         } else {
-         this.store.dispatch(new AddGroupControlAction('generic', destinationId, ''));
+          this.store.dispatch(new AddGroupControlAction(controlId, destinationId, ''));
         }
       }
     }
     else {
-      if (this.formState.controls[destinationId]) {
-        this.store.dispatch(new RemoveGroupControlAction('generic', destinationId));
+      if (((this.formState.controls[this.activeSection.sectionId].controls[0] as any).controls[destinationId])) {
+        this.store.dispatch(new RemoveGroupControlAction(controlId, destinationId));
       }
     }
   }

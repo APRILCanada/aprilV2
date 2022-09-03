@@ -16,7 +16,8 @@
                         <div class="input-group">
                             <input class="form-control text-form" placeholder="{{ 'DATE_PICKER' | translate }}"
                                 [required]="question.isRequired" [matDatepicker]="picker"
-                                [ngrxFormControlState]="claim.controls['Claim-date-1']" [ngrxValueConverter]="dateValueConverter">
+                                [ngrxFormControlState]="claim.controls['Claim-date']"
+                                [ngrxValueConverter]="dateValueConverter">
                             <div class="input-group-append d-flex align-items-center">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
@@ -32,8 +33,9 @@
                         <div class="input-group">
                             <input *ngIf="!question['responses'].length" #details class="form-control text-form"
                                 autocomplete="disabled" [required]="question.isRequired"
-                                [ngrxFormControlState]="claim.controls['Claim-details-1']">
-                            <mat-select [ngrxFormControlState]="claim.controls['Claim-details-1']" class="form-control text-form" [required]="question.isRequired">
+                                [ngrxFormControlState]="claim.controls['Claim-details']">
+                            <mat-select [ngrxFormControlState]="claim.controls['Claim-details']"
+                                class="form-control text-form" [required]="question.isRequired">
                                 <mat-option *ngFor="let opt of question['responses']" [value]="opt.id">
                                     {{ language.get() == "fr" ? opt.label.LabelFr: opt.label.LabelEn}}
                                 </mat-option>
@@ -48,7 +50,8 @@
                         <div class="d-flex">
                             <div class="input-group">
                                 <input #amount class="form-control text-form" autocomplete="disabled"
-                                    [required]="question.isRequired" [ngrxFormControlState]="claim.controls['Claim-amount-1']">
+                                    [required]="question.isRequired"
+                                    [ngrxFormControlState]="claim.controls['Claim-amount']">
                             </div>
                             <span class="m-2">$</span>
                         </div>
@@ -59,7 +62,8 @@
                         <div class="d-flex">
                             <div class="input-group">
                                 <input #reserve class="form-control text-form" autocomplete="disabled"
-                                    [required]="question.isRequired" [ngrxFormControlState]="claim.controls['Claim-reserve-1']">
+                                    [required]="question.isRequired"
+                                    [ngrxFormControlState]="claim.controls['Claim-reserve']">
                             </div>
                             <span class="m-2">$</span>
                         </div>
@@ -68,7 +72,7 @@
 
                 <!-- CLAIM STATUS: CLOSED / OPENED -->
                 <div class="col-lg-5 mt-4" style="border-top: 1px solid #fff;">
-                    <label class="mt-2" for="{{control.id}}">{{ 'CLAIM_STATUS' | translate }}</label>
+                    <label class="mt-2">{{ 'CLAIM_STATUS' | translate }}</label>
                     <div class="d-flex" #reclamationButtonParent>
                         <div class="btn-group button-toggle-simple align-self-center mt-2" role="group">
                             <button [ngClass]="{'toggle-active': claimsOpened[i] === 'true' }" type="button"
@@ -76,7 +80,7 @@
                                 <span class="w-100 text-center">{{ 'OPENED' | translate | uppercase }}</span>
                             </button>
 
-                            <button [ngClass]="{'toggle-active':claimsOpened[i] === 'false' }" type="button"
+                            <button [ngClass]="{'toggle-active': claimsOpened[i] === 'false' }" type="button"
                                 class="btn text-button-option" (click)="setClaimStatus('false', i)">
                                 <span class="w-100 text-center">{{ 'CLOSED' | translate | uppercase }}</span>
                             </button>
@@ -90,120 +94,3 @@
 
 <!-- ADD NEW CLAIM -->
 <span (click)="addClaim()" class="text-important mt-3 ml-2" style="cursor:pointer;">{{ 'ADD_CLAIMS' | translate}}</span>
-
-<!-- 
-
-<div class="d-flex flex-wrap text-form">
-    <div class="small-card m-1" *ngFor="let form of _form.controls; let i = index">
-        <div class="container">
-            <form [formGroup]="_form">
-                <div class="row d-flex justify-content-between align-items-center p-2">
-                    <span>{{ 'CLAIM' | translate }} {{ i + 1 }}</span>
-                    <span (click)="remove(form)" class="text-smoll text-right" style="cursor:pointer;" *ngIf="_form.controls.length > 1"><mat-icon>clear</mat-icon></span>
-                </div>
-                <div class="row justify-content-between align-items-center mt-2">
-                    <div class="col-lg-7">
-                        <span>Date</span>
-                        <div class="input-group" [ngClass]="{'error-border':form.controls['date'].invalid && isValidating}" style="width:250px !important;">
-                            <input 
-                               class="form-control text-form" 
-                               autocomplete="disabled" 
-                               (focus)="focus.emit()"
-                               [id]="question.key"  
-                               [required]="question.required"
-                               [formControl]="form.get('actualDate')"
-                               [matDatepicker]="picker"
-                               (dateChange)="dateChanged(form, $event)">
-                            <div class="input-group-append d-flex align-items-center"><span class="text-info-title">{{ this.translate.get() == 'fr' ? 'AAAA-MM-JJ' : 'YYYY-MM-DD'}}</span></div>  
-                            <div class="input-group-append"><mat-datepicker-toggle [for]="picker" disableRipple="true"></mat-datepicker-toggle></div>  
-                            <mat-datepicker #picker></mat-datepicker>
-                         </div>
-                    </div>
-                    <div class="col-lg-5"> 
-                        <div class="d-flex" #reclamationButtonParent>
-                            <div class="btn-group button-toggle-simple align-self-center mt-2" role="group" [ngClass]="{'error-border':form.controls['opened'].invalid && isValidating}">
-                                <button type="button" class="btn text-button-option" [ngClass]="{'toggle-active':form.get('opened').value == 'true'}" (click)="toggle(form, 'true')">
-                                    <span class="w-100 text-center">{{ 'OPENED' | translate | uppercase }}</span>
-                                </button>
-                                <div [ngClass]="{'vertical-divider-green':!(form.controls['opened'].invalid && isValidating), 'vertical-divider-red':form.controls['opened'].invalid && isValidating}"></div>
-                                <button type="button" class="btn text-button-option" [ngClass]="{'toggle-active':form.get('opened').value == 'false'}" (click)="toggle(form,'false')">
-                                    <span class="w-100 text-center">{{ 'CLOSED' | translate | uppercase }}</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col">
-                        <span>{{ 'RECLAMATION_DETAILS' | translate }}</span>
-                        <div class="input-group" [ngClass]="{'error-border':form.controls['details'].invalid && isValidating}">
-                            <input 
-                                *ngIf="question['options'].length == 0"
-                                #details
-                                class="form-control text-form" 
-                                autocomplete="disabled" 
-                                (focus)="focus.emit()"
-                                [value]="form.get('details').value" 
-                                [formControl]="form.get('details')"
-                                [required]="question.required" 
-                                (change)="valueChanged(details)">
-                            <mat-select 
-                                *ngIf="question['options'].length > 0"
-                                class="form-control text-form" 
-                                (focus)="focus.emit()" 
-                                [formControl]="form.get('details')" 
-                                [required]="question.required"
-                                [value]="form.get('details').value"
-                                (change)="valueChanged()"
-                                placeholder="{{ 'RECLAMATION_DETAILS' | translate }}">
-                                <mat-option *ngFor="let opt of question['options']" [value]="opt.key">
-                                    {{ opt.title | translate }}
-                                </mat-option>
-                            </mat-select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-between mt-2">
-                    <div class="col-6">
-                        <span>{{ 'AMOUNT_PAID' | translate }}</span>
-                        <div class="d-flex">
-                            <div class="input-group" [ngClass]="{'error-border':form.controls['amount'].invalid && isValidating}">
-                            <input 
-                                NumberOnly
-                                #amount
-                                class="form-control text-form" 
-                                autocomplete="disabled" 
-                                (focus)="focus.emit()"
-                                [value]="form.get('amount').value" 
-                                [formControl]="form.get('amount')"
-                                [required]="question.required" 
-                                (change)="valueChanged()">
-                            </div>
-                            <span class="m-2">$</span>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <span>{{ 'RESERVE' | translate }}</span>
-                        <div class="d-flex">
-                            <div class="input-group" [ngClass]="{'error-border':form.controls['reserve'].invalid && isValidating}">
-                                <input 
-                                    NumberOnly
-                                    #reserve
-                                    class="form-control text-form" 
-                                    autocomplete="disabled" 
-                                    (focus)="focus.emit()"
-                                    [value]="form.get('reserve').value" 
-                                    [formControl]="form.get('reserve')"
-                                    [required]="question.required" 
-                                    (change)="valueChanged(reserve)">
-                            </div>
-                            <span class="m-2">$</span>
-                        </div>
-                    </div>
-                </div>
-                <span class="text-form text-error mt-2" *ngIf="error">{{'ERROR_FILL_ALL_ANSWER'| translate}}</span>
-            </form>
-        </div>
-    </div>
-</div>
-<span class="text-important mt-3 ml-2" (click)="add()" style="cursor:pointer;" *ngIf="_form.controls.length < question.maxRepeat">{{ 'ADD_CLAIMS' | translate }}</span> -->

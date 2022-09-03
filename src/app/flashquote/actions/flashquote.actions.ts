@@ -3,10 +3,17 @@ import { FormControlState } from 'ngrx-forms';
 import { FlashFormDTO } from '../models/Flashquote';
 
 // QUESTIONS
-export const loadQuestions = createAction('[QUESTIONS] Load Questions', props<{ marketId: string }>());
-export const loadQuestionsSuccess = createAction('[QUESTIONS] Load Questions Success', props<{ flashquote: FlashFormDTO }>());
-export const loadQuestionsError = createAction('[QUESTIONS] Load Questions Error');
+// export const loadQuestions = createAction('[QUESTIONS] Load Questions', props<{ marketId: string }>());
+// export const loadQuestionsSuccess = createAction('[QUESTIONS] Load Questions Success', props<{ flashquote: FlashFormDTO }>());
+// export const loadQuestionsError = createAction('[QUESTIONS] Load Questions Error');
 
+// SECTIONS
+export const loadSections = createAction('[SECTIONS] Load Sections', props<{ marketId: string }>());
+export const loadSectionsSuccess = createAction('[SECTIONS] Load Sections Success', props<{ flashquote: FlashFormDTO }>());
+export const loadSectionsError = createAction('[SECTIONS] Load Sections Error');
+export const setActiveSection = createAction('[SECTIONS] Set Active Section', props<{ sectionId: number, isRepeat: boolean }>())
+
+export const createSections = createAction('[SECTIONS] Create sections', props<{ flashquote: FlashFormDTO }>())
 export const loadForm = createAction('[FORM] Load Form', props<{ flashquote: FlashFormDTO }>())
 // export const loadFlashquote = createAction(
 //   '[Home Resolver] LOAD_FLASHQUOTE',

@@ -3,24 +3,30 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { BrokerActions, FlashquoteActions } from './actions/action-types';
 import { FlashquoteService } from './services/flashquote.service';
 import { FlashFormDTO } from './models/Flashquote';
-import { concatMap, map, switchMap, catchError, mergeMap, filter } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { loadForm, loadQuestions, loadQuestionsError, loadQuestionsSuccess } from './actions/flashquote.actions';
+import { concatMap, map, switchMap, catchError, mergeMap, filter, tap, pluck, distinct } from 'rxjs/operators';
+import { concat, from, Observable, of } from 'rxjs';
+import { createSections, loadForm, loadSections, loadSectionsError, loadSectionsSuccess, setActiveSection } from './actions/flashquote.actions';
 import { AddArrayControlAction, AddGroupControlAction } from 'ngrx-forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../reducers/app.reducer';
 import { BrokerService } from './services/broker.service';
 import { loadBroker, loadBrokerError, loadBrokerSuccess } from './actions/broker.actions';
 import { BrokerDTO } from './models/Broker';
+import { Section } from './models/Section';
+import { State } from './store';
+import { SectionResult } from './models/SectionResult';
+import { Question } from './models/Question';
 
 
 @Injectable()
 export class FlashquoteEffects {
+  flashquote: any;
 
   constructor(
     private actions$: Actions,
     private flashquoteService: FlashquoteService,
     private brokerService: BrokerService,
+    private store: Store<State>
   ) { }
 
   // https://newdevzone.com/posts/how-to-dispatch-multiple-actions-in-ngrxeffect-redux-observable
@@ -33,7 +39,7 @@ export class FlashquoteEffects {
           switchMap((broker: BrokerDTO) => {
             return [
               loadBrokerSuccess({ broker }),
-              loadQuestions({ marketId: broker.marketId })
+              loadSections({ marketId: broker.marketId })
             ]
           })
         )),
@@ -43,70 +49,92 @@ export class FlashquoteEffects {
     )
   )
 
-  loadQuestions$ = createEffect(() =>
+  loadSections$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(loadQuestions),
+      ofType(loadSections),
       mergeMap((action) => {
-        console.log('action', action)
         return this.flashquoteService.getFlashquote(action.marketId).pipe(
           switchMap((flashquote: FlashFormDTO) => {
-            console.log('questions', flashquote)
+            this.flashquote = flashquote
             return [
-              loadQuestionsSuccess({ flashquote }),
-              loadForm({ flashquote })
+              loadSectionsSuccess({ flashquote }),
+              createSections({ flashquote })
             ]
           })
         )
       }
       ),
-      catchError(() => of(loadQuestionsError())
+      catchError(() => of(loadSectionsError())
       )
     )
   );
 
+  createSections$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(createSections),
+      pluck('flashquote', 'sections'),
+      mergeMap((sections) => {
+        this.store.dispatch(setActiveSection({ sectionId: 35, isRepeat: sections[1].isRepeat }))
+        return sections.map(section => new AddGroupControlAction('generic', section.id, [{}]))
+      }),
+      switchMap((res: any) => {
+        return [
+          loadForm({ flashquote: this.flashquote }),
+          res
+        ]
+      })
+    )
+  )
+
   createForm$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadForm),
-      switchMap((data: any) => {
-        console.log('data', data)
-        const questions = data.flashquote.questions
-        const filtered = questions.filter((q: any) => !q.isHidden)
-        return filtered.map((q: any) => {
-          //return questions.map((q: any) => {
-          if (q.type === 'REPARTITION') {
-            return new AddGroupControlAction('generic', q.id, {});
-          }
+      pluck('flashquote', 'sections'),
+      switchMap((sections) => {
+        let flattenedSections: any[] = []
 
-          if (q.type === 'IDENTIFICATION') {
-            return new AddGroupControlAction('generic', q.id, {
-              firstName: '',
-              lastName: ''
+        flattenedSections = sections.map(section => {
+          return section.questions.filter((q: any) => !q.isHidden)
+            .map(q => {
+              // we need to insert the question into the first object of the section array
+              if (q.type === 'REPARTITION')
+                return new AddGroupControlAction('generic.' + section.id + '.0', q.id, {});
+
+              if (q.type === 'IDENTIFICATION')
+                return new AddGroupControlAction('generic.' + section.id + '.0', q.id, {
+                  firstName: '',
+                  lastName: ''
+                })
+
+              if (q.type === 'ADDRESS')
+                return new AddGroupControlAction('generic.' + section.id + '.0', q.id, {
+                  "search": '',
+                  "MailingAddress-Street": '',
+                  "MailingAddress-PostalCode": '',
+                  "MailingAddress-City": '',
+                  "MailingAddress-StreetNumber": '',
+                  "MailingAddress-Province": '',
+                  "MailingAddress-Unit": ''
+                });
+
+              if (q.type === 'AUTO')
+                return new AddGroupControlAction('generic.' + section.id + '.0', q.id, {
+                  "Vehicle-Year": '',
+                  "Vehicle-Make": '',
+                  "Vehicle-Model": ''
+                });
+
+              else return new AddGroupControlAction('generic.' + section.id + '.0', q.id, '')
             })
-          }
+        })
 
-          if (q.type === 'ADDRESS')
-            return new AddGroupControlAction('generic', q.id, {
-              "search": '',
-              "MailingAddress-Street": '',
-              "MailingAddress-PostalCode": '',
-              "MailingAddress-City": '',
-              "MailingAddress-StreetNumber": '',
-              "MailingAddress-Province": '',
-              "MailingAddress-Unit": ''
-            });
-
-          if (q.type === 'AUTO')
-            return new AddGroupControlAction('generic', q.id, {
-              "Vehicle-Year-1": '',
-              "Vehicle-Make-1": '',
-              "Vehicle-Model-1": ''
-            });
-
-
-          return new AddGroupControlAction('generic', q.id, '');
-        });
+        // we get an array of arrays (each section) that must be flattened
+        flattenedSections = [...new Set(flattenedSections.flatMap(x => x))]
+        return flattenedSections
       }),
-      switchMap((res: any) => [res])
+      distinct(({ name }) => name),
+      switchMap((res: any) => [res]
+      )
     )
-  );
+  )
 }

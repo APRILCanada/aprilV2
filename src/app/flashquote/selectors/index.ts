@@ -10,14 +10,19 @@ export const selectBroker = createSelector(
   (state) => state.broker
 );
 
-export const selectQuestions = createSelector(
+export const selectActiveSection = createSelector(
   selectForm,
-  (state) => state.questions
+  (state) => state.activeSection
+)
+
+export const selectSections = createSelector(
+  selectForm,
+  (state) => state.sections
 );
 
-export const selectAllQuestionsLoaded = createSelector(
+export const selectAllSectionsLoaded = createSelector(
   selectForm,
-  (state) => !!state.questions
+  (state) => !!state.sections
 );
 
 export const selectFormState = createSelector(

@@ -4,14 +4,11 @@ import {
   Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { tap, first, finalize, filter } from 'rxjs/operators';
+import { tap, first, finalize } from 'rxjs/operators';
 import { AppState } from '../reducers/app.reducer';
-import { FlashFormDTO } from './models/Flashquote';
-import { loadQuestions } from './actions/flashquote.actions';
 import { loadBroker } from './actions/broker.actions';
-import { selectAllQuestionsLoaded } from './selectors';
 
 @Injectable()
 export class FlashquoteResolver implements Resolve<any> {

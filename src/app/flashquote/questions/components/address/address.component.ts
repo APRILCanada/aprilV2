@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import { Console } from 'console';
 import { FormControlState, SetValueAction } from 'ngrx-forms';
-import { debounceTime,  Observable, pluck, switchMap, tap } from 'rxjs';
+import { debounceTime, Observable, pluck, switchMap, tap } from 'rxjs';
 import { Question } from 'src/app/flashquote/models/Question';
 import { AddressService } from 'src/app/flashquote/services/address.service';
 import { State } from 'src/app/flashquote/store';
@@ -33,10 +34,8 @@ export class AddressComponent implements OnInit {
 
   ngOnInit() {
     this.group$ = this.store.pipe(
-        select((s) => s.form.formState.controls[this.question.id].controls)
-    );
-
-    this.group$.subscribe(address => console.log('address', address?.search))
+      select((s) => (s.form.formState.controls[s.form.activeSection.sectionId].controls[0] as any).controls[this.question.id].controls)
+    )
 
     this.group$.pipe(
       pluck('search', 'value'),

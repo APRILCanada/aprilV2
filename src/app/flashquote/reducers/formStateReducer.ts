@@ -15,7 +15,6 @@ import { required } from 'ngrx-forms/validation';
 import { FormValue } from '../store';
 import { CreateGroupElementAction, RemoveGroupElementAction } from '../actions/flashquote.actions';
 import { ValidationErrors } from 'ngrx-forms/public_api';
-import { Console } from 'console';
 
 
 /* INTIAL STATE */
@@ -46,17 +45,13 @@ export function validateRepartition(values: any): ValidationErrors {
   }
 }
 
-export function validateAddress(values: any): ValidationErrors {
-  console.log('values', values)
-  return {}
-}
-
 export const validateForm = (s: FormGroupState<any> = INITIAL_STATE) => {
+  console.log('controls', s.controls)
   const updateFns = Object.keys(s.controls).reduce(
     (fns, key) => {
       return {
         ...fns,
-        [key]: key == "2885" || key == "257" ? validate(validateRepartition) : validate(required) && key == "235" ? validate(validateAddress) : validate(required)
+        [key]: key == "2885" || key == "257" ? validate(validateRepartition) : validate(required)
       }
     },
     {} as StateUpdateFns<typeof s.value>
@@ -64,11 +59,15 @@ export const validateForm = (s: FormGroupState<any> = INITIAL_STATE) => {
   return updateGroup(s, updateFns);
 };
 
+export const validateAndUpdateForm = updateGroup<any>({
+  35: validate(required),
+})
+
 
 /* REDUCER */
 /* *** *** ***  *** *** ***  *** *** ***  *** *** *** */
 export function formStateReducer(
-  s: FormGroupState<any> = INITIAL_STATE,
+  s: FormGroupState<FormValue> = INITIAL_STATE,
   a: CreateGroupElementAction
     | RemoveGroupElementAction | AddArrayControlAction<any>
 ) {
@@ -78,7 +77,7 @@ export function formStateReducer(
     case RemoveGroupElementAction.TYPE:
       const newS = updateGroup<FormValue>({
         [a.destinationId]: (group: any) => {
-          return removeGroupControl(group, a.responseKey);
+          return removeGroupControl(group, a.responseKey as never);
         },
       })(s);
       return formGroupReducer(newS, a);
@@ -96,5 +95,7 @@ export function formStateReducer(
         return formGroupReducer(newS, a);
       }
   }
-  return validateForm(formGroupReducer(s, a));
+
+  // return validateForm(formGroupReducer(s, a));
+  return validateAndUpdateForm(formGroupReducer(s, a));
 }

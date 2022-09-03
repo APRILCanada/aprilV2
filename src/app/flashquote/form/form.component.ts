@@ -3,23 +3,26 @@ import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { Question } from '../models/Question';
 import { FormGroupState, ResetAction, SetValueAction } from 'ngrx-forms';
-import { filter, map, take } from 'rxjs/operators';
+import { distinct, distinctUntilKeyChanged, filter, map, pluck, switchMap, take, takeLast, takeWhile, tap } from 'rxjs/operators';
 import { FormValue, State } from '../store';
 import { ActionService } from '../services/action.service';
 import { Answer } from '../models/Answer';
 import { FlashquoteService } from '../services/flashquote.service';
 import { SetSubmittedValueAction } from '../actions/flashquote.actions';
 import {
-  selectQuestions,
+  selectSections,
   selectFormState,
   selectSubmittedValue,
   selectErrors,
   selectFormValid,
   selectFormSubmitted,
   selectBroker,
+  selectActiveSection,
 } from '../selectors';
 import { Router } from '@angular/router';
 import { LanguageService } from 'src/app/services/language.service';
+import { Section } from '../models/Section';
+import { ActiveSection } from '../models/ActiveSection'
 
 @Component({
   selector: 'app-form',
@@ -27,7 +30,10 @@ import { LanguageService } from 'src/app/services/language.service';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
-  questions: Question[];
+  sections: Section[];
+  // questions: Question[];
+  questionsBySection?: Question[];
+  activeSection: ActiveSection;
   errors$: Observable<any>;
   formState$: Observable<any>;
   formValid$: Observable<boolean>;
@@ -39,6 +45,7 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
   broker: any;
   logo: string;
 
+
   constructor(
     private store: Store<State>,
     private actionService: ActionService,
@@ -48,9 +55,16 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
     private cdr: ChangeDetectorRef
   ) { }
 
+  // keep input focused in for loop: https://github.com/ngrx/store/issues/176
+  customTrackBy(index: number): any {
+    return index;
+  }
+
+
   ngOnInit() {
     this.getFormState();
-    this.getQuestions();
+    this.getSections();
+    this.getActiveSection();
     this.getSubmittedValue();
     this.getFormValid();
     this.getFormSubmitted();
@@ -70,17 +84,44 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
   }
 
   onFormChange() {
-    this.formSubscription = this.formState$.subscribe((state) => {
-      console.log('state', state)
-      for (let control in state.controls) {
-        const question = this.questions.find((q) => q.id === parseInt(control));
-       
-        //validate rules if question has any
-          if (question && this.hasRules(question)) {
-            this.actionService.validate(question, state.controls[control]);
+
+    this.formState$.pipe(
+      // get fields of current active section
+      map((sections) => sections.controls[this.activeSection.sectionId]),
+    ).subscribe(section => {
+
+      // // if section is not isRepeat, data structure od section is plain object {}
+      // if (!this.activeSection.isRepeat && section) {
+      //   // get all the questionKeys of this section
+      //   const controlKeys = Object.keys(section.controls)
+
+      //   // validate each question if it has some rules
+      //   for (let key of controlKeys) {
+      //     const question = this.questionsBySection?.find((q) => q.id === parseInt(key));
+
+      //     // validate rules if question has any
+      //     if (question && this.hasRules(question)) {
+      //       this.actionService.validate(question, section.controls[key]);
+      //     }
+      //   }
+      // } else {
+      // if section is isRepeat, data structure is an array of objects (groups) we need to loop over
+      if (section) {
+        // get all the questions of this section with the section Id
+        this.questionsBySection = this.sections.find(section => section.id == this.activeSection.sectionId)?.questions
+        // get all keys for each group in this section
+        for (let group of section.controls) {
+          for (let key in group.controls) {
+            const question = this.questionsBySection?.find((q) => q.id === parseInt(key));
+
+            // validate rules if question has any
+            if (question && this.hasRules(question)) {
+              this.actionService.validate(question, group.controls[key]);
+            }
           }
+        }
       }
-    });
+    })
   }
 
   getBroker() {
@@ -90,9 +131,15 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
     })
   }
 
-  getQuestions() {
-    this.store.pipe(select(selectQuestions)).subscribe((data) => {
-      this.questions = data;
+  getActiveSection() {
+    this.store.pipe(select(selectActiveSection)).subscribe((data) => {
+      this.activeSection = data;
+    });
+  }
+
+  getSections() {
+    this.store.pipe(select(selectSections)).subscribe((data) => {
+      this.sections = data;
     });
   }
 
@@ -121,68 +168,68 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
     return question.rules.length ? true : false;
   }
 
-  submit() {
-    this.formState$
-      .pipe(
-        take(1),
-        filter((state) => {
-          return state.isValid;
-        }),
-        map((form) => {
-          this.submittingForm = true;
-          let answers = [];
-          for (let key in form.value) {
-            if (key === '2885') {
-              for (let responseKey in form.value[2885]) {
-                answers.push(
-                  new Answer(
-                    key,
-                    '',
-                    responseKey,
-                    (form.value[2885][responseKey] / 100).toString()
-                  )
-                );
-              }
-            } else {
-              const identifier = this.questions.find(
-                (q: Question) => q.id === parseInt(key)
-              )!.identifier;
-              answers.push(new Answer(key, '', identifier, form.value[key]));
-            }
-          }
-          const formData = {
-            Code: this.broker.aprilonId,
-            MarketId: this.broker.marketId,
-            Language: 'en',
-            Answers: answers,
-          };
-          return new SetSubmittedValueAction(formData);
-        })
-      )
-      .subscribe(this.store);
+  // submit() {
+  //   this.formState$
+  //     .pipe(
+  //       take(1),
+  //       filter((state) => {
+  //         return state.isValid;
+  //       }),
+  //       map((form) => {
+  //         this.submittingForm = true;
+  //         let answers = [];
+  //         for (let key in form.value) {
+  //           if (key === '2885') {
+  //             for (let responseKey in form.value[2885]) {
+  //               answers.push(
+  //                 new Answer(
+  //                   key,
+  //                   '',
+  //                   responseKey,
+  //                   (form.value[2885][responseKey] / 100).toString()
+  //                 )
+  //               );
+  //             }
+  //           } else {
+  //             const identifier = this.questions.find(
+  //               (q: Question) => q.id === parseInt(key)
+  //             )!.identifier;
+  //             answers.push(new Answer(key, '', identifier, form.value[key]));
+  //           }
+  //         }
+  //         const formData = {
+  //           Code: this.broker.aprilonId,
+  //           MarketId: this.broker.marketId,
+  //           Language: 'en',
+  //           Answers: answers,
+  //         };
+  //         return new SetSubmittedValueAction(formData);
+  //       })
+  //     )
+  //     .subscribe(this.store);
 
-    this.submittedValue$.subscribe((data) => {
-      if (data) {
-        this.flashquoteService.submitQuote(data);
-        setTimeout(() => {
-          this.submittingForm = false;
-          this.router.navigate(['prime'])
-        }, 5000)
-      }
-      //this.router.navigate(['prime'])
-      // this.flashquoteService.submitQuote(data).subscribe({
-      //   next: quoteResult => {
-      //     console.log('quote result', quoteResult)
-      //   },
-      //   error: err => {
-      //     console.error(err)
-      //   }
-      // })
-    });
+  //   this.submittedValue$.subscribe((data) => {
+  //     if (data) {
+  //       this.flashquoteService.submitQuote(data);
+  //       setTimeout(() => {
+  //         this.submittingForm = false;
+  //         this.router.navigate(['prime'])
+  //       }, 5000)
+  //     }
+  //     //this.router.navigate(['prime'])
+  //     // this.flashquoteService.submitQuote(data).subscribe({
+  //     //   next: quoteResult => {
+  //     //     console.log('quote result', quoteResult)
+  //     //   },
+  //     //   error: err => {
+  //     //     console.error(err)
+  //     //   }
+  //     // })
+  //   });
 
-    // dispatch action to set the form as pristine, untouched and unsubmitted
-    //this.store.dispatch(new ResetAction(INITIAL_STATE.id));
-    // this.store.dispatch(new SetValueAction(INITIAL_STATE.id, {}));
-    //this.router.navigate(['/prime'])
-  }
+  // dispatch action to set the form as pristine, untouched and unsubmitted
+  //this.store.dispatch(new ResetAction(INITIAL_STATE.id));
+  // this.store.dispatch(new SetValueAction(INITIAL_STATE.id, {}));
+  //this.router.navigate(['/prime'])
+  //}
 }

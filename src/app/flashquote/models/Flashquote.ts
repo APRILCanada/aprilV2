@@ -1,8 +1,8 @@
 import { Label } from './Label';
-import { Question } from './Question';
+import { Section } from './Section';
 
 export class FlashFormDTO {
   marketId: number;
   title: Label;
-  questions: Question[];
+  sections: Section[]
 }

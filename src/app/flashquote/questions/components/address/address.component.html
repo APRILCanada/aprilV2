@@ -8,7 +8,7 @@
                 <mat-icon>search</mat-icon>
             </span>
             <input class="form-control text-form" [matAutocomplete]="auto" [required]="question.isRequired"
-                #inputAutoComplete placeholder="{{ 'START_TYPING_ADDRESS' | translate }}">
+                #inputAutoComplete placeholder="{{ 'START_TYPING_ADDRESS' | translate }}" [ngrxFormControlState]="(group$ | async)['search']">
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event.option.value)">
                 <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
                 <ng-container *ngIf="!isLoading">
@@ -67,7 +67,7 @@
                 <div class="d-flex flex-column justify-content-center">
                     <span>{{ 'APT_OTHER' | translate}}</span>
                     <div class="input-group mb-1" tabindex="3">
-                        <input #unit class="form-control" type="text" [ngrxFormControlState]="(group$ | async)['unit']">
+                        <input #unit class="form-control" type="text" [ngrxFormControlState]="(group$ | async)['MailingAddress-Unit']">
                     </div>
                 </div>
             </div>
@@ -78,8 +78,8 @@
                 <div class="d-flex flex-column justify-content-center">
                     <span>Province</span>
                     <div class="input-group mb-1" tabindex="3">
-                        <mat-select class="form-control" [ngrxFormControlState]="(group$ | async)['MailingAddress-Province']"
-                            [required]="question.isRequired">
+                        <mat-select class="form-control"
+                            [required]="question.isRequired" [ngrxFormControlState]="(group$ | async)['MailingAddress-Province']">
                             <mat-option *ngFor="let p of ['AB', 'BC','MB','ON','QC','SK']" value="{{ p }}">
                                 {{ p }}
                             </mat-option>

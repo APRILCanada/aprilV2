@@ -6,6 +6,7 @@ export class Question {
   title: Label;
   type: string;
   isRequired: boolean;
+  isHidden: boolean;
   responses: any[];
   identifier: string;
   defaultValue: string;
