@@ -21,8 +21,8 @@ export class RuleService {
   // sequenceTriggered: Map<string,Rule[]> = new Map<string, Rule[]>();
   // actionSequenceTriggered: Map<string, string[]> = new Map<string, string[]>();
 
-  referred:Map<number,Rule> = new Map<number,Rule>();
-  excluded:Map<number,Rule> = new Map<number,Rule>();
+  referred: Map<number, Rule> = new Map<number, Rule>();
+  excluded: Map<number, Rule> = new Map<number, Rule>();
 
   // excludedList: Rule[] = [];
   referredList: Rule[] = [];
@@ -48,7 +48,7 @@ export class RuleService {
 
   // }
 
-  checkRules(question: Question){
+  checkRules(question: Question) {
     // question.rules.forEach(rule =>
     //   {
     //     var index = question.key.indexOf('_') == -1 ? "" : question.key.split('_')[1];
@@ -92,40 +92,40 @@ export class RuleService {
   //   }
   // }
 
-  checkRule(rule:Rule, control: any) {
+  checkRule(rule: Rule, control: any, destinationId: any) {
     let result;
 
-    switch(rule.operation) {
-       case 'EQUALS':
-         result = control.value == rule.value;
-         break;
-    //   case 'NOT_EQUAL':
-    //     result = value != rule.value;
-    //     break;
-    //   case 'GREATER_THAN':
-    //     result = this.isGreaterThan(value, rule.value);
-    //     break;
-    //   case 'LESSER_THAN':
-    //     result = this.isLesserThan(value, rule.value);
-    //     break;
+    switch (rule.operation) {
+      case 'EQUALS':
+        result = control.value == rule.value;
+        break;
+      //   case 'NOT_EQUAL':
+      //     result = value != rule.value;
+      //     break;
+      //   case 'GREATER_THAN':
+      //     result = this.isGreaterThan(value, rule.value);
+      //     break;
+      //   case 'LESSER_THAN':
+      //     result = this.isLesserThan(value, rule.value);
+      //     break;
       case 'GREATER_EQUAL':
         result = this.isGreaterThan(control.value, rule.value, true);
         break;
-    //   case 'LESSER_EQUAL':
-    //     result = this.isLesserThan(value, rule.value, true);
-    //     break;
-    //   case 'CONTAINS':
-    //     result = this.contains(value, rule.value);
-    //     break;
-    //   case 'NOT_CONTAIN':
-    //     result = this.contains(value, rule.value, true);
-    //     break;
-    //   case 'EMPTY':
-    //     result = this.isEmpty(value);
-    //     break;
-    //   case 'NOT_EMPTY':
-    //     result = this.isEmpty(value, true);
-    //     break;
+      //   case 'LESSER_EQUAL':
+      //     result = this.isLesserThan(value, rule.value, true);
+      //     break;
+      //   case 'CONTAINS':
+      //     result = this.contains(value, rule.value);
+      //     break;
+      //   case 'NOT_CONTAIN':
+      //     result = this.contains(value, rule.value, true);
+      //     break;
+      //   case 'EMPTY':
+      //     result = this.isEmpty(value);
+      //     break;
+      //   case 'NOT_EMPTY':
+      //     result = this.isEmpty(value, true);
+      //     break;
       // case 'PROVINCE_IS':
       //   result = this.provinceIs(rule.value, value);
       //   break;
@@ -180,17 +180,17 @@ export class RuleService {
       // case 'YEAR_LESSER_EQUAL':
       //   result = this.yearLesserThan(value, rule.value, true);
       //   break;
-     }
-     return result;
+    }
+    return result;
   }
 
-  isGreaterThan(value1:string, value2:string, andEqual:boolean = false):boolean{
-    if((!value1) || !(value2)){
+  isGreaterThan(value1: string, value2: string, andEqual: boolean = false): boolean {
+    if ((!value1) || !(value2)) {
       return false;
     }
-    var number1 = parseFloat(value1.toString().replace(",",".").replace(/\s/g, ""));
-    var number2 = parseFloat(value2.toString().replace(",",".").replace(/\s/g, ""));
-    if(isNaN(number1) || isNaN(number2)){
+    var number1 = parseFloat(value1.toString().replace(",", ".").replace(/\s/g, ""));
+    var number2 = parseFloat(value2.toString().replace(",", ".").replace(/\s/g, ""));
+    if (isNaN(number1) || isNaN(number2)) {
       return false;
     }
     return andEqual ? number1 >= number2 : number1 > number2;
@@ -244,7 +244,7 @@ export class RuleService {
   //     this.addAction(rule, key, index, true);
   //     return;
   //   }
-   
+
   //   var actionSequenceTriggered = this.actionSequenceTriggered;
   //   for(var actionSeq of actionSequenceTriggered){
   //     if(actionSeq[1].some(x => x == rule.id.toString())){
@@ -493,7 +493,7 @@ export class RuleService {
   //   }
   //   return andEqual ? number1 <= number2 : number1 < number2;
   // }
-  
+
   // dateGreaterThan(value1:string, value2:string, andEqual:boolean = false):boolean {
   //   if(isNullOrUndefined(value1) || isNullOrUndefined(value2)){
   //     return false;

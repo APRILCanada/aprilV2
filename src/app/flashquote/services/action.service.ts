@@ -12,6 +12,7 @@ import { selectActiveSection, selectFormState, selectSections } from '../selecto
 import { RuleService } from './rule.service';
 import { Rule } from '../models/Rule';
 import { FormGroup } from '@angular/forms';
+import { map, Observable, pluck, tap } from 'rxjs';
 
 
 @Injectable({
@@ -20,7 +21,9 @@ import { FormGroup } from '@angular/forms';
 export class ActionService {
   questions: Question[] = [];
   formState: FormState<FormValue>;
+  formState$: Observable<any>
   activeSection: any;
+  temp: any[] = [] // FIX FOR DOUBLE ACTION DISPATCH
 
   constructor(private store: Store<State>, private ruleService: RuleService) {
     this.store.pipe(select(selectSections)).subscribe(questions => {
@@ -29,10 +32,11 @@ export class ActionService {
     this.store.pipe(select(selectFormState)).subscribe(state => {
       this.formState = state
     })
+
     this.store.pipe(select(selectActiveSection)).subscribe(state => this.activeSection = state)
   }
 
-  validate(question: Question, control: FormControlState<any>) {
+  validate(question: Question, control: FormControlState<any>, pathToGroup: string) {
     question.rules.forEach((rule) => {
       const destinationId = rule.destinationId;
 
@@ -41,24 +45,27 @@ export class ActionService {
           this.getResponsesFromPreviousAnswer(question, control, destinationId);
           break;
         case 'SHOW':
-          this.showHide(question, rule, control, destinationId.toString());
+          this.showHide(question, rule, control, destinationId.toString(), pathToGroup);
           break;
       }
     });
   }
 
-  showHide(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string) {
-    //TEMP SHOULD BE DYNAMIC INDEX
-    let controlId = 'generic.' + this.activeSection.sectionId + '.0'
-    const result = this.ruleService.checkRule(rule, control)
+  showHide(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
+    const result = this.ruleService.checkRule(rule, control, destinationId)
     console.log('infinite loop')
+    // get the groupId for dynamic allocation
+    // groupId is the key of the object in a section (ex. 'generic.35.0' => 0 is the groupId (1st object in the section) while 35 is the sectionId)
+    const groupId = pathToGroup.slice(-1)
 
     if (result) {
-      if (!((this.formState.controls[this.activeSection.sectionId].controls[0] as any).controls[destinationId])) {
+
+      if (!this.temp.includes(destinationId) &&
+        (!(this.formState.controls[this.activeSection.sectionId].controls[groupId] as any).controls[destinationId])) {
 
         // https://stackoverflow.com/questions/61311351/how-to-dynamically-add-formgroup-controls-to-formarray-in-angular-while-the-stat
         if (question.identifier === "HasHadClaimsInLast6Years") {
-          this.store.dispatch(new AddGroupControlAction(controlId, destinationId, [
+          this.store.dispatch(new AddGroupControlAction(pathToGroup, destinationId, [
             {
               "Claim-date": '',
               "Claim-actualDate": '',
@@ -68,14 +75,23 @@ export class ActionService {
               "Claim-opened": ''
             }
           ]))
+          this.temp.push(destinationId) // FIX FOR DOUBLE ACTION DISPATCH
         } else {
-          this.store.dispatch(new AddGroupControlAction(controlId, destinationId, ''));
+          this.store.dispatch(new AddGroupControlAction(pathToGroup, destinationId, ''));
+          this.temp.push(destinationId) // FIX FOR DOUBLE ACTION DISPATCH
         }
       }
     }
     else {
-      if (((this.formState.controls[this.activeSection.sectionId].controls[0] as any).controls[destinationId])) {
-        this.store.dispatch(new RemoveGroupControlAction(controlId, destinationId));
+      if (this.temp.includes(destinationId)
+      && ((this.formState.controls[this.activeSection.sectionId].controls[groupId] as any).controls[destinationId])) {
+        this.store.dispatch(new RemoveGroupControlAction(pathToGroup, destinationId));
+        const qId = this.temp.indexOf(destinationId); // FIX FOR DOUBLE ACTION DISPATCH
+        if (qId !== -1) {
+          // 3
+          this.temp.splice(qId, 1);
+        }
+        console.log('TEMP REMOVE', this.temp)
       }
     }
   }

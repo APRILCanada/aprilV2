@@ -3,7 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { Question } from '../models/Question';
 import { FormGroupState, ResetAction, SetValueAction } from 'ngrx-forms';
-import { distinct, distinctUntilKeyChanged, filter, map, pluck, switchMap, take, takeLast, takeWhile, tap } from 'rxjs/operators';
+import { distinct, distinctUntilChanged, distinctUntilKeyChanged, filter, map, pluck, skipLast, skipWhile, switchMap, take, takeLast, takeWhile, tap } from 'rxjs/operators';
 import { FormValue, State } from '../store';
 import { ActionService } from '../services/action.service';
 import { Answer } from '../models/Answer';
@@ -89,23 +89,6 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
       // get fields of current active section
       map((sections) => sections.controls[this.activeSection.sectionId]),
     ).subscribe(section => {
-
-      // // if section is not isRepeat, data structure od section is plain object {}
-      // if (!this.activeSection.isRepeat && section) {
-      //   // get all the questionKeys of this section
-      //   const controlKeys = Object.keys(section.controls)
-
-      //   // validate each question if it has some rules
-      //   for (let key of controlKeys) {
-      //     const question = this.questionsBySection?.find((q) => q.id === parseInt(key));
-
-      //     // validate rules if question has any
-      //     if (question && this.hasRules(question)) {
-      //       this.actionService.validate(question, section.controls[key]);
-      //     }
-      //   }
-      // } else {
-      // if section is isRepeat, data structure is an array of objects (groups) we need to loop over
       if (section) {
         // get all the questions of this section with the section Id
         this.questionsBySection = this.sections.find(section => section.id == this.activeSection.sectionId)?.questions
@@ -116,7 +99,7 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
 
             // validate rules if question has any
             if (question && this.hasRules(question)) {
-              this.actionService.validate(question, group.controls[key]);
+              this.actionService.validate(question, group.controls[key], group.id);
             }
           }
         }
