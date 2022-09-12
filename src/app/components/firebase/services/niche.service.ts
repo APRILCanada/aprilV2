@@ -237,11 +237,11 @@ export class NicheService {
                 titleEn: 'Rented residences and condo buildings',
                 id: 'rented-residence-and-condos',
               },
-              {
-                titleFr: 'Résidence haute valeur Intact Prestige',
-                titleEn: 'Intact Prestige high value residence',
-                id: 'residence-haute-valeur',
-              },
+              // {
+              //   titleFr: 'Résidence haute valeur Intact Prestige',
+              //   titleEn: 'Intact Prestige high value residence',
+              //   id: 'residence-haute-valeur',
+              // },
               {
                 titleFr:
                   'Assurance pour résidences secondaires et saisonnières',
