@@ -21,9 +21,14 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 1.5rem;
+  width: 100%;
 }
 
 mat-form-field {
   width: 100%;
+}
+
+.mat-dialog-title {
+  line-height: 1;
 }
 

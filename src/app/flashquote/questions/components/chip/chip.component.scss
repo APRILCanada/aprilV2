@@ -25,15 +25,15 @@
   word-wrap: break-word;
 
   &:active {
-    background-color: #f7f7f7;
-    border-color: rgb(170, 168, 168);
+    background-color: var(--mainColor);
+    border-color: var(--mainColor);
     transform: scale(0.96);
   }
 }
 
 .selected {
   font-weight: 500;
-  background-color: #3F51B5;
+  background-color: var(--mainColor);
   color: #fff;
-  border: 1px solid #3F51B5;
+  border: 1px solid var(--mainColor);
 }

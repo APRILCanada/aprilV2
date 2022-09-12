@@ -16,8 +16,10 @@ import {
   selectErrors,
   selectFormValid,
   selectFormSubmitted,
+  selectBroker,
 } from '../selectors';
 import { Router } from '@angular/router';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-form',
@@ -34,12 +36,15 @@ export class FormComponent implements OnInit, OnDestroy {
   submittingForm = false;
   answers: Answer[];
   formSubscription: Subscription;
+  broker: any;
+  logo: string;
 
   constructor(
     private store: Store<State>,
     private actionService: ActionService,
     private flashquoteService: FlashquoteService,
-    private router: Router
+    private router: Router,
+    public language: LanguageService
   ) { }
 
   ngOnInit() {
@@ -49,6 +54,7 @@ export class FormComponent implements OnInit, OnDestroy {
     this.getFormValid();
     this.getFormSubmitted();
     this.getErrors();
+    this.getBroker();
 
     this.onFormChange();
   }
@@ -67,6 +73,14 @@ export class FormComponent implements OnInit, OnDestroy {
         }
       }
     });
+  }
+
+  getBroker() {
+    this.store.pipe(select(selectBroker)).subscribe(broker => {
+      console.log('broker', broker)
+      this.broker = broker
+      this.logo = encodeURIComponent(broker.logo)
+    })
   }
 
   getQuestions() {

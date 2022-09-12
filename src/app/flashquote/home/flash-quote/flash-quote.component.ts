@@ -32,7 +32,6 @@ export class FlashQuoteComponent implements OnInit {
 
   getBroker() {
     this.store.pipe(select(selectBroker)).subscribe(broker => {
-      console.log('broker', broker)
       this.broker = broker
       this.logo = encodeURIComponent(broker.logo)
     })
