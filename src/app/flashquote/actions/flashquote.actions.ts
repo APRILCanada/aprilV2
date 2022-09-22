@@ -1,6 +1,9 @@
 import { Action, createAction, props } from '@ngrx/store';
 import { FormControlState } from 'ngrx-forms';
+import { number } from 'ngrx-forms/validation';
+import { ActiveSection } from '../models/ActiveSection';
 import { FlashFormDTO } from '../models/Flashquote';
+import { Label } from '../models/Label';
 
 // QUESTIONS
 // export const loadQuestions = createAction('[QUESTIONS] Load Questions', props<{ marketId: string }>());
@@ -11,7 +14,7 @@ import { FlashFormDTO } from '../models/Flashquote';
 export const loadSections = createAction('[SECTIONS] Load Sections', props<{ marketId: string }>());
 export const loadSectionsSuccess = createAction('[SECTIONS] Load Sections Success', props<{ flashquote: FlashFormDTO }>());
 export const loadSectionsError = createAction('[SECTIONS] Load Sections Error');
-export const setActiveSection = createAction('[SECTIONS] Set Active Section', props<{ sectionId: number, isRepeat: boolean }>())
+export const setActiveSection = createAction('[SECTIONS] Set Active Section', props<{ activeSection: ActiveSection }>())
 
 export const createSections = createAction('[SECTIONS] Create sections', props<{ flashquote: FlashFormDTO }>())
 export const loadForm = createAction('[FORM] Load Form', props<{ flashquote: FlashFormDTO }>())

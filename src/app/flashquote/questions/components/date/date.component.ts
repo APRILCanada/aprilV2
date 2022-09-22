@@ -12,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./date.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class DateComponent implements OnInit {
+export class DateComponent {
   @Input() question: Question;
   @Input() control: FormControlState<any>;
   @Input() error: any
@@ -24,14 +24,12 @@ export class DateComponent implements OnInit {
         return null;
       }
 
-      // format date
-      return format(new Date(value.getFullYear(), value.getMonth(), value.getDate()), 'dd-MM-yyyy')
+      value = new Date(Date.UTC(value.getFullYear(), value.getMonth(), value.getDate()));
+      return NgrxValueConverters.dateToISOString.convertViewToStateValue(value);
     },
-    convertStateToViewValue: NgrxValueConverters.dateToISOString.convertStateToViewValue,
+    convertStateToViewValue: NgrxValueConverters.dateToISOString.convertStateToViewValue
   };
-
 
   constructor(public language: LanguageService, public translate: TranslateService) { }
 
-  ngOnInit() { }
 }

@@ -1,4 +1,5 @@
+import { Label } from "./Label"
+
 export class ActiveSection {
-    sectionId: number;
-    isRepeat: boolean;
+    id: number; title: Label; isRepeat: boolean; index: number; isFirst: boolean; isLast: boolean; sectionsLength: number;
 }

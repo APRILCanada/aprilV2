@@ -74,7 +74,22 @@ export class FlashquoteEffects {
       ofType(createSections),
       pluck('flashquote', 'sections'),
       mergeMap((sections) => {
-        this.store.dispatch(setActiveSection({ sectionId: 34, isRepeat: sections[0].isRepeat }))
+        console.log('SECTIONS', sections)
+        const sectionsLength = sections.length
+        const formSections = sections.reduce((sections: any, section: any, i) => {
+          sections[i] = {
+            id: section.id,
+            title: section.title,
+            isRepeat: section.isRepeat,
+            index: i,
+            isFirst: i === 0,
+            isLast: i === sections.length - 1,
+            sectionsLength
+          }
+          return sections
+        }, {})
+
+        this.store.dispatch(setActiveSection({ activeSection: formSections[0] }))
         return sections.map(section => new AddGroupControlAction('generic', section.id, [{}]))
       }),
       switchMap((res: any) => {

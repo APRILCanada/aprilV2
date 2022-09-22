@@ -1,26 +1,41 @@
-import { Component, Input } from '@angular/core';
-import { FormControlState, SetValueAction } from 'ngrx-forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControlState, setValue, SetValueAction } from 'ngrx-forms';
 import { Question } from 'src/app/flashquote/models/Question';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SelectDialogComponent } from '../select-dialog/select-dialog.component';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Response } from 'src/app/flashquote/models/Response';
 import { LanguageService } from 'src/app/services/language.service';
+import { selectActiveSection, selectFormState } from 'src/app/flashquote/selectors';
+import { ActiveSection } from 'src/app/flashquote/models/ActiveSection';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
-export class SelectComponent {
+export class SelectComponent implements OnInit {
   @Input() question: Question;
   @Input() control: FormControlState<string>;
   selectedOptions: any[] = [];
 
   constructor(private matDialog: MatDialog, private store: Store, public language: LanguageService) { }
 
-  public get options(): any[] {
+  // get all the options (Responses) for this question
+  public get options(): Response[] {
     return this.question.responses || [];
+  }
+
+  // retrieve the options (Responses) selected by the user if any
+  ngOnInit(): void {
+    if (this.control.value) {
+      for (let currentOption of this.control.value.split(',')) {
+        for (let option of this.options) {
+          option.responseKey === currentOption && this.selectedOptions.push(option)
+        }
+      }
+    }
   }
 
   // open full screen dialog for select with more than 10 options

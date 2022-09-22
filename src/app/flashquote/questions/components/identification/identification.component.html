@@ -3,7 +3,7 @@
     <div class="d-flex flex-column justify-content-center w-50 me-2">
         <label>{{ 'FIRST_NAME' | translate }}</label>
         <div class="input-group" tabindex="1">
-            <input id="{{control.id}}" class="form-control" type="text" [required]="question.isRequired"
+            <input id="{{control.id}}" class="form-control" type="text"
                 [ngrxFormControlState]="(group$ | async)['firstName']">
         </div>
     </div>
@@ -11,7 +11,7 @@
     <div class="d-flex flex-column justify-content-center w-50">
         <label>{{ 'LAST_NAME' | translate }}</label>
         <div class="input-group" tabindex="2">
-            <input class="form-control" [required]="question.isRequired"
+            <input class="form-control"
                 [ngrxFormControlState]="(group$ | async)['lastName']" type="text">
         </div>
     </div>

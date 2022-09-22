@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { ResetAction } from 'ngrx-forms';
+import { filter, Observable, tap } from 'rxjs';
+import { setActiveSection } from 'src/app/flashquote/actions/flashquote.actions';
+import { ActiveSection } from 'src/app/flashquote/models/ActiveSection';
+import { Section } from 'src/app/flashquote/models/Section';
+import { selectActiveSection, selectErrors, selectSections } from 'src/app/flashquote/selectors';
+import { State } from 'src/app/flashquote/store';
 
 @Component({
   selector: 'app-section',
@@ -6,10 +14,55 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./section.component.scss']
 })
 export class SectionComponent implements OnInit {
+  activeSection$: Observable<ActiveSection>;
+  activeSection: ActiveSection;
+  formSections: Section[] = [];
+  errors: any
 
-  constructor() { }
+  constructor(private store: Store<State>) { }
 
   ngOnInit(): void {
+    this.getActiveSection();
+    this.getSections()
+    this.getErrors()
   }
 
+  getActiveSection() {
+    this.store.pipe(select(selectActiveSection)).subscribe(data => this.activeSection = data)
+    this.activeSection$ = this.store.pipe(select(selectActiveSection))
+  }
+
+  getSections() {
+    this.store.pipe(select(selectSections)).subscribe((data) => {
+      this.formSections = data;
+    });
+  }
+
+  getErrors() {
+    this.errors = this.store.pipe(select(selectErrors)).subscribe(errors => {
+      this.errors = errors
+    })
+
+  }
+
+  setActiveSection(step: number) {
+    if (this.errors['_' + this.activeSection.id] && step === 1) {
+      console.log('DES ERREURS', this.errors['_' + this.activeSection.id])
+      return
+    }
+
+    this.store.dispatch(setActiveSection({
+      activeSection: {
+        id: this.formSections[this.activeSection.index + step].id,
+        title: this.formSections[this.activeSection.index + step].title,
+        isRepeat: this.formSections[this.activeSection.index + step].isRepeat,
+        index: this.activeSection.index + step,
+        isFirst: this.activeSection.index + step === 0,
+        isLast: this.activeSection.index + step === this.formSections.length - 1,
+        sectionsLength: this.formSections.length
+      }
+    }))
+
+    this.store.dispatch(new ResetAction('generic'));
+  }
 }

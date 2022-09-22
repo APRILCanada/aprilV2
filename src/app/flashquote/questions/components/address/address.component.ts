@@ -23,7 +23,7 @@ export class AddressComponent implements OnInit {
   activeSection: ActiveSection;
 
   group$: Observable<any>
-  showAddressForm = false;
+  showAddressForm = true;
   addressAutoCompleteHidden = false;
   isLoading = false;
   suggestions: any[];
@@ -36,12 +36,17 @@ export class AddressComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(Object.values(this.control.value).reduce((acc: string, curr) => acc += curr, '') !== '') {
+      this.showAddressForm = true;
+      this.addressAutoCompleteHidden = true;
+    }
+
     this.group$ = this.store.pipe(
-      select((s) => (s.form.formState.controls[s.form.activeSection.sectionId].controls[0] as any).controls[this.question.id].controls)
+      select((s) => (s.form.formState.controls[s.form.activeSection.id].controls[0] as any).controls[this.question.id]?.controls)
     )
 
     this.errors$ = this.store.pipe(select(selectErrors));
-    
+
     this.store.pipe(select(selectActiveSection)).subscribe((data) => {
       this.activeSection = data;
     });

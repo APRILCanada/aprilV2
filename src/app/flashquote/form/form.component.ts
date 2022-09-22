@@ -87,11 +87,11 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
 
     this.formState$.pipe(
       // get fields of current active section
-      map((sections) => sections.controls[this.activeSection.sectionId]),
+      map((sections) => sections.controls[this.activeSection.id]),
     ).subscribe(section => {
       if (section) {
         // get all the questions of this section with the section Id
-        this.questionsBySection = this.sections.find(section => section.id == this.activeSection.sectionId)?.questions
+        this.questionsBySection = this.sections.find(section => section.id == this.activeSection.id)?.questions
         // get all keys for each group in this section
         for (let group of section.controls) {
           for (let key in group.controls) {
@@ -212,7 +212,7 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
 
   // dispatch action to set the form as pristine, untouched and unsubmitted
   //this.store.dispatch(new ResetAction(INITIAL_STATE.id));
-  // this.store.dispatch(new SetValueAction(INITIAL_STATE.id, {}));
+  //this.store.dispatch(new SetValueAction(INITIAL_STATE.id, {}));
   //this.router.navigate(['/prime'])
   //}
 }

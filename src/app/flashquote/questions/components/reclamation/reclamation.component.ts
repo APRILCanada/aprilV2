@@ -33,7 +33,7 @@ export class ReclamationComponent implements OnInit {
   ngOnInit(): void {
     // this.store.pipe(select((s) => s.form.formState.controls[s.form.activeSection.sectionId].controls[this.questionId])).subscribe(data => console.log('CLAIM', data));
     // section.controls >> get 1st group >> group.controls >> get question
-    this.group$ = this.store.pipe(select((s) => (s.form.formState.controls[s.form.activeSection.sectionId].controls[0] as any).controls[this.question.id]))
+    this.group$ = this.store.pipe(select((s) => (s.form.formState.controls[s.form.activeSection.id].controls[0] as any).controls[this.question.id]))
   }
 
   removeClaim(index: number) {

@@ -14,29 +14,31 @@
   </div>
 
   <!-- DYNAMIC FORM -->
-  <form *ngIf="!submittingForm" [ngrxFormState]="formState" (submit)="submit()">
+  <!-- <form *ngIf="!submittingForm" [ngrxFormState]="formState" (submit)="submit()"> -->
+    <form *ngIf="!submittingForm" [ngrxFormState]="formState">
 
-    <ng-container *ngFor="let question of questionsBySection">
-      <div
-        *ngFor="let group of formState.controls[this.activeSection.sectionId].controls; let i = index; trackBy:customTrackBy">
-        <div *ngIf="formState.controls[this.activeSection.sectionId].controls[i].controls[question.id]">
+    <app-section>
+      <ng-container *ngFor="let question of questionsBySection">
+        <div
+          *ngFor="let group of formState.controls[this.activeSection.id].controls; let i = index; trackBy:customTrackBy">
+          <div *ngIf="formState.controls[this.activeSection.id].controls[i].controls[question.id]">
 
-          <app-question-base [question]="question"
-            [control]="formState.controls[this.activeSection.sectionId].controls[i].controls[question.id]">
-            <!-- ERRORS -->
-            <app-error 
-              [control]="formState.controls[this.activeSection.sectionId].controls[i].controls[question.id]"
-              [error]="(errors$ | async)['_' + this.activeSection.sectionId]['_0']['_' + question.id]">
-            </app-error>
-          </app-question-base>
+            <app-question-base [question]="question"
+              [control]="formState.controls[this.activeSection.id].controls[i].controls[question.id]">
+              <!-- ERRORS -->
+              <app-error [control]="formState.controls[this.activeSection.id].controls[i].controls[question.id]"
+                [error]=" (errors$ | async)['_' + this.activeSection.id] && (errors$ | async)['_' + this.activeSection.id]['_0']['_' + question.id]">
+              </app-error>
+            </app-question-base>
+          </div>
         </div>
-      </div>
-    </ng-container>
+      </ng-container>
+    </app-section>
 
-    <button class="btn-april" type="submit" data-analytics="DirectForm"
+    <!-- <button class="btn-april" type="submit" data-analytics="DirectForm"
       [disabled]="!(formValid$ | async) && (formSubmitted$ | async)">
       {{ "SEND" | translate }}
-    </button>
+    </button> -->
   </form>
 
 </div>

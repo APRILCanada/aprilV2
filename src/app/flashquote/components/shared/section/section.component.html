@@ -1,1 +1,17 @@
-<p>section works!</p>
+<section *ngIf="activeSection">
+    <h1>{{ activeSection.title.LabelFr }}</h1>
+    <ng-content></ng-content>
+
+    <!-- PREVIOUS -->
+    <button *ngIf="!activeSection.isFirst" class="btn-april" (click)="setActiveSection(-1)">
+        Previous
+    </button>
+
+    <!-- NEXT -->
+    <button *ngIf="!activeSection.isLast" class="btn-april" (click)="setActiveSection(1)">
+        Next
+    </button>
+
+     <!-- SUBMIT -->
+
+</section>
