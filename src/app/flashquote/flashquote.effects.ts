@@ -74,7 +74,7 @@ export class FlashquoteEffects {
       ofType(createSections),
       pluck('flashquote', 'sections'),
       mergeMap((sections) => {
-        this.store.dispatch(setActiveSection({ sectionId: 35, isRepeat: sections[1].isRepeat }))
+        this.store.dispatch(setActiveSection({ sectionId: 34, isRepeat: sections[0].isRepeat }))
         return sections.map(section => new AddGroupControlAction('generic', section.id, [{}]))
       }),
       switchMap((res: any) => {

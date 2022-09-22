@@ -8,7 +8,8 @@
                 <mat-icon>search</mat-icon>
             </span>
             <input class="form-control text-form" [matAutocomplete]="auto" [required]="question.isRequired"
-                #inputAutoComplete placeholder="{{ 'START_TYPING_ADDRESS' | translate }}" [ngrxFormControlState]="(group$ | async)['search']">
+                #inputAutoComplete placeholder="{{ 'START_TYPING_ADDRESS' | translate }}"
+                [ngrxFormControlState]="(group$ | async)['search']">
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event.option.value)">
                 <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
                 <ng-container *ngIf="!isLoading">
@@ -35,9 +36,13 @@
                     <div class="d-flex flex-column justify-content-center">
                         <span>{{ 'HOUSE_NUMBER' | translate}}</span>
                         <div class="input-group mb-1" tabindex="1">
-                            <input class="form-control" [ngrxFormControlState]="(group$ | async)['MailingAddress-StreetNumber']"
-                                [required]="question.isRequired" type="text">
+                            <input class="form-control"
+                                [ngrxFormControlState]="(group$ | async)['MailingAddress-StreetNumber']"
+                                type="text">
                         </div>
+                        <app-error [control]="(group$ | async)['MailingAddress-StreetNumber']"
+                        [error]="(errors$ | async)['_' + activeSection.sectionId]['_0']['_' + question.id]['_MailingAddress-StreetNumber']">
+                        </app-error>
                     </div>
                 </div>
 
@@ -45,9 +50,13 @@
                     <div class="d-flex flex-column justify-content-center">
                         <span>{{ 'STREET' | translate}}</span>
                         <div class="input-group mb-1" tabindex="2">
-                            <input class="form-control" [ngrxFormControlState]="(group$ | async)['MailingAddress-Street']"
-                                [required]="question.isRequired" type="text">
+                            <input class="form-control"
+                                [ngrxFormControlState]="(group$ | async)['MailingAddress-Street']"
+                                type="text">
                         </div>
+                        <app-error [control]="(group$ | async)['MailingAddress-Street']"
+                            [error]="(errors$ | async)['_' + activeSection.sectionId]['_0']['_' + question.id]['_MailingAddress-Street']">
+                        </app-error>
                     </div>
                 </div>
             </div>
@@ -61,13 +70,17 @@
                         <input class="form-control" [ngrxFormControlState]="(group$ | async)['MailingAddress-City']"
                             [required]="question.isRequired" type="text">
                     </div>
+                    <app-error [control]="(group$ | async)['MailingAddress-City']"
+                        [error]="(errors$ | async)['_' + activeSection.sectionId]['_0']['_' + question.id]['_MailingAddress-City']">
+                    </app-error>
                 </div>
             </div>
             <div class="col-3">
                 <div class="d-flex flex-column justify-content-center">
                     <span>{{ 'APT_OTHER' | translate}}</span>
                     <div class="input-group mb-1" tabindex="3">
-                        <input #unit class="form-control" type="text" [ngrxFormControlState]="(group$ | async)['MailingAddress-Unit']">
+                        <input #unit class="form-control" type="text"
+                            [ngrxFormControlState]="(group$ | async)['MailingAddress-Unit']">
                     </div>
                 </div>
             </div>
@@ -78,13 +91,16 @@
                 <div class="d-flex flex-column justify-content-center">
                     <span>Province</span>
                     <div class="input-group mb-1" tabindex="3">
-                        <mat-select class="form-control"
-                            [required]="question.isRequired" [ngrxFormControlState]="(group$ | async)['MailingAddress-Province']">
+                        <mat-select class="form-control" [required]="question.isRequired"
+                            [ngrxFormControlState]="(group$ | async)['MailingAddress-Province']">
                             <mat-option *ngFor="let p of ['AB', 'BC','MB','ON','QC','SK']" value="{{ p }}">
                                 {{ p }}
                             </mat-option>
                         </mat-select>
                     </div>
+                    <app-error [control]="(group$ | async)['MailingAddress-Province']"
+                        [error]="(errors$ | async)['_' + activeSection.sectionId]['_0']['_' + question.id]['_MailingAddress-Province']">
+                    </app-error>
                 </div>
             </div>
             <div class="col-4">
@@ -92,9 +108,12 @@
                     <span>{{ 'POSTAL_CODE' | translate }}</span>
                     <div class="input-group mb-1" tabindex="3">
                         <input class="form-control" mask="S0S 0S0"
-                            [ngrxFormControlState]="(group$ | async)['MailingAddress-PostalCode']" [required]="question.isRequired"
-                            type="text">
+                            [ngrxFormControlState]="(group$ | async)['MailingAddress-PostalCode']"
+                            [required]="question.isRequired" type="text">
                     </div>
+                    <app-error [control]="(group$ | async)['MailingAddress-PostalCode']"
+                        [error]="(errors$ | async)['_' + activeSection.sectionId]['_0']['_' + question.id]['_MailingAddress-PostalCode']">
+                    </app-error>
                 </div>
             </div>
         </div>

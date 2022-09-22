@@ -4,7 +4,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { Console } from 'console';
 import { FormControlState, SetValueAction } from 'ngrx-forms';
 import { debounceTime, Observable, pluck, switchMap, tap } from 'rxjs';
+import { ActiveSection } from 'src/app/flashquote/models/ActiveSection';
 import { Question } from 'src/app/flashquote/models/Question';
+import { selectActiveSection, selectErrors } from 'src/app/flashquote/selectors';
 import { AddressService } from 'src/app/flashquote/services/address.service';
 import { State } from 'src/app/flashquote/store';
 import { LanguageService } from 'src/app/services/language.service';
@@ -17,7 +19,8 @@ import { LanguageService } from 'src/app/services/language.service';
 export class AddressComponent implements OnInit {
   @Input() question: Question;
   @Input() control: FormControlState<any>;
-  @Input() error: any;
+  errors$: Observable<any>;
+  activeSection: ActiveSection;
 
   group$: Observable<any>
   showAddressForm = false;
@@ -36,6 +39,12 @@ export class AddressComponent implements OnInit {
     this.group$ = this.store.pipe(
       select((s) => (s.form.formState.controls[s.form.activeSection.sectionId].controls[0] as any).controls[this.question.id].controls)
     )
+
+    this.errors$ = this.store.pipe(select(selectErrors));
+    
+    this.store.pipe(select(selectActiveSection)).subscribe((data) => {
+      this.activeSection = data;
+    });
 
     this.group$.pipe(
       pluck('search', 'value'),

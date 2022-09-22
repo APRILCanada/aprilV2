@@ -60,8 +60,8 @@ export class ActionService {
 
     if (result) {
 
-      if (!this.temp.includes(destinationId) &&
-        (!(this.formState.controls[this.activeSection.sectionId].controls[groupId] as any).controls[destinationId])) {
+      if (!this.temp.includes(destinationId)) {
+        // && (!(this.formState.controls[this.activeSection.sectionId].controls[groupId] as any).controls[destinationId])) {
 
         // https://stackoverflow.com/questions/61311351/how-to-dynamically-add-formgroup-controls-to-formarray-in-angular-while-the-stat
         if (question.identifier === "HasHadClaimsInLast6Years") {
@@ -83,8 +83,9 @@ export class ActionService {
       }
     }
     else {
-      if (this.temp.includes(destinationId)
-      && ((this.formState.controls[this.activeSection.sectionId].controls[groupId] as any).controls[destinationId])) {
+      if (this.temp.includes(destinationId))
+      //&& ((this.formState.controls[this.activeSection.sectionId].controls[groupId] as any).controls[destinationId]))
+      {
         this.store.dispatch(new RemoveGroupControlAction(pathToGroup, destinationId));
         const qId = this.temp.indexOf(destinationId); // FIX FOR DOUBLE ACTION DISPATCH
         if (qId !== -1) {

@@ -59,6 +59,7 @@ import { LoaderInlineComponent } from './questions/components/loader-inline/load
 import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 import { AutoComponent } from './questions/components/auto/auto.component';
 import { TextareaComponent } from './questions/components/textarea/textarea.component';
+import { SectionComponent } from './components/shared/section/section.component';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -100,7 +101,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     UploadedFilesComponent,
     LoaderInlineComponent,
     AutoComponent,
-    TextareaComponent
+    TextareaComponent,
+    SectionComponent
   ],
   imports: [
     CommonModule,
