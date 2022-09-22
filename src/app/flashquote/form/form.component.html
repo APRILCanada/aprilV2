@@ -24,10 +24,11 @@
           <div *ngIf="formState.controls[this.activeSection.id].controls[i].controls[question.id]">
 
             <app-question-base [question]="question"
-              [control]="formState.controls[this.activeSection.id].controls[i].controls[question.id]">
+              [control]="formState.controls[this.activeSection.id].controls[i].controls[question.id]"
+              [error]="(errors$ | async)['_' + this.activeSection.id] && (errors$ | async)['_' + this.activeSection.id]['_0']['_' + question.id]">
               <!-- ERRORS -->
               <app-error [control]="formState.controls[this.activeSection.id].controls[i].controls[question.id]"
-                [error]=" (errors$ | async)['_' + this.activeSection.id] && (errors$ | async)['_' + this.activeSection.id]['_0']['_' + question.id]">
+                [error]="(errors$ | async)['_' + this.activeSection.id] && (errors$ | async)['_' + this.activeSection.id]['_0']['_' + question.id]">
               </app-error>
             </app-question-base>
           </div>

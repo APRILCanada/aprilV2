@@ -1,4 +1,6 @@
 <div class="form-group">
   <label for="{{control.id}}">{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</label>
-  <input class="form-control text-form" autocomplete="disabled" [ngrxFormControlState]="control" id="{{control.id}}">
+  <input class="form-control text-form" autocomplete="disabled" [ngrxFormControlState]="control" id="{{control.id}}"
+    [ngClass]="{'error-border':error &&
+    (control.isDirty || control.isTouched || control.isSubmitted)}">
 </div>

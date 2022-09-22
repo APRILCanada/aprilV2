@@ -68,7 +68,7 @@
                     <span>{{ 'CITY' | translate}}</span>
                     <div class="input-group mb-1" tabindex="3">
                         <input class="form-control" [ngrxFormControlState]="(group)['MailingAddress-City']"
-                            [required]="question.isRequired" type="text">
+                         type="text">
                     </div>
                     <app-error [control]="group && group['MailingAddress-City']"
                         [error]="(errors$ | async)['_' + activeSection.id] && (errors$ | async)['_' + activeSection.id]['_0']['_' + question.id] && (errors$ | async)['_' + activeSection.id]['_0']['_' + question.id]['_MailingAddress-City']">

@@ -18,6 +18,7 @@ import { ThisReceiver } from '@angular/compiler';
 export class SelectComponent implements OnInit {
   @Input() question: Question;
   @Input() control: FormControlState<string>;
+  @Input() error: any;
   selectedOptions: any[] = [];
 
   constructor(private matDialog: MatDialog, private store: Store, public language: LanguageService) { }

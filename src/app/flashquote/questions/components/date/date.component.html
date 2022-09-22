@@ -1,5 +1,6 @@
 <label for="{{control?.id}}">{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</label>
-<mat-form-field appearance="fill">
+<mat-form-field appearance="fill" [ngClass]="{'error-border':error &&
+(control.isDirty || control.isTouched || control.isSubmitted)}">
     <input id="{{control?.id}}" matInput [matDatepicker]="picker" [ngrxFormControlState]="control"
         [ngrxValueConverter]="dateValueConverter" placeholder="{{ 'DATE_PICKER' | translate }}">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

@@ -1,5 +1,6 @@
 <!-- SELECT UNIQUE/MULTIPLE WITH MORE THAN 10 CHOICES-->
-<div class="container" *ngIf="question.responses.length > 10">
+<div class="container" *ngIf="question.responses.length > 10" [ngClass]="{'error-border':error &&
+  (control.isDirty || control.isTouched || control.isSubmitted)}">
   <div class="open-dialog-btn">
     <button class="add" type="button" (click)="openMultiSelectDialog()" mat-mini-fab color="basic">
       <mat-icon>add</mat-icon>
@@ -21,7 +22,8 @@
 <!-- SELECT UNIQUE/MULTIPLE WITH LESS THAN 10 CHOICES-->
 <ng-container>
   <label>{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</label>
-  <div class="select-single container" *ngIf="question.responses.length <= 10">
+  <div class="select-single container" *ngIf="question.responses.length <= 10" [ngClass]="{'error-border':error &&
+  (control.isDirty || control.isTouched || control.isSubmitted)}">
     <mat-chip-list>
       <app-chip *ngFor="let option of question.responses" (click)="select(option)" [selected]="isSelected(option.id)">
         {{ language.get() == "fr" ? option.label.LabelFr : option.label.LabelEn }}

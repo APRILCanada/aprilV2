@@ -1,18 +1,18 @@
 <div class="wrap" [ngSwitch]="question.type">
   <div *ngSwitchCase="'TEXT'">
-    <app-input [question]="question" [control]="control"></app-input>
+    <app-input [question]="question" [control]="control" [error]="error"></app-input>
   </div>
 
   <div *ngSwitchCase="'TEXTAREA'">
-    <app-textarea [question]="question" [control]="control"></app-textarea>
+    <app-textarea [question]="question" [control]="control" [error]="error"></app-textarea>
   </div>
 
   <div *ngSwitchCase="'BOOLEAN'">
-    <app-boolean [question]="question" [control]="control"></app-boolean>
+    <app-boolean [question]="question" [control]="control" [error]="error"></app-boolean>
   </div>
 
   <div *ngSwitchCase="'DATE'">
-    <app-date [question]="question" [control]="control"></app-date>
+    <app-date [question]="question" [control]="control" [error]="error"></app-date>
   </div>
 
   <div *ngSwitchCase="'FILE'">
@@ -33,7 +33,7 @@
   </div>
 
   <div *ngSwitchCase="'NUMBER'">
-    <app-input [question]="question" [control]="control"></app-input>
+    <app-input [question]="question" [control]="control" [error]="error"></app-input>
   </div>
 
   <div *ngSwitchCase="'ADDRESS'">
@@ -41,11 +41,11 @@
   </div>
 
   <div *ngSwitchCase="'MULTIPLE'">
-    <app-select [question]="question" [control]="control"></app-select>
+    <app-select [question]="question" [control]="control" [error]="error"></app-select>
   </div>
 
   <div *ngSwitchCase="'SELECT'">
-    <app-select [question]="question" [control]="control"></app-select>
+    <app-select [question]="question" [control]="control" [error]="error"></app-select>
   </div>
 
   <div *ngSwitchCase="'REPARTITION'">
