@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { ResetAction } from 'ngrx-forms';
+import { ActionsSubject, select, Store } from '@ngrx/store';
+import { MarkAsSubmittedAction, ResetAction } from 'ngrx-forms';
 import { filter, Observable, tap } from 'rxjs';
-import { setActiveSection } from 'src/app/flashquote/actions/flashquote.actions';
+import { AddGroupSectionAction, setActiveSection } from 'src/app/flashquote/actions/flashquote.actions';
 import { ActiveSection } from 'src/app/flashquote/models/ActiveSection';
 import { Section } from 'src/app/flashquote/models/Section';
 import { selectActiveSection, selectErrors, selectSections } from 'src/app/flashquote/selectors';
@@ -19,7 +19,7 @@ export class SectionComponent implements OnInit {
   formSections: Section[] = [];
   errors: any
 
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<State>, private actionsSubject: ActionsSubject) { }
 
   ngOnInit(): void {
     this.getActiveSection();
@@ -48,7 +48,7 @@ export class SectionComponent implements OnInit {
   setActiveSection(step: number) {
     if (this.errors['_' + this.activeSection.id] && step === 1) {
       console.log('DES ERREURS', this.errors['_' + this.activeSection.id])
-      return
+      return this.store.dispatch(new MarkAsSubmittedAction('generic'))
     }
 
     this.store.dispatch(setActiveSection({
@@ -63,6 +63,14 @@ export class SectionComponent implements OnInit {
       }
     }))
 
+    this.store.dispatch(new MarkAsSubmittedAction('generic'))
     this.store.dispatch(new ResetAction('generic'));
+  }
+
+  addGroupSection() {
+    console.log(this.activeSection.id)
+    this.actionsSubject.next(
+      new AddGroupSectionAction(this.activeSection.id)
+    )
   }
 }

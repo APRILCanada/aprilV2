@@ -15,25 +15,38 @@
 
   <!-- DYNAMIC FORM -->
   <!-- <form *ngIf="!submittingForm" [ngrxFormState]="formState" (submit)="submit()"> -->
-    <form *ngIf="!submittingForm" [ngrxFormState]="formState">
+  <form *ngIf="!submittingForm" [ngrxFormState]="formState">
 
     <app-section>
-      <ng-container *ngFor="let question of questionsBySection">
-        <div
-          *ngFor="let group of formState.controls[this.activeSection.id].controls; let i = index; trackBy:customTrackBy">
-          <div *ngIf="formState.controls[this.activeSection.id].controls[i].controls[question.id]">
+      <!-- loop over each array section and get index of each group section  -->
+      <!-- <div
+        *ngFor="let groupSection of formState.value[activeSection.id]; let iSectionGroup = index; trackBy:customTrackBy">
+        <h2>section group {{ iSectionGroup + 1 }}</h2> -->
 
-            <app-question-base [question]="question"
-              [control]="formState.controls[this.activeSection.id].controls[i].controls[question.id]"
-              [error]="(errors$ | async)['_' + this.activeSection.id] && (errors$ | async)['_' + this.activeSection.id]['_0']['_' + question.id]">
-              <!-- ERRORS -->
-              <app-error [control]="formState.controls[this.activeSection.id].controls[i].controls[question.id]"
-                [error]="(errors$ | async)['_' + this.activeSection.id] && (errors$ | async)['_' + this.activeSection.id]['_0']['_' + question.id]">
-              </app-error>
-            </app-question-base>
-          </div>
+      <!-- <ng-container *ngFor="let question of questionsBySection"> -->
+      <div *ngIf="activeSection.id">
+        <div *ngFor="let group of formState.controls[activeSection.id].controls; let i = index; trackBy:customTrackBy">
+          <h2>Section {{ i + 1 }}</h2>
+          <ng-container *ngFor="let question of questionsBySection">
+
+            <div *ngIf="formState.controls[activeSection.id].controls[i].controls[question.id]">
+              <!-- QUESTION BASE -->
+              <app-question-base [question]="question"
+                [control]="formState.controls[activeSection.id].controls[i].controls[question.id]"
+                [error]="(errors$ | async)['_' + activeSection.id] && (errors$ | async)['_' + activeSection.id]['_' + i]['_' + question.id]">
+                <app-error [control]="formState.controls[activeSection.id].controls[i].controls[question.id]"
+                  [error]="(errors$ | async)['_' + activeSection.id] && (errors$ | async)['_' + activeSection.id]['_' + i]['_' + question.id]">
+                </app-error>
+              </app-question-base>
+            </div>
+
+          </ng-container>
         </div>
-      </ng-container>
+      </div>
+
+      <!-- </ng-container> -->
+
+      <!-- </div> -->
     </app-section>
 
     <!-- <button class="btn-april" type="submit" data-analytics="DirectForm"

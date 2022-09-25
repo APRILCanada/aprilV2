@@ -2,16 +2,21 @@
     <h1>{{ activeSection.title.LabelFr }}</h1>
     <ng-content></ng-content>
 
-    <!-- PREVIOUS -->
-    <button *ngIf="!activeSection.isFirst" class="btn-april" (click)="setActiveSection(-1)">
-        Previous
-    </button>
+    <div *ngIf="activeSection.isRepeat" class="isRepeat-button">
+        <button (click)="addGroupSection()" type="button">Add a new {{activeSection.title.LabelEn}}</button>
+    </div>
 
-    <!-- NEXT -->
-    <button *ngIf="!activeSection.isLast" class="btn-april" (click)="setActiveSection(1)">
-        Next
-    </button>
+    <div class="section-buttons">
+        <!-- PREVIOUS -->
+        <button type="button" *ngIf="!activeSection.isFirst" class="btn-april" (click)="setActiveSection(-1)">
+            Previous
+        </button>
 
-     <!-- SUBMIT -->
+        <!-- NEXT -->
+        <button type="button" *ngIf="!activeSection.isLast" class="btn-april" (click)="setActiveSection(1)">
+            Next
+        </button>
 
+        <!-- SUBMIT -->
+    </div>
 </section>

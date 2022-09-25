@@ -51,3 +51,15 @@ export class RemoveGroupElementAction implements Action {
   readonly type = RemoveGroupElementAction.TYPE;
   constructor(public responseKey: any, public destinationId: any) { }
 }
+
+export class AddGroupSectionAction implements Action {
+  static readonly TYPE = 'form/ADD_GROUP_SECTION';
+  readonly type = AddGroupSectionAction.TYPE;
+  constructor(public sectionId: any) { }
+}
+
+export class RemoveGroupSectionAction implements Action {
+  static readonly TYPE = 'form/REMOVE_GROUP_SECTION';
+  readonly type = RemoveGroupSectionAction.TYPE;
+  constructor(public sectionId: any, public index: number) { }
+}

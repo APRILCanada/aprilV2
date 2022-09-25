@@ -1,0 +1,17 @@
+.section-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+
+    &:last-child {
+        margin-left: auto;
+    }
+}
+
+.isRepeat-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0;
+}
