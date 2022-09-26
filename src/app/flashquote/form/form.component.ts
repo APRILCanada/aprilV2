@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { Store, select } from '@ngrx/store';
+import { Store, select, ActionsSubject } from '@ngrx/store';
 import { Question } from '../models/Question';
 import { FormGroupState, ResetAction, SetValueAction } from 'ngrx-forms';
 import { distinct, distinctUntilChanged, distinctUntilKeyChanged, filter, map, pluck, skipLast, skipWhile, switchMap, take, takeLast, takeWhile, tap } from 'rxjs/operators';
@@ -8,7 +8,7 @@ import { FormValue, State } from '../store';
 import { ActionService } from '../services/action.service';
 import { Answer } from '../models/Answer';
 import { FlashquoteService } from '../services/flashquote.service';
-import { SetSubmittedValueAction } from '../actions/flashquote.actions';
+import { RemoveGroupSectionAction, SetSubmittedValueAction } from '../actions/flashquote.actions';
 import {
   selectSections,
   selectFormState,
@@ -52,7 +52,8 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
     private flashquoteService: FlashquoteService,
     private router: Router,
     public language: LanguageService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private actionsSubject: ActionsSubject
   ) { }
 
   // keep input focused in for loop: https://github.com/ngrx/store/issues/176
@@ -150,6 +151,13 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
   //check if a question has rules
   hasRules(question: Question) {
     return question.rules.length ? true : false;
+  }
+
+  removeGroupSection(sectionId: number, index: number) {
+    console.log('index', index)
+    this.actionsSubject.next(
+      new RemoveGroupSectionAction(sectionId, index)
+    )
   }
 
   // submit() {

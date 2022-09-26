@@ -18,15 +18,19 @@
   <form *ngIf="!submittingForm" [ngrxFormState]="formState">
 
     <app-section>
-      <!-- loop over each array section and get index of each group section  -->
-      <!-- <div
-        *ngFor="let groupSection of formState.value[activeSection.id]; let iSectionGroup = index; trackBy:customTrackBy">
-        <h2>section group {{ iSectionGroup + 1 }}</h2> -->
 
-      <!-- <ng-container *ngFor="let question of questionsBySection"> -->
       <div *ngIf="activeSection.id">
         <div *ngFor="let group of formState.controls[activeSection.id].controls; let i = index; trackBy:customTrackBy">
-          <h2>Section {{ i + 1 }}</h2>
+          <header class="groupSection-header" *ngIf="activeSection.isRepeat">
+            <h2>{{ activeSection.title.LabelEn }} {{ i + 1 }}</h2>
+            <button type="button"
+              class="button-icon-small button-red d-flex align-items-center justify-content-center text-button-simple"
+              (click)="removeGroupSection(activeSection.id, i)" *ngIf="i > 0">
+              <mat-icon
+                style="color:#ee3629; font-size:20px !important; width:20px !important; height:20px !important;">clear
+              </mat-icon>
+            </button>
+          </header>
           <ng-container *ngFor="let question of questionsBySection">
 
             <div *ngIf="formState.controls[activeSection.id].controls[i].controls[question.id]">
@@ -44,9 +48,6 @@
         </div>
       </div>
 
-      <!-- </ng-container> -->
-
-      <!-- </div> -->
     </app-section>
 
     <!-- <button class="btn-april" type="submit" data-analytics="DirectForm"

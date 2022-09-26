@@ -68,7 +68,6 @@ export class SectionComponent implements OnInit {
   }
 
   addGroupSection() {
-    console.log(this.activeSection.id)
     this.actionsSubject.next(
       new AddGroupSectionAction(this.activeSection.id)
     )
