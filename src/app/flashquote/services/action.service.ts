@@ -53,46 +53,44 @@ export class ActionService {
 
   showHide(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
     const result = this.ruleService.checkRule(rule, control, destinationId)
-    console.log('infinite loop')
     // get the groupId for dynamic allocation
     // groupId is the key of the object in a section (ex. 'generic.35.0' => 0 is the groupId (1st object in the section) while 35 is the sectionId)
-    const groupId = pathToGroup.slice(-1)
+    const groupId = parseInt(pathToGroup.slice(-1))
 
     if (result) {
-
       if (!this.temp.includes(destinationId)) {
-        // && (!(this.formState.controls[this.activeSection.sectionId].controls[groupId] as any).controls[destinationId])) {
-
-        // https://stackoverflow.com/questions/61311351/how-to-dynamically-add-formgroup-controls-to-formarray-in-angular-while-the-stat
-        if (question.identifier === "HasHadClaimsInLast6Years") {
-          this.store.dispatch(new AddGroupControlAction(pathToGroup, destinationId, [
-            {
-              "Claim-date": '',
-              "Claim-actualDate": '',
-              "Claim-details": '',
-              "Claim-amount": '',
-              "Claim-reserve": '',
-              "Claim-opened": ''
-            }
-          ]))
-          this.temp.push(destinationId) // FIX FOR DOUBLE ACTION DISPATCH
-        } else {
-          this.store.dispatch(new AddGroupControlAction(pathToGroup, destinationId, ''));
-          this.temp.push(destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+        if (!this.formState.controls[this.activeSection.id] && !(this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
+          return
+        } else if (this.formState.controls[this.activeSection.id] && !(this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
+          if (question.identifier === "HasHadClaimsInLast6Years") {
+            this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, [
+              {
+                "Claim-date": '',
+                "Claim-actualDate": '',
+                "Claim-details": '',
+                "Claim-amount": '',
+                "Claim-reserve": '',
+                "Claim-opened": ''
+              }
+            ]))
+            this.temp.push(destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+          } else {
+            this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, ''));
+            this.temp.push(destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+          }
         }
       }
     }
     else {
-      if (this.temp.includes(destinationId))
-      //&& ((this.formState.controls[this.activeSection.sectionId].controls[groupId] as any).controls[destinationId]))
-      {
-        this.store.dispatch(new RemoveGroupControlAction(pathToGroup, destinationId));
-        const qId = this.temp.indexOf(destinationId); // FIX FOR DOUBLE ACTION DISPATCH
-        if (qId !== -1) {
-          // 3
-          this.temp.splice(qId, 1);
+      if (this.temp.includes(destinationId)) {
+        if (this.formState.controls[this.activeSection.id] && (this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
+          this.store.dispatch(new RemoveGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId));
+          const qId = this.temp.indexOf(destinationId); // FIX FOR DOUBLE ACTION DISPATCH
+          if (qId !== -1) {
+            // 3
+            this.temp.splice(qId, 1);
+          }
         }
-        console.log('TEMP REMOVE', this.temp)
       }
     }
   }

@@ -8,7 +8,7 @@ import { FormValue, State } from '../store';
 import { ActionService } from '../services/action.service';
 import { Answer } from '../models/Answer';
 import { FlashquoteService } from '../services/flashquote.service';
-import { RemoveGroupSectionAction, SetSubmittedValueAction } from '../actions/flashquote.actions';
+import { RemoveGroupSectionAction,  SetSubmittedValueAction } from '../actions/flashquote.actions';
 import {
   selectSections,
   selectFormState,
@@ -85,6 +85,7 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
     this.formSubscription.unsubscribe();
   }
 
+
   onFormChange() {
 
     this.formState$.pipe(
@@ -117,8 +118,8 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
   }
 
   getActiveSection() {
-    this.store.pipe(select(selectActiveSection)).subscribe((data) => {
-      this.activeSection = data;
+    this.store.pipe(select(selectActiveSection)).subscribe((activeSection) => {
+      this.activeSection = activeSection;
     });
   }
 
@@ -154,7 +155,6 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
   }
 
   removeGroupSection(sectionId: number, index: number) {
-    console.log('index', index)
     this.actionsSubject.next(
       new RemoveGroupSectionAction(sectionId, index)
     )

@@ -15,7 +15,7 @@ import {
 import { required } from 'ngrx-forms/validation';
 import { FormValue, SectionControl } from '../store';
 import { AddGroupSectionAction, CreateGroupElementAction, RemoveGroupElementAction, RemoveGroupSectionAction } from '../actions/flashquote.actions';
-import { ValidationErrors } from 'ngrx-forms/public_api';
+import { setValue, ValidationErrors } from 'ngrx-forms/public_api';
 import { Section } from '../models/Section';
 
 
@@ -103,6 +103,21 @@ export function validateRepartition(values: any): ValidationErrors {
 //   //return validateAndUpdateForm(formGroupReducer(s, a));
 // }
 
+export function resetSectionValue(sectionValue: any) {
+  let initial = { ...sectionValue }
+
+  // for (let key in initial) {
+  //   console.log('val', initial[key])
+  //   if (initial[key] === 'false' || initial[key] === 'true') {
+  //     initial[key] = 'false'
+  //   }
+  // }
+
+
+  // console.log('INITIAL', initial)
+  return initial
+}
+
 
 /* REDUCER */
 /* *** *** ***  *** *** ***  *** *** ***  *** *** *** */
@@ -179,7 +194,8 @@ export function formStateReducer(
     case AddGroupSectionAction.TYPE:
       state = updateGroup<FormValue>(state, {
         [action.sectionId]: section => {
-          return addArrayControl(section.value[0])(section)
+          const initialSectionValue = section.value[0]
+          return addArrayControl(initialSectionValue)(section)
         }
       })
       break;
@@ -191,6 +207,7 @@ export function formStateReducer(
         }
       })
       break;
+
   }
 
   return validateForm(formGroupReducer(state, action))

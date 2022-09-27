@@ -3,7 +3,11 @@
     <ng-content></ng-content>
 
     <div *ngIf="activeSection.isRepeat" class="isRepeat-button">
-        <button (click)="addGroupSection()" type="button">Add a new {{activeSection.title.LabelEn}}</button>
+        <button type="button"
+            class="button-action-simple-small button-blue btn btn-sm d-flex align-items-center text-button-simple mr-2"
+            (click)="addGroupSection()">
+            <span class="text-button">Add a new {{activeSection.title.LabelEn}}</span>
+        </button>
     </div>
 
     <div class="section-buttons">

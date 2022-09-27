@@ -17,6 +17,7 @@ export class SectionComponent implements OnInit {
   activeSection$: Observable<ActiveSection>;
   activeSection: ActiveSection;
   formSections: Section[] = [];
+  initialSectionValue: any
   errors: any
 
   constructor(private store: Store<State>, private actionsSubject: ActionsSubject) { }
@@ -47,7 +48,6 @@ export class SectionComponent implements OnInit {
 
   setActiveSection(step: number) {
     if (this.errors['_' + this.activeSection.id] && step === 1) {
-      console.log('DES ERREURS', this.errors['_' + this.activeSection.id])
       return this.store.dispatch(new MarkAsSubmittedAction('generic'))
     }
 

@@ -33,7 +33,11 @@ export class ReclamationComponent implements OnInit {
   ngOnInit(): void {
     // this.store.pipe(select((s) => s.form.formState.controls[s.form.activeSection.sectionId].controls[this.questionId])).subscribe(data => console.log('CLAIM', data));
     // section.controls >> get 1st group >> group.controls >> get question
-    this.group$ = this.store.pipe(select((s) => (s.form.formState.controls[s.form.activeSection.id].controls[0] as any).controls[this.question.id]))
+
+    const controlId = parseInt(this.control.id.slice(11, 12)) // TEMP BUG FIX
+    console.log('CONTROL ID CLAIM', this.control.id)
+
+    this.group$ = this.store.pipe(select((s) => (s.form.formState.controls[s.form.activeSection.id].controls[controlId] as any).controls[this.question.id]))
   }
 
   removeClaim(index: number) {
@@ -43,7 +47,6 @@ export class ReclamationComponent implements OnInit {
 
     this.group$.subscribe(group => {
       if (group?.controls.length === 0) {
-        //this.actionsSubject.next(new SetValueAction('generic.265', 'false'))
         this.actionsSubject.next(new SetValueAction('generic.35.0.265', 'false'))
       }
     })
