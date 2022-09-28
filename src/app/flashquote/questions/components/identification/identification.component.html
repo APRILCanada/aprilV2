@@ -23,13 +23,18 @@
             <input id="{{control.id}}" class="form-control" type="text"
                 [ngrxFormControlState]="(group$ | async)['firstName']">
         </div>
+        <app-error [control]="(group$ | async)['firstName']"
+            [error]="(errors$ | async)['_' + activeSection.id] && (errors$ | async)['_' + activeSection.id]['_'+controlId]['_' + question.id] && (errors$ | async)['_' + activeSection.id]['_' + controlId]['_' + question.id]['_firstName']">
+        </app-error>
     </div>
 
     <div class="d-flex flex-column justify-content-center w-50">
         <label>{{ 'LAST_NAME' | translate }}</label>
         <div class="input-group" tabindex="2">
-            <input class="form-control"
-                [ngrxFormControlState]="(group$ | async)['lastName']" type="text">
+            <input class="form-control" [ngrxFormControlState]="(group$ | async)['lastName']" type="text">
         </div>
+        <app-error [control]="(group$ | async)['lastName']"
+            [error]="(errors$ | async)['_' + activeSection.id] && (errors$ | async)['_' + activeSection.id]['_'+controlId]['_' + question.id] && (errors$ | async)['_' + activeSection.id]['_' + controlId]['_' + question.id]['_lastName']">
+        </app-error>
     </div>
 </div>

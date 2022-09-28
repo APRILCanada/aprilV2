@@ -9,8 +9,8 @@ import { CarModel } from 'src/app/flashquote/models/CarModel';
 import { Question } from 'src/app/flashquote/models/Question';
 import { Vehicle } from 'src/app/flashquote/models/Vehicle';
 import { CarCodeService } from 'src/app/flashquote/services/car-code.service';
-import { threadId } from 'worker_threads';
 import { LanguageService } from 'src/app/services/language.service';
+import { selectActiveSection } from 'src/app/flashquote/selectors';
 
 @Component({
   selector: 'app-auto',
@@ -27,6 +27,8 @@ export class AutoComponent implements OnInit {
   makes: CarMake[] = [];
   models: CarModel[] = []
   vehicle: Vehicle;
+  controlId: any;
+  activeSection: any;
 
   filteredMakeOptions$: Observable<CarMake[]>;
   filteredModelOptions$: Observable<CarModel[]>;
@@ -44,15 +46,26 @@ export class AutoComponent implements OnInit {
 
   ngOnInit() {
     // get the group control
-    this.group$ = this.store.pipe(select((s) => s.form.formState.controls[this.question.id]));
+    this.group$ = this.store.pipe(
+      select((s) => (s.form.formState.controls[s.form.activeSection.id].controls[this.controlId] as any).controls[this.question.id]?.controls)
+    )
+
+    this.controlId = parseInt(this.control.id.slice(11, 12)) // TEMP BUG FIX
+
+    this.store.pipe(select(selectActiveSection)).subscribe((data) => {
+      this.activeSection = data;
+    });
+
 
     // get vehicle
     this.group$.subscribe(vehicle => {
-      this.vehicle = new Vehicle({
-        year: vehicle.controls['Vehicle-Year-1'].value,
-        make: vehicle.controls['Vehicle-Make-1'].value,
-        model: vehicle.controls['Vehicle-Model-1'].value
-      })
+      if (vehicle) {
+        this.vehicle = new Vehicle({
+          year: vehicle['Vehicle-Year'].value,
+          make: vehicle['Vehicle-Make'].value,
+          model: vehicle['Vehicle-Model'].value
+        })
+      }
     })
 
     // get years
@@ -62,14 +75,15 @@ export class AutoComponent implements OnInit {
     }
 
     this.filteredMakeOptions$ = this.group$.pipe(
-      pluck('controls', 'Vehicle-Make-1', 'value'),
-      map((option: any) => option.value ? this._filterMakes(option.value) : this.makes));
+      pluck('Vehicle-Make', 'value'),
+      map((option: any) => option?.value ? this._filterMakes(option.value) : this.makes));
 
     this.filteredModelOptions$ = this.group$.pipe(
-      pluck('controls', 'Vehicle-Model-1', 'value'),
-      map((option: any) => option.value ? this._filterModel(option.value) : this.models));
+      pluck('Vehicle-Model', 'value'),
+      map((option: any) => option?.value ? this._filterModel(option.value) : this.models));
 
-    this.setInitialValue();
+    if (this.vehicle)
+      this.setInitialValue();
   }
 
   setInitialValue() {
@@ -123,8 +137,7 @@ export class AutoComponent implements OnInit {
   makeSelected(make: CarMake) {
     if (!make) return;
     this.selectedMakeId = make.carMakeId
-    console.log('make', make)
-    this.actionsSubject.next(new SetValueAction(this.control.id + '.Vehicle-Make-1', make.make))
+    this.actionsSubject.next(new SetValueAction(this.control.id + '.Vehicle-Make', make.make))
     this.getModels();
   }
 
@@ -144,20 +157,19 @@ export class AutoComponent implements OnInit {
   modelSelected(model: CarModel) {
     if (!model) return;
     this.selectedModelId = model.carModelId;
-    console.log('model', model.label)
-    this.actionsSubject.next(new SetValueAction(this.control.id + '.Vehicle-Model-1', model.label.LabelEn))
+    this.actionsSubject.next(new SetValueAction(this.control.id + '.Vehicle-Model', model.label.LabelEn))
   }
 
   removeSelectedMake() {
     this.selectedMakeId = null;
-    this.actionsSubject.next(new SetValueAction(this.control.id + '.Vehicle-Make-1', ''))
+    this.actionsSubject.next(new SetValueAction(this.control.id + '.Vehicle-Make', ''))
     this.removeSelectedModel();
     this.models = [];
   }
 
   removeSelectedModel() {
     this.selectedModelId = null;
-    this.actionsSubject.next(new SetValueAction(this.control.id + '.Vehicle-Model-1', ''))
+    this.actionsSubject.next(new SetValueAction(this.control.id + '.Vehicle-Model', ''))
   }
 
   private _filterMakes(value: CarMake | string): CarMake[] {

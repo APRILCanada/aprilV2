@@ -1,8 +1,8 @@
 import { Label } from './Label';
 
 export class Response {
-  id: number;
+  id?: number;
   responseKey: string;
-  label: Label;
-  showOrder: number;
+  label?: Label;
+  showOrder?: number;
 }

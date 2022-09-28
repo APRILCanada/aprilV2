@@ -4,7 +4,7 @@
             <span class="text-smoll mb-1">{{ 'YEAR' | translate | uppercase }}</span>
             <div class="input-group" tabindex="1">
                 <mat-select class="form-control text-form" (selectionChange)="yearSelected($event.value)"
-                    placeholder="{{ 'YEAR' | translate }}" [ngrxFormControlState]="auto.controls['Vehicle-Year-1']">
+                    placeholder="{{ 'YEAR' | translate }}" [ngrxFormControlState]="auto['Vehicle-Year']">
                     <mat-option *ngFor="let year of years; let i = index" value="{{ year }}">
                         {{ year }}
                     </mat-option>
@@ -20,9 +20,9 @@
                         <mat-icon>search</mat-icon>
                     </span>
                     <input class="form-control text-form" tabindex="2" [matAutocomplete]="autoMake" #inputAutoComplete
-                        [ngrxFormControlState]="auto.controls['Vehicle-Make-1']">
+                        [ngrxFormControlState]="auto['Vehicle-Make']">
                     <mat-autocomplete #autoMake="matAutocomplete" (optionSelected)="makeSelected($event.option.value)">
-                        <mat-option class="text-form" *ngFor="let opt of filteredMakeOptions$ | async" [value]="opt">
+                        <mat-option class="text-form" *ngFor="let opt of (filteredMakeOptions$ | async)" [value]="opt">
                             {{ opt.make | uppercase }}
                         </mat-option>
                     </mat-autocomplete>
@@ -35,7 +35,7 @@
                         <mat-icon>close</mat-icon>
                     </span>
                     <input readonly class="form-control text-form bg-transparent"
-                        [ngrxFormControlState]="auto.controls['Vehicle-Make-1']">
+                        [ngrxFormControlState]="auto['Vehicle-Make']">
                 </div>
             </div>
         </div>
@@ -47,9 +47,9 @@
                         <mat-icon>search</mat-icon>
                     </span></div>
                 <input class="form-control text-form" tabindex="3" [matAutocomplete]="autoModel" #inputAutoComplete
-                    [ngrxFormControlState]="auto.controls['Vehicle-Model-1']">
+                    [ngrxFormControlState]="auto['Vehicle-Model']">
                 <mat-autocomplete #autoModel="matAutocomplete" (optionSelected)="modelSelected($event.option.value)">
-                    <mat-option class="text-form" *ngFor="let opt of filteredModelOptions$ | async" [value]="opt">
+                    <mat-option class="text-form" *ngFor="let opt of (filteredModelOptions$ | async)" [value]="opt">
                         {{ language.get() == "fr" ? opt.label.LabelFr: opt.label.LabelEn}}
                     </mat-option>
                 </mat-autocomplete>
@@ -61,7 +61,7 @@
                         <mat-icon>close</mat-icon>
                     </span>
                     <input readonly class="form-control text-form bg-transparent"
-                        [ngrxFormControlState]="auto.controls['Vehicle-Model-1']">
+                        [ngrxFormControlState]="auto['Vehicle-Model']">
                 </div>
             </div>
         </div>

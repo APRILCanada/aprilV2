@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { AddGroupControlAction, FormControlState, FormGroupControls, FormGroupState, FormState, RemoveGroupControlAction } from 'ngrx-forms';
+import { AddGroupControlAction, FormControlState, FormGroupControls, FormGroupState, FormState, RemoveGroupControlAction, SetValueAction } from 'ngrx-forms';
 import { Question } from '../models/Question';
 import { Response } from '../models/Response';
 import {
@@ -42,10 +42,13 @@ export class ActionService {
 
       switch (rule.action) {
         case 'RETRIEVE_RESPONSE':
-          this.getResponsesFromPreviousAnswer(question, control, destinationId);
+          // this.getResponsesFromPreviousAnswer(question, rule, control, destinationId.toString(), pathToGroup);
           break;
         case 'SHOW':
           this.showHide(question, rule, control, destinationId.toString(), pathToGroup);
+          break;
+        case 'RETRIEVE': //More like a RETRIEVE_ANSWER
+          this.getOptionsFromPreviousAnswer(question, rule, control, destinationId.toString(), pathToGroup);
           break;
       }
     });
@@ -92,6 +95,24 @@ export class ActionService {
           }
         }
       }
+    }
+  }
+
+  getOptionsFromPreviousAnswer(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
+    const result = this.ruleService.checkRule(rule, control, destinationId)
+    const groupId = parseInt(pathToGroup.slice(-1))
+    const prevValues = (this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[question.id].value;
+
+    let newValue = ''
+
+    if (typeof prevValues === 'string')
+      newValue = prevValues
+    if (typeof prevValues === 'object') {
+      newValue = Object.values(prevValues).join(' ')
+    }
+
+    if (newValue) {
+      this.store.dispatch(new SetValueAction('generic.36.0.' + destinationId, newValue))
     }
   }
 

@@ -153,9 +153,9 @@ export class RuleService {
       // case "CLAIMS_COUNT":
       //   result = this.claimsRules(value, rule.value, 'co');
       //   break;
-      // case 'RETRIEVE_OPTIONS':
-      //   result = true;
-      //   break;
+      case 'RETRIEVE_OPTIONS':
+        result = true;
+        break;
       // case 'DATE_GREATER_THAN':
       //   result = this.dateGreaterThan(value, rule.value);
       //   break;
