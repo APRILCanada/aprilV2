@@ -1,15 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControlState, RemoveGroupControlAction, setValue, SetValueAction } from 'ngrx-forms';
+import { AddArrayControlAction, AddGroupControlAction, FormControlState, RemoveGroupControlAction, SetValueAction } from 'ngrx-forms';
 import { Question } from 'src/app/flashquote/models/Question';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SelectDialogComponent } from '../select-dialog/select-dialog.component';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Response } from 'src/app/flashquote/models/Response';
 import { LanguageService } from 'src/app/services/language.service';
-import { selectActiveSection, selectFormState } from 'src/app/flashquote/selectors';
-import { ActiveSection } from 'src/app/flashquote/models/ActiveSection';
-import { ThisReceiver } from '@angular/compiler';
-import { RemoveGroupElementAction } from 'src/app/flashquote/actions/flashquote.actions';
+
 
 @Component({
   selector: 'app-select',
@@ -21,7 +18,6 @@ export class SelectComponent implements OnInit {
   @Input() control: FormControlState<any>;
   @Input() error: any;
   selectedOptions: any[] = [];
-  retrieveOptions: any[] = [];
   groupPath: string;
 
   constructor(private matDialog: MatDialog, private store: Store, public language: LanguageService) { }
@@ -41,20 +37,16 @@ export class SelectComponent implements OnInit {
           option.responseKey === currentOption && this.selectedOptions.push(option)
         }
       }
-    } else if (this.control.value && !this.options.length) {
-      for (const [index, currentOption] of this.control.value.split(',').entries()) {
-        this.retrieveOptions.push({
-          id: index + 1,
-          label: { LabelFr: currentOption, LabelEn: currentOption },
-          responseKey: currentOption,
-          showOrder: index + 1
-        })
-      }
-
-      // if more than 1 retrieve option, we need to reset the control because the user should be able to pick one
-      if (this.retrieveOptions.length > 1)
-        this.store.dispatch(new SetValueAction(this.groupPath + this.question.id, ''))
     }
+
+    // if only one option in the select, set it as a default input value (ex: retriev_option with only 1 option)
+    if (this.options.length === 1) {
+      this.store.dispatch(new SetValueAction(this.control.id, this.options.reduce((acc: any, opt) => {
+        acc.push(opt.responseKey)
+        return acc
+      }, []).join()))
+    }
+
     this.showSelect()
   }
 
@@ -119,45 +111,18 @@ export class SelectComponent implements OnInit {
     }, []).join()));
   }
 
-  selectRetrieveOption(option: any) {
-    // if only 1 retrieve option, we cannot select\deselect it
-    if (this.retrieveOptions.length === 1) {
-      return
-    }
-    const optionIndex = this.retrieveOptions.findIndex((opt) => opt.id === option.id);
-    // if question does not allow multiple options, reset selectedOptions before select
-    const index = this.selectedOptions.indexOf(this.retrieveOptions[optionIndex]);
-    if (index === -1) {
-      this.selectedOptions.push(this.retrieveOptions[optionIndex]);
-    } else {
-      this.selectedOptions.splice(index, 1);
-    }
-
-    // update store - returns a string of all selected options
-    this.store.dispatch(new SetValueAction(this.control.id, this.selectedOptions.reduce((acc, opt) => {
-      acc.push(opt.responseKey)
-      return acc
-    }, []).join()));
-  }
-
   // apply some styles if the option is selected
   isSelected(option: string) {
+    if (this.options.length === 1) return true
     if (this.selectedOptions.length) {
       return this.selectedOptions.find((opt) => opt.id === option);
     } else return false;
   }
 
-  isRetrieveOptionSelected(option: string) {
-    if (this.retrieveOptions.length) {
-      if (this.retrieveOptions.length === 1) return true
-      else return this.selectedOptions.find((opt) => opt.id === option);
-    }
-    else return false;
-  }
-
-  // an optional select with 1 or less option should not appear in the store (ex: )
+  // an optional select with 1  option should not appear in the store
   showSelect() {
-    if (this.retrieveOptions.length <= 1 && !this.question.isRequired) {
+    console.log('OPTIONS', this.options)
+    if (this.options.length === 1 && !this.question.isRequired) {
       this.store.dispatch(new RemoveGroupControlAction(this.groupPath, this.question.id as never))
     }
   }

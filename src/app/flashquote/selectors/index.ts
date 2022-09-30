@@ -49,3 +49,16 @@ export const selectErrors = createSelector(
   selectFormState,
   (state) => state.errors
 );
+
+export const selectProgress = createSelector(
+  selectErrors,
+  (state) => {
+    let count = 0
+    for (let i in state) {
+      for (let j in state[i]) {
+        count += Object.keys(state[i][j]).length
+      }
+    }
+    return count
+  }
+)

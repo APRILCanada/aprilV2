@@ -28,6 +28,10 @@ export const setValue = createAction(
   props<{ control: FormControlState<any>; selectedOptions: string }>()
 );
 
+export const retrieveOptionsAction = createAction(
+  '[FORM] Retrieve Options', props<{ sectionId: number, questionId: number, groupId: number, option: string }>()
+)
+
 export class SetSubmittedValueAction implements Action {
   static readonly TYPE = 'form/SET_SUBMITTED_VALUE';
   readonly type = SetSubmittedValueAction.TYPE;

@@ -8,7 +8,7 @@ import { FormValue, State } from '../store';
 import { ActionService } from '../services/action.service';
 import { Answer } from '../models/Answer';
 import { FlashquoteService } from '../services/flashquote.service';
-import { RemoveGroupSectionAction,  SetSubmittedValueAction } from '../actions/flashquote.actions';
+import { RemoveGroupSectionAction, SetSubmittedValueAction } from '../actions/flashquote.actions';
 import {
   selectSections,
   selectFormState,
@@ -18,6 +18,7 @@ import {
   selectFormSubmitted,
   selectBroker,
   selectActiveSection,
+  selectProgress,
 } from '../selectors';
 import { Router } from '@angular/router';
 import { LanguageService } from 'src/app/services/language.service';
@@ -44,6 +45,8 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
   formSubscription: Subscription;
   broker: any;
   logo: string;
+  initialQuestionNumber: number = 0;
+  progress: number = 0;
 
 
   constructor(
@@ -61,6 +64,10 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
     return index;
   }
 
+  customTrackByTwo(index: number): any {
+    return index;
+  }
+
 
   ngOnInit() {
     this.getFormState();
@@ -71,9 +78,9 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
     this.getFormSubmitted();
     this.getErrors();
     this.getBroker();
+    this.getSelectProgress()
 
     this.onFormChange();
-
   }
 
   //https://stackoverflow.com/questions/34364880/expression-has-changed-after-it-was-checked
@@ -131,6 +138,14 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
 
   getErrors() {
     this.errors$ = this.store.pipe(select(selectErrors));
+  }
+
+  getSelectProgress() {
+    this.store.pipe(select(selectProgress)).subscribe(progress => {
+      if (progress > this.initialQuestionNumber)
+        this.initialQuestionNumber = progress
+      this.progress = ((this.initialQuestionNumber - progress) / this.initialQuestionNumber) * 100
+    })
   }
 
   getFormState() {

@@ -84,7 +84,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import {Overlay, OverlayModule } from '@angular/cdk/overlay'; 
+import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 import { MatAutocompleteModule, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY } from '@angular/material/autocomplete';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
@@ -184,7 +184,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     AngularFireModule.initializeApp(environment.firebase, 'APRIL Canada'),
     AngularFireFunctionsModule,
     AngularFirestoreModule,
-    ScullyLibModule.forRoot({ useTransferState: true, alwaysMonitor: false, manualIdle:true }),
+    ScullyLibModule.forRoot({ useTransferState: true, alwaysMonitor: false, manualIdle: true }),
     ImgixAngularModule.forRoot({
       domain: "april.imgix.net",
       defaultImgixParams: {
@@ -202,8 +202,8 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     ScullyLibModule,
   ],
   providers: [{
-    provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY, 
-    deps: [Overlay], 
+    provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
+    deps: [Overlay],
     useFactory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY
   }, {
     provide: MAT_DIALOG_DEFAULT_OPTIONS,
@@ -211,4 +211,4 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
   }],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

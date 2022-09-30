@@ -17,7 +17,7 @@
   <!-- <form *ngIf="!submittingForm" [ngrxFormState]="formState" (submit)="submit()"> -->
   <form *ngIf="!submittingForm" [ngrxFormState]="formState">
 
-    <app-section>
+    <app-section [progress]="progress">
 
       <div *ngIf="activeSection.id">
         <div *ngFor="let group of formState.controls[activeSection.id].controls; let i = index; trackBy:customTrackBy">
@@ -31,7 +31,7 @@
               </mat-icon>
             </button>
           </header>
-          <ng-container *ngFor="let question of questionsBySection">
+          <ng-container *ngFor="let question of questionsBySection; let j = index; trackBy:customTrackByTwo">
 
             <div *ngIf="formState.controls[activeSection.id].controls[i].controls[question.id]">
               <!-- QUESTION BASE -->

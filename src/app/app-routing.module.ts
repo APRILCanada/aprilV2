@@ -118,8 +118,7 @@ const routes: Routes = [
       loadChildren: () =>
         import('./flashquote/flashquote.module').then(
           (m) => m.FlashquoteModule
-        ),
-      data: { animation: 'flashquote' },
+        )
     },
     // {
     //   path: 'prime',

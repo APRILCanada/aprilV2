@@ -20,26 +20,12 @@
 </div>
 
 <!-- SELECT UNIQUE/MULTIPLE WITH LESS THAN 10 CHOICES-->
-<ng-container *ngIf="question.responses.length <= 10 && !retrieveOptions.length">
+<ng-container *ngIf="question.responses.length <= 10">
   <label>{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</label>
   <div class="select-single container" [ngClass]="{'error-border':error &&
   (control.isDirty || control.isTouched || control.isSubmitted)}">
     <mat-chip-list>
       <app-chip *ngFor="let option of question.responses" (click)="select(option)" [selected]="isSelected(option.id)">
-        {{ language.get() == "fr" ? option.label.LabelFr : option.label.LabelEn }}
-      </app-chip>
-    </mat-chip-list>
-    <input type="hidden" [ngrxFormControlState]="control" />
-  </div>
-</ng-container>
-
-<!-- SELECT UNIQUE/MULTIPLE WITH LESS THAN 10 CHOICES FOR RETRIEVE OPTIONS-->
-<ng-container *ngIf="!question.responses.length && retrieveOptions.length">
-  <label>{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</label>
-  <div class="select-single container" [ngClass]="{'error-border':error &&
-  (control.isDirty || control.isTouched || control.isSubmitted)}">
-    <mat-chip-list>
-      <app-chip *ngFor="let option of retrieveOptions" (click)="selectRetrieveOption(option)" [selected]="isRetrieveOptionSelected(option.id)">
         {{ language.get() == "fr" ? option.label.LabelFr : option.label.LabelEn }}
       </app-chip>
     </mat-chip-list>

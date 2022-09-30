@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { MarkAsSubmittedAction, ResetAction } from 'ngrx-forms';
 import { filter, Observable, tap } from 'rxjs';
@@ -17,8 +17,9 @@ export class SectionComponent implements OnInit {
   activeSection$: Observable<ActiveSection>;
   activeSection: ActiveSection;
   formSections: Section[] = [];
-  initialSectionValue: any
-  errors: any
+  initialSectionValue: any;
+  errors: any;
+  @Input() progress: any;
 
   constructor(private store: Store<State>, private actionsSubject: ActionsSubject) { }
 

@@ -7,12 +7,12 @@ import {
   FormValue,
   State,
 } from '../store';
-import { CreateGroupElementAction, RemoveGroupElementAction } from '../actions/flashquote.actions';
+import { CreateGroupElementAction, RemoveGroupElementAction, retrieveOptionsAction } from '../actions/flashquote.actions';
 import { selectActiveSection, selectFormState, selectSections } from '../selectors';
 import { RuleService } from './rule.service';
 import { Rule } from '../models/Rule';
 import { FormGroup } from '@angular/forms';
-import { map, Observable, pluck, tap } from 'rxjs';
+import { filter, map, Observable, pluck, tap } from 'rxjs';
 
 
 @Injectable({
@@ -99,20 +99,38 @@ export class ActionService {
   }
 
   getOptionsFromPreviousAnswer(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
+
     const result = this.ruleService.checkRule(rule, control, destinationId)
-    const groupId = parseInt(pathToGroup.slice(-1))
-    const prevValues = (this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[question.id].value;
 
-    let newValue = ''
+    if (result) {
 
-    if (typeof prevValues === 'string')
-      newValue = prevValues
-    if (typeof prevValues === 'object') {
-      newValue = Object.values(prevValues).join(' ')
-    }
+      const groupId = parseInt(pathToGroup.slice(-1))
+      const prevValues = (this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[question.id].value;
 
-    if (newValue) {
-      this.store.dispatch(new SetValueAction('generic.36.0.' + destinationId, newValue))
+      let newValue = ''
+
+      console.log('prevValues', prevValues)
+      console.log('LE CONTROL', (this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[question.id])
+      if (typeof prevValues === 'string')
+        newValue = prevValues
+      if (typeof prevValues === 'object') {
+        newValue = Object.values(prevValues).join(' ')
+      }
+
+      if (!Object.keys(control.errors).length
+      && (this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[question.id].isTouched) {
+        let sectionId;
+
+        this.questions.forEach((section: any) => {
+          section.questions.forEach((question: any) => {
+            const result = Object.values(question).includes(parseInt(destinationId))
+            if (result) {
+              sectionId = section.id
+            }
+          })
+        })
+        this.store.dispatch(retrieveOptionsAction({ sectionId: 36, groupId, questionId: parseInt(destinationId), option: newValue }))
+      }
     }
   }
 
