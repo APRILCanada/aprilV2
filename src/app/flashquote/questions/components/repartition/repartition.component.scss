@@ -10,7 +10,7 @@
   height: 40px;
 
   &:focus {
-     background-color: rgb(221, 219, 219);
+    background-color: rgb(221, 219, 219);
   }
 }
 
@@ -32,10 +32,39 @@ tr.mat-footer-row {
 }
 
 th {
-  color:rgb(63, 63, 63);
+  color: rgb(63, 63, 63);
   font-size: 14px;
 }
 
 .table-input {
   text-align: center;
+}
+
+
+// //
+input {
+  height: 20px;
+}
+
+.repartition {
+  width: 60px;
+}
+
+.repartition-card {
+  width: 100px;
+}
+
+.row-background:nth-child(odd) {
+  border-radius: 8px;
+  background-color: #f1f1f1 !important;
+}
+
+.row-background:nth-child(even) {
+  border-radius: 8px;
+  background-color: #f1f1f1 !important;
+}
+
+.row-background {
+  padding: 0.3rem 1rem;
+  margin-bottom: 0.5rem;
 }

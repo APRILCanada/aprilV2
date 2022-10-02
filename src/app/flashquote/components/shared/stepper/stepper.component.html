@@ -1,6 +1,6 @@
 <div class="my-3">
     <div class="background-stepper">
-        <div class="progress" [style.width]="progress + '%'"></div>
+        <div class="progress"></div>
         <div class="points">
             <div class="point d-flex align-items-center flex-wrap point-valid" *ngFor="let section of sections; let i = index;"
                 [ngClass]="{'point-active': section.id == activeSection.id }">

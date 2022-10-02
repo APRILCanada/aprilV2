@@ -112,8 +112,11 @@ export class FlashquoteEffects {
           return section.questions.filter((q: any) => !q.isHidden)
             .map(q => {
               // we need to insert the question into the first object of the section array
-              if (q.type === 'REPARTITION')
-                return new AddGroupControlAction('generic.' + section.id + '.0', q.id, {});
+              if (q.type === 'REPARTITION') {
+                let responses: any = {}
+                q.responses.forEach((r: any) => responses[r.responseKey] = '')
+                return new AddGroupControlAction('generic.' + section.id + '.0', q.id, responses);
+              }
 
               if (q.type === 'IDENTIFICATION')
                 return new AddGroupControlAction('generic.' + section.id + '.0', q.id, {

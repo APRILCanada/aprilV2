@@ -48,11 +48,12 @@
     <app-select [question]="question" [control]="control" [error]="error"></app-select>
   </div>
 
-  <!-- <div *ngSwitchCase="'REPARTITION'">
+  <div *ngSwitchCase="'REPARTITION'">
     <app-repartition
       [question]="question"
       [control]="control"
+      [error]="error"
     ></app-repartition>
-  </div>-->
+  </div>
     <ng-content></ng-content>
 </div>
