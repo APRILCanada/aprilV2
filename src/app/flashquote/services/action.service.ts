@@ -8,7 +8,7 @@ import {
   State,
 } from '../store';
 import { CreateGroupElementAction, RemoveGroupElementAction, retrieveOptionsAction } from '../actions/flashquote.actions';
-import { selectActiveSection, selectFormState, selectSections } from '../selectors';
+import { selectActiveSection, selectBroker, selectFormState, selectSections } from '../selectors';
 import { RuleService } from './rule.service';
 import { Rule } from '../models/Rule';
 import { FormGroup } from '@angular/forms';
@@ -23,6 +23,7 @@ export class ActionService {
   formState: FormState<FormValue>;
   formState$: Observable<any>
   activeSection: any;
+  marketId: number;
   temp: any[] = [] // FIX FOR DOUBLE ACTION DISPATCH
 
   constructor(private store: Store<State>, private ruleService: RuleService) {
@@ -32,6 +33,7 @@ export class ActionService {
     this.store.pipe(select(selectFormState)).subscribe(state => {
       this.formState = state
     })
+    this.store.pipe(select(selectBroker), pluck('marketId')).subscribe(marketId => this.marketId = marketId)
 
     this.store.pipe(select(selectActiveSection)).subscribe(state => this.activeSection = state)
   }
@@ -66,18 +68,23 @@ export class ActionService {
           return
         } else if (this.formState.controls[this.activeSection.id] && !(this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
           if (question.identifier === "HasHadClaimsInLast6Years") {
-            this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, [
-              {
-                "Claim-date": '',
-                "Claim-actualDate": '',
-                "Claim-details": '',
-                "Claim-amount": '',
-                "Claim-reserve": '',
-                "Claim-opened": ''
-              }
-            ]))
-            this.temp.push(destinationId) // FIX FOR DOUBLE ACTION DISPATCH
-          } else {
+            // NO CLAIMS GROUP CONTROL IN THE AUTOMOBILE FLASHQUOTE (marketId: 28) //
+            if (this.marketId != 28) {
+              this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, [
+                {
+                  "Claim-date": '',
+                  "Claim-actualDate": '',
+                  "Claim-details": '',
+                  "Claim-amount": '',
+                  "Claim-reserve": '',
+                  "Claim-opened": ''
+                }
+              ]))
+              this.temp.push(destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+            }
+          }
+           else {
+            if((question.identifier !== 'MinorInfraction' && question.identifier !== 'MajorInfraction') && this.marketId != 28 )
             this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, ''));
             this.temp.push(destinationId) // FIX FOR DOUBLE ACTION DISPATCH
           }
@@ -109,8 +116,6 @@ export class ActionService {
 
       let newValue = ''
 
-      console.log('prevValues', prevValues)
-      console.log('LE CONTROL', (this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[question.id])
       if (typeof prevValues === 'string')
         newValue = prevValues
       if (typeof prevValues === 'object') {
@@ -118,7 +123,7 @@ export class ActionService {
       }
 
       if (!Object.keys(control.errors).length
-      && (this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[question.id].isTouched) {
+        && (this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[question.id].isTouched) {
         let sectionId;
 
         this.questions.forEach((section: any) => {

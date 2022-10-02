@@ -17,6 +17,7 @@ import { FormValue, SectionControl } from '../store';
 import { AddGroupSectionAction, CreateGroupElementAction, RemoveGroupElementAction, RemoveGroupSectionAction } from '../actions/flashquote.actions';
 import { setValue, ValidationErrors } from 'ngrx-forms/public_api';
 import { Section } from '../models/Section';
+import { cloneDeep } from 'lodash';
 
 
 /* INTIAL STATE */
@@ -152,27 +153,7 @@ export function formStateReducer(
       289: updateGroup<any>({
         firstName: validate(required),
         lastName: validate(required)
-      }),
-      342: validate(required),
-      353: validate(required),
-      354: validate(required),
-      355: validate(required),
-      356: validate(required),
-      357: validate(required),
-      367: validate(required),
-      368: validate(required),
-      369: validate(required),
-      370: validate(required),
-      343: validate(required),
-      358: validate(required),
-      363: validate(required),
-      359: validate(required),
-      364: validate(required),
-      360: validate(required),
-      365: validate(required),
-      361: validate(required),
-      366: validate(required),
-      362: validate(required),
+      })
     })),
     36: updateArray(updateGroup<SectionControl>({
       235: validate(required),
@@ -194,7 +175,24 @@ export function formStateReducer(
     case AddGroupSectionAction.TYPE:
       state = updateGroup<FormValue>(state, {
         [action.sectionId]: section => {
-          const initialSectionValue = section.value[0]
+          // reset form before adding it
+          const sectionClone = cloneDeep(section)
+          let initialSectionValue: any = sectionClone.value[0]
+
+          for (let key in initialSectionValue) {
+            if (typeof initialSectionValue[key] === 'object') {
+              for (let nestedKey in initialSectionValue[key]) {
+                initialSectionValue[key][nestedKey] = "";
+              }
+            }
+
+            if (typeof initialSectionValue[key] === 'string') {
+              if (initialSectionValue[key] === 'false' || initialSectionValue[key] === 'true') {
+                initialSectionValue[key] = "false";
+              }
+              else initialSectionValue[key] = "";
+            }
+          }
           return addArrayControl(initialSectionValue)(section)
         }
       })

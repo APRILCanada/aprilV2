@@ -37,9 +37,9 @@
               <!-- QUESTION BASE -->
               <app-question-base [question]="question"
                 [control]="formState.controls[activeSection.id].controls[i].controls[question.id]"
-                [error]="(errors$ | async)['_' + activeSection.id] && (errors$ | async)['_' + activeSection.id]['_' + i]['_' + question.id]">
+                [error]="(errors$ | async)['_' + activeSection.id] && (errors$ | async)['_' + activeSection.id]['_' + i] && (errors$ | async)['_' + activeSection.id]['_' + i]['_' + question.id]">
                 <app-error [control]="formState.controls[activeSection.id].controls[i].controls[question.id]"
-                  [error]="(errors$ | async)['_' + activeSection.id] && (errors$ | async)['_' + activeSection.id]['_' + i]['_' + question.id]">
+                  [error]="(errors$ | async)['_' + activeSection.id] && (errors$ | async)['_' + activeSection.id]['_' + i] && (errors$ | async)['_' + activeSection.id]['_' + i]['_' + question.id]">
                 </app-error>
               </app-question-base>
             </div>

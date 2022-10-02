@@ -33,7 +33,6 @@ export class ReclamationComponent implements OnInit {
   ngOnInit(): void {
     // this.store.pipe(select((s) => s.form.formState.controls[s.form.activeSection.sectionId].controls[this.questionId])).subscribe(data => console.log('CLAIM', data));
     // section.controls >> get 1st group >> group.controls >> get question
-
     const controlId = parseInt(this.control.id.slice(11, 12)) // TEMP BUG FIX
     console.log('CONTROL ID CLAIM', this.control.id)
 
