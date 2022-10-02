@@ -45,12 +45,12 @@ export class AutoComponent implements OnInit {
     public language: LanguageService) { }
 
   ngOnInit() {
+    this.controlId = parseInt(this.control.id.slice(11, 12)) // TEMP BUG FIX
+
     // get the group control
     this.group$ = this.store.pipe(
-      select((s) => (s.form.formState.controls[s.form.activeSection.id].controls[this.controlId] as any).controls[this.question.id]?.controls)
+      select((s) => (s.form.formState.controls[s.form.activeSection.id].controls[this.controlId] as any)?.controls[this.question.id]?.controls)
     )
-
-    this.controlId = parseInt(this.control.id.slice(11, 12)) // TEMP BUG FIX
 
     this.store.pipe(select(selectActiveSection)).subscribe((data) => {
       this.activeSection = data;
