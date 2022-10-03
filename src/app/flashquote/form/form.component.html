@@ -15,9 +15,9 @@
 
   <!-- DYNAMIC FORM -->
   <!-- <form *ngIf="!submittingForm" [ngrxFormState]="formState" (submit)="submit()"> -->
-  <form *ngIf="!submittingForm" [ngrxFormState]="formState">
+  <form *ngIf="!submittingForm" [ngrxFormState]="formState" (submit)="submit()">
 
-    <app-section [progress]="progress">
+    <app-section [progress]="progress" [formValid$]="formValid$" [formSubmitted$]="formSubmitted$">
 
       <div *ngIf="activeSection.id">
         <div *ngFor="let group of formState.controls[activeSection.id].controls; let i = index; trackBy:customTrackBy">
@@ -50,10 +50,10 @@
 
     </app-section>
 
-    <!-- <button class="btn-april" type="submit" data-analytics="DirectForm"
+    <button class="btn-april" type="submit" data-analytics="DirectForm"
       [disabled]="!(formValid$ | async) && (formSubmitted$ | async)">
       {{ "SEND" | translate }}
-    </button> -->
+    </button>
   </form>
 
 </div>

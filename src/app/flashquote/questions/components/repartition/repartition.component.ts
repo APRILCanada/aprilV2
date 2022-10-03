@@ -29,7 +29,6 @@ export class RepartitionComponent implements OnInit {
   constructor(private store: Store<State>, public language: LanguageService) { }
 
   ngOnInit() {
-    console.log('ERROR', this.error)
     this.controlId = parseInt(this.control.id.slice(11, 12)) // TEMP BUG FIX
 
     this.getActiveSection()

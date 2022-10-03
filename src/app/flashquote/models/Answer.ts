@@ -4,10 +4,10 @@ export class Answer{
   value:string;
   identifier:string;
 
-  constructor(id:string, section:string, identifier:string, value:string){
+  constructor(id:string, section:string, value:string, identifier:string){
     this.key = id;
     this.section = section;
-    this.identifier = identifier || '';
     this.value = value;
+    this.identifier = identifier || '';
   }
 }

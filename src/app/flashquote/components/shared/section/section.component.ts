@@ -20,6 +20,8 @@ export class SectionComponent implements OnInit {
   initialSectionValue: any;
   errors: any;
   @Input() progress: any;
+  @Input() formValid$: Observable<boolean>;
+  @Input() formSubmitted$: Observable<boolean>;
 
   constructor(private store: Store<State>, private actionsSubject: ActionsSubject) { }
 

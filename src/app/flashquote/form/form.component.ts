@@ -19,11 +19,13 @@ import {
   selectBroker,
   selectActiveSection,
   selectProgress,
+  selectForm,
 } from '../selectors';
 import { Router } from '@angular/router';
 import { LanguageService } from 'src/app/services/language.service';
 import { Section } from '../models/Section';
 import { ActiveSection } from '../models/ActiveSection'
+
 
 @Component({
   selector: 'app-form',
@@ -175,6 +177,22 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
     )
   }
 
+  formatDate(value: string) {
+    const date = new Date(value);
+    let year = date.getFullYear();
+    let month: any = date.getMonth() + 1;
+    let day: any = date.getDate() + 1;
+
+    if (day < 10) {
+      day = '0' + day;
+    }
+    if (month < 10) {
+      month = '0' + month;
+    }
+
+    return day + '-' + month + '-' + year
+  }
+
   // submit() {
   //   this.formState$
   //     .pipe(
@@ -239,4 +257,86 @@ export class FormComponent implements OnInit, OnDestroy, AfterContentChecked {
   //this.store.dispatch(new SetValueAction(INITIAL_STATE.id, {}));
   //this.router.navigate(['/prime'])
   //}
+
+  submit() {
+    console.log('SUBMITTING')
+    this.formState$
+      .pipe(
+        take(1),
+        // filter((state) => {
+        //   return state.isValid;
+        // }),
+        map((form) => {
+          //this.submittingForm = true;
+
+          // LOOP OVER EACH SECTION [{}, {}]
+          for (let sectionKey in form.value) {
+            const questionsSection = this.sections.filter((s: Section) => s.id === parseInt(sectionKey))[0].questions
+            const sectionIsRepeat = this.sections.filter((s: Section) => s.id === parseInt(sectionKey))[0].isRepeat
+
+            // LOOP OVER EACH GROUP INSIDE A SECTION
+            const answers = form.value[sectionKey].reduce((answers: Answer[], groupSection: any, index: number) => {
+              answers = []
+
+              for (let key in groupSection) {
+                const identifier = questionsSection.find((q: Question) => q.id === parseInt(key))!.identifier
+                const questionType = questionsSection.find((q: Question) => q.id === parseInt(key))!.type
+
+                const i = index + 1
+
+                if (typeof groupSection[key] === 'object') {
+                  for (let subKey in groupSection[key]) {
+                    let value = groupSection[key][subKey]
+
+                    if (questionType === 'REPARTITION') {
+                      value = (value / 100).toString()
+                    }
+
+                    if (questionType === 'DATE') {
+                      value = this.formatDate(value)
+                    }
+
+                    answers.push(new Answer(
+                      sectionIsRepeat ? subKey + '_' + i : subKey,
+                      sectionKey,
+                      value,
+                      sectionIsRepeat ? subKey + '_' + i : subKey
+                    ))
+                  }
+                } else {
+                  let value = groupSection[key]
+
+                  if (questionType === 'DATE') {
+                    value = this.formatDate(value)
+                  }
+
+                  answers.push(new Answer(
+                    sectionIsRepeat ? key + '_' + i : key,
+                    sectionKey,
+                    value,
+                    sectionIsRepeat ? identifier + '_' + i : identifier
+                  ))
+                }
+              }
+              return answers
+            }, [])
+            console.log('answers', answers)
+
+          }
+
+          const formData = form
+          return new SetSubmittedValueAction(formData);
+        })
+      ).subscribe(this.store)
+
+    //this.router.navigate(['prime'])
+    // this.flashquoteService.submitQuote(data).subscribe({
+    //   next: quoteResult => {
+    //     console.log('quote result', quoteResult)
+    //   },
+    //   error: err => {
+    //     console.error(err)
+    //   }
+    // })
+  }
 }

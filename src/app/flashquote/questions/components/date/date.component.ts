@@ -3,7 +3,6 @@ import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
 import { FormControlState, NgrxValueConverter, NgrxValueConverters } from 'ngrx-forms';
 import { Question } from 'src/app/flashquote/models/Question';
 import { LanguageService } from 'src/app/services/language.service';
-import { format } from 'date-fns';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
