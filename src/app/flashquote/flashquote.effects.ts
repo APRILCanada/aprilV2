@@ -89,7 +89,7 @@ export class FlashquoteEffects {
           return sections
         }, {})
 
-        this.store.dispatch(setActiveSection({ activeSection: formSections[2] }))
+        this.store.dispatch(setActiveSection({ activeSection: formSections[1] }))
         return sections.map(section => new AddGroupControlAction('generic', section.id, [{}]))
       }),
       switchMap((res: any) => {
@@ -120,8 +120,8 @@ export class FlashquoteEffects {
 
               if (q.type === 'IDENTIFICATION')
                 return new AddGroupControlAction('generic.' + section.id + '.0', q.id, {
-                  firstName: '',
-                  lastName: ''
+                  "Driver-FirstName": '',
+                  "Driver-LastName": ''
                 })
 
               if (q.type === 'ADDRESS')
@@ -139,7 +139,8 @@ export class FlashquoteEffects {
                 return new AddGroupControlAction('generic.' + section.id + '.0', q.id, {
                   "Vehicle-Year": '',
                   "Vehicle-Make": '',
-                  "Vehicle-Model": ''
+                  "Vehicle-Model": '',
+                  "Vehicle-Code": ''
                 });
 
               else return new AddGroupControlAction('generic.' + section.id + '.0', q.id, '')

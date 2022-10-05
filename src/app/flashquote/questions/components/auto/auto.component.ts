@@ -158,6 +158,7 @@ export class AutoComponent implements OnInit {
     if (!model) return;
     this.selectedModelId = model.carModelId;
     this.actionsSubject.next(new SetValueAction(this.control.id + '.Vehicle-Model', model.label.LabelEn))
+    this.actionsSubject.next(new SetValueAction(this.control.id + '.Vehicle-Code', model.code))
   }
 
   removeSelectedMake() {
@@ -170,6 +171,7 @@ export class AutoComponent implements OnInit {
   removeSelectedModel() {
     this.selectedModelId = null;
     this.actionsSubject.next(new SetValueAction(this.control.id + '.Vehicle-Model', ''))
+    this.actionsSubject.next(new SetValueAction(this.control.id + '.Vehicle-Code', ''))
   }
 
   private _filterMakes(value: CarMake | string): CarMake[] {

@@ -102,9 +102,9 @@ export class RuleService {
       //   case 'NOT_EQUAL':
       //     result = value != rule.value;
       //     break;
-      //   case 'GREATER_THAN':
-      //     result = this.isGreaterThan(value, rule.value);
-      //     break;
+      case 'GREATER_THAN':
+        result = this.isGreaterThan(control.value, rule.value);
+        break;
       //   case 'LESSER_THAN':
       //     result = this.isLesserThan(value, rule.value);
       //     break;

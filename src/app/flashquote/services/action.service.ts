@@ -25,6 +25,7 @@ export class ActionService {
   activeSection: any;
   marketId: number;
   temp: any[] = [] // FIX FOR DOUBLE ACTION DISPATCH
+  temp2: any[] = [] // FIX FOR DOUBLE ACTION DISPATCH
 
   constructor(private store: Store<State>, private ruleService: RuleService) {
     this.store.pipe(select(selectSections)).subscribe(questions => {
@@ -47,7 +48,10 @@ export class ActionService {
           // this.getResponsesFromPreviousAnswer(question, rule, control, destinationId.toString(), pathToGroup);
           break;
         case 'SHOW':
-          this.showHide(question, rule, control, destinationId.toString(), pathToGroup);
+          this.show(question, rule, control, destinationId.toString(), pathToGroup);
+          break;
+        case 'HIDE':
+          this.hide(question, rule, control, destinationId.toString(), pathToGroup);
           break;
         case 'RETRIEVE': //More like a RETRIEVE_ANSWER
           this.getOptionsFromPreviousAnswer(question, rule, control, destinationId.toString(), pathToGroup);
@@ -56,8 +60,26 @@ export class ActionService {
     });
   }
 
-  showHide(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
+  hide(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
+    const groupId = parseInt(pathToGroup.slice(-1))
+    if (rule.value === control.value) {
+      if ((this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
+        this.store.dispatch(new RemoveGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId));
+        this.temp2.push(destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+      }
+    } else if (rule.value !== control.value) {
+      if (this.temp2.includes(destinationId)) {
+        if (!(this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
+          this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, ''));
+        }
+      }
+    }
+  }
+
+  show(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
     const result = this.ruleService.checkRule(rule, control, destinationId)
+
+    console.log(destinationId, 'destinationId')
     // get the groupId for dynamic allocation
     // groupId is the key of the object in a section (ex. 'generic.35.0' => 0 is the groupId (1st object in the section) while 35 is the sectionId)
     const groupId = parseInt(pathToGroup.slice(-1))
@@ -66,7 +88,8 @@ export class ActionService {
       if (!this.temp.includes(destinationId)) {
         if (!this.formState.controls[this.activeSection.id] && !(this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
           return
-        } else if (this.formState.controls[this.activeSection.id] && !(this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
+        }
+        else if (this.formState.controls[this.activeSection.id] && !(this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
           if (question.identifier === "HasHadClaimsInLast6Years") {
             // NO CLAIMS GROUP CONTROL IN THE AUTOMOBILE FLASHQUOTE (marketId: 28) //
             if (this.marketId != 28) {
@@ -83,10 +106,11 @@ export class ActionService {
               this.temp.push(destinationId) // FIX FOR DOUBLE ACTION DISPATCH
             }
           }
-           else {
-            if((question.identifier !== 'MinorInfraction' && question.identifier !== 'MajorInfraction') && this.marketId != 28 )
-            this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, ''));
-            this.temp.push(destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+          else {
+            if ((question.identifier !== 'MinorInfraction' && question.identifier !== 'MajorInfraction')) {
+              this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, ''));
+              this.temp.push(destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+            }
           }
         }
       }

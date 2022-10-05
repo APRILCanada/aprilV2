@@ -3222,9 +3222,9 @@ export class FlashquoteService {
 
 
   submitQuote(quote: any) {
-    console.log('quote', quote)
-    // return this.http.post<any>('http://localhost:51668/api/publicflash/', JSON.stringify(quote), {
-    //   headers: { 'Content-Type': 'application/json' }
-    // });
+    console.log('quote', JSON.stringify(quote))
+    return this.http.post<any>('http://localhost:51668/api/publicflash/', JSON.stringify(quote), {
+      headers: { 'Content-Type': 'application/json', 'X-API-Key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344' }
+    });
   }
 }

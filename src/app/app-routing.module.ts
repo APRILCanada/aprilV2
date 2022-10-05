@@ -120,11 +120,11 @@ const routes: Routes = [
           (m) => m.FlashquoteModule
         )
     },
-    // {
-    //   path: 'prime',
-    //   component: PrimeComponent,
-    //   data: { animation: 'prime' },
-    // },
+    {
+      path: 'prime',
+      component: PrimeComponent,
+      data: { animation: 'prime' },
+    },
     {
       path: '',
       loadChildren: () =>

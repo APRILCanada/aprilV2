@@ -4,7 +4,7 @@
         <label>{{ 'FIRST_NAME' | translate }}</label>
         <div class="input-group" tabindex="1">
             <input id="{{control.id}}" class="form-control" type="text"
-                [ngrxFormControlState]="(group$ | async)['firstName']">
+                [ngrxFormControlState]="(group$ | async)['Driver-FirstName']">
         </div>
         <!-- <app-error [control]="(group$ | async)['firstName']"
             [error]="(errors$ | async)['_' + activeSection.id] && (errors$ | async)['_' + activeSection.id]['_' + controlId]['_' + question.id] && (errors$ | async)['_' + activeSection.id]['_' + controlId]['_' + question.id]['_firstName']">
@@ -14,7 +14,7 @@
     <div class="d-flex flex-column justify-content-center w-50">
         <label>{{ 'LAST_NAME' | translate }}</label>
         <div class="input-group" tabindex="2">
-            <input class="form-control" [ngrxFormControlState]="(group$ | async)['lastName']" type="text">
+            <input class="form-control" [ngrxFormControlState]="(group$ | async)['Driver-LastName']" type="text">
         </div>
         <!-- <app-error [control]="(group$ | async)['lastName']"
             [error]="(errors$ | async)['_' + activeSection.id] && (errors$ | async)['_' + activeSection.id]['_' + controlId]['_' + question.id] && (errors$ | async)['_' + activeSection.id]['_' + controlId]['_' + question.id]['_lastName']">

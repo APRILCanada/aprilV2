@@ -24,8 +24,6 @@ export class StepperComponent implements OnInit {
 
   ngOnInit(): void {}
 
-
-
   setActiveSection(sectionId: number, index: number) {
     if (this.errors['_' + this.activeSection.id] && this.activeSection.index < index) {
       return this.store.dispatch(new MarkAsSubmittedAction('generic'))

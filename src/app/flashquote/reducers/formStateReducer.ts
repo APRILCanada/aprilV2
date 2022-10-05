@@ -157,7 +157,7 @@ export function formStateReducer(
     })),
     36: updateArray(updateGroup<SectionControl>({
       235: validate(required),
-      257: validate(validateRepartition),
+     // 257: validate(validateRepartition),
       259: validate(required),
       262: validate(required),
       275: validate(required),
