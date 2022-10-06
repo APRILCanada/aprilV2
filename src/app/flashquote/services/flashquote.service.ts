@@ -3207,7 +3207,7 @@ export class FlashquoteService {
   getFlashquote(marketId: string): Observable<FlashFormDTO> {
     return this.http.get<any>(`http://localhost:51668/api/publicflashV2/` + marketId, {
       headers: {
-        'X-API-Key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344'
+        'x-api-key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344'
       }
     });
     //return this.http.get<any>(`http://localhost:51668/api/publicflash/` + marketId);
@@ -3224,7 +3224,7 @@ export class FlashquoteService {
   submitQuote(quote: any) {
     console.log('quote', JSON.stringify(quote))
     return this.http.post<any>('http://localhost:51668/api/publicflash/', JSON.stringify(quote), {
-      headers: { 'Content-Type': 'application/json', 'X-API-Key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344' }
+      headers: { 'Content-Type': 'application/json', 'x-api-key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344' }
     });
   }
 }

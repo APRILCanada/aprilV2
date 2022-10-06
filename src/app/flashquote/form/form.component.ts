@@ -216,16 +216,31 @@ export class FormComponent implements OnInit, AfterContentChecked {
               const i = index + 1
 
               for (let key in groupSection) {
-                const identifier = questionsSection.find((q: Question) => q.id === parseInt(key))!.identifier
-                const questionType = questionsSection.find((q: Question) => q.id === parseInt(key))!.type
+                const identifier = questionsSection.find((q: Question) => q.id === parseInt(key))?.identifier
+                const questionType = questionsSection.find((q: Question) => q.id === parseInt(key))?.type
 
-                if (typeof groupSection[key] === 'object') {
-                  for (let subKey in groupSection[key]) {
-                    let value = groupSection[key][subKey]
+                if (identifier && questionType)
+                  if (typeof groupSection[key] === 'object') {
+                    for (let subKey in groupSection[key]) {
+                      let value = groupSection[key][subKey]
 
-                    if (questionType === 'REPARTITION') {
-                      value = (value / 100).toString()
+                      if (questionType === 'REPARTITION') {
+                        value = (value / 100).toString()
+                      }
+
+                      if (questionType === 'DATE') {
+                        value = this.formatDate(value)
+                      }
+
+                      answers.push(new Answer(
+                        sectionIsRepeat ? key + '_' + i : key,
+                        sectionKey,
+                        value,
+                        sectionIsRepeat ? subKey + '-' + i : subKey
+                      ))
                     }
+                  } else {
+                    let value = groupSection[key]
 
                     if (questionType === 'DATE') {
                       value = this.formatDate(value)
@@ -235,23 +250,9 @@ export class FormComponent implements OnInit, AfterContentChecked {
                       sectionIsRepeat ? key + '_' + i : key,
                       sectionKey,
                       value,
-                      sectionIsRepeat ? subKey + '-' + i : subKey
+                      sectionIsRepeat ? identifier + '-' + i : identifier
                     ))
                   }
-                } else {
-                  let value = groupSection[key]
-
-                  if (questionType === 'DATE') {
-                    value = this.formatDate(value)
-                  }
-
-                  answers.push(new Answer(
-                    sectionIsRepeat ? key + '_' + i : key,
-                    sectionKey,
-                    value,
-                    sectionIsRepeat ? identifier + '-' + i : identifier
-                  ))
-                }
               }
               return answers
             }, [])
@@ -270,19 +271,19 @@ export class FormComponent implements OnInit, AfterContentChecked {
       ).subscribe(this.store)
 
     this.submittedValue$.subscribe((data) => {
-    if (data) {
-      this.flashquoteService.submitQuote(data).subscribe({
-            next: quoteResult => {
-              console.log('quote result', quoteResult)
-            },
-            error: err => {
-              console.error(err)
+      if (data) {
+        this.flashquoteService.submitQuote(data).subscribe({
+          next: quoteResult => {
+            console.log('quote result', quoteResult)
+            if (quoteResult) {
+              this.submittingForm = false;
+              this.router.navigate(['prime'])
             }
-          })
-        // setTimeout(() => {
-        //   this.submittingForm = false;
-        //   this.router.navigate(['prime'])
-        // }, 5000)
+          },
+          error: err => {
+            console.error(err)
+          }
+        })
       }
     });
 

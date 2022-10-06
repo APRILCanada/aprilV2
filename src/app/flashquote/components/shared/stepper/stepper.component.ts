@@ -37,7 +37,8 @@ export class StepperComponent implements OnInit {
         index,
         isFirst: index === 0,
         isLast: index === this.sections.length - 1,
-        sectionsLength: this.sections.length
+        sectionsLength: this.sections.length,
+        maxRepeat:this.sections.find(s => s.id == sectionId)!.maxRepeat
       }
     }))
 

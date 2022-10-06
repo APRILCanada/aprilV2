@@ -29,6 +29,8 @@ export class SectionComponent implements OnInit {
     this.getActiveSection();
     this.getSections()
     this.getErrors()
+
+    console.log('LENGTH', this.activeSection.sectionsLength)
   }
 
   getActiveSection() {
@@ -62,7 +64,8 @@ export class SectionComponent implements OnInit {
         index: this.activeSection.index + step,
         isFirst: this.activeSection.index + step === 0,
         isLast: this.activeSection.index + step === this.formSections.length - 1,
-        sectionsLength: this.formSections.length
+        sectionsLength: this.formSections.length,
+        maxRepeat: this.activeSection.maxRepeat
       }
     }))
 

@@ -79,7 +79,6 @@ export class ActionService {
   show(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
     const result = this.ruleService.checkRule(rule, control, destinationId)
 
-    console.log(destinationId, 'destinationId')
     // get the groupId for dynamic allocation
     // groupId is the key of the object in a section (ex. 'generic.35.0' => 0 is the groupId (1st object in the section) while 35 is the sectionId)
     const groupId = parseInt(pathToGroup.slice(-1))
@@ -136,14 +135,17 @@ export class ActionService {
     if (result) {
 
       const groupId = parseInt(pathToGroup.slice(-1))
-      const prevValues = (this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[question.id].value;
-
+      const sectionLength = this.formState.controls[this.activeSection.id].controls.length
       let newValue = ''
 
-      if (typeof prevValues === 'string')
-        newValue = prevValues
-      if (typeof prevValues === 'object') {
-        newValue = Object.values(prevValues).join(' ')
+      for (let i = 0; i <= sectionLength - 1; i++) {
+        const prevValues = (this.formState.controls[this.activeSection.id].controls[i].controls as any)[question.id].value;
+
+        if (typeof prevValues === 'string')
+          newValue += prevValues + ','
+        if (typeof prevValues === 'object') {
+          newValue += Object.values(prevValues).join(' ') + ','
+        }
       }
 
       if (!Object.keys(control.errors).length
@@ -158,7 +160,8 @@ export class ActionService {
             }
           })
         })
-        this.store.dispatch(retrieveOptionsAction({ sectionId: 36, groupId, questionId: parseInt(destinationId), option: newValue }))
+
+        this.store.dispatch(retrieveOptionsAction({ sectionId: 36, questionId: parseInt(destinationId), option: newValue }))
       }
     }
   }

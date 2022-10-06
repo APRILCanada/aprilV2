@@ -11,41 +11,36 @@ export const sectionsReducer = createReducer(
   on(loadSectionsSuccess, (_, { flashquote: { sections } }) => {
     return sections;
   }),
-  on(retrieveOptionsAction, (state, { sectionId, groupId, questionId, option }) => {
+  on(retrieveOptionsAction, (state, { sectionId, questionId, option }) => {
 
     // clone state
     let newState = cloneDeep(state)
 
     // get section to update and clone
-    let section = newState!.find(s => s.id == sectionId)
-    let sectionIdx = newState!.findIndex(s => s.id == sectionId)
+    let section = newState.find(s => s.id == sectionId)
+    let sectionIdx = newState.findIndex(s => s.id == sectionId)
     let sectionClone = cloneDeep(section)
 
     // get question to update and clone
-    let question = sectionClone!.questions.find(q => q.id == questionId)
-    let questionIdx = sectionClone!.questions.findIndex(q => q.id == questionId)
+    let question = sectionClone?.questions.find(q => q.id == questionId)
+    let questionIdx = sectionClone?.questions.findIndex(q => q.id == questionId)
     let questionClone = cloneDeep(question)
 
-    // add new option to responses
-    if (questionClone!.responses.find(r => r.id == groupId)) {
-      let qIdx = questionClone!.responses.findIndex(r => r.id == groupId)
-      questionClone!.responses.splice(qIdx, 1, {
-        id: groupId,
-        label: { LabelFr: option, LabelEn: option },
-        responseKey: option,
-        showOrder: groupId
-      })
+    // update responses
+    const options = option.split(',').slice(0, -1)
+
+    if (questionClone) {
+      questionClone.responses = options.map((opt, id) => ({
+        id,
+        label: { LabelFr: opt, LabelEn: opt },
+        responseKey: opt,
+        showOrder: id
+      }))
     }
-    else questionClone!.responses.push({
-      id: groupId,
-      label: { LabelFr: option, LabelEn: option },
-      responseKey: option,
-      showOrder: groupId
-    })
 
-    sectionClone!.questions.splice(questionIdx!, 1, questionClone!)
+    sectionClone?.questions.splice(questionIdx!, 1, questionClone!)
 
-    newState.splice(sectionIdx!, 1, sectionClone!)
+    newState.splice(sectionIdx, 1, sectionClone!)
 
     return newState
 

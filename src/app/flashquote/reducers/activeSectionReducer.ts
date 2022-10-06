@@ -3,7 +3,7 @@ import { setActiveSection } from '../actions/flashquote.actions';
 import { ActiveSection } from '../models/ActiveSection';
 
 const initialState: ActiveSection = {
-    id: 0, title: { LabelEn: '', LabelFr: '' }, isRepeat: false, index: 0, isFirst: true, isLast: false, sectionsLength: 0,
+    id: 0, title: { LabelEn: '', LabelFr: '' }, isRepeat: false, index: 0, isFirst: true, isLast: false, sectionsLength: 0, maxRepeat: 0
 };
 
 export const activeSectionReducer = createReducer(

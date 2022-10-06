@@ -17,7 +17,7 @@ export class CarCodeService {
   public getMakePerYear(year: string): Observable<CarMake[]> {
     return this.http.get<CarMake[]>(`${environment.apiURL}/api/publicflash/carcode/` + year, {
       headers: {
-        'X-API-Key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344'
+        'x-api-key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344'
       }
     });
   }
@@ -25,7 +25,7 @@ export class CarCodeService {
   public getModelPerMakeAndYear(make: number, year: string): Observable<CarModel[]> {
     return this.http.get<CarModel[]>(`${environment.apiURL}/api/publicflash/carcode/` + make + "/" + year, {
       headers: {
-        'X-API-Key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344'
+        'x-api-key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344'
       }
     })
   }

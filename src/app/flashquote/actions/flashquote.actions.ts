@@ -29,7 +29,7 @@ export const setValue = createAction(
 );
 
 export const retrieveOptionsAction = createAction(
-  '[FORM] Retrieve Options', props<{ sectionId: number, questionId: number, groupId: number, option: string }>()
+  '[FORM] Retrieve Options', props<{ sectionId: number, questionId: number, option: string }>()
 )
 
 export class SetSubmittedValueAction implements Action {

@@ -74,7 +74,6 @@ export class FlashquoteEffects {
       ofType(createSections),
       pluck('flashquote', 'sections'),
       mergeMap((sections) => {
-        console.log('SECTIONS', sections)
         const sectionsLength = sections.length
         const formSections = sections.reduce((sections: any, section: any, i) => {
           sections[i] = {
