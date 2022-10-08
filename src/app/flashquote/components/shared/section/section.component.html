@@ -1,6 +1,7 @@
 <section *ngIf="activeSection">
     <app-stepper [sections]="formSections" [activeSection]="activeSection" [errors]="errors" [progress]="progress">
     </app-stepper>
+    <app-exclusion-popup></app-exclusion-popup>
     <h1>{{ activeSection.title.LabelFr }}</h1>
     <ng-content></ng-content>
 

@@ -19,7 +19,9 @@ export class SectionComponent implements OnInit {
   formSections: Section[] = [];
   initialSectionValue: any;
   errors: any;
+
   @Input() progress: any;
+  @Input() exclusion: any;
   @Input() formValid$: Observable<boolean>;
   @Input() formSubmitted$: Observable<boolean>;
 
@@ -27,10 +29,8 @@ export class SectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.getActiveSection();
-    this.getSections()
-    this.getErrors()
-
-    console.log('LENGTH', this.activeSection.sectionsLength)
+    this.getSections();
+    this.getErrors();
   }
 
   getActiveSection() {

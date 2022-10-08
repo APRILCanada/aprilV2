@@ -453,5 +453,9 @@
     "CONTACT_SOON": "Nous vous contacterons sous peu pour finaliser votre demande.",
     "MORE_INFO": "Pour plus d'informations:",
     "MONTH_TAXES": "Mois + Taxes",
-    "ESTIMATED": "<b>Votre prime </b>estimée"
+    "ESTIMATED": "<b>Votre prime </b>estimée",
+    "PATTERN": "Valeur incorrecte",
+    "PROVINCE_EXCLUSION": "Province non admissible",
+    "PROVINCE_EXCLUSION_POPUP": "Pour être admissible, vous devez résider au Québec.",
+    "BANKRUPCY_EXCLUSION_POPUP": "Pour être admissible, vous devez être libéré de toute faillite."
 }

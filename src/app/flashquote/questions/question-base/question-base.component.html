@@ -16,20 +16,20 @@
   </div>
 
   <div *ngSwitchCase="'FILE'">
-    <app-file [question]="question" [control]="control"></app-file>
+    <app-file [question]="question" [control]="control" [error]="error"></app-file>
   </div>
 
 
   <div *ngSwitchCase="'IDENTIFICATION'">
-    <app-identification [question]="question" [control]="control"></app-identification>
+    <app-identification [question]="question" [control]="control" [error]="error"></app-identification>
   </div>
 
   <div *ngSwitchCase="'RECLAMATION'">
-    <app-reclamation [question]="question" [control]="control"></app-reclamation>
+    <app-reclamation [question]="question" [control]="control" [error]="error"></app-reclamation>
   </div>
 
   <div *ngSwitchCase="'AUTO'">
-    <app-auto [question]="question" [control]="control"></app-auto>
+    <app-auto [question]="question" [control]="control" [error]="error"></app-auto>
   </div>
 
   <div *ngSwitchCase="'NUMBER'">
@@ -37,7 +37,7 @@
   </div>
 
   <div *ngSwitchCase="'ADDRESS'">
-    <app-address [question]="question" [control]="control"></app-address>
+    <app-address [question]="question" [control]="control" [error]="error"></app-address>
   </div>
 
   <div *ngSwitchCase="'MULTIPLE'">

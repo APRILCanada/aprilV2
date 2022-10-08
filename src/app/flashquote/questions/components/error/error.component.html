@@ -8,6 +8,24 @@
   <small>{{ "REQUIRED" | translate }}</small>
 </mat-error>
 
+<mat-error
+  @fadeSlideInOut
+  *ngIf="
+    error?.pattern &&
+    (control.isDirty || control.isTouched || control.isSubmitted)
+  "
+>
+  <small>{{ "PATTERN" | translate }}</small>
+</mat-error>
+
+<mat-error
+  @fadeSlideInOut
+  *ngIf="error?.exclusion &&
+  (control.isDirty || control.isTouched || control.isSubmitted)"
+>
+  <small>{{error?.exclusion.errorMessageInput | translate}}</small>
+</mat-error>
+
 <mat-error @fadeSlideInOut *ngIf="
     error?.unfilledRepartition &&
     (control.isDirty || control.isTouched || control.isSubmitted)

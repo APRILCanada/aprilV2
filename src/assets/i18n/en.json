@@ -453,7 +453,11 @@
     "CONTACT_SOON": "We will contact you shortly to finalize your request.",
     "MORE_INFO": "For more information:",
     "MONTH_TAXES": "Month + Taxes",
-    "ESTIMATED": "Your estimated <b>prime</b>"
+    "ESTIMATED": "Your estimated <b>prime</b>",
+    "PATTERN": "Incorrect value",
+    "PROVINCE_EXCLUSION": "Ineligible Province",
+    "PROVINCE_EXCLUSION_POPUP": "To be eligible, you must reside in the province of Quebec.",
+    "BANKRUPCY_EXCLUSION_POPUP": "To be eligible, you must be free of any bankruptcy" 
 
 
 

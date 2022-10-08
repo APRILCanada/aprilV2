@@ -37,6 +37,7 @@ export class FlashquoteEffects {
       mergeMap((action) =>
         this.brokerService.getBrokerById(action.id).pipe(
           switchMap((broker: BrokerDTO) => {
+            localStorage.setItem('market', broker.marketId);
             return [
               loadBrokerSuccess({ broker }),
               loadSections({ marketId: broker.marketId })

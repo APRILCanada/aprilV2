@@ -14,11 +14,9 @@ export class InputComponent implements OnInit {
   @Input() error: any
   inputType: string;
 
-  constructor(public language: LanguageService) {}
+  constructor(public language: LanguageService) { }
 
   ngOnInit(): void {
     this.inputType = this.question.type.toLocaleLowerCase();
-
-    console.log('control', this.control)
   }
 }
