@@ -121,7 +121,6 @@ export class SelectComponent implements OnInit {
 
   // an optional select with 1  option should not appear in the store
   showSelect() {
-    console.log('OPTIONS', this.options)
     if (this.options.length === 1 && !this.question.isRequired) {
       this.store.dispatch(new RemoveGroupControlAction(this.groupPath, this.question.id as never))
     }

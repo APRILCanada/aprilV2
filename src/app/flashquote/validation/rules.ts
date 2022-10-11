@@ -1,12 +1,12 @@
 import { ValidationErrors } from "@angular/forms";
 import { time } from "console";
-import { Boxed, unbox, updateArray, updateGroup, validate } from "ngrx-forms";
+import { Boxed, FormControlState, unbox, updateArray, updateGroup, validate } from "ngrx-forms";
 import { number, pattern, required } from "ngrx-forms/validation";
 import { SectionControl } from "../store";
 import { validateRepartition } from "./functions";
 
 
-export function exclusion<T>(rule: string, comparand: T, errorType: string, errorMessagePopup: string, errorMessageInput?: string) {
+export function exclusion<T>(rule: string, comparand: T, errorMessagePopup: string, errorMessageInput?: string) {
     return <TV extends T | Boxed<T> = T>(value: TV): ValidationErrors => {
         //value = unbox(value) as T as TV;
         value = unbox(value) as any
@@ -24,8 +24,20 @@ export function exclusion<T>(rule: string, comparand: T, errorType: string, erro
             }
         }
 
+        if (rule === 'lesserThanOrEqual') {
+            if (value <= (comparand as any)) {
+                return {}
+            }
+        }
+
+        if (rule === 'ageValue') {
+            if ((value as any) === 'true') {
+
+            }
+        }
+
         return {
-            [errorType]: {
+            'exclusion': {
                 comparand,
                 actual: value,
                 errorMessagePopup,
@@ -45,7 +57,7 @@ export const validation: any = {
                 'MailingAddress-PostalCode': validate(required, pattern(/^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i)),
                 'MailingAddress-City': validate(required),
                 'MailingAddress-StreetNumber': validate(required),
-                'MailingAddress-Province': validate(required, exclusion('equal', 'QC', 'exclusion', 'PROVINCE_EXCLUSION_POPUP', 'PROVINCE_EXCLUSION'))
+                'MailingAddress-Province': validate(required, exclusion('equal', 'QC', 'PROVINCE_EXCLUSION_POPUP', 'PROVINCE_EXCLUSION'))
             }),
             246: validate(required),
             248: validate(required),
@@ -74,7 +86,7 @@ export const validation: any = {
             344: validate(required),
             240: validate(required),
             242: validate<any>(required),
-            243: validate<any>(required, exclusion('dateBefore', Date.now(), 'exclusion', 'BANKRUPCY_EXCLUSION_POPUP')),
+            243: validate<any>(required, exclusion('dateBefore', Date.now(), 'BANKRUPCY_EXCLUSION_POPUP')),
             //347: OPTIONNEL
         })),
         36: updateArray(updateGroup<SectionControl>({
@@ -86,8 +98,13 @@ export const validation: any = {
             //309: OPTIONNEL
             257: validate(validateRepartition),
             275: validate(required),
-            340: validate(required),
-            318: validate(required),
+            340: validate<any>(required, exclusion('lesserThanOrEqual', 75000, 'AUTO_VALUE_EXCLUSION_POPUP', 'AUTO_VALUE_EXCLUSION')),
+            318: (control: FormControlState<any>, formState: any) => {
+                if (formState.value[340] > 25000) {
+                    return validate<any>(formState.controls[318], exclusion('equal', 'true', 'AUTO_VALUE_AGE_EXCLUSION_POPUP'))
+                }
+                return control
+            },
             259: validate(required),
             262: validate(required),
             232: validate(required),

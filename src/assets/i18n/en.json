@@ -457,7 +457,10 @@
     "PATTERN": "Incorrect value",
     "PROVINCE_EXCLUSION": "Ineligible Province",
     "PROVINCE_EXCLUSION_POPUP": "To be eligible, you must reside in the province of Quebec.",
-    "BANKRUPCY_EXCLUSION_POPUP": "To be eligible, you must be free of any bankruptcy" 
+    "BANKRUPCY_EXCLUSION_POPUP": "To be eligible, you must be free of any bankruptcy",
+    "AUTO_VALUE_EXCLUSION_POPUP": "The value must not exceed $75,000.",
+    "AUTO_VALUE_EXCLUSION": "The value of the vehicle cannot exceed $75,000",
+    "AUTO_VALUE_AGE_EXCLUSION_POPUP": "The value of the vehicle cannot exceed $25,000 if the applicant is under 25 years old."
 
 
 

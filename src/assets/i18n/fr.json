@@ -457,5 +457,8 @@
     "PATTERN": "Valeur incorrecte",
     "PROVINCE_EXCLUSION": "Province non admissible",
     "PROVINCE_EXCLUSION_POPUP": "Pour être admissible, vous devez résider au Québec.",
-    "BANKRUPCY_EXCLUSION_POPUP": "Pour être admissible, vous devez être libéré de toute faillite."
+    "BANKRUPCY_EXCLUSION_POPUP": "Pour être admissible, vous devez être libéré de toute faillite.",
+    "AUTO_VALUE_EXCLUSION_POPUP": "La valeur du véhicule ne peut pas excéder 75 000$.",
+    "AUTO_VALUE_EXCLUSION": "La valeur du véhicule ne peut pas excéder 75 000$",
+    "AUTO_VALUE_AGE_EXCLUSION_POPUP": "La valeur du véhicule ne peut pas excéder 25 000$ si le proposant a moins de 25 ans."
 }

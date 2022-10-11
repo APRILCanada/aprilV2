@@ -30,7 +30,5 @@ export class ExclusionPopupComponent implements OnInit {
 
   constructor(public translate: TranslateService) { }
 
-  ngOnInit(): void {
-    console.log('ERROR', this.error)
-  }
+  ngOnInit(): void {}
 }

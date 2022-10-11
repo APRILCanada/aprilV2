@@ -3,4 +3,5 @@
   <input class="form-control text-form" autocomplete="disabled" [ngrxFormControlState]="control" id="{{control.id}}"
     [mask]="question.mask" [placeholder]="question.mask" [ngClass]="{'error-border':error &&
     (control.isDirty || control.isTouched || control.isSubmitted)}">
+  <app-exclusion-popup [error]="error"></app-exclusion-popup>
 </div>

@@ -1,12 +1,13 @@
 .speech-bubble {
 	position: absolute;
     top: 0;
-    right: -100px;
+    right: -250px;
     z-index: 1;
 	background: #bd0026;
 	border-radius: .4em;
     color: #fff;
     padding: 0.5rem 1rem;
+	width: 225px;
 }
 
 .speech-bubble:after {
