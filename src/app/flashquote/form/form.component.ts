@@ -46,7 +46,6 @@ export class FormComponent implements OnInit, AfterContentChecked {
   answers: Answer[];
   formSubscription: Subscription;
   broker: any;
-  logo: string;
   initialQuestionNumber: number = 0;
   progress: number = 0;
 
@@ -122,7 +121,6 @@ export class FormComponent implements OnInit, AfterContentChecked {
   getBroker() {
     this.store.pipe(select(selectBroker)).subscribe(broker => {
       this.broker = broker
-      this.logo = encodeURIComponent(broker.logo)
     })
   }
 

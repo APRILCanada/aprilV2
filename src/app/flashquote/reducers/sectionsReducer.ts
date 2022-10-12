@@ -43,6 +43,5 @@ export const sectionsReducer = createReducer(
     newState.splice(sectionIdx, 1, sectionClone!)
 
     return newState
-
   })
 )

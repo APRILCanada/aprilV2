@@ -12,11 +12,12 @@ export class InputComponent implements OnInit {
   @Input() question: Question;
   @Input() control: FormControlState<any>;
   @Input() error: any
-  inputType: string;
+  @Input() inputType: string;
 
   constructor(public language: LanguageService) { }
 
   ngOnInit(): void {
     this.inputType = this.question.type.toLocaleLowerCase();
+    console.log('INPUT TYPE', this.inputType)
   }
 }

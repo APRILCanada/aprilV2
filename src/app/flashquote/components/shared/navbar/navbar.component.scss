@@ -1,0 +1,22 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+
+    &>span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        border: 1px solid var(--mainColor);
+        border-radius: 5px;
+        padding: 0.5rem 1rem;
+        color: var(--mainColor);
+        font-weight: bold;
+        align-self: flex-start;
+    }
+
+    .logo {
+        max-width: 300px;
+    }
+}

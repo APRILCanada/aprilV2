@@ -62,6 +62,7 @@ import { TextareaComponent } from './questions/components/textarea/textarea.comp
 import { SectionComponent } from './components/shared/section/section.component';
 import { StepperComponent } from './components/shared/stepper/stepper.component';
 import { ExclusionPopupComponent } from './components/shared/exclusion-popup/exclusion-popup.component';
+import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -106,7 +107,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     TextareaComponent,
     SectionComponent,
     StepperComponent,
-    ExclusionPopupComponent
+    ExclusionPopupComponent,
+    NavbarComponent
   ],
   imports: [
     CommonModule,

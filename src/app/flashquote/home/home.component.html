@@ -1,4 +1,4 @@
-<div *ngIf="!!broker.marketId; else showLoading">
+<!-- <div *ngIf="!!broker.marketId; else showLoading">
   <div class="wrapper" [ngClass]="{'loading-wrapper': (formValid$ | async) && (formSubmitted$ | async)}">
     <div *ngIf="broker.name === 'April'; else notApril">
 
@@ -23,4 +23,8 @@
 
 <ng-template #showLoading>
   <app-loader></app-loader>
-</ng-template>
+</ng-template> -->
+
+<app-navbar [broker]="broker" [logo]="logo"></app-navbar>
+
+<app-flash-quote [id]="broker.marketId"></app-flash-quote>

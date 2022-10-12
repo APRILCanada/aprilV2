@@ -62,15 +62,26 @@ export class ActionService {
 
   hide(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
     const groupId = parseInt(pathToGroup.slice(-1))
+
     if (rule.value === control.value) {
-      if ((this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
-        this.store.dispatch(new RemoveGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId));
-        this.temp2.push(destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+      if (!this.temp2.includes(groupId + '.' + destinationId)) {
+        console.log('TEMP2', this.temp2)
+        if ((this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
+          console.log('GRPOUP ID', groupId)
+          this.store.dispatch(new RemoveGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId));
+          this.temp2.push(groupId + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+        }
       }
     } else if (rule.value !== control.value) {
-      if (this.temp2.includes(destinationId)) {
+      console.log('TEMP2', this.temp2)
+      if (this.temp2.includes(groupId + '.' + destinationId)) {
         if (!(this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
+          console.log('GRPOUP ID', groupId)
           this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, ''));
+          const qId = this.temp2.indexOf(groupId + '.' + destinationId); // FIX FOR DOUBLE ACTION DISPATCH
+          if (qId !== -1) {
+            this.temp2.splice(qId, 1);
+          }
         }
       }
     }
