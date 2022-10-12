@@ -2,7 +2,8 @@
 <mat-form-field appearance="fill" [ngClass]="{'error-border':error &&
 (control.isDirty || control.isTouched || control.isSubmitted)}">
     <input id="{{control?.id}}" matInput [matDatepicker]="picker" [ngrxFormControlState]="control"
-        [ngrxValueConverter]="dateValueConverter" placeholder="{{ 'DATE_PICKER' | translate }}">
+        [ngrxValueConverter]="dateValueConverter" placeholder="{{ 'DATE_PICKER' | translate }}" [min]="minDate"
+        [max]="maxDate">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>

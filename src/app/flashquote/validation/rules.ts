@@ -30,12 +30,6 @@ export function exclusion<T>(rule: string, comparand: T, errorMessagePopup: stri
             }
         }
 
-        if (rule === 'ageValue') {
-            if ((value as any) === 'true') {
-
-            }
-        }
-
         return {
             'exclusion': {
                 comparand,
@@ -100,10 +94,9 @@ export const validation: any = {
             275: validate(required),
             340: validate<any>(required, exclusion('lesserThanOrEqual', 75000, 'AUTO_VALUE_EXCLUSION_POPUP', 'AUTO_VALUE_EXCLUSION')),
             318: (control: FormControlState<any>, formState: any) => {
-                if (formState.value[340] > 25000) {
-                    return validate<any>(formState.controls[318], exclusion('equal', 'true', 'AUTO_VALUE_AGE_EXCLUSION_POPUP'))
-                }
-                return control
+                return (formState.value[340] > 25000) ?
+                    validate<any>(formState.controls[318], exclusion('equal', 'true', 'AUTO_VALUE_AGE_EXCLUSION_POPUP')) :
+                    control
             },
             259: validate(required),
             262: validate(required),
