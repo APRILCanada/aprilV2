@@ -2,13 +2,13 @@ import { Component, OnInit, ChangeDetectorRef, AfterContentChecked } from '@angu
 import { Observable, Subscription } from 'rxjs';
 import { Store, select, ActionsSubject } from '@ngrx/store';
 import { Question } from '../models/Question';
-import { FormGroupState, ResetAction, SetValueAction } from 'ngrx-forms';
+import { FormGroupState, MarkAsSubmittedAction, ResetAction, SetValueAction } from 'ngrx-forms';
 import { distinct, distinctUntilChanged, distinctUntilKeyChanged, filter, map, pluck, skipLast, skipWhile, switchMap, take, takeLast, takeWhile, tap } from 'rxjs/operators';
 import { FormValue, State } from '../store';
 import { ActionService } from '../services/action.service';
 import { Answer } from '../models/Answer';
 import { FlashquoteService } from '../services/flashquote.service';
-import { RemoveGroupSectionAction, SetSubmittedValueAction } from '../actions/flashquote.actions';
+import { RemoveGroupSectionAction, setActiveSection, SetSubmittedValueAction } from '../actions/flashquote.actions';
 import {
   selectSections,
   selectFormState,
@@ -38,6 +38,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
   questionsBySection?: Question[];
   activeSection: ActiveSection;
   errors$: Observable<any>;
+  errors: any;
   formState$: Observable<any>;
   formValid$: Observable<boolean>;
   formSubmitted$: Observable<boolean>;
@@ -138,6 +139,9 @@ export class FormComponent implements OnInit, AfterContentChecked {
 
   getErrors() {
     this.errors$ = this.store.pipe(select(selectErrors));
+      this.errors = this.store.pipe(select(selectErrors)).subscribe(errors => {
+        this.errors = errors
+      })
   }
 
   getSelectProgress() {
@@ -173,6 +177,30 @@ export class FormComponent implements OnInit, AfterContentChecked {
     this.actionsSubject.next(
       new RemoveGroupSectionAction(sectionId, index)
     )
+  }
+
+  setActiveSection(step: number) {
+    window.scrollTo(0, 200);
+
+    if (this.errors['_' + this.activeSection.id] && step === 1) {
+      return this.store.dispatch(new MarkAsSubmittedAction('generic'))
+    }
+
+    this.store.dispatch(setActiveSection({
+      activeSection: {
+        id: this.sections[this.activeSection.index + step].id,
+        title: this.sections[this.activeSection.index + step].title,
+        isRepeat: this.sections[this.activeSection.index + step].isRepeat,
+        index: this.activeSection.index + step,
+        isFirst: this.activeSection.index + step === 0,
+        isLast: this.activeSection.index + step === this.sections.length - 1,
+        sectionsLength: this.sections.length,
+        maxRepeat: this.activeSection.maxRepeat
+      }
+    }))
+
+    this.store.dispatch(new MarkAsSubmittedAction('generic'))
+    this.store.dispatch(new ResetAction('generic'));
   }
 
   formatDate(value: string) {

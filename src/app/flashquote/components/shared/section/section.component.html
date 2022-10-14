@@ -1,8 +1,13 @@
 <section *ngIf="activeSection">
+
+    <app-exclusion-popup></app-exclusion-popup>
+    <h1 class="section-title">
+        <span class="section-number">{{ activeSection.index + 1 }}</span>
+        {{ language.get() == "fr" ? activeSection.title.LabelFr : activeSection.title.LabelEn }}
+    </h1>
+
     <app-stepper [sections]="formSections" [activeSection]="activeSection" [errors]="errors" [progress]="progress">
     </app-stepper>
-    <app-exclusion-popup></app-exclusion-popup>
-    <h1>{{ activeSection.title.LabelFr }}</h1>
     <ng-content></ng-content>
 
     <div *ngIf="activeSection.isRepeat" class="isRepeat-button">
@@ -11,20 +16,5 @@
             (click)="addGroupSection()">
             <span class="text-button">Add a new {{activeSection.title.LabelEn}}</span>
         </button>
-    </div>
-
-    <div class="section-buttons">
-        <!-- PREVIOUS -->
-        <button type="button" *ngIf="!activeSection.isFirst" class="btn-april" (click)="setActiveSection(-1)">
-            Previous
-        </button>
-
-        <!-- NEXT -->
-        <button type="button" *ngIf="!activeSection.isLast" class="btn-april" (click)="setActiveSection(1)">
-            Next
-        </button>
-
-        <!-- SUBMIT -->
-
     </div>
 </section>

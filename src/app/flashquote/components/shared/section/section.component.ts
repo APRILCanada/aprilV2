@@ -7,6 +7,7 @@ import { ActiveSection } from 'src/app/flashquote/models/ActiveSection';
 import { Section } from 'src/app/flashquote/models/Section';
 import { selectActiveSection, selectErrors, selectSections } from 'src/app/flashquote/selectors';
 import { State } from 'src/app/flashquote/store';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-section',
@@ -25,7 +26,7 @@ export class SectionComponent implements OnInit {
   @Input() formValid$: Observable<boolean>;
   @Input() formSubmitted$: Observable<boolean>;
 
-  constructor(private store: Store<State>, private actionsSubject: ActionsSubject) { }
+  constructor(private store: Store<State>, private actionsSubject: ActionsSubject, public language: LanguageService) { }
 
   ngOnInit(): void {
     this.getActiveSection();
@@ -35,7 +36,7 @@ export class SectionComponent implements OnInit {
 
   getActiveSection() {
     this.store.pipe(select(selectActiveSection)).subscribe(data => this.activeSection = data)
-    this.activeSection$ = this.store.pipe(select(selectActiveSection))
+   // this.activeSection$ = this.store.pipe(select(selectActiveSection))
   }
 
   getSections() {
@@ -49,28 +50,6 @@ export class SectionComponent implements OnInit {
       this.errors = errors
     })
 
-  }
-
-  setActiveSection(step: number) {
-    if (this.errors['_' + this.activeSection.id] && step === 1) {
-      return this.store.dispatch(new MarkAsSubmittedAction('generic'))
-    }
-
-    this.store.dispatch(setActiveSection({
-      activeSection: {
-        id: this.formSections[this.activeSection.index + step].id,
-        title: this.formSections[this.activeSection.index + step].title,
-        isRepeat: this.formSections[this.activeSection.index + step].isRepeat,
-        index: this.activeSection.index + step,
-        isFirst: this.activeSection.index + step === 0,
-        isLast: this.activeSection.index + step === this.formSections.length - 1,
-        sectionsLength: this.formSections.length,
-        maxRepeat: this.activeSection.maxRepeat
-      }
-    }))
-
-    this.store.dispatch(new MarkAsSubmittedAction('generic'))
-    this.store.dispatch(new ResetAction('generic'));
   }
 
   addGroupSection() {

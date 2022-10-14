@@ -1,0 +1,41 @@
+:host {
+    grid-column: full-start / full-end;
+}
+
+.hero {
+    display: grid;
+    grid-template-columns:
+        [full-start] minmax(3rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 20rem) [col-end]) [center-end] minmax(3rem, 1fr) [full-end];
+    align-items: center;
+    background-color: var(--mainColor);
+    border-bottom-left-radius: 100px;
+    overflow: hidden;
+
+    & .header {
+        grid-column: 4 / 7;
+        //padding: 3rem;
+
+        & h1 {
+            color: #fff;
+            font-size: 2.5rem !important;
+            font-weight: 400 !important;
+            text-transform: uppercase;
+        }
+
+        span {
+            display: block;
+            color: yellow;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+    }
+
+    & img {
+        grid-column: 7 / full-end;
+        justify-self: end;
+        align-self: start;
+        width: auto;
+        max-height: 100%;
+    }
+}

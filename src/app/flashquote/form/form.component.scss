@@ -1,8 +1,17 @@
+:host {
+    grid-column: 4 / 7;
+}
+
+form {
+    max-width: 600px;
+}
+
 .btn-block {
     width: 100%;
     height: 3rem;
     text-transform: uppercase;
 }
+
 
 @media (max-width: 581px) {
     .wrapper {
@@ -32,10 +41,28 @@
 
 .flash-form {
     position: relative;
+    box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: center;
+    transform: translateY(-100px);
+    background-color: #fff;
+    border-radius: 15px;
+    padding-bottom: 1.5rem;
 }
 
 .groupSection-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.section-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 3rem;
+
+    & .next {
+        margin-left: auto;
+    }
 }

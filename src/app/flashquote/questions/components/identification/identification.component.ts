@@ -52,7 +52,6 @@ export class IdentificationComponent implements OnInit {
 
   ngOnInit() {
     this.controlId = parseInt(this.control.id.slice(11, 12)) // TEMP BUG FIX
-    console.log('CONTROL ID', this.controlId)
 
     this.group$ = this.store.pipe(
       select((s) => (s.form.formState.controls[s.form.activeSection.id].controls[this.controlId] as any)?.controls[this.question.id]?.controls)

@@ -1,7 +1,8 @@
 .navbar {
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 1.5rem;
+    background-color: #f1f1f1;
 
     &>span {
         display: flex;
@@ -12,11 +13,11 @@
         border-radius: 5px;
         padding: 0.5rem 1rem;
         color: var(--mainColor);
-        font-weight: bold;
+        font-weight: 500;
         align-self: flex-start;
     }
 
     .logo {
-        max-width: 300px;
+        max-width: 250px;
     }
 }

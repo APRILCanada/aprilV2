@@ -92,7 +92,7 @@ export class RuleService {
   //   }
   // }
 
-  checkRule(rule: Rule, control: any, destinationId: any) {
+  checkRule(rule: Rule, control: any) {
     let result;
 
     switch (rule.operation) {
@@ -114,9 +114,9 @@ export class RuleService {
       //   case 'LESSER_EQUAL':
       //     result = this.isLesserThan(value, rule.value, true);
       //     break;
-      //   case 'CONTAINS':
-      //     result = this.contains(value, rule.value);
-      //     break;
+        case 'CONTAINS':
+          result = this.contains(control.value, rule.value);
+          break;
       //   case 'NOT_CONTAIN':
       //     result = this.contains(value, rule.value, true);
       //     break;
@@ -194,6 +194,17 @@ export class RuleService {
       return false;
     }
     return andEqual ? number1 >= number2 : number1 > number2;
+  }
+
+
+  contains(value:any, ruleValue:any, notContains:boolean = false){
+    console.log('VALUE', value)
+    if(Array.isArray(value)){
+      var index = value.indexOf(ruleValue);
+      return notContains ? index == -1 : index > -1;
+    }
+    var reg = new RegExp(ruleValue, "gi");
+    return notContains ? value.toString().search(reg) == -1 : value.toString().search(reg) >= 0;
   }
 
   // validateSequence(rule:Rule, key:string, index:string):void{
@@ -417,14 +428,6 @@ export class RuleService {
   //   this.isExcluded.next(this.excluded.size > 0);
   // }
 
-  // contains(value1:any, value2:any, notContains:boolean = false){
-  //   if(Array.isArray(value1)){
-  //     var index = value1.indexOf(value2);
-  //     return notContains ? index == -1 : index > -1;
-  //   }
-  //   var reg = new RegExp(value2, "gi");
-  //   return notContains ? value1.toString().search(reg) == -1 : value1.toString().search(reg) >= 0;
-  // }
 
   // isEmpty(value1:any, isNotEmpty:boolean = false){
   //   if(Array.isArray(value1)){

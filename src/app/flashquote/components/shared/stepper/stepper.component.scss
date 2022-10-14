@@ -1,3 +1,8 @@
+.stepper {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
 .background-stepper {
     height: 15px;
     background-color: #efefef;
@@ -69,4 +74,23 @@
     z-index: 15;
     justify-content: space-between;
     align-items: center;
+}
+
+.point-prime {
+    font-size: 1.2rem !important;
+    color: orange;
+    text-transform: uppercase;
+    max-width: 100px;
+    margin-top: -50px;
+    font-weight: 500 !important;
+}
+
+.point-label-prime {
+    width: auto;
+    height: auto;
+    position: relative;
+    height: 25px;
+    width: 25px;
+    background-color: orange;
+    border: 4px solid orange;
 }

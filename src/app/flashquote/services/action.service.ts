@@ -61,9 +61,11 @@ export class ActionService {
   }
 
   hide(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
+    const result = this.ruleService.checkRule(rule, control)
+
     const groupId = parseInt(pathToGroup.slice(-1))
 
-    if (rule.value === control.value) {
+    if (result) {
       if (!this.temp2.includes(groupId + '.' + destinationId)) {
         console.log('TEMP2', this.temp2)
         if ((this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
@@ -88,7 +90,7 @@ export class ActionService {
   }
 
   show(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
-    const result = this.ruleService.checkRule(rule, control, destinationId)
+    const result = this.ruleService.checkRule(rule, control)
 
     // get the groupId for dynamic allocation
     // groupId is the key of the object in a section (ex. 'generic.35.0' => 0 is the groupId (1st object in the section) while 35 is the sectionId)
@@ -141,7 +143,7 @@ export class ActionService {
 
   getOptionsFromPreviousAnswer(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
 
-    const result = this.ruleService.checkRule(rule, control, destinationId)
+    const result = this.ruleService.checkRule(rule, control)
 
     if (result) {
 

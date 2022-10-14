@@ -1,0 +1,16 @@
+header {
+    background-color: var(--mainColor);
+    color: yellow !important;
+    border-radius: 15px;
+    padding: 1rem;
+
+    .highlight {
+        color: white;
+    }
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}

@@ -24,7 +24,9 @@
 <ng-template #showLoading>
   <app-loader></app-loader>
 </ng-template> -->
-
 <app-navbar [broker]="broker" [logo]="logo"></app-navbar>
-
-<app-flash-quote [id]="broker.marketId"></app-flash-quote>
+<main>
+  <app-hero></app-hero>
+  <!-- <app-flash-quote [id]="broker.marketId"></app-flash-quote> -->
+  <app-form></app-form>
+</main>
