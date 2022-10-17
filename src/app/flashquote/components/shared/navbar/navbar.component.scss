@@ -19,14 +19,12 @@
     }
 
     .logo {
-        max-width: 250px;
+        max-width: 150px;
     }
 }
 
-@media (max-width: 581px) {
-    .navbar {
-        .logo {
-            max-width: 150px;
-        }
+@media (min-width:581px) {
+    .logo {
+        max-width: 250px;
     }
 }
