@@ -1,7 +1,7 @@
 main {
     display: grid;
     grid-template-columns:
-        [full-start] minmax(3rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 20rem) [col-end]) [center-end] minmax(3rem, 1fr) [full-end];
+        [full-start] minmax(1rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 20rem) [col-end]) [center-end] minmax(1rem, 1fr) [full-end];
 }
 
 .wrapper {

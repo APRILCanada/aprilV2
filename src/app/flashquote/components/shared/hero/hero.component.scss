@@ -8,17 +8,20 @@
         [full-start] minmax(3rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 20rem) [col-end]) [center-end] minmax(3rem, 1fr) [full-end];
     align-items: center;
     background-color: var(--mainColor);
-    border-bottom-left-radius: 100px;
-    overflow: hidden;
+    border-bottom-left-radius: 0px;
+    overflow: visible;
 
     & .header {
-        grid-column: 4 / 7;
-        grid-row: 1 / -1;
-        //padding: 3rem;
+        grid-row: 2;
+        grid-column: 1 / 12;
+        padding: 1rem;
+        text-align: center;
+        padding-top: 3rem;
+        padding-bottom: 5rem;
 
         & h1 {
             color: #fff;
-            font-size: 2.5rem !important;
+            font-size: 2.2rem !important;
             font-weight: 400 !important;
             text-transform: uppercase;
         }
@@ -29,39 +32,48 @@
             text-decoration: underline;
             cursor: pointer;
         }
-
     }
 
     & img {
-        grid-column: 7 / full-end;
-        justify-self: end;
-        align-self: start;
-        width: auto;
-        max-height: 100%;
+        grid-row: 1;
+        grid-column: 1 / 12;
+        width: 100%;
+        min-height: auto;
     }
 }
 
-@media (max-width: 581px) {
+@media(min-width: 581px) {
     .hero {
-        border-bottom-left-radius: 0px;
-        overflow: visible;
+        border-bottom-left-radius: 100px;
+        overflow: hidden;
 
         & .header {
-            grid-row: 2;
-            grid-column: 1 / 12;
-            padding: 1rem;
-            text-align: center;
+            grid-column: 1 / 6;
+            grid-row: 1 / -1;
 
-            & h1 {
-                font-size: 1.7rem !important;
-            }
         }
 
         & img {
-            grid-row: 1;
-            grid-column: 1 / 12;
-            width: 100%;
-            min-height: auto;
+            grid-column: 6 / full-end;
+            justify-self: end;
+            align-self: start;
+            width: auto;
+            max-height: 100%;
         }
     }
 }
+
+@media(min-width: 981px) {
+    .hero {
+        & .header {
+            grid-column: 3 / 6;
+            grid-row: 1 / -1;
+
+            h1 {
+                font-size: 2.8rem !important;
+            }
+        }
+
+    }
+}
+
