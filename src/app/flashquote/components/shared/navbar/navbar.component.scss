@@ -15,9 +15,18 @@
         color: var(--mainColor);
         font-weight: 500;
         align-self: flex-start;
+        cursor: pointer;
     }
 
     .logo {
         max-width: 250px;
+    }
+}
+
+@media (max-width: 581px) {
+    .navbar {
+        .logo {
+            max-width: 150px;
+        }
     }
 }

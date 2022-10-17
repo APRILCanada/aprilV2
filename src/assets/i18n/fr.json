@@ -452,6 +452,7 @@
     "ESTIMATION": "Veuillez noter que l'estimation de prime obtenue plus haut est établie selon les informations que nous nous avez fournies. Il se peut que cet estimé soit modifié durant la collecte d'informations complémentaires",
     "CONTACT_SOON": "Nous vous contacterons sous peu pour finaliser votre demande.",
     "MORE_INFO": "Pour plus d'informations:",
+    "PRECISIONS": "D'autres protections, frais et rabais peuvent s'appliquer.",
     "MONTH_TAXES": "Mois + Taxes",
     "ESTIMATED": "<b>Votre prime </b>estimée",
     "PATTERN": "Valeur incorrecte",
@@ -460,5 +461,6 @@
     "BANKRUPCY_EXCLUSION_POPUP": "Pour être admissible, vous devez être libéré de toute faillite.",
     "AUTO_VALUE_EXCLUSION_POPUP": "La valeur du véhicule ne peut pas excéder 75 000$.",
     "AUTO_VALUE_EXCLUSION": "La valeur du véhicule ne peut pas excéder 75 000$",
-    "AUTO_VALUE_AGE_EXCLUSION_POPUP": "La valeur du véhicule ne peut pas excéder 25 000$ si le proposant a moins de 25 ans."
+    "AUTO_VALUE_AGE_EXCLUSION_POPUP": "La valeur du véhicule ne peut pas excéder 25 000$ si le proposant a moins de 25 ans.",
+    "NEW_QUOTE": "Faire une nouvelle soumission"
 }

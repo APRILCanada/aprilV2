@@ -44,7 +44,7 @@ export class RepartitionComponent implements OnInit {
     })
 
     this.group$ = this.store.pipe(
-      select((s) => (s.form.formState.controls[s.form.activeSection.id].controls[this.controlId] as any)?.controls[this.question.id]?.controls)
+      select((s) => (s.form.formState.controls[s.form.activeSection.id]?.controls[this.controlId] as any)?.controls[this.question.id]?.controls)
     )
   }
 

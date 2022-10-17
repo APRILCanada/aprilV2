@@ -8,7 +8,7 @@ import { FormValue, State } from '../store';
 import { ActionService } from '../services/action.service';
 import { Answer } from '../models/Answer';
 import { FlashquoteService } from '../services/flashquote.service';
-import { RemoveGroupSectionAction, setActiveSection, SetSubmittedValueAction } from '../actions/flashquote.actions';
+import { formLoaded, RemoveGroupSectionAction, setActiveSection, SetSubmittedValueAction } from '../actions/flashquote.actions';
 import {
   selectSections,
   selectFormState,
@@ -25,6 +25,7 @@ import { Router } from '@angular/router';
 import { LanguageService } from 'src/app/services/language.service';
 import { Section } from '../models/Section';
 import { ActiveSection } from '../models/ActiveSection'
+import { loadBroker } from '../actions/broker.actions';
 
 
 @Component({
@@ -49,6 +50,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
   broker: any;
   initialQuestionNumber: number = 0;
   progress: number = 0;
+  primeReady = false;
 
 
   constructor(
@@ -83,6 +85,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
     this.getSelectProgress()
 
     this.onFormChange();
+
   }
 
   //https://stackoverflow.com/questions/34364880/expression-has-changed-after-it-was-checked
@@ -96,10 +99,10 @@ export class FormComponent implements OnInit, AfterContentChecked {
 
 
   onFormChange() {
-
     this.formState$.pipe(
       // get fields of current active section
       map((sections) => sections.controls[this.activeSection.id]),
+      distinctUntilChanged()
     ).subscribe(section => {
       if (section) {
         // get all the questions of this section with the section Id
@@ -139,16 +142,16 @@ export class FormComponent implements OnInit, AfterContentChecked {
 
   getErrors() {
     this.errors$ = this.store.pipe(select(selectErrors));
-      this.errors = this.store.pipe(select(selectErrors)).subscribe(errors => {
-        this.errors = errors
-      })
+    this.errors = this.store.pipe(select(selectErrors)).subscribe(errors => {
+      this.errors = errors
+    })
   }
 
   getSelectProgress() {
     this.store.pipe(select(selectProgress)).subscribe(progress => {
       if (progress > this.initialQuestionNumber)
         this.initialQuestionNumber = progress
-      this.progress = ((this.initialQuestionNumber - progress) / this.initialQuestionNumber) * 100
+      this.progress = ((this.initialQuestionNumber - progress) / this.initialQuestionNumber) * (100 + (20))
     })
   }
 
@@ -194,6 +197,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
         index: this.activeSection.index + step,
         isFirst: this.activeSection.index + step === 0,
         isLast: this.activeSection.index + step === this.sections.length - 1,
+        isPrime: false,
         sectionsLength: this.sections.length,
         maxRepeat: this.activeSection.maxRepeat
       }
@@ -297,19 +301,47 @@ export class FormComponent implements OnInit, AfterContentChecked {
       ).subscribe(this.store)
 
     this.submittedValue$.subscribe((data) => {
+      this.store.dispatch(formLoaded({ isFormLoaded: false }))
       if (data) {
-        this.flashquoteService.submitQuote(data).subscribe({
-          next: quoteResult => {
-            console.log('quote result', quoteResult)
-            if (quoteResult) {
-              this.submittingForm = false;
-              this.router.navigate(['prime'])
+        window.scrollTo(0, 200);
+        setTimeout(() => {
+
+          console.log('PRIME IS READY', data)
+
+          this.store.dispatch(setActiveSection({
+            activeSection: {
+              id: this.sections.length,
+              title: { LabelEn: 'Your Prime', LabelFr: 'Votre prime' },
+              isRepeat: false,
+              index: this.sections.length,
+              isFirst: false,
+              isLast: false,
+              isPrime: true,
+              sectionsLength: this.sections.length,
+              maxRepeat: 0
             }
-          },
-          error: err => {
-            console.error(err)
-          }
-        })
+          }))
+
+          this.store.dispatch(formLoaded({ isFormLoaded: true }))
+        }, 10000)
+
+
+
+        this.store.dispatch(new MarkAsSubmittedAction('generic'))
+        this.store.dispatch(new ResetAction('generic'));
+
+        // this.flashquoteService.submitQuote(data).subscribe({
+        //   next: quoteResult => {
+        //     console.log('quote result', quoteResult)
+        //     if (quoteResult) {
+        //       this.submittingForm = false;
+        //       this.router.navigate(['prime'])
+        //     }
+        //   },
+        //   error: err => {
+        //     console.error(err)
+        //   }
+        // })
       }
     });
 

@@ -451,6 +451,7 @@
     "SEARCH": "Search",
     "ESTIMATION": "Please note that the premium estimate obtained above is established according to the information that you have provided. This estimate may be modified during the collection of additional information",
     "CONTACT_SOON": "We will contact you shortly to finalize your request.",
+    "PRECISIONS": "Other coverages, fees and discounts may apply.",
     "MORE_INFO": "For more information:",
     "MONTH_TAXES": "Month + Taxes",
     "ESTIMATED": "Your estimated <b>prime</b>",
@@ -460,7 +461,8 @@
     "BANKRUPCY_EXCLUSION_POPUP": "To be eligible, you must be free of any bankruptcy",
     "AUTO_VALUE_EXCLUSION_POPUP": "The value must not exceed $75,000.",
     "AUTO_VALUE_EXCLUSION": "The value of the vehicle cannot exceed $75,000",
-    "AUTO_VALUE_AGE_EXCLUSION_POPUP": "The value of the vehicle cannot exceed $25,000 if the applicant is under 25 years old."
+    "AUTO_VALUE_AGE_EXCLUSION_POPUP": "The value of the vehicle cannot exceed $25,000 if the applicant is under 25 years old.",
+    "NEW_QUOTE": "Make a new quote"
 
 
 

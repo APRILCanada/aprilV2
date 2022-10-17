@@ -5,7 +5,7 @@ import { FlashquoteService } from './services/flashquote.service';
 import { FlashFormDTO } from './models/Flashquote';
 import { concatMap, map, switchMap, catchError, mergeMap, filter, tap, pluck, distinct } from 'rxjs/operators';
 import { concat, from, Observable, of } from 'rxjs';
-import { createSections, loadForm, loadSections, loadSectionsError, loadSectionsSuccess, setActiveSection } from './actions/flashquote.actions';
+import { createSections, formLoaded, loadForm, loadSections, loadSectionsError, loadSectionsSuccess, setActiveSection } from './actions/flashquote.actions';
 import { AddArrayControlAction, AddGroupControlAction } from 'ngrx-forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../reducers/app.reducer';
@@ -16,6 +16,7 @@ import { Section } from './models/Section';
 import { State } from './store';
 import { SectionResult } from './models/SectionResult';
 import { Question } from './models/Question';
+import { Router } from '@angular/router';
 
 
 @Injectable()
@@ -26,7 +27,8 @@ export class FlashquoteEffects {
     private actions$: Actions,
     private flashquoteService: FlashquoteService,
     private brokerService: BrokerService,
-    private store: Store<State>
+    private store: Store<State>,
+    private router: Router
   ) { }
 
   // https://newdevzone.com/posts/how-to-dispatch-multiple-actions-in-ngrxeffect-redux-observable
@@ -84,12 +86,13 @@ export class FlashquoteEffects {
             index: i,
             isFirst: i === 0,
             isLast: i === sectionsLength - 1,
+            isPrime: false,
             sectionsLength
           }
           return sections
         }, {})
 
-        this.store.dispatch(setActiveSection({ activeSection: formSections[0] }))
+        this.store.dispatch(setActiveSection({ activeSection: formSections[1] }))
         return sections.map(section => new AddGroupControlAction('generic', section.id, [{}]))
       }),
       switchMap((res: any) => {
@@ -152,7 +155,7 @@ export class FlashquoteEffects {
         return flattenedSections
       }),
       distinct(({ name }) => name),
-      switchMap((res: any) => [res]
+      switchMap((res: any) => [res, formLoaded({ isFormLoaded: true })]
       )
     )
   )

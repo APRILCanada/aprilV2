@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectBroker, selectFormSubmitted, selectFormValid } from '../selectors';
+import { selectBroker, selectFormSubmitted, selectFormValid, selectUi } from '../selectors';
 import { State } from '../store';
 
 @Component({
@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   flashFormDTO: any;
   formSubmitted$: Observable<boolean>;
   formValid$: Observable<boolean>;
+  ui$: Observable<any>;
   broker: any;
   load = false;
   logo: string;
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
   constructor(private route: ActivatedRoute, private store: Store<State>,) { }
 
   ngOnInit(): void {
+    this.getUi()
     this.getFormSubmitted()
     this.getFormValid()
     this.getBroker()
@@ -40,5 +42,9 @@ export class HomeComponent implements OnInit {
 
   getFormValid() {
     this.formValid$ = this.store.pipe(select(selectFormValid));
+  }
+
+  getUi() {
+    this.ui$ = this.store.pipe(select(selectUi));
   }
 }

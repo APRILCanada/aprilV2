@@ -1,4 +1,5 @@
 import { Action, createAction, props } from '@ngrx/store';
+import { create } from 'lodash';
 import { FormControlState } from 'ngrx-forms';
 import { number } from 'ngrx-forms/validation';
 import { ActiveSection } from '../models/ActiveSection';
@@ -22,6 +23,7 @@ export const loadForm = createAction('[FORM] Load Form', props<{ flashquote: Fla
 //   '[Home Resolver] LOAD_FLASHQUOTE',
 //   props<{ marketId: string }>()
 // );
+export const formLoaded = createAction('[FORM] Form Loaded', props<{ isFormLoaded: boolean }>())
 
 export const setValue = createAction(
   '[Dialog Set Value] Set Selected Value',

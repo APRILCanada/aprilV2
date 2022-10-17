@@ -19,14 +19,17 @@
 
 <ng-template #notApril>
   <app-flash-quote [id]="broker.marketId"></app-flash-quote>
-</ng-template>
+</ng-template> -->
+
+<div *ngIf="(ui$ | async).isFormLoaded; else showLoading">
+  <app-navbar [broker]="broker" [logo]="logo"></app-navbar>
+  <main>
+    <app-hero></app-hero>
+    <!-- <app-flash-quote [id]="broker.marketId"></app-flash-quote> -->
+    <app-form></app-form>
+  </main>
+</div>
 
 <ng-template #showLoading>
   <app-loader></app-loader>
-</ng-template> -->
-<app-navbar [broker]="broker" [logo]="logo"></app-navbar>
-<main>
-  <app-hero></app-hero>
-  <!-- <app-flash-quote [id]="broker.marketId"></app-flash-quote> -->
-  <app-form></app-form>
-</main>
+</ng-template>

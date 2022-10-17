@@ -4,6 +4,7 @@
 
 form {
     max-width: 600px;
+    width: 100%;
 }
 
 .btn-block {
@@ -14,13 +15,18 @@ form {
 
 
 @media (max-width: 581px) {
+    :host {
+        grid-column: 1 / -1;
+    }
+
     .wrapper {
-        width: 90vw;
+        width: 100vw;
         margin-left: 1.5rem;
         margin: 3rem auto;
         margin-right: 3rem;
         position: relative;
     }
+
 }
 
 .logo {
@@ -50,6 +56,12 @@ form {
     padding-bottom: 1.5rem;
 }
 
+@media (max-width: 581px) {
+    .flash-form {
+        transform: translateY(-30px);
+    }
+}
+
 .groupSection-header {
     display: flex;
     align-items: center;
@@ -64,5 +76,52 @@ form {
 
     & .next {
         margin-left: auto;
+    }
+}
+
+.prime-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f1f1f1;
+    width: 100%;
+    max-width: 600px;
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-top: 3rem !important;
+
+    &__prime {
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding: 1rem 0.5rem;
+
+        &--highlight {
+            color: crimson;
+            font-size: 2.2rem;
+        }
+    }
+
+    &__phone {
+        font-weight: bold;
+        color: crimson;
+        font-size: 2.2rem;
+    }
+}
+
+.more-info {
+    text-align: center;
+    padding: 1rem 0;
+    width: 100%;
+    max-width: 600px;
+
+    &>* {
+        margin-bottom: 1.5rem;
+    }
+
+    &__header {
+        font-size: 1.4rem;
+        font-weight: bold;
+        line-height: 1.5;
     }
 }

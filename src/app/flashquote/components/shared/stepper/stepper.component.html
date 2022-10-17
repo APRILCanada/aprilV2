@@ -1,16 +1,17 @@
 <div class="stepper">
     <div class="background-stepper">
+        <div class="progress" [style.width]="progress + '%'"></div>
         <div class="progress"></div>
         <div class="points">
             <div class="point d-flex align-items-center flex-wrap point-valid" *ngFor="let section of sections; let i = index;"
-                [ngClass]="{'point-active': section.id == activeSection.id }">
+                [ngClass]="{'point-active': section.id == activeSection.id || i < activeSection.index }">
                 <span class="point-label text-smoll flex-wrap" (click)="setActiveSection(section.id, i)">
                     <small>{{ language.get() == "fr" ? section.title.LabelFr: section.title.LabelEn
                         }}</small>
                 </span>
             </div>
             <span class="point d-flex align-items-center flex-wrap point-valid point-label-prime">
-                <span class="point-prime">Prime</span>
+                <span class="point-prime">PRIME</span>
             </span>
         </div>
     </div>

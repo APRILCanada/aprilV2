@@ -32,11 +32,12 @@ export class SectionComponent implements OnInit {
     this.getActiveSection();
     this.getSections();
     this.getErrors();
+
   }
 
   getActiveSection() {
     this.store.pipe(select(selectActiveSection)).subscribe(data => this.activeSection = data)
-   // this.activeSection$ = this.store.pipe(select(selectActiveSection))
+   //this.activeSection$ = this.store.pipe(select(selectActiveSection))
   }
 
   getSections() {

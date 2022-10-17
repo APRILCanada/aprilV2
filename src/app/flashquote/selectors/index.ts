@@ -5,6 +5,11 @@ import { State } from '../store';
 export const selectForm = createFeatureSelector<State['form']>('form');
 
 // selectors
+export const selectUi = createSelector(
+  selectForm,
+  (state) => state.ui
+);
+
 export const selectBroker = createSelector(
   selectForm,
   (state) => state.broker
@@ -55,10 +60,13 @@ export const selectProgress = createSelector(
   (state) => {
     let count = 0
     for (let i in state) {
+      console.log('I', i)
       for (let j in state[i]) {
+        console.log('J', j)
         count += Object.keys(state[i][j]).length
       }
     }
+    console.log('COUNT', count)
     return count
   }
 )

@@ -4,10 +4,12 @@ import { SetSubmittedValueAction } from "../actions/flashquote.actions";
 import { sectionsReducer } from "./sectionsReducer";
 import { formStateReducer } from "./formStateReducer";
 import { brokerReducer } from "./brokerReducer";
+import { uiReducer } from "./uiReducer"
 import { activeSectionReducer } from "./activeSectionReducer";
 
 const reducers = combineReducers<State['form'], any>({
   broker: brokerReducer,
+  ui: uiReducer,
   activeSection: activeSectionReducer,
   sections: sectionsReducer,
   formState: formStateReducer,

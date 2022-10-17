@@ -8,11 +8,11 @@
 
   <!-- DYNAMIC FORM -->
   <!-- <form *ngIf="!submittingForm" [ngrxFormState]="formState" (submit)="submit()"> -->
-  <form *ngIf="!submittingForm" [ngrxFormState]="formState" (submit)="submit()">
+  <form [ngrxFormState]="formState" (submit)="submit()">
 
     <app-section [progress]="progress" [formValid$]="formValid$" [formSubmitted$]="formSubmitted$">
 
-      <div *ngIf="activeSection.id">
+      <div *ngIf="activeSection.id && !activeSection.isPrime">
         <div *ngFor="let group of formState.controls[activeSection.id].controls; let i = index; trackBy:customTrackBy">
           <header class="groupSection-header" *ngIf="activeSection.isRepeat">
             <h2>{{ activeSection.title.LabelEn }} {{ i + 1 }}</h2>
@@ -24,8 +24,8 @@
               </mat-icon>
             </button>
           </header>
-          <ng-container *ngFor="let question of questionsBySection; let j = index; trackBy:customTrackByTwo">
 
+          <ng-container *ngFor="let question of questionsBySection; let j = index; trackBy:customTrackByTwo">
             <div *ngIf="formState.controls[activeSection.id].controls[i].controls[question.id]">
               <!-- QUESTION BASE -->
               <app-question-base [question]="question"
@@ -37,13 +37,31 @@
                 </app-error>
               </app-question-base>
             </div>
-
           </ng-container>
         </div>
       </div>
+
+      <!-- PRIME -->
+      <section *ngIf="activeSection.id && activeSection.isPrime">
+        <div class="prime-box">
+          <p class="prime-box__prime">
+            <span class="heading prime-box__prime--highlight">188,17</span><span>$</span> / {{ "MONTH_TAXES" | translate
+            }}
+          </p>
+          <p>{{ "CONTACT_SOON" | translate }}<br />
+            {{ "MORE_INFO" | translate }}</p>
+          <p class="prime-box__phone">1 855 745-2020</p>
+        </div>
+
+        <div class="more-info">
+          <p class="more-info__header">{{ "PRECISIONS" | translate }}</p>
+          <p>{{ "ESTIMATION" | translate }}</p>
+        </div>
+      </section>
+
     </app-section>
 
-    <div class="section-buttons">
+    <div *ngIf="!activeSection.isPrime" class="section-buttons">
       <!-- PREVIOUS -->
       <button type="button" *ngIf="!activeSection.isFirst" class="btn-april" (click)="setActiveSection(-1)">
         Previous
