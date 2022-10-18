@@ -2,20 +2,35 @@ import { Boxed, ValidationErrors } from "ngrx-forms/public_api";
 import { pattern } from "ngrx-forms/validation";
 
 /* *** *** ***  *** *** ***  *** *** ***  *** *** *** */
+// export function validateRepartition(values: any): ValidationErrors {
+//     let total = 0;
+//     let unfilledValues = false
+
+//     for (let k in values) {
+//         if (values[k] === 0 || values[k] === null) unfilledValues = true
+//         total += values[k]
+//     }
+
+//     return total === 100 && unfilledValues ? {
+//         unfilledRepartition: {
+//             actual: ""
+//         }
+//     } : (total === 100 && !unfilledValues) || Object.entries(values).length === 0 ? {} : {
+//         valRep: {
+//             actual: total
+//         }
+//     }
+// }
+
 export function validateRepartition(values: any): ValidationErrors {
     let total = 0;
-    let unfilledValues = false
+    //let unfilledValues = false
 
     for (let k in values) {
-        if (values[k] === 0 || values[k] === null) unfilledValues = true
         total += values[k]
     }
 
-    return total === 100 && unfilledValues ? {
-        unfilledRepartition: {
-            actual: ""
-        }
-    } : (total === 100 && !unfilledValues) || Object.entries(values).length === 0 ? {} : {
+    return (total === 100) || Object.entries(values).length === 0 ? {} : {
         valRep: {
             actual: total
         }

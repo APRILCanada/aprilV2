@@ -106,7 +106,6 @@ export class ActionService {
         }
       }
     }
-    console.log('temp hide', this.temp)
   }
 
   show(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
@@ -158,7 +157,6 @@ export class ActionService {
         }
       }
     }
-    console.log('temp show', this.temp)
   }
 
   getOptionsFromPreviousAnswer(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {

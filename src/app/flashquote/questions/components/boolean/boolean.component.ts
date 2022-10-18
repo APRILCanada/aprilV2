@@ -13,7 +13,7 @@ export class BooleanComponent implements OnInit {
   @Input() question: Question;
   @Input() control: FormControlState<any>;
   @Input() error: any
-  selected: string = 'false'
+  selected: string = ''
 
 
   constructor(public language: LanguageService, private store: Store) { }

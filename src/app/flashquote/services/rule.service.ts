@@ -198,7 +198,6 @@ export class RuleService {
 
 
   contains(value:any, ruleValue:any, notContains:boolean = false){
-    console.log('VALUE', value)
     if(Array.isArray(value)){
       var index = value.indexOf(ruleValue);
       return notContains ? index == -1 : index > -1;

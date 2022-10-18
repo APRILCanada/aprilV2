@@ -11,7 +11,7 @@
   <form [ngrxFormState]="formState" (submit)="submit()">
 
     <app-section [progress]="progress" [formValid$]="formValid$" [formSubmitted$]="formSubmitted$">
-
+      {{ premium }}
       <div *ngIf="activeSection.id && !activeSection.isPrime">
         <div *ngFor="let group of formState.controls[activeSection.id].controls; let i = index; trackBy:customTrackBy">
           <header class="groupSection-header" *ngIf="activeSection.isRepeat">
@@ -44,8 +44,9 @@
       <!-- PRIME -->
       <section *ngIf="activeSection.id && activeSection.isPrime">
         <div class="prime-box">
+          {{ premium }}
           <p class="prime-box__prime">
-            <span class="heading prime-box__prime--highlight">188,17</span><span>$</span> / {{ "MONTH_TAXES" | translate
+            <span class="heading prime-box__prime--highlight">{{ premium }}</span><span>$</span> / {{ "MONTH_TAXES" | translate
             }}
           </p>
           <p>{{ "CONTACT_SOON" | translate }}<br />

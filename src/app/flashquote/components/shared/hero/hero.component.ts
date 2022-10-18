@@ -14,18 +14,22 @@ export class HeroComponent implements OnInit {
   ngOnInit(): void {
   }
 
-    // open full screen dialog for select with more than 10 options
-    openDialog() {
-      const dialogConfig = new MatDialogConfig();
-      // add the question and all the options (as Observable) related to this select
-      dialogConfig.data = {
-        panelClass: 'custom-dialog-container'
-      };
-      dialogConfig.width = '100vw';
-      dialogConfig.panelClass = 'mobile-dialog-container';
-      // call the open method on the matDialog service and pass in the component to render
-      // inside the dialog - returns a ref of the currently opened dialog
-      const dialogRef = this.matDialog.open(ExclusionRulesComponent, dialogConfig);
-    }
+  // open full screen dialog for select with more than 10 options
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+    // add the question and all the options (as Observable) related to this select
+    dialogConfig.data = {
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      height: '100%',
+      width: '100%',
+      panelClass: 'custom-dialog-container'
+    };
+    dialogConfig.width = '100vw';
+    dialogConfig.panelClass = 'mobile-dialog-container';
+    // call the open method on the matDialog service and pass in the component to render
+    // inside the dialog - returns a ref of the currently opened dialog
+    const dialogRef = this.matDialog.open(ExclusionRulesComponent, dialogConfig);
+  }
 
 }

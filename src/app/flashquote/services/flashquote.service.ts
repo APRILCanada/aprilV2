@@ -3210,20 +3210,11 @@ export class FlashquoteService {
         'x-api-key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344'
       }
     });
-    //return this.http.get<any>(`http://localhost:51668/api/publicflash/` + marketId);
   }
 
 
-  // getFlashquote(): Observable<any> {
-  //   return new Observable(subscriber => {
-  //     subscriber.next(this.dataJSON)
-  //   })
-  // }
-
-
   submitQuote(quote: any) {
-    console.log('quote', JSON.stringify(quote))
-    return this.http.post<any>('http://localhost:51668/api/publicflash/', JSON.stringify(quote), {
+    return this.http.post<any>('http://localhost:51668/api/publicflash', JSON.stringify(quote), {
       headers: { 'Content-Type': 'application/json', 'x-api-key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344' }
     });
   }

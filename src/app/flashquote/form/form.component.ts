@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { Store, select, ActionsSubject } from '@ngrx/store';
 import { Question } from '../models/Question';
 import { FormGroupState, MarkAsSubmittedAction, ResetAction, SetValueAction } from 'ngrx-forms';
@@ -51,6 +51,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
   initialQuestionNumber: number = 0;
   progress: number = 0;
   primeReady = false;
+  premium: any;
 
 
   constructor(
@@ -304,44 +305,38 @@ export class FormComponent implements OnInit, AfterContentChecked {
       this.store.dispatch(formLoaded({ isFormLoaded: false }))
       if (data) {
         window.scrollTo(0, 200);
-        setTimeout(() => {
 
-          console.log('PRIME IS READY', data)
+        this.flashquoteService.submitQuote(data).subscribe({
+          next: quoteResult => {
+            console.log('QUOTE RESULT', quoteResult)
+            if (quoteResult) {
+              this.store.dispatch(setActiveSection({
+                activeSection: {
+                  id: this.sections.length,
+                  title: { LabelEn: 'Your Prime', LabelFr: 'Votre prime' },
+                  isRepeat: false,
+                  index: this.sections.length,
+                  isFirst: false,
+                  isLast: false,
+                  isPrime: true,
+                  sectionsLength: this.sections.length,
+                  maxRepeat: 0
+                }
+              }))
 
-          this.store.dispatch(setActiveSection({
-            activeSection: {
-              id: this.sections.length,
-              title: { LabelEn: 'Your Prime', LabelFr: 'Votre prime' },
-              isRepeat: false,
-              index: this.sections.length,
-              isFirst: false,
-              isLast: false,
-              isPrime: true,
-              sectionsLength: this.sections.length,
-              maxRepeat: 0
+              this.premium = quoteResult.total.premium;
+
+              this.submittingForm = false;
+
+              this.store.dispatch(formLoaded({ isFormLoaded: true }))
+              this.store.dispatch(new MarkAsSubmittedAction('generic'))
+              this.store.dispatch(new ResetAction('generic'));
             }
-          }))
-
-          this.store.dispatch(formLoaded({ isFormLoaded: true }))
-        }, 10000)
-
-
-
-        this.store.dispatch(new MarkAsSubmittedAction('generic'))
-        this.store.dispatch(new ResetAction('generic'));
-
-        // this.flashquoteService.submitQuote(data).subscribe({
-        //   next: quoteResult => {
-        //     console.log('quote result', quoteResult)
-        //     if (quoteResult) {
-        //       this.submittingForm = false;
-        //       this.router.navigate(['prime'])
-        //     }
-        //   },
-        //   error: err => {
-        //     console.error(err)
-        //   }
-        // })
+          },
+          error: err => {
+            console.error(err)
+          }
+        })
       }
     });
 

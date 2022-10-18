@@ -60,13 +60,10 @@ export const selectProgress = createSelector(
   (state) => {
     let count = 0
     for (let i in state) {
-      console.log('I', i)
       for (let j in state[i]) {
-        console.log('J', j)
         count += Object.keys(state[i][j]).length
       }
     }
-    console.log('COUNT', count)
     return count
   }
 )

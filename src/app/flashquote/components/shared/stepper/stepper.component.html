@@ -3,15 +3,17 @@
         <div class="progress" [style.width]="progress + '%'"></div>
         <div class="progress"></div>
         <div class="points">
-            <div class="point d-flex align-items-center flex-wrap point-valid" *ngFor="let section of sections; let i = index;"
+            <div class="point d-flex align-items-center flex-wrap point-valid"
+                *ngFor="let section of sections; let i = index;"
                 [ngClass]="{'point-active': section.id == activeSection.id || i < activeSection.index }">
                 <span class="point-label text-smoll flex-wrap" (click)="setActiveSection(section.id, i)">
                     <small>{{ language.get() == "fr" ? section.title.LabelFr: section.title.LabelEn
                         }}</small>
                 </span>
             </div>
-            <span class="point d-flex align-items-center flex-wrap point-valid point-label-prime">
-                <span class="point-prime">PRIME</span>
+            <span class="point d-flex align-items-center flex-wrap point-valid point-label-prime"
+                [ngStyle]="activeSection.isPrime ? { 'background-color': 'green', 'border': '4px solid green' } : { 'background-color': 'orange', 'border': '4px solid orange'}">
+                <span class="point-prime" [ngStyle]="activeSection.isPrime ? { color: 'green'} : {color: 'orange'}">PRIME</span>
             </span>
         </div>
     </div>
