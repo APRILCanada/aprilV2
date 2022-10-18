@@ -1,7 +1,7 @@
 import { ValidationErrors } from "@angular/forms";
 import { time } from "console";
 import { Boxed, FormControlState, unbox, updateArray, updateGroup, validate } from "ngrx-forms";
-import { number, pattern, required } from "ngrx-forms/validation";
+import { email, number, pattern, required } from "ngrx-forms/validation";
 import { SectionControl } from "../store";
 import { validateRepartition } from "./functions";
 
@@ -46,6 +46,8 @@ export const validation: any = {
     28: {
         34: updateArray(updateGroup<SectionControl>({
             223: validate(required),
+            3465: validate(required),
+            3466: validate<any>(required, email),
             227: updateGroup<any>({
                 'MailingAddress-Street': validate(required),
                 'MailingAddress-PostalCode': validate(required, pattern(/^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i)),

@@ -11,6 +11,16 @@
 <mat-error
   @fadeSlideInOut
   *ngIf="
+    error?.email &&
+    (control.isDirty || control.isTouched || control.isSubmitted)
+  "
+>
+  <small>{{ "EMAIL_VALIDATION" | translate }}</small>
+</mat-error>
+
+<mat-error
+  @fadeSlideInOut
+  *ngIf="
     error?.pattern &&
     (control.isDirty || control.isTouched || control.isSubmitted)
   "

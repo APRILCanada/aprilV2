@@ -22,7 +22,7 @@ export const INITIAL_STATE = createFormGroupState<FormValue>(FORM_ID, {});
 export function formStateReducer(
   state = INITIAL_STATE, action: AddGroupSectionAction | RemoveGroupSectionAction
 ) {
-  
+
   const marketId = localStorage.getItem('market') ?? ''
   const validateForm = updateGroup<FormValue>(validation[marketId])
 
@@ -42,10 +42,7 @@ export function formStateReducer(
             }
 
             if (typeof initialSectionValue[key] === 'string') {
-              if (initialSectionValue[key] === 'false' || initialSectionValue[key] === 'true') {
-                initialSectionValue[key] = "false";
-              }
-              else initialSectionValue[key] = "";
+              initialSectionValue[key] = "";
             }
           }
           return addArrayControl(initialSectionValue)(section)

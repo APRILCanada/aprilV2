@@ -3205,7 +3205,7 @@ export class FlashquoteService {
   constructor(private http: HttpClient) { }
 
   getFlashquote(marketId: string): Observable<FlashFormDTO> {
-    return this.http.get<any>(`http://localhost:51668/api/publicflashV2/` + marketId, {
+    return this.http.get<any>(`http://localhost:51668/api/publicflash/` + marketId, {
       headers: {
         'x-api-key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344'
       }

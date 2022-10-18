@@ -462,5 +462,6 @@
     "AUTO_VALUE_EXCLUSION_POPUP": "La valeur du véhicule ne peut pas excéder 75 000$.",
     "AUTO_VALUE_EXCLUSION": "La valeur du véhicule ne peut pas excéder 75 000$",
     "AUTO_VALUE_AGE_EXCLUSION_POPUP": "La valeur du véhicule ne peut pas excéder 25 000$ si le proposant a moins de 25 ans.",
-    "NEW_QUOTE": "Faire une nouvelle soumission"
+    "NEW_QUOTE": "Faire une nouvelle soumission",
+    "EMAIL_VALIDATION": "Merci d'entrer un email valide."
 }
