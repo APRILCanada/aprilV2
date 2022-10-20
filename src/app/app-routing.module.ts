@@ -121,7 +121,7 @@ const routes: Routes = [
         )
     },
     {
-      path: 'direct/:id/prime',
+      path: 'prime',
       component: PrimeComponent,
       data: { animation: 'prime' },
     },

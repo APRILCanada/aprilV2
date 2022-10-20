@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { BrokerDTO } from 'src/app/flashquote/models/Broker';
+import { LanguageService } from 'src/app/services/language.service';
 import { ExclusionRulesComponent } from '../exclusion-rules/exclusion-rules.component';
 
 @Component({
@@ -8,27 +10,22 @@ import { ExclusionRulesComponent } from '../exclusion-rules/exclusion-rules.comp
   styleUrls: ['./hero.component.scss'],
 })
 export class HeroComponent implements OnInit {
+  @Input() broker: BrokerDTO
 
-  constructor(private matDialog: MatDialog) { }
+  constructor(private matDialog: MatDialog, public language: LanguageService) { }
 
   ngOnInit(): void {
   }
 
-  // open full screen dialog for select with more than 10 options
   openDialog() {
     const dialogConfig = new MatDialogConfig();
-    // add the question and all the options (as Observable) related to this select
+
     dialogConfig.data = {
-      maxWidth: '100vw',
-      maxHeight: '100vh',
-      height: '100%',
-      width: '100%',
-      panelClass: 'custom-dialog-container'
+      broker: this.broker
     };
     dialogConfig.width = '100vw';
     dialogConfig.panelClass = 'mobile-dialog-container';
-    // call the open method on the matDialog service and pass in the component to render
-    // inside the dialog - returns a ref of the currently opened dialog
+
     const dialogRef = this.matDialog.open(ExclusionRulesComponent, dialogConfig);
   }
 

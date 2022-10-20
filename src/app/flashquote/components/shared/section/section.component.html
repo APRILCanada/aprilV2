@@ -10,10 +10,10 @@
     <ng-content></ng-content>
 
     <div *ngIf="activeSection.isRepeat" class="isRepeat-button">
-        <button type="button"
+        <button *ngIf="getTotalGroupSection() < activeSection.maxRepeat" type="button"
             class="button-action-simple-small button-blue btn btn-sm d-flex align-items-center text-button-simple mr-2"
             (click)="addGroupSection()">
-            <span class="text-button">Add a new {{activeSection.title.LabelEn}}</span>
+            <span class="text-button">&#43; {{language.get() == "fr" ? 'Ajouter un nouveau ' + activeSection.title.LabelFr.slice(0, -1) : 'Add a new' + activeSection.title.LabelEn.slice(0, -1) }}</span>
         </button>
     </div>
 </section>

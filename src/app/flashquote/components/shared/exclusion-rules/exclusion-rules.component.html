@@ -1,42 +1,17 @@
 <header mat-dialog-title>
-    <p>Vous ne pouvez pas faire une soumission en ligne si au moins l'une des conditions suivantes ne s'applique pas à
-        vous.<br />
-        Merci de contacter l'un de nos agents au <span class="highlight">888-888-8888</span></p>
+    <p>{{ "SUBMISSION_RULES" | translate }}.<br />
+        {{ "CONTACT_BROKER" | translate }} <span class="highlight">{{ broker.phone }}</span></p>
 </header>
 
 <mat-dialog-content>
-    <h3>Proposant</h3>
-
-    <ul>
-        <li>Réside au Québec.</li>
-        <li>Ne réside pas en territoire éloigné.</li>
-        <li>Est libéré de toute faillite (Propositions de consommateur acceptées).</li>
-        <li>N'agit pas en tant que prête-nom.</li>
-    </ul>
-
-    <h3>Conducteur</h3>
-    <ul>
-        <li>S'est vu délivré un permis de conduire par la province de Québec.</li>
-        <li>N'a pas fait l'objet de plus de 2 suspensions pour facultés affaiblies.</li>
-    </ul>
-    <h3>Véhicule</h3>
-    <ul>
-        <li>Les véhicules personnalisés doivent avoir une valeur inférieure à 30 000$.</li>
-        <li>Doit correspondre à la définition d'une automobile (excluant véhicules récréatifs).</li>
-        <li>Doit être agé de moins de 25 ans.</li>
-        <li>La valeur ne doit pas excéder 75 000$ (25 000$ si le proposant a moins de 25 ans).</li>
-        <li>Ne doit pas être modifié (performance/moteur/suspension).</li>
-        <li>Volant à gauche.</li>
-        <li>N'est pas une location à court terme.</li>
-        <li>N'est pas équipé de dispositif de conduite autonome.</li>
-    </ul>
-    <h3>Usage</h3>
-    <ul>
-        <li>Est utilisé principalement à des fins personnelles.</li>
-        <li>Principalement au Québec (max 30 jours consécutifs hors-Québec).</li>
-    </ul>
+    <div *ngFor="let title of data.broker.market.exclusions[lang].sections">
+        <h3>{{ title }}</h3>
+        <ul>
+            <li *ngFor="let rule of data.broker.market.exclusions[lang].rules[title]">{{ rule }}</li>
+        </ul>
+    </div>
 </mat-dialog-content>
 
 <mat-dialog-actions class="actions">
-    <button class="btn-april" (click)="close()">J'ai compris</button>
+    <button class="btn-april" (click)="close()">{{ "UNDERSTAND" | translate }}</button>
 </mat-dialog-actions>

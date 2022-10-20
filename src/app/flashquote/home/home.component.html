@@ -24,7 +24,7 @@
 <div *ngIf="(ui$ | async).isFormLoaded; else showLoading">
   <app-navbar [broker]="broker" [logo]="logo"></app-navbar>
   <main>
-    <app-hero></app-hero>
+    <app-hero [broker]="broker"></app-hero>
     <!-- <app-flash-quote [id]="broker.marketId"></app-flash-quote> -->
     <app-form></app-form>
   </main>

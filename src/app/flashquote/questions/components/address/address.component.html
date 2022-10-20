@@ -32,7 +32,7 @@
         [ngClass]="{'d-none':!addressAutoCompleteHidden, 'd-flex flex-column':addressAutoCompleteHidden}">
         <div class="container text-form mt-3" style="padding:0 !important;">
             <div class="row">
-                <div class="col-3">
+                <div class="col-12 col-sm-4 col-md-3">
                     <div class="d-flex flex-column justify-content-center">
                         <span>{{ 'HOUSE_NUMBER' | translate}}</span>
                         <div class="input-group mb-1" tabindex="1">
@@ -46,7 +46,7 @@
                     </div>
                 </div>
 
-                <div class="col-9">
+                <div class="col-12 col-sm-8 col-md-9">
                     <div class="d-flex flex-column justify-content-center">
                         <span>{{ 'STREET' | translate}}</span>
                         <div class="input-group mb-1" tabindex="2">
@@ -63,7 +63,7 @@
         </div>
 
         <div class="row">
-            <div class="col-9">
+            <div class="col-8">
                 <div class="d-flex flex-column justify-content-center">
                     <span>{{ 'CITY' | translate}}</span>
                     <div class="input-group mb-1" tabindex="3">
@@ -75,7 +75,7 @@
                     </app-error>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-4">
                 <div class="d-flex flex-column justify-content-center">
                     <span>{{ 'APT_OTHER' | translate}}</span>
                     <div class="input-group mb-1" tabindex="3">
@@ -87,7 +87,7 @@
         </div>
 
         <div class="row">
-            <div class="col-8">
+            <div class="col-12 col-sm-8">
                 <div class="d-flex flex-column justify-content-center relative">
                     <span>Province</span>
                     <div class="input-group mb-1" tabindex="3">
@@ -104,7 +104,7 @@
                     <app-exclusion-popup [error]="(errors$ | async)['_' + activeSection.id] && (errors$ | async)['_' + activeSection.id]['_0']['_' + question.id] && (errors$ | async)['_' + activeSection.id]['_0']['_' + question.id]['_MailingAddress-Province']"></app-exclusion-popup>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
                 <div class="d-flex flex-column justify-content-center">
                     <span>{{ 'POSTAL_CODE' | translate }}</span>
                     <div class="input-group mb-1" tabindex="3">

@@ -15,7 +15,7 @@
       <div *ngIf="activeSection.id && !activeSection.isPrime">
         <div *ngFor="let group of formState.controls[activeSection.id].controls; let i = index; trackBy:customTrackBy">
           <header class="groupSection-header" *ngIf="activeSection.isRepeat">
-            <h2>{{ activeSection.title.LabelEn }} {{ i + 1 }}</h2>
+            <h2>{{ language.get() == "fr" ? activeSection.title.LabelFr.slice(0, -1) : activeSection.title.LabelEn.slice(0, -1) }} {{ i + 1 }}</h2>
             <button type="button"
               class="button-icon-small button-red d-flex align-items-center justify-content-center text-button-simple"
               (click)="removeGroupSection(activeSection.id, i)" *ngIf="i > 0">
@@ -51,7 +51,7 @@
           </p>
           <p>{{ "CONTACT_SOON" | translate }}<br />
             {{ "MORE_INFO" | translate }}</p>
-          <p class="prime-box__phone">1 855 745-2020</p>
+          <p class="prime-box__phone">{{ broker.phone }}</p>
         </div>
 
         <div class="more-info">
@@ -65,12 +65,12 @@
     <div *ngIf="!activeSection.isPrime" class="section-buttons">
       <!-- PREVIOUS -->
       <button type="button" *ngIf="!activeSection.isFirst" class="btn-april" (click)="setActiveSection(-1)">
-        Previous
+        {{ "BACK" | translate }}
       </button>
 
       <!-- NEXT -->
       <button type="button" *ngIf="!activeSection.isLast" class="btn-april next" (click)="setActiveSection(1)">
-        Next
+        {{ "NEXT" | translate }}
       </button>
 
       <!-- SUBMIT -->

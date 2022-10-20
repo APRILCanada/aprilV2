@@ -462,8 +462,13 @@
     "AUTO_VALUE_EXCLUSION_POPUP": "The value must not exceed $75,000.",
     "AUTO_VALUE_EXCLUSION": "The value of the vehicle cannot exceed $75,000",
     "AUTO_VALUE_AGE_EXCLUSION_POPUP": "The value of the vehicle cannot exceed $25,000 if the applicant is under 25 years old.",
+    "MAJOR_INFRACTION_EXCLUSION_POPUP": "To be eligible, you must not have been subject to more than 2 major infractions.",
     "NEW_QUOTE": "Make a new quote",
-    "EMAIL_VALIDATION": "Please enter a valid email"
+    "EMAIL_VALIDATION": "Please enter a valid email",
+    "UNDERSTAND": "I understand",
+    "SUBMISSION_RULES": "You cannot make an online submission if at least one of the following conditions does not apply to you.",
+    "CONTACT_BROKER": "Please contact one of our agents at ",
+    "REPARTITION_EXCLUSION_POPUP": "To be eligible, business use must not exceed 50%."
 }
 
  

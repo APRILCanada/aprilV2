@@ -5,7 +5,7 @@ import { filter, Observable, tap } from 'rxjs';
 import { AddGroupSectionAction, setActiveSection } from 'src/app/flashquote/actions/flashquote.actions';
 import { ActiveSection } from 'src/app/flashquote/models/ActiveSection';
 import { Section } from 'src/app/flashquote/models/Section';
-import { selectActiveSection, selectErrors, selectSections } from 'src/app/flashquote/selectors';
+import { selectActiveSection, selectErrors, selectFormState, selectSections } from 'src/app/flashquote/selectors';
 import { State } from 'src/app/flashquote/store';
 import { LanguageService } from 'src/app/services/language.service';
 
@@ -20,6 +20,7 @@ export class SectionComponent implements OnInit {
   formSections: Section[] = [];
   initialSectionValue: any;
   errors: any;
+  totalGroupsInCurrentSection: number = 0;
 
   @Input() progress: any;
   @Input() exclusion: any;
@@ -32,12 +33,19 @@ export class SectionComponent implements OnInit {
     this.getActiveSection();
     this.getSections();
     this.getErrors();
-
   }
 
   getActiveSection() {
     this.store.pipe(select(selectActiveSection)).subscribe(data => this.activeSection = data)
-   //this.activeSection$ = this.store.pipe(select(selectActiveSection))
+    //this.activeSection$ = this.store.pipe(select(selectActiveSection))
+  }
+
+  getTotalGroupSection() {
+    let count = 0
+    this.store.pipe(select(selectFormState)).subscribe(state => {
+      count = state.value[this.activeSection.id]?.length
+    })
+    return count
   }
 
   getSections() {

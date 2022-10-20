@@ -1,31 +1,42 @@
 import { ValidationErrors } from "@angular/forms";
-import { time } from "console";
 import { Boxed, FormControlState, unbox, updateArray, updateGroup, validate } from "ngrx-forms";
-import { email, number, pattern, required } from "ngrx-forms/validation";
+import { email, pattern, required } from "ngrx-forms/validation";
 import { SectionControl } from "../store";
 import { validateRepartition } from "./functions";
 
 
-export function exclusion<T>(rule: string, comparand: T, errorMessagePopup: string, errorMessageInput?: string) {
+export function exclusion<T>(mustBe: string, comparand: T, errorMessagePopup: string, errorMessageInput?: string) {
     return <TV extends T | Boxed<T> = T>(value: TV): ValidationErrors => {
         //value = unbox(value) as T as TV;
         value = unbox(value) as any
 
-        if (rule === 'equal') {
+        if (mustBe === 'equal') {
             if (value === comparand) {
                 return {};
             }
         }
 
-        if (rule === 'dateBefore') {
+        if (mustBe === 'dateBefore') {
             const inputDate = new Date((value as any)).getTime()
             if (inputDate && inputDate < (comparand as any)) {
                 return {}
             }
         }
 
-        if (rule === 'lesserThanOrEqual') {
+        if (mustBe === 'lesserThanOrEqual') {
             if (value <= (comparand as any)) {
+                return {}
+            }
+        }
+
+        if (mustBe === 'businessUseLesserThanOrEqual') {
+            if ((value as any)['BusinessUse'] === '' || (value as any)['BusinessUse'] <= (comparand as any)) {
+                return {}
+            }
+        }
+
+        if (mustBe === 'lesserThan') {
+            if (value < (comparand as any)) {
                 return {}
             }
         }
@@ -76,8 +87,8 @@ export const validation: any = {
             238: validate(required),
             239: validate(required),
             265: validate(required),
-            // 268: validate<any>(required, pattern(/^[0-9]+[0-9]*$/)),
-            // 270: validate<any>(required, pattern(/^[0-9]+[0-9]*$/)),
+            268: validate<any>(required, pattern(/^[0-9]+[0-9]*$/)),
+            270: validate<any>(required, pattern(/^[0-9]+[0-9]*$/), exclusion('lesserThanOrEqual', 2, 'MAJOR_INFRACTION_EXCLUSION_POPUP')),
             372: validate(required),
             344: validate(required),
             240: validate(required),
@@ -92,7 +103,7 @@ export const validation: any = {
                 "Vehicle-Model": validate(required)
             }),
             //309: OPTIONNEL
-            257: validate(validateRepartition),
+            257: validate<any>(validateRepartition, exclusion('businessUseLesserThanOrEqual', 50, 'REPARTITION_EXCLUSION_POPUP')),
             275: validate(required),
             340: validate<any>(required, exclusion('lesserThanOrEqual', 75000, 'AUTO_VALUE_EXCLUSION_POPUP', 'AUTO_VALUE_EXCLUSION')),
             318: (control: FormControlState<any>, formState: any) => {

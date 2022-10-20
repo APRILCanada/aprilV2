@@ -152,7 +152,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
     this.store.pipe(select(selectProgress)).subscribe(progress => {
       if (progress > this.initialQuestionNumber)
         this.initialQuestionNumber = progress
-      this.progress = ((this.initialQuestionNumber - progress) / this.initialQuestionNumber) * (100 + (20))
+      this.progress = ((this.initialQuestionNumber - progress) / this.initialQuestionNumber) * (100 + (25))
     })
   }
 
@@ -190,17 +190,19 @@ export class FormComponent implements OnInit, AfterContentChecked {
       return this.store.dispatch(new MarkAsSubmittedAction('generic'))
     }
 
+    const newSection = this.sections[this.activeSection.index + step]
+
     this.store.dispatch(setActiveSection({
       activeSection: {
-        id: this.sections[this.activeSection.index + step].id,
-        title: this.sections[this.activeSection.index + step].title,
-        isRepeat: this.sections[this.activeSection.index + step].isRepeat,
+        id: newSection.id,
+        title: newSection.title,
+        isRepeat: newSection.isRepeat,
         index: this.activeSection.index + step,
         isFirst: this.activeSection.index + step === 0,
         isLast: this.activeSection.index + step === this.sections.length - 1,
         isPrime: false,
         sectionsLength: this.sections.length,
-        maxRepeat: this.activeSection.maxRepeat
+        maxRepeat: newSection.maxRepeat
       }
     }))
 

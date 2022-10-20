@@ -20,27 +20,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(231, 230, 230);
-    width: 100%;
+    background-color: var(--mainColor);
+    width: 80%;
     max-width: 600px;
     padding: 1.5rem;
     border-radius: 15px;
     margin-top: 8rem !important;
 
     &__prime {
-        font-size: 1.8rem;
+        font-size: 1.2rem;
         font-weight: bold;
         padding: 1rem 0.5rem;
+        color: #fff;
 
         &--highlight {
-            color: crimson;
-            font-size: 2.2rem;
+            color: yellow;
+            font-size: 3.2rem;
         }
     }
 
     &__phone {
         font-weight: bold;
-        color: crimson;
+        color: yellow;
     }
 }
 

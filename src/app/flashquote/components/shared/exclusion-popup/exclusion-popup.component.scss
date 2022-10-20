@@ -1,6 +1,6 @@
 .speech-bubble {
 	position: absolute;
-    top: 0;
+    top: -50px;
     right: -30px;
     z-index: 1;
 	background: #bd0026;
@@ -9,8 +9,8 @@
     //padding: 0.5rem 1rem;
 	padding: 5px;
 	width: fit-content;
-	max-width: 200px;
-	font-size: 0.7rem;
+	max-width: 250px;
+	font-size: 0.9rem;
 	text-align: center;
 }
 
@@ -31,13 +31,12 @@
 
 @media (min-width: 981px) {
 	.speech-bubble {
-		right: -250px;
+		right: -260px;
+		top: -20px;
 		z-index: 1;
 		background: #bd0026;
 		border-radius: .4em;
 		color: #fff;
 		padding: 0.5rem 1rem;
-		width: 225px;
-		font-size: 0.9rem;
 	}
 }

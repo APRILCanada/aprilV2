@@ -27,8 +27,10 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ExclusionPopupComponent implements OnInit {
   @Input() error: any;
+  exclusions: any;
 
   constructor(public translate: TranslateService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { 
+  }
 }

@@ -3,4 +3,6 @@ export class BrokerDTO {
     name: string;
     marketId: string;
     aprilonId: string;
+    phone: string;
+    market: any;
 }

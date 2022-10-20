@@ -86,13 +86,14 @@ export class FlashquoteEffects {
             index: i,
             isFirst: i === 0,
             isLast: i === sectionsLength - 1,
+            maxRepeat: section.maxRepeat,
             isPrime: false,
             sectionsLength
           }
           return sections
         }, {})
 
-        this.store.dispatch(setActiveSection({ activeSection: formSections[0] }))
+        this.store.dispatch(setActiveSection({ activeSection: formSections[2] }))
         return sections.map(section => new AddGroupControlAction('generic', section.id, [{}]))
       }),
       switchMap((res: any) => {

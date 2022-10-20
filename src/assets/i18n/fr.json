@@ -462,6 +462,11 @@
     "AUTO_VALUE_EXCLUSION_POPUP": "La valeur du véhicule ne peut pas excéder 75 000$.",
     "AUTO_VALUE_EXCLUSION": "La valeur du véhicule ne peut pas excéder 75 000$",
     "AUTO_VALUE_AGE_EXCLUSION_POPUP": "La valeur du véhicule ne peut pas excéder 25 000$ si le proposant a moins de 25 ans.",
+    "MAJOR_INFRACTION_EXCLUSION_POPUP": "Pour être éligible, vous ne devez pas avoir fait l'objet de plus de 2 infractions majeures.",
     "NEW_QUOTE": "Faire une nouvelle soumission",
-    "EMAIL_VALIDATION": "Merci d'entrer un email valide."
+    "EMAIL_VALIDATION": "Merci d'entrer un email valide.",
+    "UNDERSTAND": "J'ai compris",
+    "SUBMISSION_RULES": "Vous ne pouvez pas faire une soumission en ligne si au moins l'une des conditions suivantes ne s'applique pas à vous.",
+    "CONTACT_BROKER": "Merci de contacter l'un de nos agents au ",
+    "REPARTITION_EXCLUSION_POPUP": "Pour être éligible, l'utilisation professionnelle ne doit pas dépasser 50%"
 }
