@@ -1,8 +1,11 @@
 <section class="hero">
     <div class="header">
-        <h1 class="headline">{{ language.get() == "fr" ? broker.market.headline.labelFr : broker.market.headline.labelEn }}</h1>
-        <span (click)="openDialog()">{{ language.get() == "fr" ? 'Vérifiez votre admissibilité' : 'Check your eligibility'}}</span>
+        <h1 class="headline">{{ language.get() == "fr" ? broker.market.headline.labelFr : broker.market.headline.labelEn
+            }}</h1>
+        <span (click)="openDialog()">{{ language.get() == "fr" ? 'Vérifiez votre admissibilité' : 'Check your
+            eligibility'}}</span>
     </div>
     <img
         src="{{'https://april.imgix.net/products/' + broker.market.heroImg + '?auto=format%2Ccompress%2Cenhance&sharp=30&w=400&fit=crop&ar=0.85%3A1&dpr=1&q=75&ixlib=ng-1.0.0-rc.1'}}" />
+    <app-usp-slider class="slider"></app-usp-slider>
 </section>

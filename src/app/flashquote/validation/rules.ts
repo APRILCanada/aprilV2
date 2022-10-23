@@ -88,7 +88,7 @@ export const validation: any = {
             239: validate(required),
             265: validate(required),
             268: validate<any>(required, pattern(/^[0-9]+[0-9]*$/)),
-            270: validate<any>(required, pattern(/^[0-9]+[0-9]*$/), exclusion('lesserThanOrEqual', 2, 'MAJOR_INFRACTION_EXCLUSION_POPUP')),
+            270: validate<any>(required, pattern(/^[0-9]+[0-9]*$/), exclusion('lesserThanOrEqual', 0, 'MAJOR_INFRACTION_EXCLUSION_POPUP')),
             372: validate(required),
             344: validate(required),
             240: validate(required),

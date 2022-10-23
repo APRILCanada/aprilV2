@@ -451,9 +451,11 @@
     "SEARCH": "Search",
     "ESTIMATION": "Please note that the premium estimate obtained above is established according to the information that you have provided. This estimate may be modified during the collection of additional information",
     "CONTACT_SOON": "We will contact you shortly to finalize your request.",
+    "CONTACT_AGENT": "Call one of our agents today!",
     "PRECISIONS": "Other coverages, fees and discounts may apply.",
     "MORE_INFO": "For more information:",
     "MONTH_TAXES": "Month + Taxes",
+    "YEAR_TAXES": "Per Year + Taxes",
     "ESTIMATED": "Your estimated <b>prime</b>",
     "PATTERN": "Incorrect value",
     "PROVINCE_EXCLUSION": "Ineligible Province",
@@ -462,13 +464,14 @@
     "AUTO_VALUE_EXCLUSION_POPUP": "The value must not exceed $75,000.",
     "AUTO_VALUE_EXCLUSION": "The value of the vehicle cannot exceed $75,000",
     "AUTO_VALUE_AGE_EXCLUSION_POPUP": "The value of the vehicle cannot exceed $25,000 if the applicant is under 25 years old.",
-    "MAJOR_INFRACTION_EXCLUSION_POPUP": "To be eligible, you must not have been subject to more than 2 major infractions.",
+    "MAJOR_INFRACTION_EXCLUSION_POPUP": "To be eligible, you must not have been the subject of any major infraction.",
     "NEW_QUOTE": "Make a new quote",
     "EMAIL_VALIDATION": "Please enter a valid email",
     "UNDERSTAND": "I understand",
     "SUBMISSION_RULES": "You cannot make an online submission if at least one of the following conditions does not apply to you.",
     "CONTACT_BROKER": "Please contact one of our agents at ",
-    "REPARTITION_EXCLUSION_POPUP": "To be eligible, business use must not exceed 50%."
+    "REPARTITION_EXCLUSION_POPUP": "To be eligible, business use must not exceed 50%.",
+    "SUBMIT_QUOTE": "Submit quote"
 }
 
  

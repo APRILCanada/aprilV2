@@ -15,7 +15,8 @@
       <div *ngIf="activeSection.id && !activeSection.isPrime">
         <div *ngFor="let group of formState.controls[activeSection.id].controls; let i = index; trackBy:customTrackBy">
           <header class="groupSection-header" *ngIf="activeSection.isRepeat">
-            <h2>{{ language.get() == "fr" ? activeSection.title.LabelFr.slice(0, -1) : activeSection.title.LabelEn.slice(0, -1) }} {{ i + 1 }}</h2>
+            <h2>{{ language.get() == "fr" ? activeSection.title.LabelFr.slice(0, -1) :
+              activeSection.title.LabelEn.slice(0, -1) }} {{ i + 1 }}</h2>
             <button type="button"
               class="button-icon-small button-red d-flex align-items-center justify-content-center text-button-simple"
               (click)="removeGroupSection(activeSection.id, i)" *ngIf="i > 0">
@@ -44,21 +45,31 @@
       <!-- PRIME -->
       <section *ngIf="activeSection.id && activeSection.isPrime">
         <div class="prime-box">
-          {{ premium }}
-          <p class="prime-box__prime">
-            <span class="heading prime-box__prime--highlight">{{ premium }}</span>
-            <span>$</span> / {{ "MONTH_TAXES" | translate }}
-          </p>
-          <p>{{ "CONTACT_SOON" | translate }}<br />
-            {{ "MORE_INFO" | translate }}</p>
-          <p class="prime-box__phone">{{ broker.phone }}</p>
+          <p class="prime-box__prime">{{ quoteResult?.total?.premium }} $</p>
+          <small class="year">({{ "YEAR_TAXES" | translate }})</small>
         </div>
 
-        <div class="more-info">
-          <p class="more-info__header">{{ "PRECISIONS" | translate }}</p>
-          <p>{{ "ESTIMATION" | translate }}</p>
+        <div class="call">
+          <p>{{ "CONTACT_AGENT" | translate }}</p>
+          <a class="btn-phone" href="tel: {{broker.phone}}">{{ broker.phone }}</a>
+          <small class="hours">
+            <span *ngFor="let line of broker.openingHours[lang]">{{ line }}</span>
+          </small>
+        </div>
+
+        <div>
+          <svg class="exclaim" width="24" height="79" viewBox="0 0 24 79" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.6667 53.1933H5.33333L0 0H24L18.6667 53.1933Z" fill="#A6AEB0" />
+            <path
+              d="M12 79C17.6701 79 22.2667 74.5199 22.2667 68.9933C22.2667 63.4668 17.6701 58.9867 12 58.9867C6.32988 58.9867 1.73333 63.4668 1.73333 68.9933C1.73333 74.5199 6.32988 79 12 79Z"
+              fill="#A6AEB0" />
+          </svg>
+
+          <p class="more-info">{{ "ESTIMATION" | translate }}</p>
         </div>
       </section>
+
 
     </app-section>
 
@@ -76,7 +87,7 @@
       <!-- SUBMIT -->
       <button *ngIf="activeSection.isLast" class="btn-april" type="submit" data-analytics="DirectForm"
         [disabled]="!(formValid$ | async) && (formSubmitted$ | async)">
-        {{ "SEND" | translate }}
+        {{ "SUBMIT_QUOTE" | translate }}
       </button>
     </div>
 

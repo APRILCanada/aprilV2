@@ -65,6 +65,8 @@ import { ExclusionPopupComponent } from './components/shared/exclusion-popup/exc
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { HeroComponent } from './components/shared/hero/hero.component';
 import { ExclusionRulesComponent } from './components/shared/exclusion-rules/exclusion-rules.component';
+import { UspSliderComponent } from './components/shared/usp-slider/usp-slider.component';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -112,7 +114,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ExclusionPopupComponent,
     NavbarComponent,
     HeroComponent,
-    ExclusionRulesComponent
+    ExclusionRulesComponent,
+    UspSliderComponent
   ],
   imports: [
     CommonModule,
@@ -132,6 +135,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatDialogModule,
     MatSelectModule,
     NavigationModule,
+    NgImageSliderModule,
     OverlayModule,
     NgxMaskModule.forChild(),
     EffectsModule.forFeature([FlashquoteEffects]),

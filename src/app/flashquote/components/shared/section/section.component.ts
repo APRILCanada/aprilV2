@@ -30,9 +30,9 @@ export class SectionComponent implements OnInit {
   constructor(private store: Store<State>, private actionsSubject: ActionsSubject, public language: LanguageService) { }
 
   ngOnInit(): void {
+    this.getErrors();
     this.getActiveSection();
     this.getSections();
-    this.getErrors();
   }
 
   getActiveSection() {
@@ -55,7 +55,7 @@ export class SectionComponent implements OnInit {
   }
 
   getErrors() {
-    this.errors = this.store.pipe(select(selectErrors)).subscribe(errors => {
+    this.store.pipe(select(selectErrors)).subscribe(errors => {
       this.errors = errors
     })
 

@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./chip.component.scss'],
 })
 export class ChipComponent {
-  @Input() selected: false = false;
+  @Input() selected: boolean;
 }

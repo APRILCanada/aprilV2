@@ -3,6 +3,7 @@
 }
 
 .hero {
+    position: relative;
     display: grid;
     grid-template-columns:
         [full-start] minmax(3rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 20rem) [col-end]) [center-end] minmax(3rem, 1fr) [full-end];
@@ -12,7 +13,7 @@
     overflow: visible;
 
     & .header {
-        grid-row: 2;
+        grid-row: 3;
         grid-column: 1 / 12;
         padding: 1rem;
         text-align: center;
@@ -22,7 +23,6 @@
         & h1 {
             color: #fff;
             font-size: 2.2rem !important;
-            font-weight: 400 !important;
             text-transform: uppercase;
         }
 
@@ -32,6 +32,11 @@
             text-decoration: underline;
             cursor: pointer;
         }
+    }
+
+    & .slider {
+        grid-row: 2;
+        grid-column: 1 / 12;
     }
 
     & img {
@@ -44,7 +49,7 @@
 
 @media(min-width: 581px) {
     .hero {
-        border-bottom-left-radius: 100px;
+        //border-bottom-left-radius: 100px;
         overflow: hidden;
 
         & .header {
@@ -74,6 +79,19 @@
             }
         }
 
+    }
+}
+
+@media(min-width: 1500px) {
+    .hero {
+        & .header {
+            grid-column: 3 / 6;
+            grid-row: 1 / -1;
+
+            h1 {
+                font-size: 3.5rem !important;
+            }
+        }
     }
 }
 

@@ -4,5 +4,6 @@ export class BrokerDTO {
     marketId: string;
     aprilonId: string;
     phone: string;
+    openingHours: any;
     market: any;
 }

@@ -26,6 +26,7 @@ import { LanguageService } from 'src/app/services/language.service';
 import { Section } from '../models/Section';
 import { ActiveSection } from '../models/ActiveSection'
 import { loadBroker } from '../actions/broker.actions';
+import { BrokerDTO } from '../models/Broker';
 
 
 @Component({
@@ -47,11 +48,12 @@ export class FormComponent implements OnInit, AfterContentChecked {
   submittingForm = false;
   answers: Answer[];
   formSubscription: Subscription;
-  broker: any;
+  broker: BrokerDTO;
   initialQuestionNumber: number = 0;
   progress: number = 0;
   primeReady = false;
-  premium: any;
+  quoteResult: any;
+  lang: string;
 
 
   constructor(
@@ -75,6 +77,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
 
 
   ngOnInit() {
+    this.lang = this.language.get()
     this.getFormState();
     this.getSections();
     this.getActiveSection();
@@ -143,7 +146,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
 
   getErrors() {
     this.errors$ = this.store.pipe(select(selectErrors));
-    this.errors = this.store.pipe(select(selectErrors)).subscribe(errors => {
+    this.store.pipe(select(selectErrors)).subscribe(errors => {
       this.errors = errors
     })
   }
@@ -304,18 +307,20 @@ export class FormComponent implements OnInit, AfterContentChecked {
       ).subscribe(this.store)
 
     this.submittedValue$.subscribe((data) => {
+      console.log('QUOTE DATA', data)
       this.store.dispatch(formLoaded({ isFormLoaded: false }))
       if (data) {
         window.scrollTo(0, 200);
 
         this.flashquoteService.submitQuote(data).subscribe({
           next: quoteResult => {
+            this.quoteResult = quoteResult
             console.log('QUOTE RESULT', quoteResult)
             if (quoteResult) {
               this.store.dispatch(setActiveSection({
                 activeSection: {
                   id: this.sections.length,
-                  title: { LabelEn: 'Your Prime', LabelFr: 'Votre prime' },
+                  title: { LabelEn: 'Your estimated prime', LabelFr: 'Votre prime estimée' },
                   isRepeat: false,
                   index: this.sections.length,
                   isFirst: false,
@@ -325,8 +330,6 @@ export class FormComponent implements OnInit, AfterContentChecked {
                   maxRepeat: 0
                 }
               }))
-
-              this.premium = quoteResult.total.premium;
 
               this.submittingForm = false;
 
