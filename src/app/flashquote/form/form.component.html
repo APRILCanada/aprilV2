@@ -1,5 +1,5 @@
 <div class="wrapper flash-form" *ngIf="formState$ | async as formState">
-
+  {{ quoteResult?.total?.premium }} $
   <!-- <div class="d-flex align-items-start">
     <img src="../../../../assets/img/icons/title-bar.svg" class="pt-2 pe-2 title-bar d-none d-sm-block"
       alt="title bar" />
@@ -11,7 +11,6 @@
   <form [ngrxFormState]="formState" (submit)="submit()">
 
     <app-section [progress]="progress" [formValid$]="formValid$" [formSubmitted$]="formSubmitted$">
-      {{ premium }}
       <div *ngIf="activeSection.id && !activeSection.isPrime">
         <div *ngFor="let group of formState.controls[activeSection.id].controls; let i = index; trackBy:customTrackBy">
           <header class="groupSection-header" *ngIf="activeSection.isRepeat">

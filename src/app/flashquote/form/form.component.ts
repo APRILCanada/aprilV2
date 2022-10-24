@@ -308,7 +308,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
       ).subscribe(this.store)
 
     this.submittedValue$.subscribe((data) => {
-      console.log('QUOTE DATA', data)
+      console.log('QUOTE DATA', JSON.stringify(data))
       this.store.dispatch(formLoaded({ isFormLoaded: false }))
       if (data) {
         window.scrollTo(0, 700);
