@@ -155,7 +155,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
     this.store.pipe(select(selectProgress)).subscribe(progress => {
       if (progress > this.initialQuestionNumber)
         this.initialQuestionNumber = progress
-      this.progress = ((this.initialQuestionNumber - progress) / this.initialQuestionNumber) * (100 + (25))
+      this.progress = ((this.initialQuestionNumber - progress) / this.initialQuestionNumber) * (100 + (33))
     })
   }
 
@@ -165,6 +165,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
 
   getFormValid() {
     this.formValid$ = this.store.pipe(select(selectFormValid));
+    this.store.pipe(select(selectFormValid)).subscribe(data => console.log('FORM VALID', data))
   }
 
   getFormSubmitted() {
@@ -187,7 +188,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
   }
 
   setActiveSection(step: number) {
-    window.scrollTo(0, 200);
+    window.scrollTo(0, 700);
 
     if (this.errors['_' + this.activeSection.id] && step === 1) {
       return this.store.dispatch(new MarkAsSubmittedAction('generic'))
@@ -310,7 +311,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
       console.log('QUOTE DATA', data)
       this.store.dispatch(formLoaded({ isFormLoaded: false }))
       if (data) {
-        window.scrollTo(0, 200);
+        window.scrollTo(0, 700);
 
         this.flashquoteService.submitQuote(data).subscribe({
           next: quoteResult => {

@@ -1,10 +1,10 @@
 <label>{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</label>
 <div class="container">
     <mat-chip-list>
-        <app-chip [selected]="selected === 'true' ? true : false" (click)="select('true')">
+        <app-chip [selected]="control.value === 'true'" (click)="select('true')">
             {{ 'YES' | translate | uppercase }}
         </app-chip>
-        <app-chip [selected]="selected === 'false' ? true : false" (click)="select('false')">
+        <app-chip [selected]="control.value === 'false'" (click)="select('false')">
             {{ 'NO' | translate | uppercase }}
         </app-chip>
     </mat-chip-list>
