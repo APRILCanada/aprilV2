@@ -53,7 +53,7 @@
           </div>
 
           <!-- PRIME DETAILS -->
-          <div *ngFor="let p of (prime$ | async)?.data" class="prime__details">
+          <div *ngFor="let p of (prime$ | async)?.data; let i=index;" class="prime__details" [ngClass]="{resetBorder: i+1 < (prime$ | async)?.data.length}">
             <h2>{{ p.vehicle }} <br />VOS PROTECTIONS</h2>
             <ul class="prime__details-list">
               <li class="prime__details-list-item">

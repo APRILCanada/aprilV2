@@ -311,6 +311,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
             Language: this.language.get(),
             Answers: allAnswers,
           };
+          
           return new SetSubmittedValueAction(formData);
         })
       ).subscribe(this.store)

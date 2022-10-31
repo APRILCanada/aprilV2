@@ -121,6 +121,7 @@ form {
         background-color: var(--mainColor);
         padding: 2.5rem;
         border-bottom-right-radius: 100px;
+        margin-bottom: 3px;
 
         &-list {
             list-style: none;
@@ -181,4 +182,8 @@ form {
     .prime__details-list-item {
         width: 45%;
     }
+}
+
+.resetBorder {
+    border-bottom-right-radius: 0px !important;
 }
