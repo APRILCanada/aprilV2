@@ -8,7 +8,7 @@ import { FormValue, State } from '../store';
 import { ActionService } from '../services/action.service';
 import { Answer } from '../models/Answer';
 import { FlashquoteService } from '../services/flashquote.service';
-import { formLoaded, RemoveGroupSectionAction, setActiveSection, SetSubmittedValueAction } from '../actions/flashquote.actions';
+import { formLoaded, RemoveGroupSectionAction, setActiveSection, setPrime, SetSubmittedValueAction } from '../actions/flashquote.actions';
 import {
   selectSections,
   selectFormState,
@@ -20,6 +20,7 @@ import {
   selectActiveSection,
   selectProgress,
   selectForm,
+  selectPrime,
 } from '../selectors';
 import { Router } from '@angular/router';
 import { LanguageService } from 'src/app/services/language.service';
@@ -42,6 +43,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
   errors$: Observable<any>;
   errors: any;
   formState$: Observable<any>;
+  prime$: Observable<any>;
   formValid$: Observable<boolean>;
   formSubmitted$: Observable<boolean>;
   submittedValue$: Observable<FormValue | undefined>;
@@ -87,6 +89,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
     this.getErrors();
     this.getBroker();
     this.getSelectProgress()
+    this.getPrime();
 
     this.onFormChange();
 
@@ -153,8 +156,9 @@ export class FormComponent implements OnInit, AfterContentChecked {
 
   getSelectProgress() {
     this.store.pipe(select(selectProgress)).subscribe(progress => {
-      if (progress > this.initialQuestionNumber)
+      if (progress > this.initialQuestionNumber) {
         this.initialQuestionNumber = progress
+      }
       this.progress = ((this.initialQuestionNumber - progress) / this.initialQuestionNumber) * (100 + (33))
     })
   }
@@ -163,9 +167,13 @@ export class FormComponent implements OnInit, AfterContentChecked {
     this.formState$ = this.store.pipe(select(selectFormState));
   }
 
+  getPrime() {
+    this.prime$ = this.store.pipe(select(selectPrime));
+  }
+
   getFormValid() {
     this.formValid$ = this.store.pipe(select(selectFormValid));
-    this.store.pipe(select(selectFormValid)).subscribe(data => console.log('FORM VALID', data))
+    //this.store.pipe(select(selectFormValid)).subscribe(data => console.log('FORM VALID', data))
   }
 
   getFormSubmitted() {
@@ -309,9 +317,32 @@ export class FormComponent implements OnInit, AfterContentChecked {
 
     this.submittedValue$.subscribe((data) => {
       console.log('QUOTE DATA', JSON.stringify(data))
+
       this.store.dispatch(formLoaded({ isFormLoaded: false }))
       if (data) {
         window.scrollTo(0, 700);
+        // setTimeout(() => {
+        //   this.store.dispatch(setActiveSection({
+        //     activeSection: {
+        //       id: this.sections.length,
+        //       title: { LabelEn: 'Your estimated prime', LabelFr: 'Votre prime estimée' },
+        //       isRepeat: false,
+        //       index: this.sections.length,
+        //       isFirst: false,
+        //       isLast: false,
+        //       isPrime: true,
+        //       sectionsLength: this.sections.length,
+        //       maxRepeat: 0
+        //     }
+        //   }))
+
+        //   this.submittingForm = false;
+
+
+        //   this.store.dispatch(formLoaded({ isFormLoaded: true }))
+        //   this.store.dispatch(new MarkAsSubmittedAction('generic'))
+        //   this.store.dispatch(new ResetAction('generic'));
+        // }, 5000)
 
         this.flashquoteService.submitQuote(data).subscribe({
           next: quoteResult => {
@@ -332,6 +363,11 @@ export class FormComponent implements OnInit, AfterContentChecked {
                 }
               }))
 
+              // set prime
+              this.formState$.subscribe(formValue => {
+                this.store.dispatch(setPrime({ marketId: this.broker.marketId, formValue, prime: quoteResult.total.premium }))
+              })
+
               this.submittingForm = false;
 
               this.store.dispatch(formLoaded({ isFormLoaded: true }))
@@ -345,6 +381,5 @@ export class FormComponent implements OnInit, AfterContentChecked {
         })
       }
     });
-
   }
 }

@@ -35,6 +35,11 @@ export const selectFormState = createSelector(
   (state) => state.formState
 );
 
+export const selectPrime = createSelector(
+  selectForm,
+  (state) => state.prime
+)
+
 export const selectFormValid = createSelector(
   selectForm,
   (state) => state.formState.isValid

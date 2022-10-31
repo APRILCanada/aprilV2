@@ -25,6 +25,8 @@ export const loadForm = createAction('[FORM] Load Form', props<{ flashquote: Fla
 // );
 export const formLoaded = createAction('[FORM] Form Loaded', props<{ isFormLoaded: boolean }>())
 
+export const setPrime = createAction('[FORM] Set Prime', props<{ marketId: string, formValue: any, prime: any }>())
+
 export const setValue = createAction(
   '[Dialog Set Value] Set Selected Value',
   props<{ control: FormControlState<any>; selectedOptions: string }>()
@@ -32,7 +34,7 @@ export const setValue = createAction(
 
 export const retrieveOptionsAction = createAction(
   '[FORM] Retrieve Options', props<{ sectionId: number, questionId: number, option: string }>()
-)
+);
 
 export class SetSubmittedValueAction implements Action {
   static readonly TYPE = 'form/SET_SUBMITTED_VALUE';

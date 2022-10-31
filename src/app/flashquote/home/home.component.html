@@ -1,7 +1,7 @@
-<!-- <div *ngIf="!!broker.marketId; else showLoading">
+<div *ngIf="!!broker.marketId; else showLoading">
+
   <div class="wrapper" [ngClass]="{'loading-wrapper': (formValid$ | async) && (formSubmitted$ | async)}">
     <div *ngIf="broker.name === 'April'; else notApril">
-
       <app-direct-nav></app-direct-nav>
       <app-direct-hero [id]="broker.marketId"></app-direct-hero>
       <app-flash-quote [id]="broker.marketId"></app-flash-quote>
@@ -12,24 +12,28 @@
       <app-exclusion></app-exclusion>
       <app-new-footer></app-new-footer>
     </div>
-  </div>
 
+    <ng-template #notApril>
+      <div *ngIf="(ui$ | async).isFormLoaded; else showLoading">
+        <app-navbar [broker]="broker" [logo]="logo"></app-navbar>
+        <main>
+          <app-hero [broker]="broker"></app-hero>
+          <!-- <app-flash-quote [id]="broker.marketId"></app-flash-quote> -->
+          <app-form></app-form>
+        </main>
+      </div>
+    </ng-template>
+
+  </div>
   <app-loader *ngIf="(formValid$ | async) && (formSubmitted$ | async)"></app-loader>
 </div>
 
-<ng-template #notApril>
+<!-- <ng-template #notApril>
   <app-flash-quote [id]="broker.marketId"></app-flash-quote>
 </ng-template> -->
 
-<div *ngIf="(ui$ | async).isFormLoaded; else showLoading">
-  <app-navbar [broker]="broker" [logo]="logo"></app-navbar>
-  <main>
-    <app-hero [broker]="broker"></app-hero>
-    <!-- <app-flash-quote [id]="broker.marketId"></app-flash-quote> -->
-    <app-form></app-form>
-  </main>
-</div>
 
+<!-- LOADING TEMPLATE -->
 <ng-template #showLoading>
   <app-loader></app-loader>
 </ng-template>

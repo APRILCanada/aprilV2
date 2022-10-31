@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
   }
 
 
+
   getBroker() {
     this.store.pipe(select(selectBroker)).subscribe(broker => {
       this.broker = broker

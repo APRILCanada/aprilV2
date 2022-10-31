@@ -21,5 +21,6 @@ export interface State extends RootState {
     broker: any;
     ui: any;
     activeSection: ActiveSection;
+    prime: any;
   };
 }
