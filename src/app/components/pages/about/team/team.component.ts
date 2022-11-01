@@ -23,14 +23,14 @@ export class TeamComponent implements OnInit {
 
   directors: Director[] = [
     {
-      fullName: 'Kent Pitkin',
+      fullName: 'Patricia Desjardins',
       title: {
         en: 'Chief Underwriting Officer (CUO)',
         fr: 'Directeur de la souscription',
       },
-      picture: 'kent-pitkin.png',
-      email: 'kent.pitkin@april.ca',
-      linkedIn: 'https://www.linkedin.com/in/kent-pitkin-b457a040/',
+      picture: 'patricia-desjardins.png',
+      email: 'patricia.desjardins@april.ca',
+      linkedIn: 'https://www.linkedin.com/in/patricia-desjardins-ab976924/',
     },
     {
       fullName: 'Marie-Eve Paquette',
@@ -54,16 +54,6 @@ export class TeamComponent implements OnInit {
       linkedIn: 'https://www.linkedin.com/in/samira-durand/',
     },
     {
-      fullName: 'Patricia Desjardins',
-      title: {
-        en: 'Chief Operations Officer (COO)',
-        fr: 'Directrice des Opérations',
-      },
-      picture: 'patricia-desjardins.png',
-      email: 'patricia.desjardins@april.ca',
-      linkedIn: 'https://www.linkedin.com/in/patricia-desjardins-ab976924/',
-    },
-    {
       fullName: 'Karine Chiasson',
       title: { en: 'Residential Director', fr: 'Directrice Résidentiel' },
       picture: 'karine-chiasson.png',
@@ -71,31 +61,10 @@ export class TeamComponent implements OnInit {
       linkedIn: 'https://www.linkedin.com/in/karine-chiasson-234406148/',
     },
     {
-      fullName: 'Ghilsain Talbot',
-      title: {
-        en: 'Construction Line Director',
-        fr: 'Directeur de ligne construction',
-      },
-      picture: 'ghislain-talbot.png',
-      email: 'ghislain.talbot@april.ca',
-      linkedIn: 'https://www.linkedin.com/in/ghislain-talbot-3a45b970/',
-    },
-
-    // {
-    //   fullName: 'Conal Fitzgibbon',
-    //   title: {
-    //     en: 'Commercial Marine Line Director',
-    //     fr: 'Directeur de ligne marine commerciale',
-    //   },
-    //   picture: 'conal-fitzgibbon.png',
-    //   email: 'conal.fitzgibbon@april.ca',
-    //   linkedIn: 'https://www.linkedin.com/in/conal-fitzgibbon-3a2867197/',
-    // },
-    {
       fullName: 'Sophie Bergeron',
       title: {
         en: 'Transport and Vehicles Line Director',
-        fr: 'Directrice de lignes transport et véhicules',
+        fr: 'Directrice de lignes automobile, transport et commerciale',
       },
       picture: 'sophie-bergeron.png',
       email: 'sophie.bergeron@april.ca',
@@ -122,16 +91,6 @@ export class TeamComponent implements OnInit {
   ];
 
   bdm: Director[] = [
-    // {
-    //   fullName: 'Kristina Snelgrove',
-    //   title: {
-    //     en: 'Business development manager',
-    //     fr: 'Responsable du développement des affaires, Ontario',
-    //   },
-    //   picture: 'kristina-snelgrove.png',
-    //   email: 'kristina.snelgrove@april.ca',
-    //   linkedIn: 'https://www.linkedin.com/in/kristinasnelgrove/',
-    // },
     {
       fullName: 'Mathieu Pelletier',
       title: {
@@ -153,14 +112,14 @@ export class TeamComponent implements OnInit {
       linkedIn: 'https://www.linkedin.com/in/tracey-paish-421b0449/',
     },
     {
-      fullName: 'Hugo Deschamps',
+      fullName: 'Camille Arian-Dupuis',
       title: {
         en: 'Business development manager for Ontario, APRIL Marine',
         fr: "Responsable du développement des affaires pour l'Ontario, APRIL Marine",
       },
-      picture: 'hugo-deschamps.png',
-      email: 'hugo.deschamps@april.ca',
-      linkedIn: 'https://www.linkedin.com/in/hugo-deschamps-29a267110/',
+      picture: 'camille-arian-dupuis.png',
+      email: 'camille.arian@april.ca',
+      linkedIn: 'https://www.linkedin.com/in/camille-arian-dupuis-3b23a1a8/',
     },
     {
       fullName: 'Stephan Bernard',
