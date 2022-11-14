@@ -22,5 +22,6 @@ export interface State extends RootState {
     ui: any;
     activeSection: ActiveSection;
     prime: any;
+    exclusions: string[]
   };
 }

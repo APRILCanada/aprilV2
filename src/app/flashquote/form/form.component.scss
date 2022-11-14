@@ -187,3 +187,50 @@ form {
 .resetBorder {
     border-bottom-right-radius: 0px !important;
 }
+
+
+// EXCLUSION SCREEN
+.section-exclusion {
+    margin-top: 7rem;
+}
+
+.exclusion {
+    color: rgb(27, 27, 27);
+    font-weight: 300 !important;
+    background-color: #FFBA3C;
+    margin-bottom: 3px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 100px;
+    padding: 2.5rem;
+    position: relative;
+    padding-top: 160px;
+
+    img {
+        width: 100%;
+        max-width: 300px;
+        position: absolute;
+        top: -60px;
+        left: 0;
+    }
+
+    &__header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        h2 {
+            color: rgb(27, 27, 27) !important;
+            font-weight: 500 !important;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+    }
+
+    ul li {
+        font-size: 0.9rem !important;
+    }
+}

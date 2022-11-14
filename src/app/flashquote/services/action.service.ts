@@ -47,7 +47,8 @@ export class ActionService {
 
       switch (rule.action) {
         case 'RETRIEVE_RESPONSE':
-          // this.getResponsesFromPreviousAnswer(question, rule, control, destinationId.toString(), pathToGroup);
+          //this.getResponsesFromPreviousAnswer(question, rule, control, destinationId.toString(), pathToGroup);
+          this.getResponsesFromPreviousAnswer(question, control, destinationId, pathToGroup);
           break;
         case 'SHOW':
           this.show(question, rule, control, destinationId.toString(), pathToGroup);
@@ -61,22 +62,6 @@ export class ActionService {
       }
     });
   }
-
-  // hide(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
-  //   const result = this.ruleService.checkRule(rule, control)
-
-  //   const groupId = parseInt(pathToGroup.slice(-1))
-
-  //   if (result) {
-  //     if ((this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
-  //       this.store.dispatch(new RemoveGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId));
-  //     }
-  //   } else {
-  //     if (!(this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
-  //       this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, ''));
-  //     }
-  //   }
-  // }
 
   hide(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
     const result = this.ruleService.checkRule(rule, control)
@@ -200,12 +185,15 @@ export class ActionService {
   getResponsesFromPreviousAnswer(
     question: Question,
     control: FormControlState<any>,
-    destinationId: number
+    destinationId: number,
+    pathToGroup: string
   ) {
+    const groupId = parseInt(pathToGroup.slice(-1))
     const responseKeyList: string[] = [];
-    const responses: Response[] = this.questions.find((q) => q.id === question.id)!.responses;
+    const responses: Response[] = question.responses
     const selectedResponseKeys: string[] = control.value.split(',');
-    const prevValues = Object.keys(this.formState.controls[destinationId].value);
+    const prevValues = Object.keys((this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[question.id].value);
+
 
     for (let key of selectedResponseKeys) {
       for (let response of responses) {
@@ -216,12 +204,12 @@ export class ActionService {
     // remove input
     if (responseKeyList.length < prevValues.length) {
       const responseKey = prevValues.filter((v) => !responseKeyList.includes(v));
-      this.store.dispatch(new RemoveGroupElementAction(responseKey, destinationId));
+      this.store.dispatch(new RemoveGroupElementAction(responseKey, destinationId, pathToGroup));
     }
 
     // add input
     responseKeyList.forEach((responseKey) => {
-      this.store.dispatch(new CreateGroupElementAction(responseKey, destinationId));
+      this.store.dispatch(new CreateGroupElementAction(responseKey, destinationId, pathToGroup));
     });
   }
 }

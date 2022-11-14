@@ -67,6 +67,7 @@ import { HeroComponent } from './components/shared/hero/hero.component';
 import { ExclusionRulesComponent } from './components/shared/exclusion-rules/exclusion-rules.component';
 import { UspSliderComponent } from './components/shared/usp-slider/usp-slider.component';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { EmailComponent } from './questions/components/email/email.component';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -115,7 +116,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NavbarComponent,
     HeroComponent,
     ExclusionRulesComponent,
-    UspSliderComponent
+    UspSliderComponent,
+    EmailComponent
   ],
   imports: [
     CommonModule,

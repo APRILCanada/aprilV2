@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControlState } from '@angular/forms';
 import { Question } from '../models/Question';
+import { Reclamation } from '../models/Reclamation';
 import { Rule } from '../models/Rule';
 
 
@@ -99,60 +100,60 @@ export class RuleService {
       case 'EQUALS':
         result = control.value == rule.value;
         break;
-      //   case 'NOT_EQUAL':
-      //     result = value != rule.value;
-      //     break;
+      case 'NOT_EQUAL':
+        result = control.value != rule.value;
+        break;
       case 'GREATER_THAN':
         result = this.isGreaterThan(control.value, rule.value);
         break;
-      //   case 'LESSER_THAN':
-      //     result = this.isLesserThan(value, rule.value);
-      //     break;
+      case 'LESSER_THAN':
+        result = this.isLesserThan(control.value, rule.value);
+        break;
       case 'GREATER_EQUAL':
         result = this.isGreaterThan(control.value, rule.value, true);
         break;
-      //   case 'LESSER_EQUAL':
-      //     result = this.isLesserThan(value, rule.value, true);
-      //     break;
-        case 'CONTAINS':
-          result = this.contains(control.value, rule.value);
-          break;
-      //   case 'NOT_CONTAIN':
-      //     result = this.contains(value, rule.value, true);
-      //     break;
-      //   case 'EMPTY':
-      //     result = this.isEmpty(value);
-      //     break;
-      //   case 'NOT_EMPTY':
-      //     result = this.isEmpty(value, true);
-      //     break;
-      // case 'PROVINCE_IS':
-      //   result = this.provinceIs(rule.value, value);
-      //   break;
-      // case 'PROVINCE_IS_NOT':
-      //   result = this.provinceIs(rule.value, value, true);
-      //   break;
-      // case 'CLAIMS_GREATER_THAN':
-      //   result = this.claimsRules(value, rule.value, 'gt');
-      //   break;
-      // case 'CLAIMS_LESSER_THAN':
-      //   result = this.claimsRules(value, rule.value, 'lt');
-      //   break;
-      // case 'CLAIMS_GREATER_EQUAL':
-      //   result = this.claimsRules(value, rule.value, 'gt', true);
-      //   break;
-      // case 'CLAIMS_LESSER_EQUAL':
-      //   result = this.claimsRules(value, rule.value, 'lt', true);
-      //   break;
-      // case 'CLAIMS_EQUAL':
-      //   result = this.claimsRules(value, rule.value, 'eq');
-      //   break;
-      // case 'CLAIMS_OPENED':
-      //   result = this.claimsRules(value, rule.value, 'op');
-      //   break;
-      // case "CLAIMS_COUNT":
-      //   result = this.claimsRules(value, rule.value, 'co');
-      //   break;
+      case 'LESSER_EQUAL':
+        result = this.isLesserThan(control.value, rule.value, true);
+        break;
+      case 'CONTAINS':
+        result = this.contains(control.value, rule.value);
+        break;
+      case 'NOT_CONTAIN':
+        result = this.contains(control.value, rule.value, true);
+        break;
+      case 'EMPTY':
+        result = this.isEmpty(control.value);
+        break;
+      case 'NOT_EMPTY':
+        result = this.isEmpty(control.value, true);
+        break;
+      case 'PROVINCE_IS':
+        result = this.provinceIs(rule.value, control.value);
+        break;
+      case 'PROVINCE_IS_NOT':
+        result = this.provinceIs(rule.value, control.value, true);
+        break;
+      case 'CLAIMS_GREATER_THAN':
+        result = this.claimsRules(control.value, rule.value, 'gt');
+        break;
+      case 'CLAIMS_LESSER_THAN':
+        result = this.claimsRules(control.value, rule.value, 'lt');
+        break;
+      case 'CLAIMS_GREATER_EQUAL':
+        result = this.claimsRules(control.value, rule.value, 'gt', true);
+        break;
+      case 'CLAIMS_LESSER_EQUAL':
+        result = this.claimsRules(control.value, rule.value, 'lt', true);
+        break;
+      case 'CLAIMS_EQUAL':
+        result = this.claimsRules(control.value, rule.value, 'eq');
+        break;
+      case 'CLAIMS_OPENED':
+        result = this.claimsRules(control.value, rule.value, 'op');
+        break;
+      case "CLAIMS_COUNT":
+        result = this.claimsRules(control.value, rule.value, 'co');
+        break;
       case 'RETRIEVE_OPTIONS':
         result = true;
         break;
@@ -197,8 +198,8 @@ export class RuleService {
   }
 
 
-  contains(value:any, ruleValue:any, notContains:boolean = false){
-    if(Array.isArray(value)){
+  contains(value: any, ruleValue: any, notContains: boolean = false) {
+    if (Array.isArray(value)) {
       var index = value.indexOf(ruleValue);
       return notContains ? index == -1 : index > -1;
     }
@@ -428,73 +429,62 @@ export class RuleService {
   // }
 
 
-  // isEmpty(value1:any, isNotEmpty:boolean = false){
-  //   if(Array.isArray(value1)){
-  //     return isNotEmpty ? value1.every(x => x != '') : value1.every(x => x == '');
-  //   }
-  //   return isNotEmpty ? value1 != '' : value1 == '';
-  // }
+  isEmpty(value1: any, isNotEmpty: boolean = false) {
+    if (Array.isArray(value1)) {
+      return isNotEmpty ? value1.every(x => x != '') : value1.every(x => x == '');
+    }
+    return isNotEmpty ? value1 != '' : value1 == '';
+  }
 
-  // claimsRules(claims:Reclamation[], valueToCompare:string, type:string, andEqual:boolean = false):boolean{
-  //   if(claims == null){
-  //     claims = [];
-  //   }
-  //   if(type == 'co'){
-  //     return valueToCompare == claims.length.toString();
-  //   }
-  //   for(var claim of claims){
-  //     var amount = parseFloat(claim['amount'].toString().replace(",",".").replace(/\s/g, ""));
-  //     var reserve = parseFloat(claim['reserve'].toString().replace(",",".").replace(/\s/g, ""));
-  //     var total = amount + reserve;
-  //     var compareTo = parseFloat(valueToCompare.replace(",", ".").replace(/\s/g, ""));
-  //     switch(type){
-  //       case 'gt':
-  //         if(andEqual ? total >= compareTo : total > compareTo){
-  //           return true;
-  //         }
-  //         break;
-  //       case 'lt':
-  //         if(andEqual ? total <= compareTo : total < compareTo){
-  //           return true;
-  //         }
-  //         break;
-  //       case 'eq':
-  //         if(total == compareTo)
-  //           return true;
-  //         break;
-  //       case 'op':
-  //         if(claim['opened'].toString() == valueToCompare){
-  //           return true;
-  //         }
-  //         break;
-  //     }
-  //   }
-  //   return false;
-  // }
+  claimsRules(claims: Reclamation[], valueToCompare: string, type: string, andEqual: boolean = false): boolean {
+    if (claims == null) {
+      claims = [];
+    }
+    if (type == 'co') {
+      return valueToCompare == claims.length.toString();
+    }
+    for (var claim of claims) {
+      var amount = parseFloat(claim['amount'].toString().replace(",", ".").replace(/\s/g, ""));
+      var reserve = parseFloat(claim['reserve'].toString().replace(",", ".").replace(/\s/g, ""));
+      var total = amount + reserve;
+      var compareTo = parseFloat(valueToCompare.replace(",", ".").replace(/\s/g, ""));
+      switch (type) {
+        case 'gt':
+          if (andEqual ? total >= compareTo : total > compareTo) {
+            return true;
+          }
+          break;
+        case 'lt':
+          if (andEqual ? total <= compareTo : total < compareTo) {
+            return true;
+          }
+          break;
+        case 'eq':
+          if (total == compareTo)
+            return true;
+          break;
+        case 'op':
+          if (claim['opened'].toString() == valueToCompare) {
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
+  }
 
-  // isGreaterThan(value1:string, value2:string, andEqual:boolean = false):boolean{
-  //   if(isNullOrUndefined(value1) || isNullOrUndefined(value2)){
-  //     return false;
-  //   }
-  //   var number1 = parseFloat(value1.toString().replace(",",".").replace(/\s/g, ""));
-  //   var number2 = parseFloat(value2.toString().replace(",",".").replace(/\s/g, ""));
-  //   if(isNaN(number1) || isNaN(number2)){
-  //     return false;
-  //   }
-  //   return andEqual ? number1 >= number2 : number1 > number2;
-  // }
 
-  // isLesserThan(value1:string, value2:string, andEqual:boolean = false):boolean{
-  //   if(isNullOrUndefined(value1) || isNullOrUndefined(value2)){
-  //     return false;
-  //   }
-  //   var number1 = parseFloat(value1.toString().replace(",",".").replace(/\s/g, ""));
-  //   var number2 = parseFloat(value2.toString().replace(",",".").replace(/\s/g, ""));
-  //   if(isNaN(number1) || isNaN(number2)){
-  //     return false;
-  //   }
-  //   return andEqual ? number1 <= number2 : number1 < number2;
-  // }
+  isLesserThan(value1: string, value2: string, andEqual: boolean = false): boolean {
+    if (!value1 || !value2) {
+      return false;
+    }
+    var number1 = parseFloat(value1.toString().replace(",", ".").replace(/\s/g, ""));
+    var number2 = parseFloat(value2.toString().replace(",", ".").replace(/\s/g, ""));
+    if (isNaN(number1) || isNaN(number2)) {
+      return false;
+    }
+    return andEqual ? number1 <= number2 : number1 < number2;
+  }
 
   // dateGreaterThan(value1:string, value2:string, andEqual:boolean = false):boolean {
   //   if(isNullOrUndefined(value1) || isNullOrUndefined(value2)){
@@ -578,20 +568,20 @@ export class RuleService {
   //   }
   // }
 
-  // provinceIs(ruleValue, questionValue, isNot:boolean = false){
-  //   var result = false;
-  //   for(var key in questionValue){
-  //     if(key.indexOf("province") > -1){
-  //       if(questionValue[key] == ""){
-  //         break;
-  //       }
-  //       result = isNot ? questionValue[key] != ruleValue : questionValue[key] == ruleValue;
-  //     }
-  //     if(result)
-  //       break;
-  //   }
-  //   return result;
-  // }
+  provinceIs(ruleValue: any, questionValue: any, isNot: boolean = false) {
+    var result = false;
+    for (var key in questionValue) {
+      if (key.indexOf("province") > -1) {
+        if (questionValue[key] == "") {
+          break;
+        }
+        result = isNot ? questionValue[key] != ruleValue : questionValue[key] == ruleValue;
+      }
+      if (result)
+        break;
+    }
+    return result;
+  }
 
   // saveExclusions(quoteId:string):Observable<void>{
   //   var exclusion = [];

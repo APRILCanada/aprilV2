@@ -8,7 +8,7 @@ import { FormValue, State } from '../store';
 import { ActionService } from '../services/action.service';
 import { Answer } from '../models/Answer';
 import { FlashquoteService } from '../services/flashquote.service';
-import { formLoaded, RemoveGroupSectionAction, setActiveSection, setPrime, SetSubmittedValueAction } from '../actions/flashquote.actions';
+import { formLoaded, RemoveGroupSectionAction, setActiveSection, setExclusions, setPrime, SetSubmittedValueAction } from '../actions/flashquote.actions';
 import {
   selectSections,
   selectFormState,
@@ -21,6 +21,7 @@ import {
   selectProgress,
   selectForm,
   selectPrime,
+  selectExclusions,
 } from '../selectors';
 import { Router } from '@angular/router';
 import { LanguageService } from 'src/app/services/language.service';
@@ -28,6 +29,7 @@ import { Section } from '../models/Section';
 import { ActiveSection } from '../models/ActiveSection'
 import { loadBroker } from '../actions/broker.actions';
 import { BrokerDTO } from '../models/Broker';
+import { CityFilterPipe } from 'src/app/pipes/city-filter.pipe';
 
 
 @Component({
@@ -44,6 +46,8 @@ export class FormComponent implements OnInit, AfterContentChecked {
   errors: any;
   formState$: Observable<any>;
   prime$: Observable<any>;
+  exclusions$: Observable<any>;
+  exclusionImg: string = '../../../assets/img/direct/quote_end.png';
   formValid$: Observable<boolean>;
   formSubmitted$: Observable<boolean>;
   submittedValue$: Observable<FormValue | undefined>;
@@ -58,11 +62,11 @@ export class FormComponent implements OnInit, AfterContentChecked {
   lang: string;
 
 
+
   constructor(
     private store: Store<State>,
     private actionService: ActionService,
     private flashquoteService: FlashquoteService,
-    private router: Router,
     public language: LanguageService,
     private cdr: ChangeDetectorRef,
     private actionsSubject: ActionsSubject
@@ -90,6 +94,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
     this.getBroker();
     this.getSelectProgress()
     this.getPrime();
+    this.getExclusions()
 
     this.onFormChange();
 
@@ -171,6 +176,9 @@ export class FormComponent implements OnInit, AfterContentChecked {
     this.prime$ = this.store.pipe(select(selectPrime));
   }
 
+  getExclusions() {
+    this.exclusions$ = this.store.pipe(select(selectExclusions))
+  }
   getFormValid() {
     this.formValid$ = this.store.pipe(select(selectFormValid));
     //this.store.pipe(select(selectFormValid)).subscribe(data => console.log('FORM VALID', data))
@@ -195,10 +203,13 @@ export class FormComponent implements OnInit, AfterContentChecked {
     )
   }
 
+
   setActiveSection(step: number) {
     window.scrollTo(0, 700);
+    const sectionValid = this.flashquoteService.validateSection(this.errors['_' + this.activeSection.id])
+    this.flashquoteService.resetValidateSectionKeys()
 
-    if (this.errors['_' + this.activeSection.id] && step === 1) {
+    if (!sectionValid && step === 1) {
       return this.store.dispatch(new MarkAsSubmittedAction('generic'))
     }
 
@@ -213,6 +224,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
         isFirst: this.activeSection.index + step === 0,
         isLast: this.activeSection.index + step === this.sections.length - 1,
         isPrime: false,
+        isExcluded: false,
         sectionsLength: this.sections.length,
         maxRepeat: newSection.maxRepeat
       }
@@ -240,12 +252,21 @@ export class FormComponent implements OnInit, AfterContentChecked {
 
 
   submit() {
+    // validate section errors (other than exlusions)
+    const sectionValid = this.flashquoteService.validateSection(this.errors['_' + this.activeSection.id])
+    if (!sectionValid) {
+      return this.store.dispatch(new MarkAsSubmittedAction('generic'))
+    }
+    // get all the exclusions from all sections
+    if (this.flashquoteService.validateSection(this.errors)) {
+      const exclusions = this.flashquoteService.getUserExclusions(this.errors)
+      // set exclusions
+      this.store.dispatch(setExclusions({ exclusions }))
+    }
+
     this.formState$
       .pipe(
         take(1),
-        filter((state) => {
-          return state.isValid;
-        }),
         map((form) => {
           this.submittingForm = true;
 
@@ -311,7 +332,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
             Language: this.language.get(),
             Answers: allAnswers,
           };
-          
+
           return new SetSubmittedValueAction(formData);
         })
       ).subscribe(this.store)
@@ -331,14 +352,15 @@ export class FormComponent implements OnInit, AfterContentChecked {
         //       index: this.sections.length,
         //       isFirst: false,
         //       isLast: false,
-        //       isPrime: true,
+        //       isPrime: false,
+        //       isExcluded: true,
         //       sectionsLength: this.sections.length,
         //       maxRepeat: 0
         //     }
         //   }))
 
-        //   this.submittingForm = false;
 
+        //   this.submittingForm = false;
 
         //   this.store.dispatch(formLoaded({ isFormLoaded: true }))
         //   this.store.dispatch(new MarkAsSubmittedAction('generic'))
@@ -349,7 +371,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
           next: quoteResult => {
             this.quoteResult = quoteResult
             console.log('QUOTE RESULT', quoteResult)
-            if (quoteResult) {
+            if (quoteResult && quoteResult.total.premium > 0) {
               this.store.dispatch(setActiveSection({
                 activeSection: {
                   id: this.sections.length,
@@ -359,6 +381,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
                   isFirst: false,
                   isLast: false,
                   isPrime: true,
+                  isExcluded: false,
                   sectionsLength: this.sections.length,
                   maxRepeat: 0
                 }
@@ -369,12 +392,29 @@ export class FormComponent implements OnInit, AfterContentChecked {
                 this.store.dispatch(setPrime({ marketId: this.broker.marketId, formValue, prime: quoteResult.total.premium }))
               })
 
-              this.submittingForm = false;
-
-              this.store.dispatch(formLoaded({ isFormLoaded: true }))
-              this.store.dispatch(new MarkAsSubmittedAction('generic'))
-              this.store.dispatch(new ResetAction('generic'));
+            } else if (quoteResult && !quoteResult.total.premium) {
+              this.store.dispatch(setActiveSection({
+                activeSection: {
+                  id: this.sections.length,
+                  title: { LabelEn: 'Your estimated prime', LabelFr: 'Votre prime estimée' },
+                  isRepeat: false,
+                  index: this.sections.length,
+                  isFirst: false,
+                  isLast: false,
+                  isPrime: false,
+                  isExcluded: true,
+                  sectionsLength: this.sections.length,
+                  maxRepeat: 0
+                }
+              }))
             }
+
+            this.submittingForm = false;
+
+            this.store.dispatch(formLoaded({ isFormLoaded: true }))
+            this.store.dispatch(new MarkAsSubmittedAction('generic'))
+            this.store.dispatch(new ResetAction('generic'));
+
           },
           error: err => {
             console.error(err)

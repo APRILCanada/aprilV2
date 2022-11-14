@@ -1,4 +1,3 @@
-import { HttpResponseBase } from "@angular/common/http";
 import { createReducer, on } from "@ngrx/store";
 import { loadSectionsSuccess, retrieveOptionsAction } from "../actions/flashquote.actions";
 import { Section } from "../models/Section";

@@ -5,26 +5,26 @@ import { SectionControl } from "../store";
 import { validateRepartition } from "./functions";
 
 
-export function exclusion<T>(mustBe: string, comparand: T, errorMessagePopup: string, errorMessageInput?: string) {
+export function exclusion<T>(mustBe: string, comparand: T, errorMessagePopup: string, errorMessage?: string) {
     return <TV extends T | Boxed<T> = T>(value: TV): ValidationErrors => {
         //value = unbox(value) as T as TV;
         value = unbox(value) as any
 
         if (mustBe === 'equal') {
-            if (value === comparand) {
+            if (value === comparand || (value as any) === '') {
                 return {};
             }
         }
 
         if (mustBe === 'dateBefore') {
             const inputDate = new Date((value as any)).getTime()
-            if (inputDate && inputDate < (comparand as any)) {
+            if (inputDate && inputDate < (comparand as any) || (value as any) === '') {
                 return {}
             }
         }
 
         if (mustBe === 'lesserThanOrEqual') {
-            if (value <= (comparand as any)) {
+            if (value <= (comparand as any) || (value as any) === '') {
                 return {}
             }
         }
@@ -36,7 +36,7 @@ export function exclusion<T>(mustBe: string, comparand: T, errorMessagePopup: st
         }
 
         if (mustBe === 'lesserThan') {
-            if (value < (comparand as any)) {
+            if (value < (comparand as any) || (value as any) === '') {
                 return {}
             }
         }
@@ -46,7 +46,7 @@ export function exclusion<T>(mustBe: string, comparand: T, errorMessagePopup: st
                 comparand,
                 actual: value,
                 errorMessagePopup,
-                errorMessageInput
+                errorMessage
             },
         };
     };
@@ -57,8 +57,8 @@ export const validation: any = {
     28: {
         34: updateArray(updateGroup<SectionControl>({
             223: validate(required),
-            3465: validate(required),
-            3466: validate<any>(required, email),
+            3543:validate<any>(required, email),
+            3544: validate<any>(required),
             227: updateGroup<any>({
                 'MailingAddress-Street': validate(required),
                 'MailingAddress-PostalCode': validate(required, pattern(/^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i)),
@@ -88,12 +88,12 @@ export const validation: any = {
             239: validate(required),
             265: validate(required),
             268: validate<any>(required, pattern(/^[0-9]+[0-9]*$/)),
-            270: validate<any>(required, pattern(/^[0-9]+[0-9]*$/), exclusion('lesserThanOrEqual', 0, 'MAJOR_INFRACTION_EXCLUSION_POPUP')),
+            270: validate<any>(required, pattern(/^[0-9]+[0-9]*$/), exclusion('lesserThanOrEqual', 0, 'MAJOR_INFRACTION_EXCLUSION_POPUP', 'MAJOR_INFRACTION_EXCLUSION')),
             372: validate(required),
             344: validate(required),
             240: validate(required),
             242: validate<any>(required),
-            243: validate<any>(required, exclusion('dateBefore', Date.now(), 'BANKRUPCY_EXCLUSION_POPUP')),
+            243: validate<any>(required, exclusion('dateBefore', Date.now(), 'BANKRUPCY_EXCLUSION_POPUP', 'BANKRUPCY_EXCLUSION')),
             //347: OPTIONNEL
         })),
         36: updateArray(updateGroup<SectionControl>({
@@ -103,12 +103,12 @@ export const validation: any = {
                 "Vehicle-Model": validate(required)
             }),
             //309: OPTIONNEL
-            257: validate<any>(validateRepartition, exclusion('businessUseLesserThanOrEqual', 50, 'REPARTITION_EXCLUSION_POPUP')),
+            257: validate<any>(validateRepartition, exclusion('businessUseLesserThanOrEqual', 50, 'REPARTITION_EXCLUSION_POPUP', 'REPARTITION_EXCLUSION')),
             275: validate(required),
             340: validate<any>(required, exclusion('lesserThanOrEqual', 75000, 'AUTO_VALUE_EXCLUSION_POPUP', 'AUTO_VALUE_EXCLUSION')),
             318: (control: FormControlState<any>, formState: any) => {
                 return (formState.value[340] > 25000) ?
-                    validate<any>(formState.controls[318], exclusion('equal', 'true', 'AUTO_VALUE_AGE_EXCLUSION_POPUP')) :
+                    validate<any>(formState.controls[318], exclusion('equal', 'true', 'AUTO_VALUE_AGE_EXCLUSION_POPUP', 'AUTO_VALUE_AGE_EXCLUSION')) :
                     control
             },
             259: validate(required),

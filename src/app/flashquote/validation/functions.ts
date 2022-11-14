@@ -46,3 +46,4 @@ export function patterns(patternParams: RegExp[]) {
         return results.length === 0 ? {} : { patterns: results }
     };
 }
+

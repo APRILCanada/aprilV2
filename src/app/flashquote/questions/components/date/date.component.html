@@ -1,5 +1,5 @@
 <label for="{{control?.id}}">{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</label>
-<mat-form-field appearance="fill" [ngClass]="{'error-border':error &&
+<mat-form-field appearance="fill" [ngClass]="{'error-border':error && !error.exclusion &&
 (control.isDirty || control.isTouched || control.isSubmitted)}">
     <input id="{{control?.id}}" matInput [matDatepicker]="picker" [ngrxFormControlState]="control"
         [ngrxValueConverter]="dateValueConverter" placeholder="{{ 'DATE_PICKER' | translate }}" [min]="minDate"

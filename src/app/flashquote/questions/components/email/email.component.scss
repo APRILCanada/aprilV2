@@ -1,0 +1,16 @@
+.input-field {
+    width: 100%;
+    max-width: 900px;
+  }
+  
+  .input-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  mat-form-field-infix {
+    background-color: var(--greyColor) !important;
+  }
+  
+  label {
+    font-weight: 300 !important;
+  }

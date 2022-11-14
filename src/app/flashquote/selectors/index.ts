@@ -40,6 +40,11 @@ export const selectPrime = createSelector(
   (state) => state.prime
 )
 
+export const selectExclusions = createSelector(
+  selectForm,
+  (state) => state.exclusions
+);
+
 export const selectFormValid = createSelector(
   selectForm,
   (state) => state.formState.isValid

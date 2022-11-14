@@ -7,6 +7,7 @@ import { brokerReducer } from "./brokerReducer";
 import { uiReducer } from "./uiReducer"
 import { activeSectionReducer } from "./activeSectionReducer";
 import { primeReducer } from "./primeReducer";
+import { exclusionsReducer } from "./exclusionsReducer";
 
 const reducers = combineReducers<State['form'], any>({
   broker: brokerReducer,
@@ -15,6 +16,7 @@ const reducers = combineReducers<State['form'], any>({
   sections: sectionsReducer,
   formState: formStateReducer,
   prime: primeReducer,
+  exclusions: exclusionsReducer,
   submittedValue(s: FormValue | undefined, a: SetSubmittedValueAction) {
     switch (a.type) {
       case SetSubmittedValueAction.TYPE:

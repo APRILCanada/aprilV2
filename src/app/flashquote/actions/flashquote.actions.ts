@@ -27,6 +27,8 @@ export const formLoaded = createAction('[FORM] Form Loaded', props<{ isFormLoade
 
 export const setPrime = createAction('[FORM] Set Prime', props<{ marketId: string, formValue: any, prime: any }>())
 
+export const setExclusions = createAction('[FORM] Set Exclusions', props<{ exclusions: string[] }>())
+
 export const setValue = createAction(
   '[Dialog Set Value] Set Selected Value',
   props<{ control: FormControlState<any>; selectedOptions: string }>()
@@ -51,13 +53,13 @@ export class FlashquoteLoadedAction implements Action {
 export class CreateGroupElementAction implements Action {
   static readonly TYPE = 'form/CREATE_GROUP_ELEMENT';
   readonly type = CreateGroupElementAction.TYPE;
-  constructor(public responseKey: any, public destinationId: any) { }
+  constructor(public responseKey: any, public destinationId: any, public pathToGroup: string) { }
 }
 
 export class RemoveGroupElementAction implements Action {
   static readonly TYPE = 'form/REMOVE_GROUP_ELEMENT';
   readonly type = RemoveGroupElementAction.TYPE;
-  constructor(public responseKey: any, public destinationId: any) { }
+  constructor(public responseKey: any, public destinationId: any,  public pathToGroup: string) { }
 }
 
 export class AddGroupSectionAction implements Action {

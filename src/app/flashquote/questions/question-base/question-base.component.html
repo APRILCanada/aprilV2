@@ -3,6 +3,10 @@
     <app-input [question]="question" [control]="control" [error]="error"></app-input>
   </div>
 
+  <div *ngSwitchCase="'EMAIL'">
+    <app-input [question]="question" [control]="control" [error]="error"></app-input>
+  </div>
+
   <div *ngSwitchCase="'TEXTAREA'">
     <app-textarea [question]="question" [control]="control" [error]="error"></app-textarea>
   </div>
@@ -49,11 +53,7 @@
   </div>
 
   <div *ngSwitchCase="'REPARTITION'">
-    <app-repartition
-      [question]="question"
-      [control]="control"
-      [error]="error"
-    ></app-repartition>
+    <app-repartition [question]="question" [control]="control" [error]="error"></app-repartition>
   </div>
-    <ng-content></ng-content>
+  <ng-content></ng-content>
 </div>

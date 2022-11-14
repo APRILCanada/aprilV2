@@ -3,10 +3,12 @@ import {
   formGroupReducer,
   updateGroup,
   addArrayControl,
-  removeArrayControl
+  removeArrayControl,
+  removeGroupControl,
+  addGroupControl
 } from 'ngrx-forms';
 import { FormValue } from '../store';
-import { AddGroupSectionAction, RemoveGroupSectionAction } from '../actions/flashquote.actions';
+import { AddGroupSectionAction, CreateGroupElementAction, RemoveGroupElementAction, RemoveGroupSectionAction } from '../actions/flashquote.actions';
 import { cloneDeep } from 'lodash';
 import { validation } from '../validation/rules';
 
@@ -20,7 +22,7 @@ export const INITIAL_STATE = createFormGroupState<FormValue>(FORM_ID, {});
 /* REDUCER */
 /* *** *** ***  *** *** ***  *** *** ***  *** *** *** */
 export function formStateReducer(
-  state = INITIAL_STATE, action: AddGroupSectionAction | RemoveGroupSectionAction
+  state = INITIAL_STATE, action: AddGroupSectionAction | RemoveGroupSectionAction | CreateGroupElementAction | RemoveGroupElementAction
 ) {
 
   const marketId = localStorage.getItem('market') ?? ''
@@ -57,6 +59,35 @@ export function formStateReducer(
         }
       })
       break;
+
+    case RemoveGroupElementAction.TYPE:
+      state = updateGroup<FormValue>(state, {
+        [action.destinationId]: (group: any) => {
+          return removeGroupControl(group, action.responseKey as never);
+        },
+      })
+      break;
+
+
+    case CreateGroupElementAction.TYPE:
+      console.log('STATE', state)
+      const path = action.pathToGroup.split('.')
+      const sectionId = parseInt(path[1])
+      const groupId = parseInt(path[2])
+      //const value = state.controls[action.destinationId].value as {};
+     // const value = (state.controls[sectionId].controls[groupId].controls as any)[action.destinationId]?.value as {}
+
+       // if (!(action.responseKey in value)) {
+          state = updateGroup<FormValue>(state, {
+            [action.destinationId]: (group: any) => {
+              console.log('GROUP', group)
+              // group = nested repartition
+              return addGroupControl(group, action.responseKey, '')
+            }
+          });
+          break
+       // }
+
   }
 
   return validateForm(formGroupReducer(state, action))
