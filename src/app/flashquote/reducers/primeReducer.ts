@@ -1,8 +1,5 @@
-import { state } from '@angular/animations';
 import { createReducer, on } from '@ngrx/store';
-import { loadBrokerSuccess } from '../actions/broker.actions';
 import { setPrime } from '../actions/flashquote.actions';
-import { formStateReducer } from './formStateReducer';
 
 
 const initialState = {
@@ -14,6 +11,14 @@ const initialState = {
 export const primeReducer = createReducer(
     initialState,
     on(setPrime, (state, { marketId, formValue, prime }) => {
+        // CONTRACTOR (MARKET ID = 76)
+        if (marketId == '76') {
+            return {
+                ...state,
+                prime,
+                applicantName: formValue.value[167][0][2891],
+            }
+        }
 
         // AUTO PERSO (MARKET ID = 28)
         if (marketId == '28') {

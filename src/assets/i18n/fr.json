@@ -468,6 +468,10 @@
     "AUTO_VALUE_AGE_EXCLUSION": "La valeur du véhicule dépasse 25 000$ et vous avez moins de 25 ans.",
     "MAJOR_INFRACTION_EXCLUSION_POPUP": "Vous avez fait l'objet d'au moins une infraction majeure. Ce point nécessitera validation auprès d'un agent après soumission du formulaire.",
     "MAJOR_INFRACTION_EXCLUSION": "Vous avez fait l'objet d'au moins une infraction majeure.",
+    "CONTRACTOR_EXCLUSION_POPUP": "Vous effectuez des activités dans un secteur à risque. Appelez un agent au ",
+    "YEARS_EXPERIENCE_EXCLUSION_POPUP": "Vous avez moins de 3 ans d'expérience. Ce point nécessitera une validation auprès d'un agent après soumission du formulaire.",
+    "ANNUAL_REVENUE_GREATER_EXCLUSION_POPUP": "Vos revenus sont inférieurs à 30 000 $. Ce point nécessitera une validation auprès d'un agent après soumission du formulaire.",
+    "ANNUAL_REVENUE_LESSER_EXCLUSION_POPUP": "Vos revenus sont supérieurs à 1 million$. Ce point nécessitera une validation auprès d'un agent après soumission du formulaire.",
     "NEW_QUOTE": "Faire une nouvelle soumission",
     "EMAIL_VALIDATION": "Merci d'entrer un email valide.",
     "UNDERSTAND": "J'ai compris",
@@ -478,7 +482,7 @@
     "SUBMIT_QUOTE": "Envoyer la soumission",
     "ESTIMATION_DISCLAIMER": "*Cette estimation est basée sur les informations que vous nous avez fournies. Elle est sujette à modification durant la collecte d'informations complémentaires.",
     "YOUR PRIME": "votre prime estimée s'élève à",
-    "YOUR PROTECTIONS": "Vos protections",
+    "YOUR_PROTECTIONS": "Vos protections",
     "PUBLIC_LIABILITY": "Responsabilité civile",
     "B2": "Risques de collision et de renversement",
     "B3": "Tous les risques sauf collision ou renversement",
@@ -488,5 +492,7 @@
     "TALK_TO_AGENT": "Pour parler à un agent maintenant:",
     "OPENING_HOURS": "Nos bureaux sont ouverts:",
     "NO_ESTIMATION": "Nous ne pouvons pas estimer votre prime pour les raisons suivantes:",
-    "EXCLUSION_CONTACT": "Un de nos agents vous contactera sous peu pour trouver une solution adaptée à vos besoins."
+    "ESTIMATION_NULL": "Malheureusement, nous ne pouvons pas estimer votre prime.",
+    "EXCLUSION_CONTACT": "Un de nos agents vous contactera sous peu pour trouver une solution adaptée à vos besoins.",
+    "TABLE_HEADING": "Pourcentage de travail effectué pour chaque activité"
 }

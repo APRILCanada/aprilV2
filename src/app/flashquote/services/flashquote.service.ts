@@ -34,13 +34,14 @@ export class FlashquoteService {
   validateSection(obj: any) {
     // no error object provides = form is valid
     if (!obj) return true;
-
+ 
     Object.keys(obj).forEach(key => {
       if (typeof obj[key] === 'object') {
         this.validateSection(obj[key])
-        if (key === 'exclusion' || key === 'required' || key === 'pattern' || key === 'email') this.sectionValidationKeys.push(key)
+        if (key === 'exclusion' || key === 'required' || key === 'pattern' || key === 'email' || key === 'contractorExclusion') this.sectionValidationKeys.push(key)
       }
     })
+    // only exclusion error type: good to go to next section!
     return this.sectionValidationKeys.every((el: any) => el === 'exclusion')
   }
 
@@ -56,7 +57,6 @@ export class FlashquoteService {
       }
     })
     return this.userExclusions.reduce((acc: any[], curr: any) => {
-      console.log('CURR', curr)
       acc.push(curr.errorMessage)
       return acc
     }, [])

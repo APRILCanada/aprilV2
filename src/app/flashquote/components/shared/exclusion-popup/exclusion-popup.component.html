@@ -3,3 +3,9 @@
         {{ error?.exclusion.errorMessagePopup | translate }}
     </small>
 </div>
+
+<div @fadeSlideInOut class="speech-bubble blocking" *ngIf="error?.contractorExclusion">
+    <small>
+        {{ error?.contractorExclusion.errorMessagePopup | translate }} <br > {{ broker.phone }}
+    </small>
+</div>

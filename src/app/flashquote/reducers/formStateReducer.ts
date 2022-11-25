@@ -5,7 +5,8 @@ import {
   addArrayControl,
   removeArrayControl,
   removeGroupControl,
-  addGroupControl
+  addGroupControl,
+  updateArray
 } from 'ngrx-forms';
 import { FormValue } from '../store';
 import { AddGroupSectionAction, CreateGroupElementAction, RemoveGroupElementAction, RemoveGroupSectionAction } from '../actions/flashquote.actions';
@@ -61,74 +62,44 @@ export function formStateReducer(
       break;
 
     case RemoveGroupElementAction.TYPE:
-      state = updateGroup<FormValue>(state, {
-        [action.destinationId]: (group: any) => {
-          return removeGroupControl(group, action.responseKey as never);
-        },
-      })
+      const p = action.pathToGroup.split('.')
+      const sId = parseInt(p[1])
+      const gId = parseInt(p[2])
+      const contrl = (state.controls[sId].controls[gId].controls as any)[action.destinationId];
+
+      if (contrl && (action.responseKey in contrl.value)) {
+        state = updateGroup<FormValue>(state, {
+          [sId]: updateArray(
+            updateGroup({
+              [action.destinationId]: (group: any) => {
+                return removeGroupControl(group, action.responseKey as never)
+              },
+            })
+          ),
+        })
+      }
       break;
 
 
     case CreateGroupElementAction.TYPE:
-      console.log('STATE', state)
       const path = action.pathToGroup.split('.')
       const sectionId = parseInt(path[1])
       const groupId = parseInt(path[2])
-      //const value = state.controls[action.destinationId].value as {};
-     // const value = (state.controls[sectionId].controls[groupId].controls as any)[action.destinationId]?.value as {}
 
-       // if (!(action.responseKey in value)) {
-          state = updateGroup<FormValue>(state, {
-            [action.destinationId]: (group: any) => {
-              console.log('GROUP', group)
-              // group = nested repartition
-              return addGroupControl(group, action.responseKey, '')
-            }
-          });
-          break
-       // }
-
+      const control = (state.controls[sectionId].controls[groupId].controls as any)[action.destinationId];
+      if (control && !(action.responseKey in control.value)) {
+        state = updateGroup<FormValue>(state, {
+          [sectionId]: updateArray(
+            updateGroup({
+              [action.destinationId]: (group: any) => {
+                return addGroupControl(group, action.responseKey, '')
+              },
+            })
+          ),
+        })
+      }
+      break;
   }
 
   return validateForm(formGroupReducer(state, action))
 }
-
-
-
-
-
-// /* REDUCER */
-// /* *** *** ***  *** *** ***  *** *** ***  *** *** *** */
-// export function formStateReducer(
-//   s: FormGroupState<FormValue> = INITIAL_STATE,
-//   a: CreateGroupElementAction
-//     | RemoveGroupElementAction | AddArrayControlAction<any>
-// ) {
-//   switch (a.type) {
-//     //https://giters.com/MrWolfZ/ngrx-forms/issues/87
-
-//     case RemoveGroupElementAction.TYPE:
-//       const newS = updateGroup<FormValue>({
-//         [a.destinationId]: (group: any) => {
-//           return removeGroupControl(group, a.responseKey as never);
-//         },
-//       })(s);
-//       return formGroupReducer(newS, a);
-
-//     case CreateGroupElementAction.TYPE:
-//       const value = s.controls[a.destinationId].value as {};
-//       if (!(a.responseKey in value)) {
-//         // newS = the whole formState
-//         const newS = updateGroup<FormValue>({
-//           [a.destinationId]: (group: any) => {
-//             // group = nested repartition
-//             return addGroupControl(group, a.responseKey, '')
-//           }
-//         })(s);
-//         return formGroupReducer(newS, a);
-//       }
-//   }
-
-//   return validateForm(formGroupReducer(s, a));
-//   //return validateAndUpdateForm(formGroupReducer(s, a));
-// }

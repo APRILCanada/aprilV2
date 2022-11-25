@@ -5,12 +5,12 @@
     <button class="add" type="button" (click)="openMultiSelectDialog()" mat-mini-fab color="basic">
       <mat-icon>add</mat-icon>
     </button>
-    <mat-label>{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</mat-label>
+    <mat-label>{{ language.get() == "fr" ? question.title.LabelFr : question.title.LabelEn }}</mat-label>
   </div>
 
   <mat-chip-list #chipList *ngIf="selectedOptions.length > 0">
     <mat-chip *ngFor="let opt of selectedOptions" (removed)="remove(opt.id)">
-      <small>{{ opt.label.LabelEn }}</small>
+      <small>{{ language.get() == "fr" ? opt.label.LabelFr : opt.label.LabelEn }}</small>
       <button matChipRemove>
         <mat-icon>cancel</mat-icon>
       </button>

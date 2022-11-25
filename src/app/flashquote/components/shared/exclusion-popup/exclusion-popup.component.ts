@@ -1,6 +1,10 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import { BrokerDTO } from 'src/app/flashquote/models/Broker';
+import { selectBroker } from 'src/app/flashquote/selectors';
+import { State } from 'src/app/flashquote/store';
 
 @Component({
   selector: 'app-exclusion-popup',
@@ -27,11 +31,17 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ExclusionPopupComponent implements OnInit {
   @Input() error: any;
-  exclusions: any;
+  broker: BrokerDTO;
 
-  constructor(public translate: TranslateService) { }
+  constructor(public translate: TranslateService, private store: Store<State>) { }
 
-  ngOnInit(): void { 
-    console.log('ERROR', this.error)
+  ngOnInit(): void {
+    this.getBroker()
+  }
+
+  getBroker() {
+    this.store.pipe(select(selectBroker)).subscribe(broker => {
+      this.broker = broker
+    })
   }
 }

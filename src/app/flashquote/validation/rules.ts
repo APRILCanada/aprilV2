@@ -23,20 +23,32 @@ export function exclusion<T>(mustBe: string, comparand: T, errorMessagePopup: st
             }
         }
 
-        if (mustBe === 'lesserThanOrEqual') {
-            if (value <= (comparand as any) || (value as any) === '') {
-                return {}
-            }
-        }
-
         if (mustBe === 'businessUseLesserThanOrEqual') {
             if ((value as any)['BusinessUse'] === '' || (value as any)['BusinessUse'] <= (comparand as any)) {
                 return {}
             }
         }
 
+        if (mustBe === 'lesserThanOrEqual') {
+            if (value <= (comparand as any) || (value as any) === '') {
+                return {}
+            }
+        }
+
         if (mustBe === 'lesserThan') {
             if (value < (comparand as any) || (value as any) === '') {
+                return {}
+            }
+        }
+
+        if (mustBe === 'greaterThan') {
+            if (value > (comparand as any) || (value as any) === '') {
+                return {}
+            }
+        }
+
+        if (mustBe === 'greaterThanOrEqual') {
+            if (value >= (comparand as any) || (value as any) === '') {
                 return {}
             }
         }
@@ -52,13 +64,30 @@ export function exclusion<T>(mustBe: string, comparand: T, errorMessagePopup: st
     };
 }
 
+export function contractorExclusion(values: any): ValidationErrors {
+    const exclusions = [922, 95, 106, 91, 98, 113, 104, 105, 61, 100, 923, 921, 920, 919, 102, 48, 50, 51, 56, 63, 72, 80, 83, 84, 96, 109, 118, 119, 120, 121, 126, 47, 927]
+    const errors = []
+
+    for (let k in values) {
+        if (exclusions.includes(parseInt(k)) && values[k] > 0)
+            errors.push(k)
+    }
+
+    return errors.length ? {
+        'contractorExclusion': {
+            actual: [...errors],
+            errorMessagePopup: 'CONTRACTOR_EXCLUSION_POPUP'
+        },
+    } : {}
+}
+
 export const validation: any = {
     // auto perso
     28: {
         34: updateArray(updateGroup<SectionControl>({
             223: validate(required),
-            3543:validate<any>(required, email),
-            3544: validate<any>(required),
+            3551: validate<any>(required, email),
+            3552: validate<any>(required),
             227: updateGroup<any>({
                 'MailingAddress-Street': validate(required),
                 'MailingAddress-PostalCode': validate(required, pattern(/^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i)),
@@ -130,5 +159,24 @@ export const validation: any = {
         }))
     },
     // contracteur
-    76: {}
+    76: {
+        164: updateArray(updateGroup<SectionControl>({
+            2879: validate(required),
+            2880: validate(required),
+            2881: validate<any>(required, exclusion('greaterThanOrEqual', 30000, 'ANNUAL_REVENUE_GREATER_EXCLUSION_POPUP'),
+                exclusion('lesserThanOrEqual', 1000000, 'ANNUAL_REVENUE_LESSER_EXCLUSION_POPUP')),
+            2882: validate<any>(required, exclusion('greaterThanOrEqual', 3, 'YEARS_EXPERIENCE_EXCLUSION_POPUP')),
+            2883: validate(required),
+            2885: validate(contractorExclusion),
+            3054: (control: FormControlState<any>, formState: any) => {
+                console.log('3054', control)
+                return control
+            }
+        })),
+        167: updateArray(updateGroup<SectionControl>({
+            2891: validate(required),
+            3505: validate(required),
+            3506: validate(required),
+        }))
+    }
 }

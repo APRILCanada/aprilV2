@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
-import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Store, select, ActionsSubject } from '@ngrx/store';
 import { Question } from '../models/Question';
-import { FormGroupState, MarkAsSubmittedAction, ResetAction, SetValueAction } from 'ngrx-forms';
-import { distinct, distinctUntilChanged, distinctUntilKeyChanged, filter, map, pluck, skipLast, skipWhile, switchMap, take, takeLast, takeWhile, tap } from 'rxjs/operators';
+import { MarkAsSubmittedAction, ResetAction } from 'ngrx-forms';
+import { distinctUntilChanged, map, take } from 'rxjs/operators';
 import { FormValue, State } from '../store';
 import { ActionService } from '../services/action.service';
 import { Answer } from '../models/Answer';
@@ -19,17 +19,13 @@ import {
   selectBroker,
   selectActiveSection,
   selectProgress,
-  selectForm,
   selectPrime,
   selectExclusions,
 } from '../selectors';
-import { Router } from '@angular/router';
 import { LanguageService } from 'src/app/services/language.service';
 import { Section } from '../models/Section';
 import { ActiveSection } from '../models/ActiveSection'
-import { loadBroker } from '../actions/broker.actions';
 import { BrokerDTO } from '../models/Broker';
-import { CityFilterPipe } from 'src/app/pipes/city-filter.pipe';
 
 
 @Component({
@@ -39,7 +35,6 @@ import { CityFilterPipe } from 'src/app/pipes/city-filter.pipe';
 })
 export class FormComponent implements OnInit, AfterContentChecked {
   sections: Section[];
-  // questions: Question[];
   questionsBySection?: Question[];
   activeSection: ActiveSection;
   errors$: Observable<any>;
@@ -60,8 +55,6 @@ export class FormComponent implements OnInit, AfterContentChecked {
   primeReady = false;
   quoteResult: any;
   lang: string;
-
-
 
   constructor(
     private store: Store<State>,
@@ -95,20 +88,13 @@ export class FormComponent implements OnInit, AfterContentChecked {
     this.getSelectProgress()
     this.getPrime();
     this.getExclusions()
-
     this.onFormChange();
-
   }
 
   //https://stackoverflow.com/questions/34364880/expression-has-changed-after-it-was-checked
   ngAfterContentChecked() {
     this.cdr.detectChanges();
   }
-
-  // ngOnDestroy() {
-  //   this.formSubscription.unsubscribe();
-  // }
-
 
   onFormChange() {
     this.formState$.pipe(
@@ -181,7 +167,6 @@ export class FormComponent implements OnInit, AfterContentChecked {
   }
   getFormValid() {
     this.formValid$ = this.store.pipe(select(selectFormValid));
-    //this.store.pipe(select(selectFormValid)).subscribe(data => console.log('FORM VALID', data))
   }
 
   getFormSubmitted() {
@@ -202,7 +187,6 @@ export class FormComponent implements OnInit, AfterContentChecked {
       new RemoveGroupSectionAction(sectionId, index)
     )
   }
-
 
   setActiveSection(step: number) {
     window.scrollTo(0, 700);
@@ -285,7 +269,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
                 const identifier = questionsSection.find((q: Question) => q.id === parseInt(key))?.identifier
                 const questionType = questionsSection.find((q: Question) => q.id === parseInt(key))?.type
 
-                if (identifier && questionType)
+                if (identifier && questionType) {
                   if (typeof groupSection[key] === 'object') {
                     for (let subKey in groupSection[key]) {
                       let value = groupSection[key][subKey]
@@ -319,6 +303,29 @@ export class FormComponent implements OnInit, AfterContentChecked {
                       sectionIsRepeat ? identifier + '-' + i : identifier
                     ))
                   }
+                  // case repartition associated to a multiple where identifier does not exist
+                  // "Key": "2885",
+                  // "SectionId": "164",
+                  // "Identifier": "21",
+                  // "Value": "0"
+                } else if (!identifier && questionType) {
+                  if (typeof groupSection[key] === 'object') {
+                    for (let subKey in groupSection[key]) {
+                      let value = groupSection[key][subKey]
+
+                      if (questionType === 'REPARTITION') {
+                        value = (value / 100).toString()
+                      }
+
+                      answers.push(new Answer(
+                        sectionIsRepeat ? key + '_' + i : key,
+                        sectionKey,
+                        value,
+                        sectionIsRepeat ? subKey + '-' + i : subKey
+                      ))
+                    }
+                  }
+                }
               }
               return answers
             }, [])

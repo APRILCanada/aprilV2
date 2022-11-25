@@ -256,7 +256,7 @@ exports.subscribeNewsletter = functions.https.onCall((data) => {
 
     var mailList = [
         `${data.email}`,
-        'adrien.angermann@april.ca'
+        'melanie.hardy@april.ca'
     ]
 
     const authData = nodemailer.createTransport({

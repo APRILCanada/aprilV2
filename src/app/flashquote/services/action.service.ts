@@ -47,7 +47,6 @@ export class ActionService {
 
       switch (rule.action) {
         case 'RETRIEVE_RESPONSE':
-          //this.getResponsesFromPreviousAnswer(question, rule, control, destinationId.toString(), pathToGroup);
           this.getResponsesFromPreviousAnswer(question, control, destinationId, pathToGroup);
           break;
         case 'SHOW':
@@ -56,11 +55,39 @@ export class ActionService {
         case 'HIDE':
           this.hide(question, rule, control, destinationId.toString(), pathToGroup);
           break;
-        case 'RETRIEVE': //More like a RETRIEVE_ANSWER
+        case 'RETRIEVE':
           this.getOptionsFromPreviousAnswer(question, rule, control, destinationId.toString(), pathToGroup);
+          break;
+        case 'SET_VALUE':
+          this.setValue(rule, control, destinationId.toString(), pathToGroup);
           break;
       }
     });
+  }
+
+  
+  setValue(rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
+    
+    const result = this.ruleService.checkRule(rule, control)
+    const groupId = parseInt(pathToGroup.slice(-1))
+
+    if (result) {
+      if (!this.temp.includes(groupId + '.' + destinationId)) {
+        if (!(this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
+          if (control.value instanceof Object) {
+            this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, {
+              [rule.forceValue]: rule.forceValue
+            }))
+          } else {
+            this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, rule.forceValue))
+          }
+        }
+        this.temp.push(groupId + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+      }
+      this.store.dispatch(new SetValueAction('generic.' + this.activeSection.id + '.' + groupId + '.' + destinationId + '.' + rule.forceValue, rule.forceValue))
+    } else {
+      this.store.dispatch(new SetValueAction('generic.' + this.activeSection.id + '.' + groupId + '.' + destinationId + '.' + rule.forceValue, ''))
+    }
   }
 
   hide(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
@@ -80,9 +107,9 @@ export class ActionService {
     } else if (rule.value !== control.value) {
 
       if (this.temp.includes(groupId + '.' + destinationId)) {
-     
+
         if (!(this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
-          
+
           this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, ''));
           const qId = this.temp.indexOf(groupId + '.' + destinationId); // FIX FOR DOUBLE ACTION DISPATCH
           if (qId !== -1) {
@@ -123,7 +150,8 @@ export class ActionService {
           }
           else {
             if ((question.identifier !== 'MinorInfraction' && question.identifier !== 'MajorInfraction')) {
-              this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, ''));
+              this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, {}));
+              //this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, ''));
               this.temp.push(groupId + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
             }
           }
@@ -192,7 +220,14 @@ export class ActionService {
     const responseKeyList: string[] = [];
     const responses: Response[] = question.responses
     const selectedResponseKeys: string[] = control.value.split(',');
-    const prevValues = Object.keys((this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[question.id].value);
+    let prevValues: any = []
+
+
+    if ((this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[destinationId]) {
+      prevValues = Object.keys((this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[destinationId].value)
+    } else {
+      prevValues = (this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[question.id].value.split(",")
+    }
 
 
     for (let key of selectedResponseKeys) {
@@ -203,7 +238,7 @@ export class ActionService {
 
     // remove input
     if (responseKeyList.length < prevValues.length) {
-      const responseKey = prevValues.filter((v) => !responseKeyList.includes(v));
+      const responseKey = prevValues.filter((v: any) => !responseKeyList.includes(v));
       this.store.dispatch(new RemoveGroupElementAction(responseKey, destinationId, pathToGroup));
     }
 

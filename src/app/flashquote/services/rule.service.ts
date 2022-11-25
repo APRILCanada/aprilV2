@@ -104,13 +104,25 @@ export class RuleService {
         result = control.value != rule.value;
         break;
       case 'GREATER_THAN':
-        result = this.isGreaterThan(control.value, rule.value);
+        if(control.value instanceof Object) {
+          for(let key in control.value) {
+           result = this.isGreaterThan(control.value[key], rule.value)
+          }
+        } else {
+          result = this.isGreaterThan(control.value, rule.value);
+        }
         break;
       case 'LESSER_THAN':
         result = this.isLesserThan(control.value, rule.value);
         break;
       case 'GREATER_EQUAL':
-        result = this.isGreaterThan(control.value, rule.value, true);
+        if(control.value instanceof Object) {
+          for(let key in control.value) {
+           result = this.isGreaterThan(control.value[key], rule.value, true)
+          }
+        } else {
+          result = this.isGreaterThan(control.value, rule.value, true);
+        }
         break;
       case 'LESSER_EQUAL':
         result = this.isLesserThan(control.value, rule.value, true);
@@ -189,6 +201,7 @@ export class RuleService {
     if ((!value1) || !(value2)) {
       return false;
     }
+    console.log(value1, value2)
     var number1 = parseFloat(value1.toString().replace(",", ".").replace(/\s/g, ""));
     var number2 = parseFloat(value2.toString().replace(",", ".").replace(/\s/g, ""));
     if (isNaN(number1) || isNaN(number2)) {

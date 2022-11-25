@@ -468,6 +468,10 @@
     "AUTO_VALUE_AGE_EXCLUSION": "The value of the vehicle exceeds $25,000 and you are under 25 years old.",
     "MAJOR_INFRACTION_EXCLUSION_POPUP": "You have had at least one major violation. This point will require validation with an agent after submission of the form.",
     "MAJOR_INFRACTION_EXCLUSION": "You have had at least one major violation.",
+    "CONTRACTOR_EXCLUSION_POPUP": "You are carrying out activities in a sector at risk. Call an agent at ",
+    "YEARS_EXPERIENCE_EXCLUSION_POPUP": "You have less than 3 years of experience. This point will require validation with an agent after submission of the form.",
+    "ANNUAL_REVENUE_GREATER_EXCLUSION_POPUP": "Your revenue is lesser than $30 000. This point will require validation with an agent after submission of the form.",
+    "ANNUAL_REVENUE_LESSER_EXCLUSION_POPUP": "Your revenue is greater than 1 million$. This point will require validation with an agent after submission of the form.",
     "NEW_QUOTE": "Make a new quote",
     "EMAIL_VALIDATION": "Please enter a valid email",
     "UNDERSTAND": "I understand",
@@ -488,7 +492,9 @@
     "TALK_TO_AGENT": "To speak to an agent now:",
     "OPENING_HOURS": "Our offices are open:",
     "NO_ESTIMATION": "We cannot estimate your premium for the following reasons:",
-    "EXCLUSION_CONTACT": "One of our agents will contact you shortly to find a solution adapted to your needs."
+    "ESTIMATION_NULL": "Unfortunately, we cannot estimate your premium.",
+    "EXCLUSION_CONTACT": "One of our agents will contact you shortly to find a solution adapted to your needs.",
+    "TABLE_HEADING": "Percentage of work done for each activities"
 }
 
  

@@ -101,18 +101,55 @@
       </section>
       <!-- FIN PRIME AUTO -->
 
+      <!-- PRIME CONTRACTOR -->
+      <section *ngIf="activeSection.id && activeSection.isPrime && broker.marketId === '76'">
+        <!-- PRIME AMOUNT -->
+        <div class="prime">
+          <div class="prime__result">
+            <h2>{{ (prime$ | async)?.applicantName }}, <br />{{ 'YOUR PRIME' | translate }}</h2>
+            <div class="prime__result--amount">
+              <span class="highlight big">{{(prime$ | async)?.prime }} $</span>/ {{ 'YEAR_TAXES' | translate }}*
+            </div>
+            <small>{{ 'ESTIMATION_DISCLAIMER' | translate }}</small>
+          </div>
+        </div>
+
+        <!-- PRIME CONTACT -->
+        <div class="contact">
+          <p>{{ 'CONTACT_SOON' | translate }}</p>
+          <p>{{ 'TALK_TO_AGENT' | translate }}</p>
+          <a class="contact__phone" href="tel: 1 888 482-6379">1 888 482-6379</a>
+          <div>
+            {{ 'OPENING_HOURS' | translate }}
+            <ul class="contact__hours">
+              <li>du lundi au vendredi de 8h à 20h</li>
+              <li>le samedi de 9h30 à 16h</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <!-- FIN PRIME CONTRACTOR -->
+
       <!-- EXCLUSION SCREEN -->
       <section class="section-exclusion" *ngIf="activeSection.id && activeSection.isExcluded">
         <div class="exclusion">
           <img [src]="exclusionImg" alt="image">
-          <header class="exclusion__header">
-            <h2>{{ 'NO_ESTIMATION' | translate }}</h2>
-          </header>
-          <ul>
-            <li *ngFor="let exclusion of (exclusions$ | async)">
-              {{ exclusion | translate }}
-            </li>
-          </ul>
+          <div *ngIf="(exclusions$ | async).length">
+            <header class="exclusion__header">
+              <h2>{{ 'NO_ESTIMATION' | translate }}</h2>
+            </header>
+            <ul>
+              <li *ngFor="let exclusion of (exclusions$ | async)">
+                {{ exclusion | translate }}
+              </li>
+            </ul>
+          </div>
+
+          <div *ngIf="!(exclusions$ | async).length">
+            <header class="exclusion__header">
+              <h2>{{ 'ESTIMATION_NULL' | translate }}</h2>
+            </header>
+          </div>
         </div>
 
         <!-- EXCLUSION CONTACT -->
