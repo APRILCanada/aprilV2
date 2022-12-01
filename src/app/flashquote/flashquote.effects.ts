@@ -152,8 +152,8 @@ export class FlashquoteEffects {
         })
 
         // we get an array of arrays (each section) that must be flattened
-        flattenedSections = [...new Set(flattenedSections.flatMap(x => x))]
-        return flattenedSections
+        return [...new Set(flattenedSections.flatMap(x => x))]
+
       }),
       distinct(({ name }) => name),
       switchMap((res: any) => [res, formLoaded({ isFormLoaded: true })]

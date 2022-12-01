@@ -104,9 +104,10 @@ export class RuleService {
         result = control.value != rule.value;
         break;
       case 'GREATER_THAN':
-        if(control.value instanceof Object) {
-          for(let key in control.value) {
-           result = this.isGreaterThan(control.value[key], rule.value)
+        if (control.value instanceof Object) {
+          for (let key in control.value) {
+            result = this.isGreaterThan(control.value[key], rule.value)
+            if(result) break;
           }
         } else {
           result = this.isGreaterThan(control.value, rule.value);
@@ -115,10 +116,15 @@ export class RuleService {
       case 'LESSER_THAN':
         result = this.isLesserThan(control.value, rule.value);
         break;
+      case 'COUNT_LESSER_THAN':
+          const count = Object.keys(control.value).length;
+          result = count < parseInt(rule.value)
+        break;
       case 'GREATER_EQUAL':
-        if(control.value instanceof Object) {
-          for(let key in control.value) {
-           result = this.isGreaterThan(control.value[key], rule.value, true)
+        if (control.value instanceof Object) {
+          for (let key in control.value) {
+            result = this.isGreaterThan(control.value[key], rule.value, true)
+            if(result) break;
           }
         } else {
           result = this.isGreaterThan(control.value, rule.value, true);

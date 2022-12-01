@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActionsSubject, select, Store } from '@ngrx/store';
-import { AddGroupControlAction, FormControlState, FormGroupControls, FormGroupState, FormState, RemoveGroupControlAction, SetValueAction } from 'ngrx-forms';
+import { select, Store } from '@ngrx/store';
+import { AddGroupControlAction, FormControlState, FormState, RemoveGroupControlAction, SetValueAction } from 'ngrx-forms';
 import { Question } from '../models/Question';
 import { Response } from '../models/Response';
 import {
@@ -11,131 +11,117 @@ import { CreateGroupElementAction, RemoveGroupElementAction, retrieveOptionsActi
 import { selectActiveSection, selectBroker, selectFormState, selectSections } from '../selectors';
 import { RuleService } from './rule.service';
 import { Rule } from '../models/Rule';
-import { FormGroup } from '@angular/forms';
-import { distinct, filter, map, mergeMap, Observable, pluck, tap } from 'rxjs';
-import { threadId } from 'worker_threads';
-import { ofType } from '@ngrx/effects';
+import { Observable, pluck } from 'rxjs';
+import { Section } from '../models/Section';
+import { ActiveSection } from '../models/ActiveSection';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class ActionService {
-  questions: Question[] = [];
+  sections: Section[] = [];
   formState: FormState<FormValue>;
   formState$: Observable<any>
-  activeSection: any;
+  activeSection: ActiveSection;
   marketId: number;
-  temp: any[] = [] // FIX FOR DOUBLE ACTION DISPATCH
-  temp2: any[] = [] // FIX FOR DOUBLE ACTION DISPATCH
+  temp = new Set() // FIX FOR DOUBLE ACTION DISPATCH
 
-  constructor(private store: Store<State>, private ruleService: RuleService, private actionsSubject: ActionsSubject) {
-    this.store.pipe(select(selectSections)).subscribe(questions => {
-      this.questions = questions
-    })
-    this.store.pipe(select(selectFormState)).subscribe(state => {
-      this.formState = state
-    })
+  constructor(private store: Store<State>, private ruleService: RuleService) {
+    this.store.pipe(select(selectSections)).subscribe((sections: Section[]) => this.sections = sections)
+    this.store.pipe(select(selectFormState)).subscribe(state => this.formState = state)
     this.store.pipe(select(selectBroker), pluck('marketId')).subscribe(marketId => this.marketId = marketId)
-
     this.store.pipe(select(selectActiveSection)).subscribe(state => this.activeSection = state)
   }
 
+  // validate the rules for any questions
   validate(question: Question, control: FormControlState<any>, pathToGroup: string) {
     question.rules.forEach((rule) => {
-      const destinationId = rule.destinationId;
+      const destinationId = rule.destinationId.toString();
+      const groupIndex = parseInt(pathToGroup.slice(-1))
 
       switch (rule.action) {
         case 'RETRIEVE_RESPONSE':
-          this.getResponsesFromPreviousAnswer(question, control, destinationId, pathToGroup);
+          this.getResponsesFromPreviousAnswer(question, control, parseInt(destinationId), groupIndex, pathToGroup);
           break;
         case 'SHOW':
-          this.show(question, rule, control, destinationId.toString(), pathToGroup);
+          this.show(question, rule, control, destinationId, groupIndex, pathToGroup);
           break;
         case 'HIDE':
-          this.hide(question, rule, control, destinationId.toString(), pathToGroup);
+          this.hide(rule, control, destinationId, groupIndex, pathToGroup);
           break;
         case 'RETRIEVE':
-          this.getOptionsFromPreviousAnswer(question, rule, control, destinationId.toString(), pathToGroup);
+          this.getOptionsFromPreviousAnswer(question, rule, control, destinationId, groupIndex);
           break;
-        case 'SET_VALUE':
-          this.setValue(rule, control, destinationId.toString(), pathToGroup);
+        case 'SEQUENCE':
+          if (rule.operation === "COUNT_LESSER_THAN") {
+            const firstValueInSequence = this.ruleService.checkRule(rule, control)
+            const questionRule = this.sections.find(s => s.id == this.activeSection.id)?.questions.find(q => q.id == rule.questionId)?.rules.find(r => r.id == rule?.referenceId)
+            if (questionRule?.action === 'SET_VALUE') {
+              this.setValue(questionRule, control, questionRule.destinationId.toString(), groupIndex, pathToGroup, firstValueInSequence);
+            }
+          }
           break;
       }
     });
   }
 
-  
-  setValue(rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
-    
-    const result = this.ruleService.checkRule(rule, control)
-    const groupId = parseInt(pathToGroup.slice(-1))
+  setValue(rule: Rule, control: FormControlState<any>, destinationId: string, groupIndex: number, pathToGroup: string, firstValueInSequence?: boolean) {
+    let result = this.ruleService.checkRule(rule, control)
 
-    if (result) {
-      if (!this.temp.includes(groupId + '.' + destinationId)) {
-        if (!(this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
-          if (control.value instanceof Object) {
-            this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, {
-              [rule.forceValue]: rule.forceValue
-            }))
-          } else {
-            this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, rule.forceValue))
-          }
+    if (!this.temp.has(groupIndex + '.' + destinationId)) {
+      if (!(this.formState.controls[this.activeSection.id].controls[groupIndex] as any).controls[destinationId]) {
+        if (control.value instanceof Object) {
+          this.store.dispatch(new AddGroupControlAction(pathToGroup, destinationId, {
+            [rule.forceValue]: rule.forceValue
+          }))
+        } else {
+          this.store.dispatch(new AddGroupControlAction(pathToGroup, destinationId, rule.forceValue))
         }
-        this.temp.push(groupId + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
       }
-      this.store.dispatch(new SetValueAction('generic.' + this.activeSection.id + '.' + groupId + '.' + destinationId + '.' + rule.forceValue, rule.forceValue))
+      this.temp.add(groupIndex + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+    }
+
+    if (firstValueInSequence && result) {
+      this.store.dispatch(new SetValueAction(pathToGroup + '.' + destinationId + '.' + rule.forceValue, rule.forceValue))
     } else {
-      this.store.dispatch(new SetValueAction('generic.' + this.activeSection.id + '.' + groupId + '.' + destinationId + '.' + rule.forceValue, ''))
+      this.store.dispatch(new SetValueAction(pathToGroup + '.' + destinationId + '.' + rule.forceValue, ''))
     }
   }
 
-  hide(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
+  hide(rule: Rule, control: FormControlState<any>, destinationId: string, groupIndex: number, pathToGroup: string) {
     const result = this.ruleService.checkRule(rule, control)
 
-    const groupId = parseInt(pathToGroup.slice(-1))
-
     if (result) {
-      if (!this.temp.includes(groupId + '.' + destinationId)) {
-
-        if ((this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
-
-          this.store.dispatch(new RemoveGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId));
-          this.temp.push(groupId + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+      if (!this.temp.has(groupIndex + '.' + destinationId)) {
+        if ((this.formState.controls[this.activeSection.id].controls[groupIndex] as any).controls[destinationId]) {
+          this.store.dispatch(new RemoveGroupControlAction(pathToGroup, destinationId));
+          this.temp.add(groupIndex + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
         }
       }
     } else if (rule.value !== control.value) {
-
-      if (this.temp.includes(groupId + '.' + destinationId)) {
-
-        if (!(this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
-
-          this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, ''));
-          const qId = this.temp.indexOf(groupId + '.' + destinationId); // FIX FOR DOUBLE ACTION DISPATCH
-          if (qId !== -1) {
-            this.temp.splice(qId, 1);
-          }
+      if (this.temp.has(groupIndex + '.' + destinationId)) {
+        if (!(this.formState.controls[this.activeSection.id].controls[groupIndex] as any).controls[destinationId]) {
+          this.store.dispatch(new AddGroupControlAction(pathToGroup, destinationId, ''));
+          this.temp.delete(groupIndex + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
         }
       }
     }
   }
 
-  show(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
+  show(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, groupIndex: number, pathToGroup: string) {
     const result = this.ruleService.checkRule(rule, control)
-    // get the groupId for dynamic allocation
-    // groupId is the , key of the object in a section (ex. 'generic.35.0' => 0 is the groupId (1st object in the section) while 35 is the sectionId)
-    const groupId = parseInt(pathToGroup.slice(-1))
 
     if (result) {
-      if (!this.temp.includes(groupId + '.' + destinationId)) {
-        if (!this.formState.controls[this.activeSection.id] && !(this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
+      if (!this.temp.has(groupIndex + '.' + destinationId)) {
+        if (!this.formState.controls[this.activeSection.id] && !(this.formState.controls[this.activeSection.id].controls[groupIndex] as any).controls[destinationId]) {
           return
         }
-        else if (this.formState.controls[this.activeSection.id] && !(this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
+        else if (this.formState.controls[this.activeSection.id] && !(this.formState.controls[this.activeSection.id].controls[groupIndex] as any).controls[destinationId]) {
           if (question.identifier === "HasHadClaimsInLast6Years") {
             // NO CLAIMS GROUP CONTROL IN THE AUTOMOBILE FLASHQUOTE (marketId: 28) //
             if (this.marketId != 28) {
-              this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, [
+              this.store.dispatch(new AddGroupControlAction(pathToGroup, destinationId, [
                 {
                   "Claim-date": '',
                   "Claim-actualDate": '',
@@ -145,46 +131,37 @@ export class ActionService {
                   "Claim-opened": ''
                 }
               ]))
-              this.temp.push(groupId + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+              this.temp.add(groupIndex + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
             }
           }
           else {
             if ((question.identifier !== 'MinorInfraction' && question.identifier !== 'MajorInfraction')) {
-              this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, {}));
-              //this.store.dispatch(new AddGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId, ''));
-              this.temp.push(groupId + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+              this.store.dispatch(new AddGroupControlAction(pathToGroup, destinationId, {}));
+              this.temp.add(groupIndex + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
             }
           }
         }
       }
     }
     else {
-      if (this.temp.includes(groupId + '.' + destinationId)) {
-        if (this.formState.controls[this.activeSection.id] && (this.formState.controls[this.activeSection.id].controls[groupId] as any).controls[destinationId]) {
-          this.store.dispatch(new RemoveGroupControlAction('generic.' + this.activeSection.id + '.' + groupId, destinationId));
-          const qId = this.temp.indexOf(groupId + '.' + destinationId); // FIX FOR DOUBLE ACTION DISPATCH
-          if (qId !== -1) {
-            // 3
-            this.temp.splice(qId, 1);
-          }
+      if (this.temp.has(groupIndex + '.' + destinationId)) {
+        if (this.formState.controls[this.activeSection.id] && (this.formState.controls[this.activeSection.id].controls[groupIndex] as any).controls[destinationId]) {
+          this.store.dispatch(new RemoveGroupControlAction(pathToGroup, destinationId));
+          this.temp.delete(groupIndex + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
         }
       }
     }
   }
 
-  getOptionsFromPreviousAnswer(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, pathToGroup: string) {
-
+  getOptionsFromPreviousAnswer(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, groupIndex: number) {
     const result = this.ruleService.checkRule(rule, control)
 
     if (result) {
-
-      const groupId = parseInt(pathToGroup.slice(-1))
       const sectionLength = this.formState.controls[this.activeSection.id].controls.length
       let newValue = ''
 
       for (let i = 0; i <= sectionLength - 1; i++) {
         const prevValues = (this.formState.controls[this.activeSection.id].controls[i].controls as any)[question.id].value;
-
         if (typeof prevValues === 'string')
           newValue += prevValues + ','
         if (typeof prevValues === 'object') {
@@ -193,10 +170,10 @@ export class ActionService {
       }
 
       if (!Object.keys(control.errors).length
-        && (this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[question.id].isTouched) {
+        && (this.formState.controls[this.activeSection.id].controls[groupIndex].controls as any)[question.id].isTouched) {
         let sectionId;
 
-        this.questions.forEach((section: any) => {
+        this.sections.forEach((section: any) => {
           section.questions.forEach((question: any) => {
             const result = Object.values(question).includes(parseInt(destinationId))
             if (result) {
@@ -214,19 +191,20 @@ export class ActionService {
     question: Question,
     control: FormControlState<any>,
     destinationId: number,
+    groupIndex: number,
     pathToGroup: string
   ) {
-    const groupId = parseInt(pathToGroup.slice(-1))
+
     const responseKeyList: string[] = [];
     const responses: Response[] = question.responses
     const selectedResponseKeys: string[] = control.value.split(',');
     let prevValues: any = []
 
 
-    if ((this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[destinationId]) {
-      prevValues = Object.keys((this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[destinationId].value)
+    if ((this.formState.controls[this.activeSection.id].controls[groupIndex].controls as any)[destinationId]) {
+      prevValues = Object.keys((this.formState.controls[this.activeSection.id].controls[groupIndex].controls as any)[destinationId].value)
     } else {
-      prevValues = (this.formState.controls[this.activeSection.id].controls[groupId].controls as any)[question.id].value.split(",")
+      prevValues = (this.formState.controls[this.activeSection.id].controls[groupIndex].controls as any)[question.id].value.split(",")
     }
 
 

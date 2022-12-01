@@ -64,22 +64,6 @@ export function exclusion<T>(mustBe: string, comparand: T, errorMessagePopup: st
     };
 }
 
-export function contractorExclusion(values: any): ValidationErrors {
-    const exclusions = [922, 95, 106, 91, 98, 113, 104, 105, 61, 100, 923, 921, 920, 919, 102, 48, 50, 51, 56, 63, 72, 80, 83, 84, 96, 109, 118, 119, 120, 121, 126, 47, 927]
-    const errors = []
-
-    for (let k in values) {
-        if (exclusions.includes(parseInt(k)) && values[k] > 0)
-            errors.push(k)
-    }
-
-    return errors.length ? {
-        'contractorExclusion': {
-            actual: [...errors],
-            errorMessagePopup: 'CONTRACTOR_EXCLUSION_POPUP'
-        },
-    } : {}
-}
 
 export const validation: any = {
     // auto perso
@@ -163,13 +147,15 @@ export const validation: any = {
         164: updateArray(updateGroup<SectionControl>({
             2879: validate(required),
             2880: validate(required),
-            2881: validate<any>(required, exclusion('greaterThanOrEqual', 30000, 'ANNUAL_REVENUE_GREATER_EXCLUSION_POPUP'),
-                exclusion('lesserThanOrEqual', 1000000, 'ANNUAL_REVENUE_LESSER_EXCLUSION_POPUP')),
-            2882: validate<any>(required, exclusion('greaterThanOrEqual', 3, 'YEARS_EXPERIENCE_EXCLUSION_POPUP')),
+            2881: validate<any>(required, exclusion('greaterThanOrEqual', 30000, 'ANNUAL_REVENUE_GREATER_EXCLUSION_POPUP', 'ANNUAL_REVENUE_GREATER_EXCLUSION'),
+                exclusion('lesserThanOrEqual', 1000000, 'ANNUAL_REVENUE_LESSER_EXCLUSION_POPUP', 'ANNUAL_REVENUE_LESSER_EXCLUSION')),
+            2882: validate<any>(required, exclusion('greaterThanOrEqual', 3, 'YEARS_EXPERIENCE_EXCLUSION_POPUP', 'YEARS_EXPERIENCE_EXCLUSION')),
             2883: validate(required),
-            2885: validate(contractorExclusion),
+            2885: (control: FormControlState<any>, formState: any) => {
+                let isSpecializedContractor = !!formState.value[3054]?.SpecializedContractor
+                return validate(control, validateRepartition, contractorExclusion(isSpecializedContractor))
+            },
             3054: (control: FormControlState<any>, formState: any) => {
-                console.log('3054', control)
                 return control
             }
         })),
@@ -179,4 +165,37 @@ export const validation: any = {
             3506: validate(required),
         }))
     }
+}
+
+export function contractorExclusion<T>(isSpecializedContractor: boolean) {
+    return <TV extends T | Boxed<T> = T>(value: TV): ValidationErrors => {
+        value = unbox(value) as any
+
+        const exclusions = [922, 95, 106, 91, 98, 113, 104, 105, 61, 100, 923, 921, 920, 919, 102, 48, 50, 51, 56, 63, 72, 80, 83, 84, 96, 109, 118, 119, 120, 121, 126, 47, 927]
+        const errors = []
+
+        for (let k in value) {
+            if ([47, 48, 50, 51, 56, 80, 83, 84, 119, 120, 121, 126, 608].includes(parseInt(k))) {
+                errors.push(k)
+            }
+
+            if (isSpecializedContractor) {
+                if (exclusions.includes(parseInt(k)) && value[k] < 80) {
+                    errors.push(k)
+                }
+            } else {
+                if (exclusions.includes(parseInt(k)) && value[k] < 80 && Object.keys(value).length < 4) {
+                    errors.push(k)
+                }
+            }
+        }
+
+        return errors.length ? {
+            'contractorExclusion': {
+                actual: [...errors],
+                errorMessagePopup: 'CONTRACTOR_EXCLUSION_POPUP',
+                errorMessage: "CONTRACTOR_EXCLUSION"
+            },
+        } : {}
+    };
 }

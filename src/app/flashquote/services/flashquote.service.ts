@@ -42,7 +42,7 @@ export class FlashquoteService {
       }
     })
     // only exclusion error type: good to go to next section!
-    return this.sectionValidationKeys.every((el: any) => el === 'exclusion')
+    return this.sectionValidationKeys.every((el: any) => el === 'exclusion'|| el === 'contractorExclusion')
   }
 
   resetValidateSectionKeys() {
@@ -53,7 +53,7 @@ export class FlashquoteService {
     Object.keys(obj).forEach(key => {
       if (typeof obj[key] === 'object') {
         this.getUserExclusions(obj[key])
-        if (key === 'exclusion') this.userExclusions.push(obj[key])
+        if (key === 'exclusion' || key === 'contractorExclusion') this.userExclusions.push(obj[key])
       }
     })
     return this.userExclusions.reduce((acc: any[], curr: any) => {

@@ -4,8 +4,8 @@
     </small>
 </div>
 
-<div @fadeSlideInOut class="speech-bubble blocking" *ngIf="error?.contractorExclusion">
+ <div @fadeSlideInOut class="speech-bubble" *ngIf="error?.contractorExclusion">
     <small>
-        {{ error?.contractorExclusion.errorMessagePopup | translate }} <br > {{ broker.phone }}
+        {{ error?.contractorExclusion.errorMessagePopup | translate }}
     </small>
-</div>
+</div> 

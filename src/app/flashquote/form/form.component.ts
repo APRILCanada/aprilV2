@@ -43,6 +43,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
   prime$: Observable<any>;
   exclusions$: Observable<any>;
   exclusionImg: string = '../../../assets/img/direct/quote_end.png';
+  userExclusions: any = [];
   formValid$: Observable<boolean>;
   formSubmitted$: Observable<boolean>;
   submittedValue$: Observable<FormValue | undefined>;
@@ -256,18 +257,34 @@ export class FormComponent implements OnInit, AfterContentChecked {
 
           let allAnswers: any[] = []
           // LOOP OVER EACH SECTION [{}, {}]
+          console.log('FORM VALUE', form.value)
           for (let sectionKey in form.value) {
             const questionsSection = this.sections.filter((s: Section) => s.id === parseInt(sectionKey))[0].questions
             const sectionIsRepeat = this.sections.filter((s: Section) => s.id === parseInt(sectionKey))[0].isRepeat
 
             // LOOP OVER EACH GROUP INSIDE A SECTION
             const answers = form.value[sectionKey].reduce((answers: Answer[], groupSection: any, index: number) => {
-
               const i = index + 1
 
               for (let key in groupSection) {
                 const identifier = questionsSection.find((q: Question) => q.id === parseInt(key))?.identifier
                 const questionType = questionsSection.find((q: Question) => q.id === parseInt(key))?.type
+
+                // CASE A FIELD IS NOT LINKED TO A QUESTION AND HAS NO IDENTIFIER (LIKE ID: 3054 SpecializedContractor)
+                if(!identifier && !questionType) {
+                  if (typeof groupSection[key] === 'object') {
+                    for (let subKey in groupSection[key]) {
+                      let value = groupSection[key][subKey]
+
+                      answers.push(new Answer(
+                        sectionIsRepeat ? key + '_' + i : key,
+                        sectionKey,
+                        value,
+                        sectionIsRepeat ? subKey + '-' + i : subKey
+                      ))
+                    }
+                  }
+                }
 
                 if (identifier && questionType) {
                   if (typeof groupSection[key] === 'object') {
@@ -350,35 +367,16 @@ export class FormComponent implements OnInit, AfterContentChecked {
       this.store.dispatch(formLoaded({ isFormLoaded: false }))
       if (data) {
         window.scrollTo(0, 700);
-        // setTimeout(() => {
-        //   this.store.dispatch(setActiveSection({
-        //     activeSection: {
-        //       id: this.sections.length,
-        //       title: { LabelEn: 'Your estimated prime', LabelFr: 'Votre prime estimée' },
-        //       isRepeat: false,
-        //       index: this.sections.length,
-        //       isFirst: false,
-        //       isLast: false,
-        //       isPrime: false,
-        //       isExcluded: true,
-        //       sectionsLength: this.sections.length,
-        //       maxRepeat: 0
-        //     }
-        //   }))
-
-
-        //   this.submittingForm = false;
-
-        //   this.store.dispatch(formLoaded({ isFormLoaded: true }))
-        //   this.store.dispatch(new MarkAsSubmittedAction('generic'))
-        //   this.store.dispatch(new ResetAction('generic'));
-        // }, 5000)
 
         this.flashquoteService.submitQuote(data).subscribe({
           next: quoteResult => {
             this.quoteResult = quoteResult
             console.log('QUOTE RESULT', quoteResult)
-            if (quoteResult && quoteResult.total.premium > 0) {
+
+            // temp code: get the exclusions because contractor sends premium even if exclusions exist
+            this.exclusions$.subscribe(exclusions => this.userExclusions = exclusions)
+
+            if (quoteResult && quoteResult.total.premium > 0 && !this.userExclusions.length) {
               this.store.dispatch(setActiveSection({
                 activeSection: {
                   id: this.sections.length,
@@ -399,7 +397,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
                 this.store.dispatch(setPrime({ marketId: this.broker.marketId, formValue, prime: quoteResult.total.premium }))
               })
 
-            } else if (quoteResult && !quoteResult.total.premium) {
+            } else if ((quoteResult && !quoteResult.total.premium) || (quoteResult && quoteResult.total.premium > 0 && this.userExclusions.length)) {
               this.store.dispatch(setActiveSection({
                 activeSection: {
                   id: this.sections.length,
