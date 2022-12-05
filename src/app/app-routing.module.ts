@@ -122,8 +122,7 @@ const routes: Routes = [
     },
     {
       path: 'prime',
-      component: PrimeComponent,
-      data: { animation: 'prime' },
+      component: PrimeComponent
     },
     {
       path: '',

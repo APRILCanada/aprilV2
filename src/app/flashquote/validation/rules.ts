@@ -1,68 +1,7 @@
-import { ValidationErrors } from "@angular/forms";
-import { Boxed, FormControlState, unbox, updateArray, updateGroup, validate } from "ngrx-forms";
+import { FormControlState, updateArray, updateGroup, validate } from "ngrx-forms";
 import { email, pattern, required } from "ngrx-forms/validation";
 import { SectionControl } from "../store";
-import { validateRepartition } from "./functions";
-
-
-export function exclusion<T>(mustBe: string, comparand: T, errorMessagePopup: string, errorMessage?: string) {
-    return <TV extends T | Boxed<T> = T>(value: TV): ValidationErrors => {
-        //value = unbox(value) as T as TV;
-        value = unbox(value) as any
-
-        if (mustBe === 'equal') {
-            if (value === comparand || (value as any) === '') {
-                return {};
-            }
-        }
-
-        if (mustBe === 'dateBefore') {
-            const inputDate = new Date((value as any)).getTime()
-            if (inputDate && inputDate < (comparand as any) || (value as any) === '') {
-                return {}
-            }
-        }
-
-        if (mustBe === 'businessUseLesserThanOrEqual') {
-            if ((value as any)['BusinessUse'] === '' || (value as any)['BusinessUse'] <= (comparand as any)) {
-                return {}
-            }
-        }
-
-        if (mustBe === 'lesserThanOrEqual') {
-            if (value <= (comparand as any) || (value as any) === '') {
-                return {}
-            }
-        }
-
-        if (mustBe === 'lesserThan') {
-            if (value < (comparand as any) || (value as any) === '') {
-                return {}
-            }
-        }
-
-        if (mustBe === 'greaterThan') {
-            if (value > (comparand as any) || (value as any) === '') {
-                return {}
-            }
-        }
-
-        if (mustBe === 'greaterThanOrEqual') {
-            if (value >= (comparand as any) || (value as any) === '') {
-                return {}
-            }
-        }
-
-        return {
-            'exclusion': {
-                comparand,
-                actual: value,
-                errorMessagePopup,
-                errorMessage
-            },
-        };
-    };
-}
+import { validateRepartition, exclusion, contractorExclusion } from "./functions";
 
 
 export const validation: any = {
@@ -165,37 +104,4 @@ export const validation: any = {
             3506: validate(required),
         }))
     }
-}
-
-export function contractorExclusion<T>(isSpecializedContractor: boolean) {
-    return <TV extends T | Boxed<T> = T>(value: TV): ValidationErrors => {
-        value = unbox(value) as any
-
-        const exclusions = [922, 95, 106, 91, 98, 113, 104, 105, 61, 100, 923, 921, 920, 919, 102, 48, 50, 51, 56, 63, 72, 80, 83, 84, 96, 109, 118, 119, 120, 121, 126, 47, 927]
-        const errors = []
-
-        for (let k in value) {
-            if ([47, 48, 50, 51, 56, 80, 83, 84, 119, 120, 121, 126, 608].includes(parseInt(k))) {
-                errors.push(k)
-            }
-
-            if (isSpecializedContractor) {
-                if (exclusions.includes(parseInt(k)) && value[k] < 80) {
-                    errors.push(k)
-                }
-            } else {
-                if (exclusions.includes(parseInt(k)) && value[k] < 80 && Object.keys(value).length < 4) {
-                    errors.push(k)
-                }
-            }
-        }
-
-        return errors.length ? {
-            'contractorExclusion': {
-                actual: [...errors],
-                errorMessagePopup: 'CONTRACTOR_EXCLUSION_POPUP',
-                errorMessage: "CONTRACTOR_EXCLUSION"
-            },
-        } : {}
-    };
 }

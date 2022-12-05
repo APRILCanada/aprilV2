@@ -1,6 +1,6 @@
 import { Component, Input} from '@angular/core';
 import { FormControlState } from 'ngrx-forms';
-import { Question } from '../../models/Question';
+import { Question } from '../../../models/Question';
 
 @Component({
   selector: 'app-question-base',

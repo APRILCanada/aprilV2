@@ -362,8 +362,6 @@ export class FormComponent implements OnInit, AfterContentChecked {
       ).subscribe(this.store)
 
     this.submittedValue$.subscribe((data) => {
-      console.log('QUOTE DATA', JSON.stringify(data))
-
       this.store.dispatch(formLoaded({ isFormLoaded: false }))
       if (data) {
         window.scrollTo(0, 700);
@@ -371,7 +369,6 @@ export class FormComponent implements OnInit, AfterContentChecked {
         this.flashquoteService.submitQuote(data).subscribe({
           next: quoteResult => {
             this.quoteResult = quoteResult
-            console.log('QUOTE RESULT', quoteResult)
 
             // temp code: get the exclusions because contractor sends premium even if exclusions exist
             this.exclusions$.subscribe(exclusions => this.userExclusions = exclusions)
