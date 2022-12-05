@@ -9,6 +9,7 @@ export const environment = {
     appId: '1:898159706086:web:2f3b8fa0ef0c4c8ff6e027',
     measurementId: 'G-F9J3S4CRKT',
   },
+  apiURL: "https://april-on.ca/services",
   recaptcha: {
     siteKey: '6LdUpKwdAAAAAOYh7oEpq3meoiSw0gpKM48SPmfN',
   },

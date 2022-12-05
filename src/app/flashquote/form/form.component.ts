@@ -166,6 +166,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
   getExclusions() {
     this.exclusions$ = this.store.pipe(select(selectExclusions))
   }
+
   getFormValid() {
     this.formValid$ = this.store.pipe(select(selectFormValid));
   }
@@ -271,7 +272,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
                 const questionType = questionsSection.find((q: Question) => q.id === parseInt(key))?.type
 
                 // CASE A FIELD IS NOT LINKED TO A QUESTION AND HAS NO IDENTIFIER (LIKE ID: 3054 SpecializedContractor)
-                if(!identifier && !questionType) {
+                if (!identifier && !questionType) {
                   if (typeof groupSection[key] === 'object') {
                     for (let subKey in groupSection[key]) {
                       let value = groupSection[key][subKey]
@@ -368,12 +369,14 @@ export class FormComponent implements OnInit, AfterContentChecked {
 
         this.flashquoteService.submitQuote(data).subscribe({
           next: quoteResult => {
+            console.log('QUOTE RESULT', quoteResult)
             this.quoteResult = quoteResult
 
             // temp code: get the exclusions because contractor sends premium even if exclusions exist
-            this.exclusions$.subscribe(exclusions => this.userExclusions = exclusions)
+            //this.exclusions$.subscribe(exclusions => this.userExclusions = exclusions)
 
-            if (quoteResult && quoteResult.total.premium > 0 && !this.userExclusions.length) {
+            //if (quoteResult && quoteResult.total.premium > 0 && !this.userExclusions.length) {
+            if (quoteResult && quoteResult.total.premium > 0) {
               this.store.dispatch(setActiveSection({
                 activeSection: {
                   id: this.sections.length,
@@ -394,7 +397,9 @@ export class FormComponent implements OnInit, AfterContentChecked {
                 this.store.dispatch(setPrime({ marketId: this.broker.marketId, formValue, prime: quoteResult.total.premium }))
               })
 
-            } else if ((quoteResult && !quoteResult.total.premium) || (quoteResult && quoteResult.total.premium > 0 && this.userExclusions.length)) {
+            }
+            //else if ((quoteResult && !quoteResult.total.premium) || (quoteResult && quoteResult.total.premium > 0 && this.userExclusions.length)) {
+            else {
               this.store.dispatch(setActiveSection({
                 activeSection: {
                   id: this.sections.length,

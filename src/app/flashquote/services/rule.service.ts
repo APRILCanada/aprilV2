@@ -207,7 +207,7 @@ export class RuleService {
     if ((!value1) || !(value2)) {
       return false;
     }
-    console.log(value1, value2)
+
     var number1 = parseFloat(value1.toString().replace(",", ".").replace(/\s/g, ""));
     var number2 = parseFloat(value2.toString().replace(",", ".").replace(/\s/g, ""));
     if (isNaN(number1) || isNaN(number2)) {

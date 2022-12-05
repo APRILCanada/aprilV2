@@ -1,14 +1,10 @@
 import { FormGroupState } from 'ngrx-forms';
-
 import { AppState as RootState } from '../../reducers/app.reducer';
 import { ActiveSection } from '../models/ActiveSection';
 
-export interface SectionControl {
-  //[id: number]: any
-}
+export interface SectionControl {}
 
 export interface FormValue {
-  // [id: string | number]: { [id: string | number]: any };
   [sectionId: number]: SectionControl[]
 }
 

@@ -89,12 +89,13 @@
         <div class="contact">
           <p>{{ 'CONTACT_SOON' | translate }}</p>
           <p>{{ 'TALK_TO_AGENT' | translate }}</p>
-          <a class="contact__phone" href="tel: 1 888 482-6379">1 888 482-6379</a>
-          <div>
+          <a class="contact__phone" [href]="'tel:' + broker.phone">{{ broker?.phone }}</a>
+          <div *ngIf="broker.openingHours">
             {{ 'OPENING_HOURS' | translate }}
             <ul class="contact__hours">
-              <li>du lundi au vendredi de 8h à 20h</li>
-              <li>le samedi de 9h30 à 16h</li>
+              <li *ngFor="let hour of broker.openingHours[lang]">
+                {{ hour }}
+              </li>
             </ul>
           </div>
         </div>
@@ -118,12 +119,13 @@
         <div class="contact">
           <p>{{ 'CONTACT_SOON' | translate }}</p>
           <p>{{ 'TALK_TO_AGENT' | translate }}</p>
-          <a class="contact__phone" href="tel: 1 888 482-6379">1 888 482-6379</a>
-          <div>
+          <a class="contact__phone" [href]="'tel:' + broker.phone">{{ broker?.phone }}</a>
+          <div *ngIf="broker.openingHours">
             {{ 'OPENING_HOURS' | translate }}
             <ul class="contact__hours">
-              <li>du lundi au vendredi de 8h à 20h</li>
-              <li>le samedi de 9h30 à 16h</li>
+              <li *ngFor="let hour of broker.openingHours[lang]">
+                {{ hour }}
+              </li>
             </ul>
           </div>
         </div>
@@ -156,12 +158,13 @@
         <div class="contact">
           <p>{{ 'EXCLUSION_CONTACT' | translate }}</p>
           <p>{{ 'TALK_TO_AGENT' | translate }}</p>
-          <a class="contact__phone" href="tel: 1 888 482-6379">1 888 482-6379</a>
-          <div>
+          <a class="contact__phone" [href]="'tel:' + broker.phone">{{ broker?.phone }}</a>
+          <div *ngIf="broker?.openingHours">
             {{ 'OPENING_HOURS' | translate }}
             <ul class="contact__hours">
-              <li>du lundi au vendredi de 8h à 20h</li>
-              <li>le samedi de 9h30 à 16h</li>
+              <li *ngFor="let hour of broker.openingHours[lang]">
+                {{ hour }}
+              </li>
             </ul>
           </div>
         </div>
