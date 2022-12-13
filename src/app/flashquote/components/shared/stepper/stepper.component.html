@@ -5,7 +5,8 @@
         <div class="points">
             <div class="point d-flex align-items-center flex-wrap point-valid"
                 *ngFor="let section of sections; let i = index;"
-                [ngClass]="{'point-active': section.id == activeSection.id || i <= activeSection.index }">
+                [ngClass]="{'point-active': section.id == activeSection.id || i <= activeSection.index }"
+                [ngStyle]="(section.id == activeSection.id || i <= activeSection.index) && broker.styles.shared.stepper">
                 <span class="point-label text-smoll flex-wrap" (click)="setActiveSection(section.id, i)">
                     <small [ngClass]="{'point-label-active': section.id == activeSection.id || i <= activeSection.index }">{{ language.get() == "fr" ? section.title.LabelFr: section.title.LabelEn
                         }}</small>

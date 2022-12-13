@@ -1,17 +1,18 @@
 <section *ngIf="activeSection">
     <app-exclusion-popup></app-exclusion-popup>
-    <h1 class="section-title">
+    <h1  [ngStyle]="broker.styles.shared.sectionHeaders" class="section-title">
         <span class="section-number">{{ activeSection.index + 1 }}. </span>
         {{ language.get() == "fr" ? activeSection.title.LabelFr : activeSection.title.LabelEn }}
     </h1>
 
-    <app-stepper [sections]="formSections" [activeSection]="activeSection" [errors]="errors" [progress]="progress">
+    <app-stepper [sections]="formSections" [activeSection]="activeSection" [errors]="errors" [progress]="progress" [broker]="broker">
     </app-stepper>
     <ng-content></ng-content>
 
     <div *ngIf="activeSection.isRepeat" class="isRepeat-button">
         <button *ngIf="getTotalGroupSection() < activeSection.maxRepeat" type="button"
             class="button-action-simple-small button-blue btn btn-sm d-flex align-items-center text-button-simple mr-2"
+            [ngStyle]="broker.styles.buttons.outlined"
             (click)="addGroupSection()">
             <span class="text-button">&#43; {{language.get() == "fr" ? 'Ajouter un nouveau ' + activeSection.title.LabelFr.slice(0, -1) : 'Add a new' + activeSection.title.LabelEn.slice(0, -1) }}</span>
         </button>

@@ -1,4 +1,6 @@
+import { BrowserTransferStateModule } from '@angular/platform-browser';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { brokerReducer } from '../reducers/brokerReducer';
 import { State } from '../store';
 
 // Feature selector
@@ -64,6 +66,11 @@ export const selectErrors = createSelector(
   selectFormState,
   (state) => state.errors
 );
+
+export const selectStyles = createSelector(
+  selectForm,
+  (state) => state.broker.styles
+)
 
 export const selectProgress = createSelector(
   selectErrors,

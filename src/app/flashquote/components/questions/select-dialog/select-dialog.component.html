@@ -18,6 +18,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions *ngIf="question.type === 'MULTIPLE'">
-  <button class="btn-april-alt" (click)="close()">{{ "CLOSE" | translate }}</button>
-  <button class="btn-april" (click)="close()">{{ "SEND" | translate }}</button>
+  <button class="btn-april-alt" [ngStyle]="styles.buttons.outlined" (click)="close()">{{ "CLOSE" | translate }}</button>
+  <button class="btn-april" [ngStyle]="styles.buttons.nav" (click)="close()">{{ "SEND" | translate }}</button>
 </mat-dialog-actions>

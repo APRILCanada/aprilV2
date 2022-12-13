@@ -1,8 +1,3 @@
-// :host {
-//     grid-column: 4 / 7;
-// }
-
-
 :host {
     grid-column: center-start / center-end;
 }
@@ -29,15 +24,6 @@
     border-radius: 15px;
     padding-bottom: 1.5rem;
 }
-
-// .wrapper {
-//     width: 100vw;
-//     margin-left: 1.5rem;
-//     margin: 3rem auto;
-//     margin-right: 3rem;
-//     position: relative;
-// }
-
 
 form {
     max-width: 600px;
@@ -88,7 +74,6 @@ form {
 
 // PRIME SECTION
 .prime {
-    color: #fff;
     font-weight: 300 !important;
 
     h2 {
@@ -158,7 +143,6 @@ form {
     &__phone {
         color: #fff;
         display: block;
-        background-color: #119611;
         font-size: 1.5rem;
         border-radius: 15px;
         display: flex;

@@ -1,4 +1,4 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControlState } from 'ngrx-forms';
 import { Question } from '../../../models/Question';
 
@@ -10,5 +10,6 @@ import { Question } from '../../../models/Question';
 export class QuestionBaseComponent {
   @Input() question: Question;
   @Input() control: FormControlState<any>;
-  @Input() error: any;
+  @Input() error: any
+
 }

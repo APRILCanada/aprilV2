@@ -6,4 +6,5 @@ export class BrokerDTO {
     phone: string;
     openingHours: any;
     market: any;
+    styles: any;
 }

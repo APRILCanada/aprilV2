@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { FlashFormDTO } from '../models/Flashquote';
-import { isValid } from 'date-fns';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +14,7 @@ export class FlashquoteService {
   constructor(private http: HttpClient) { }
 
   getFlashquote(marketId: string): Observable<FlashFormDTO> {
-    return this.http.get<any>(`http://localhost:51668/api/publicflash/` + marketId, {
+    return this.http.get<any>(`${environment.apiURL}/api/publicflash/` + marketId, {
       headers: {
         'x-api-key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344'
       }
@@ -25,7 +24,7 @@ export class FlashquoteService {
 
   submitQuote(quote: any) {
     console.log('FORM DATA', JSON.stringify(quote))
-    return this.http.post<any>('http://localhost:51668/api/publicflash', JSON.stringify(quote), {
+    return this.http.post<any>(`${environment.apiURL}/api/publicflash`, JSON.stringify(quote), {
       headers: { 'Content-Type': 'application/json', 'x-api-key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344' }
     });
   }

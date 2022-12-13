@@ -5,6 +5,7 @@ import { MarkAsSubmittedAction, ResetAction } from 'ngrx-forms';
 import { Observable } from 'rxjs';
 import { setActiveSection } from 'src/app/flashquote/actions/flashquote.actions';
 import { ActiveSection } from 'src/app/flashquote/models/ActiveSection';
+import { BrokerDTO } from 'src/app/flashquote/models/Broker';
 import { Section } from 'src/app/flashquote/models/Section';
 import { State } from 'src/app/flashquote/store';
 import { LanguageService } from 'src/app/services/language.service';
@@ -19,6 +20,7 @@ export class StepperComponent implements OnInit {
   @Input() activeSection: ActiveSection;
   @Input() errors: any;
   @Input() progress: any;
+  @Input() broker: BrokerDTO;
 
   constructor(public language: LanguageService, private store: Store<State>) { }
 

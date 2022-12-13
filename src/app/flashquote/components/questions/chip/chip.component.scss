@@ -29,15 +29,11 @@
 
 
   &:active {
-    background-color: var(--mainColor);
-    border-color: var(--mainColor);
     transform: scale(0.96);
   }
 }
 
 .selected {
   font-weight: 500;
-  background-color: var(--mainColor);
   color: #fff;
-  border: 1px solid var(--mainColor);
 }

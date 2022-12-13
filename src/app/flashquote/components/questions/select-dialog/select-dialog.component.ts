@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { select, Store } from '@ngrx/store';
 import { Question } from 'src/app/flashquote/models/Question';
+import { selectBroker } from 'src/app/flashquote/selectors';
 import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
@@ -12,6 +14,7 @@ export class SelectDialogComponent implements OnInit {
   question: Question; // the current question object
   selectedOptions: any[] = []; // track the selected options
   searchText: string = ''; // the term to search in the select options dialog
+  styles: any
 
   constructor(
     // injection token which allows to get access to the data passed into the dialog
@@ -24,13 +27,21 @@ export class SelectDialogComponent implements OnInit {
     },
     // get a ref of the currently opened dialog
     private dialogRef: MatDialogRef<SelectDialogComponent>,
-    public language: LanguageService
+    public language: LanguageService,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
     // set the question object
     this.question = this.data.question;
     this.selectedOptions = this.data.selectedOpts;
+    this.getBroker()
+  }
+
+  getBroker() {
+    this.store.pipe(select(selectBroker)).subscribe(broker => {
+      this.styles = broker.styles
+    })
   }
 
   public get options(): any[] {

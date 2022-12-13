@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +18,12 @@ export class AddressService {
     if (search == "") {
       return of({});
     }
-    return this.http.get<any>(`http://localhost:51668/api/geolocation/`+ search +"/"+ lang);
+    return this.http.get<any>(`${environment.apiURL}/api/geolocation/`+ search +"/"+ lang);
   }
   
   getLocationDetails(locationId: string){
     const body = JSON.stringify(locationId);
-    return this.http.post<any>(`http://localhost:51668/api/geolocation/details`, body, {
+    return this.http.post<any>(`${environment.apiURL}/api/geolocation/details`, body, {
       headers:{'Content-Type': 'application/json' }
     });
   }

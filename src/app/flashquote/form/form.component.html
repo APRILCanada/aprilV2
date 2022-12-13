@@ -1,14 +1,9 @@
 <div class="wrapper flash-form" *ngIf="formState$ | async as formState">
-  <!-- <div class="d-flex align-items-start">
-    <img src="../../../../assets/img/icons/title-bar.svg" class="pt-2 pe-2 title-bar d-none d-sm-block"
-      alt="title bar" />
-    <h3 class="mb-2">{{ "GET_QUOTE" | translate }}</h3>
-  </div> -->
 
   <!-- DYNAMIC FORM -->
   <form [ngrxFormState]="formState" (submit)="submit()">
 
-    <app-section [progress]="progress" [formValid$]="formValid$" [formSubmitted$]="formSubmitted$">
+    <app-section [progress]="progress" [formValid$]="formValid$" [formSubmitted$]="formSubmitted$" [broker]="broker">
       <div *ngIf="activeSection.id && !activeSection.isPrime && !activeSection.isExcluded">
         <div *ngFor="let group of formState.controls[activeSection.id].controls; let i = index; trackBy:customTrackBy">
           <header class="groupSection-header" *ngIf="activeSection.isRepeat">
@@ -42,44 +37,44 @@
       <!-- PRIME AUTO -->
       <section *ngIf="activeSection.id && activeSection.isPrime && broker.marketId === '28'">
         <!-- PRIME AMOUNT -->
-        <div class="prime">
-          <div class="prime__result">
-            <h2>{{ (prime$ | async)?.applicantName }}, <br />{{ 'YOUR PRIME' | translate }}</h2>
+        <div class="prime" [ngStyle]="broker.styles.prime.text">
+          <div class="prime__result" [ngStyle]="broker.styles.prime">
+            <h2 [ngStyle]="broker.styles.prime.header">{{ (prime$ | async)?.applicantName }}, <br />{{ 'YOUR PRIME' | translate }}</h2>
             <div class="prime__result--amount">
-              <span class="highlight big">{{(prime$ | async)?.prime }} $</span>/ {{ 'YEAR_TAXES' | translate }}*
+              <span [ngStyle]="broker.styles.prime.highlightedText" class="big">{{(prime$ | async)?.prime }} $</span>/ {{ 'YEAR_TAXES' | translate }}*
             </div>
             <small>{{ 'ESTIMATION_DISCLAIMER' | translate }}</small>
           </div>
 
           <!-- PRIME DETAILS -->
-          <div *ngFor="let p of (prime$ | async)?.data; let i=index;" class="prime__details"
+          <div *ngFor="let p of (prime$ | async)?.data; let i=index;" [ngStyle]="broker.styles.prime" class="prime__details"
             [ngClass]="{resetBorder: i+1 < (prime$ | async)?.data.length}">
-            <h2>{{ p.vehicle }} <br />{{ 'YOUR_PROTECTIONS' | translate }}</h2>
+            <h2 [ngStyle]="broker.styles.prime.header">{{ p.vehicle }} <br />{{ 'YOUR_PROTECTIONS' | translate }}</h2>
             <ul class="prime__details-list">
               <li class="prime__details-list-item">
                 <span>{{ 'PUBLIC_LIABILITY' | translate }}</span>
-                <span class="highlight">{{ p['LIABILITY'] }} $</span>
+                <span class="highlight" [ngStyle]="broker.styles.prime.highlightedText">{{ p['LIABILITY'] }} $</span>
               </li>
               <li class="prime__details-list-item">
                 <span>{{ 'B2' | translate }}</span>
-                <span class="highlight">{{ p['B2'] }} $</span>
+                <span class="highlight" [ngStyle]="broker.styles.prime.highlightedText">{{ p['B2'] }} $</span>
               </li>
               <li class="prime__details-list-item">
                 <span>
                   {{ 'B3' | translate }}</span>
-                <span class="highlight">{{ p['B3'] }} $</span>
+                <span class="highlight" [ngStyle]="broker.styles.prime.highlightedText">{{ p['B3'] }} $</span>
               </li>
               <li class="prime__details-list-item">
                 <span>{{ 'FAQ34' | translate }}</span>
-                <span class="highlight">{{ p['FAQ34'] }} $</span>
+                <span class="highlight" [ngStyle]="broker.styles.prime.highlightedText">{{ p['FAQ34'] }} $</span>
               </li>
               <li class="prime__details-list-item">
                 <span>{{ 'FAQ27' | translate }}</span>
-                <span class="highlight">{{ p['FAQ27'] }} $</span>
+                <span class="highlight" [ngStyle]="broker.styles.prime.highlightedText">{{ p['FAQ27'] }} $</span>
               </li>
               <li class="prime__details-list-item">
                 <span>{{ 'FAQ20' | translate }}</span>
-                <span class="highlight">{{ p['FAQ20'] }} $</span>
+                <span class="highlight" [ngStyle]="broker.styles.prime.highlightedText">{{ p['FAQ20'] }} $</span>
               </li>
             </ul>
           </div>
@@ -89,7 +84,7 @@
         <div class="contact">
           <p>{{ 'CONTACT_SOON' | translate }}</p>
           <p>{{ 'TALK_TO_AGENT' | translate }}</p>
-          <a class="contact__phone" [href]="'tel:' + broker.phone">{{ broker?.phone }}</a>
+          <a class="contact__phone" [ngStyle]="broker.styles.buttons.phone" [href]="'tel:' + broker.phone">{{ broker?.phone }}</a>
           <div *ngIf="broker.openingHours">
             {{ 'OPENING_HOURS' | translate }}
             <ul class="contact__hours">
@@ -105,11 +100,11 @@
       <!-- PRIME CONTRACTOR -->
       <section *ngIf="activeSection.id && activeSection.isPrime && broker.marketId === '76'">
         <!-- PRIME AMOUNT -->
-        <div class="prime">
-          <div class="prime__result">
-            <h2>{{ (prime$ | async)?.applicantName }}, <br />{{ 'YOUR PRIME' | translate }}</h2>
+        <div class="prime" [ngStyle]="broker.styles.prime.text">
+          <div class="prime__result" [ngStyle]="broker.styles.prime">
+            <h2 [ngStyle]="broker.styles.prime.header">{{ (prime$ | async)?.applicantName }}, <br />{{ 'YOUR PRIME' | translate }}</h2>
             <div class="prime__result--amount">
-              <span class="highlight big">{{(prime$ | async)?.prime }} $</span>/ {{ 'YEAR_TAXES' | translate }}*
+              <span [ngStyle]="broker.styles.prime.highlightedText" class="big">{{(prime$ | async)?.prime }} $</span>/ {{ 'YEAR_TAXES' | translate }}*
             </div>
             <small>{{ 'ESTIMATION_DISCLAIMER' | translate }}</small>
           </div>
@@ -119,7 +114,7 @@
         <div class="contact">
           <p>{{ 'CONTACT_SOON' | translate }}</p>
           <p>{{ 'TALK_TO_AGENT' | translate }}</p>
-          <a class="contact__phone" [href]="'tel:' + broker.phone">{{ broker?.phone }}</a>
+          <a class="contact__phone" [ngStyle]="broker.styles.buttons.phone" [href]="'tel:' + broker.phone">{{ broker?.phone }}</a>
           <div *ngIf="broker.openingHours">
             {{ 'OPENING_HOURS' | translate }}
             <ul class="contact__hours">
@@ -158,7 +153,7 @@
         <div class="contact">
           <p>{{ 'EXCLUSION_CONTACT' | translate }}</p>
           <p>{{ 'TALK_TO_AGENT' | translate }}</p>
-          <a class="contact__phone" [href]="'tel:' + broker.phone">{{ broker?.phone }}</a>
+          <a class="contact__phone" [ngStyle]="broker.styles.buttons.phone" [href]="'tel:' + broker.phone">{{ broker?.phone }}</a>
           <div *ngIf="broker?.openingHours">
             {{ 'OPENING_HOURS' | translate }}
             <ul class="contact__hours">
@@ -174,17 +169,17 @@
 
     <div *ngIf="!activeSection.isPrime && !activeSection.isExcluded" class="section-buttons">
       <!-- PREVIOUS -->
-      <button type="button" *ngIf="!activeSection.isFirst" class="btn-april" (click)="setActiveSection(-1)">
+      <button [ngStyle]="broker.styles.buttons.nav" type="button" *ngIf="!activeSection.isFirst" class="btn-april" (click)="setActiveSection(-1)">
         {{ "BACK" | translate }}
       </button>
 
       <!-- NEXT -->
-      <button type="button" *ngIf="!activeSection.isLast" class="btn-april next" (click)="setActiveSection(1)">
+      <button [ngStyle]="broker.styles.buttons.nav" type="button" *ngIf="!activeSection.isLast" class="btn-april next" (click)="setActiveSection(1)">
         {{ "NEXT" | translate }}
       </button>
 
       <!-- SUBMIT -->
-      <button *ngIf="activeSection.isLast" class="btn-april" type="submit" data-analytics="DirectForm"
+      <button [ngStyle]="broker.styles.buttons.nav" *ngIf="activeSection.isLast" class="btn-april" type="submit" data-analytics="DirectForm"
         [disabled]="!(formValid$ | async) && (formSubmitted$ | async)">
         {{ "SUBMIT_QUOTE" | translate }}
       </button>
