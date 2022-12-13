@@ -36,7 +36,8 @@
         />
         <span
           *ngIf="
-            !contactForm.get('email')?.valid && contactForm.get('email')?.touched
+            !contactForm.get('email')?.valid &&
+            contactForm.get('email')?.touched
           "
           class=""
           >**{{ "INVALID_EMAIL" | translate }}</span
@@ -65,13 +66,7 @@
       </div>
       <div class="col-12 pb-3">
         <div
-          class="
-            form-control
-            file-input
-            d-flex
-            justify-content-center
-            align-items-center
-          "
+          class="form-control file-input d-flex justify-content-center align-items-center"
         >
           <input
             formControlName="file"
@@ -108,7 +103,9 @@
     </div>
     <div class="text-center">
       <span
-        *ngIf="!contactForm.get('file')?.valid || !contactForm.get('file')?.dirty"
+        *ngIf="
+          !contactForm.get('file')?.valid || !contactForm.get('file')?.dirty
+        "
         class="pe-0 pe-sm-5 txt-optional d-block d-lg-none pt-3"
         >{{ "UPLOAD_POLICY_CLAIM" | translate }}</span
       >
@@ -119,14 +116,7 @@
       >
     </div>
     <div
-      class="
-        px-2 px-sm-5
-        pt-3
-        mb-4
-        d-block d-sm-flex
-        justify-content-between
-        align-items-center
-      "
+      class="px-2 px-sm-5 pt-3 mb-4 d-block d-sm-flex justify-content-between align-items-center"
     >
       <div>
         <input
@@ -147,6 +137,7 @@
       >
         {{ "SEND" | translate }}
       </button>
+
       <button
         *ngIf="contactForm.get('newsLetter')?.value != true"
         [disabled]="!contactForm.valid || !contactForm.dirty"
@@ -156,6 +147,13 @@
       >
         {{ "SEND" | translate }}
       </button>
+    </div>
+    <div
+      class="w-100 px-2 px-sm-5 pt-3 mb-4 d-block d-flex justify-content-end"
+    >
+      <span *ngIf="!contactForm.valid && contactForm.dirty"
+        >**{{ "REQUIRED_FIELDS" | translate }}</span
+      >
     </div>
   </form>
 </div>

@@ -44,9 +44,9 @@ export class SendResumeComponent implements OnInit {
     private fireFunctions: AngularFireFunctions,
     private angularFirestore: AngularFirestore,
     private angularFireStorage: AngularFireStorage
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   onSubmit() {
     this.contact = this.contactForm.value;
@@ -97,15 +97,10 @@ export class SendResumeComponent implements OnInit {
       this.fileName = fileName;
 
       // Get file reference.
-      const fileRef =
-        this.angularFireStorage.ref(fileName);
+      const fileRef = this.angularFireStorage.ref(fileName);
 
       // Create upload task.
-      const task = this.angularFireStorage.upload(
-        fileName,
-        file,
-        file.type
-      );
+      const task = this.angularFireStorage.upload(fileName, file, file.type);
 
       // Upload file to Cloud Firestore.
       task

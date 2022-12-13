@@ -54,8 +54,8 @@
           />
           <span
             *ngIf="
-              !contactForm.get('email')?.valid &&
-              contactForm.get('email')?.touched
+              !contactForm?.get('email')?.valid &&
+              contactForm?.get('email')?.touched
             "
             class=""
             >**{{ "INVALID_EMAIL" | translate }}</span
@@ -69,9 +69,9 @@
             [placeholder]="
               language.get() == 'fr' ? 'Téléphone' : 'Phone Number'
             "
-            mask="(000) 000-0000"
           />
         </div>
+
         <div class="col-md-6 pb-3">
           <ngx-bootstrap-multiselect
             class="form-control p-0 no-border"
@@ -94,7 +94,7 @@
           <textarea
             rows="5"
             class="form-control grey-input no-border"
-            formControlName="reason"
+            formControlName="message"
             [placeholder]="
               language.get() == 'fr'
                 ? 'Décrire la réclamation...'
@@ -105,7 +105,7 @@
         <div class="col-12 d-flex">
           <div
             class="ms-auto"
-            *ngIf="!contactForm.valid && contactForm.touched"
+            *ngIf="!contactForm?.valid && contactForm?.touched"
             class=""
           >
             **{{ "REQUIRED_FIELDS" | translate }}
@@ -127,8 +127,8 @@
           }}</label>
         </div>
         <button
-          *ngIf="contactForm.get('newsLetter')?.value == true"
-          [disabled]="!contactForm.valid || !contactForm.dirty"
+          *ngIf="contactForm?.get('newsLetter')?.value == true"
+          [disabled]="!contactForm?.valid || !contactForm?.touched"
           class="btn-april mt-3"
           (click)="openModal(confirmContact)"
           data-analytics="ContactFormNewsLetter"
@@ -136,8 +136,8 @@
           {{ "SEND" | translate }}
         </button>
         <button
-          *ngIf="contactForm.get('newsLetter')?.value != true"
-          [disabled]="!contactForm.valid || !contactForm.dirty"
+          *ngIf="contactForm?.get('newsLetter')?.value != true"
+          [disabled]="!contactForm?.valid || !contactForm?.touched"
           class="btn-april mt-3"
           (click)="openModal(confirmContact)"
           data-analytics="ContactForm"
