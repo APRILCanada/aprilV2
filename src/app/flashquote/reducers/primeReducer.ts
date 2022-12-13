@@ -43,8 +43,16 @@ export const primeReducer = createReducer(
             return {
                 ...state,
                 prime,
-                data,
+                data,     
                 applicantName: formValue.value[34][0][223],
+            }
+        }
+
+        if (marketId == '50') {
+            return {
+                ...state,
+                prime,
+                applicantName: formValue.value[62][0][849],
             }
         }
 

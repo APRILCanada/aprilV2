@@ -1,32 +1,97 @@
 <div class="wrapper flash-form" *ngIf="formState$ | async as formState">
-
   <!-- DYNAMIC FORM -->
   <form [ngrxFormState]="formState" (submit)="submit()">
-
-    <app-section [progress]="progress" [formValid$]="formValid$" [formSubmitted$]="formSubmitted$" [broker]="broker">
-      <div *ngIf="activeSection.id && !activeSection.isPrime && !activeSection.isExcluded">
-        <div *ngFor="let group of formState.controls[activeSection.id].controls; let i = index; trackBy:customTrackBy">
+    <app-section
+      [progress]="progress"
+      [formValid$]="formValid$"
+      [formSubmitted$]="formSubmitted$"
+      [broker]="broker"
+    >
+      <div
+        *ngIf="
+          activeSection.id &&
+          !activeSection.isPrime &&
+          !activeSection.isExcluded
+        "
+      >
+        <div
+          *ngFor="
+            let group of formState.controls[activeSection.id].controls;
+            let i = index;
+            trackBy: customTrackBy
+          "
+        >
           <header class="groupSection-header" *ngIf="activeSection.isRepeat">
-            <h2>{{ language.get() == "fr" ? activeSection.title.LabelFr.slice(0, -1) :
-              activeSection.title.LabelEn.slice(0, -1) }} {{ i + 1 }}</h2>
-            <button type="button"
+            <h2>
+              {{
+                language.get() == "fr"
+                  ? activeSection.title.LabelFr.slice(0, -1)
+                  : activeSection.title.LabelEn.slice(0, -1)
+              }}
+              {{ i + 1 }}
+            </h2>
+            <button
+              type="button"
               class="button-icon-small button-red d-flex align-items-center justify-content-center text-button-simple"
-              (click)="removeGroupSection(activeSection.id, i)" *ngIf="i > 0">
+              (click)="removeGroupSection(activeSection.id, i)"
+              *ngIf="i > 0"
+            >
               <mat-icon
-                style="color:#ee3629; font-size:20px !important; width:20px !important; height:20px !important;">clear
+                style="
+                  color: #ee3629;
+                  font-size: 20px !important;
+                  width: 20px !important;
+                  height: 20px !important;
+                "
+                >clear
               </mat-icon>
             </button>
           </header>
 
-          <ng-container *ngFor="let question of questionsBySection; let j = index; trackBy:customTrackByTwo">
-            <div *ngIf="formState.controls[activeSection.id].controls[i].controls[question.id]">
+          <ng-container
+            *ngFor="
+              let question of questionsBySection;
+              let j = index;
+              trackBy: customTrackByTwo
+            "
+          >
+            <div
+              *ngIf="
+                formState.controls[activeSection.id].controls[i].controls[
+                  question.id
+                ]
+              "
+            >
               <!-- QUESTION BASE -->
-              <app-question-base [question]="question"
-                [control]="formState.controls[activeSection.id].controls[i].controls[question.id]"
-                [error]="(errors$ | async)['_' + activeSection.id] && (errors$ | async)['_' + activeSection.id]['_' + i] && (errors$ | async)['_' + activeSection.id]['_' + i]['_' + question.id]">
-
-                <app-error [control]="formState.controls[activeSection.id].controls[i].controls[question.id]"
-                  [error]="(errors$ | async)['_' + activeSection.id] && (errors$ | async)['_' + activeSection.id]['_' + i] && (errors$ | async)['_' + activeSection.id]['_' + i]['_' + question.id]">
+              <app-question-base
+                [question]="question"
+                [control]="
+                  formState.controls[activeSection.id].controls[i].controls[
+                    question.id
+                  ]
+                "
+                [error]="
+                  (errors$ | async)['_' + activeSection.id] &&
+                  (errors$ | async)['_' + activeSection.id]['_' + i] &&
+                  (errors$ | async)['_' + activeSection.id]['_' + i][
+                    '_' + question.id
+                  ]
+                "
+              >
+                <app-error
+                  [control]="
+                    formState.controls[activeSection.id].controls[i].controls[
+                      question.id
+                    ]
+                  "
+                  [error]="
+                    (errors$ | async)['_' + activeSection.id] &&
+                    (errors$ | async)['_' + activeSection.id]['_' + i] &&
+                    (errors$ | async)['_' + activeSection.id]['_' + i][
+                      '_' + question.id
+                    ]
+                  "
+                >
                 </app-error>
               </app-question-base>
             </div>
@@ -35,46 +100,85 @@
       </div>
 
       <!-- PRIME AUTO -->
-      <section *ngIf="activeSection.id && activeSection.isPrime && broker.marketId === '28'">
+      <section
+        *ngIf="
+          activeSection.id && activeSection.isPrime && broker.marketId === '28'
+        "
+      >
         <!-- PRIME AMOUNT -->
         <div class="prime" [ngStyle]="broker.styles.prime.text">
           <div class="prime__result" [ngStyle]="broker.styles.prime">
-            <h2 [ngStyle]="broker.styles.prime.header">{{ (prime$ | async)?.applicantName }}, <br />{{ 'YOUR PRIME' | translate }}</h2>
+            <h2 [ngStyle]="broker.styles.prime.header">
+              {{ (prime$ | async)?.applicantName }}, <br />{{
+                "YOUR PRIME" | translate
+              }}
+            </h2>
             <div class="prime__result--amount">
-              <span [ngStyle]="broker.styles.prime.highlightedText" class="big">{{(prime$ | async)?.prime }} $</span>/ {{ 'YEAR_TAXES' | translate }}*
+              <span [ngStyle]="broker.styles.prime.highlightedText" class="big"
+                >{{ (prime$ | async)?.prime }} $</span
+              >/ {{ "YEAR_TAXES" | translate }}*
             </div>
-            <small>{{ 'ESTIMATION_DISCLAIMER' | translate }}</small>
+            <small>{{ "ESTIMATION_DISCLAIMER" | translate }}</small>
           </div>
 
           <!-- PRIME DETAILS -->
-          <div *ngFor="let p of (prime$ | async)?.data; let i=index;" [ngStyle]="broker.styles.prime" class="prime__details"
-            [ngClass]="{resetBorder: i+1 < (prime$ | async)?.data.length}">
-            <h2 [ngStyle]="broker.styles.prime.header">{{ p.vehicle }} <br />{{ 'YOUR_PROTECTIONS' | translate }}</h2>
+          <div
+            *ngFor="let p of (prime$ | async)?.data; let i = index"
+            [ngStyle]="broker.styles.prime"
+            class="prime__details"
+            [ngClass]="{ resetBorder: i + 1 < (prime$ | async)?.data.length }"
+          >
+            <h2 [ngStyle]="broker.styles.prime.header">
+              {{ p.vehicle }} <br />{{ "YOUR_PROTECTIONS" | translate }}
+            </h2>
             <ul class="prime__details-list">
               <li class="prime__details-list-item">
-                <span>{{ 'PUBLIC_LIABILITY' | translate }}</span>
-                <span class="highlight" [ngStyle]="broker.styles.prime.highlightedText">{{ p['LIABILITY'] }} $</span>
+                <span>{{ "PUBLIC_LIABILITY" | translate }}</span>
+                <span
+                  class="highlight"
+                  [ngStyle]="broker.styles.prime.highlightedText"
+                  >{{ p["LIABILITY"] }} $</span
+                >
               </li>
               <li class="prime__details-list-item">
-                <span>{{ 'B2' | translate }}</span>
-                <span class="highlight" [ngStyle]="broker.styles.prime.highlightedText">{{ p['B2'] }} $</span>
+                <span>{{ "B2" | translate }}</span>
+                <span
+                  class="highlight"
+                  [ngStyle]="broker.styles.prime.highlightedText"
+                  >{{ p["B2"] }} $</span
+                >
               </li>
               <li class="prime__details-list-item">
-                <span>
-                  {{ 'B3' | translate }}</span>
-                <span class="highlight" [ngStyle]="broker.styles.prime.highlightedText">{{ p['B3'] }} $</span>
+                <span> {{ "B3" | translate }}</span>
+                <span
+                  class="highlight"
+                  [ngStyle]="broker.styles.prime.highlightedText"
+                  >{{ p["B3"] }} $</span
+                >
               </li>
               <li class="prime__details-list-item">
-                <span>{{ 'FAQ34' | translate }}</span>
-                <span class="highlight" [ngStyle]="broker.styles.prime.highlightedText">{{ p['FAQ34'] }} $</span>
+                <span>{{ "FAQ34" | translate }}</span>
+                <span
+                  class="highlight"
+                  [ngStyle]="broker.styles.prime.highlightedText"
+                  >{{ p["FAQ34"] }} $</span
+                >
               </li>
               <li class="prime__details-list-item">
-                <span>{{ 'FAQ27' | translate }}</span>
-                <span class="highlight" [ngStyle]="broker.styles.prime.highlightedText">{{ p['FAQ27'] }} $</span>
+                <span>{{ "FAQ27" | translate }}</span>
+                <span
+                  class="highlight"
+                  [ngStyle]="broker.styles.prime.highlightedText"
+                  >{{ p["FAQ27"] }} $</span
+                >
               </li>
               <li class="prime__details-list-item">
-                <span>{{ 'FAQ20' | translate }}</span>
-                <span class="highlight" [ngStyle]="broker.styles.prime.highlightedText">{{ p['FAQ20'] }} $</span>
+                <span>{{ "FAQ20" | translate }}</span>
+                <span
+                  class="highlight"
+                  [ngStyle]="broker.styles.prime.highlightedText"
+                  >{{ p["FAQ20"] }} $</span
+                >
               </li>
             </ul>
           </div>
@@ -82,11 +186,16 @@
 
         <!-- PRIME CONTACT -->
         <div class="contact">
-          <p>{{ 'CONTACT_SOON' | translate }}</p>
-          <p>{{ 'TALK_TO_AGENT' | translate }}</p>
-          <a class="contact__phone" [ngStyle]="broker.styles.buttons.phone" [href]="'tel:' + broker.phone">{{ broker?.phone }}</a>
+          <p>{{ "CONTACT_SOON" | translate }}</p>
+          <p>{{ "TALK_TO_AGENT" | translate }}</p>
+          <a
+            class="contact__phone"
+            [ngStyle]="broker.styles.buttons.phone"
+            [href]="'tel:' + broker.phone"
+            >{{ broker?.phone }}</a
+          >
           <div *ngIf="broker.openingHours">
-            {{ 'OPENING_HOURS' | translate }}
+            {{ "OPENING_HOURS" | translate }}
             <ul class="contact__hours">
               <li *ngFor="let hour of broker.openingHours[lang]">
                 {{ hour }}
@@ -97,26 +206,43 @@
       </section>
       <!-- FIN PRIME AUTO -->
 
-      <!-- PRIME CONTRACTOR -->
-      <section *ngIf="activeSection.id && activeSection.isPrime && broker.marketId === '76'">
+      <!-- PRIME DEFAULT -->
+      <section
+        *ngIf="
+          activeSection.id &&
+          activeSection.isPrime &&
+          (broker.marketId === '76' || broker.marketId === '50')
+        "
+      >
         <!-- PRIME AMOUNT -->
         <div class="prime" [ngStyle]="broker.styles.prime.text">
           <div class="prime__result" [ngStyle]="broker.styles.prime">
-            <h2 [ngStyle]="broker.styles.prime.header">{{ (prime$ | async)?.applicantName }}, <br />{{ 'YOUR PRIME' | translate }}</h2>
+            <h2 [ngStyle]="broker.styles.prime.header">
+              {{ (prime$ | async)?.applicantName }}, <br />{{
+                "YOUR PRIME" | translate
+              }}
+            </h2>
             <div class="prime__result--amount">
-              <span [ngStyle]="broker.styles.prime.highlightedText" class="big">{{(prime$ | async)?.prime }} $</span>/ {{ 'YEAR_TAXES' | translate }}*
+              <span [ngStyle]="broker.styles.prime.highlightedText" class="big"
+                >{{ (prime$ | async)?.prime }} $</span
+              >/ {{ "YEAR_TAXES" | translate }}*
             </div>
-            <small>{{ 'ESTIMATION_DISCLAIMER' | translate }}</small>
+            <small>{{ "ESTIMATION_DISCLAIMER" | translate }}</small>
           </div>
         </div>
 
         <!-- PRIME CONTACT -->
         <div class="contact">
-          <p>{{ 'CONTACT_SOON' | translate }}</p>
-          <p>{{ 'TALK_TO_AGENT' | translate }}</p>
-          <a class="contact__phone" [ngStyle]="broker.styles.buttons.phone" [href]="'tel:' + broker.phone">{{ broker?.phone }}</a>
+          <p>{{ "CONTACT_SOON" | translate }}</p>
+          <p>{{ "TALK_TO_AGENT" | translate }}</p>
+          <a
+            class="contact__phone"
+            [ngStyle]="broker.styles.buttons.phone"
+            [href]="'tel:' + broker.phone"
+            >{{ broker?.phone }}</a
+          >
           <div *ngIf="broker.openingHours">
-            {{ 'OPENING_HOURS' | translate }}
+            {{ "OPENING_HOURS" | translate }}
             <ul class="contact__hours">
               <li *ngFor="let hour of broker.openingHours[lang]">
                 {{ hour }}
@@ -128,15 +254,18 @@
       <!-- FIN PRIME CONTRACTOR -->
 
       <!-- EXCLUSION SCREEN -->
-      <section class="section-exclusion" *ngIf="activeSection.id && activeSection.isExcluded">
+      <section
+        class="section-exclusion"
+        *ngIf="activeSection.id && activeSection.isExcluded"
+      >
         <div class="exclusion">
-          <img [src]="exclusionImg" alt="image">
+          <img [src]="exclusionImg" alt="image" />
           <div *ngIf="(exclusions$ | async).length">
             <header class="exclusion__header">
-              <h2>{{ 'NO_ESTIMATION' | translate }}</h2>
+              <h2>{{ "NO_ESTIMATION" | translate }}</h2>
             </header>
             <ul>
-              <li *ngFor="let exclusion of (exclusions$ | async)">
+              <li *ngFor="let exclusion of exclusions$ | async">
                 {{ exclusion | translate }}
               </li>
             </ul>
@@ -144,18 +273,23 @@
 
           <div *ngIf="!(exclusions$ | async).length">
             <header class="exclusion__header">
-              <h2>{{ 'ESTIMATION_NULL' | translate }}</h2>
+              <h2>{{ "ESTIMATION_NULL" | translate }}</h2>
             </header>
           </div>
         </div>
 
         <!-- EXCLUSION CONTACT -->
         <div class="contact">
-          <p>{{ 'EXCLUSION_CONTACT' | translate }}</p>
-          <p>{{ 'TALK_TO_AGENT' | translate }}</p>
-          <a class="contact__phone" [ngStyle]="broker.styles.buttons.phone" [href]="'tel:' + broker.phone">{{ broker?.phone }}</a>
+          <p>{{ "EXCLUSION_CONTACT" | translate }}</p>
+          <p>{{ "TALK_TO_AGENT" | translate }}</p>
+          <a
+            class="contact__phone"
+            [ngStyle]="broker.styles.buttons.phone"
+            [href]="'tel:' + broker.phone"
+            >{{ broker?.phone }}</a
+          >
           <div *ngIf="broker?.openingHours">
-            {{ 'OPENING_HOURS' | translate }}
+            {{ "OPENING_HOURS" | translate }}
             <ul class="contact__hours">
               <li *ngFor="let hour of broker.openingHours[lang]">
                 {{ hour }}
@@ -167,24 +301,43 @@
       <!-- END EXCLUSION SCREEN -->
     </app-section>
 
-    <div *ngIf="!activeSection.isPrime && !activeSection.isExcluded" class="section-buttons">
+    <div
+      *ngIf="!activeSection.isPrime && !activeSection.isExcluded"
+      class="section-buttons"
+    >
       <!-- PREVIOUS -->
-      <button [ngStyle]="broker.styles.buttons.nav" type="button" *ngIf="!activeSection.isFirst" class="btn-april" (click)="setActiveSection(-1)">
+      <button
+        [ngStyle]="broker.styles.buttons.nav"
+        type="button"
+        *ngIf="!activeSection.isFirst"
+        class="btn-april"
+        (click)="setActiveSection(-1)"
+      >
         {{ "BACK" | translate }}
       </button>
 
       <!-- NEXT -->
-      <button [ngStyle]="broker.styles.buttons.nav" type="button" *ngIf="!activeSection.isLast" class="btn-april next" (click)="setActiveSection(1)">
+      <button
+        [ngStyle]="broker.styles.buttons.nav"
+        type="button"
+        *ngIf="!activeSection.isLast"
+        class="btn-april next"
+        (click)="setActiveSection(1)"
+      >
         {{ "NEXT" | translate }}
       </button>
 
       <!-- SUBMIT -->
-      <button [ngStyle]="broker.styles.buttons.nav" *ngIf="activeSection.isLast" class="btn-april" type="submit" data-analytics="DirectForm"
-        [disabled]="!(formValid$ | async) && (formSubmitted$ | async)">
+      <button
+        [ngStyle]="broker.styles.buttons.nav"
+        *ngIf="activeSection.isLast"
+        class="btn-april"
+        type="submit"
+        data-analytics="DirectForm"
+        [disabled]="!(formValid$ | async) && (formSubmitted$ | async)"
+      >
         {{ "SUBMIT_QUOTE" | translate }}
       </button>
     </div>
-
   </form>
-
 </div>

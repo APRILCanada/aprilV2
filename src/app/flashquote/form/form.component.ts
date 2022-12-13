@@ -376,7 +376,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
             //this.exclusions$.subscribe(exclusions => this.userExclusions = exclusions)
 
             //if (quoteResult && quoteResult.total.premium > 0 && !this.userExclusions.length) {
-            if (quoteResult && quoteResult.total.premium > 0 && quoteResult.total.title.LabelEn !== 'EXCLUDED') {
+            if (quoteResult && quoteResult.total.premium > 0 && quoteResult.total.title.LabelEn != 'EXCLUDED') {
               this.store.dispatch(setActiveSection({
                 activeSection: {
                   id: this.sections.length,
