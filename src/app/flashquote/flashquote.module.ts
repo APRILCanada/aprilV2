@@ -27,7 +27,7 @@ import { ChipComponent } from './components/questions/chip/chip.component';
 import { RepartitionComponent } from './components/questions/repartition/repartition.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorComponent } from './components/shared/error/error.component';
-import { PrimeComponent } from './prime/prime.component';
+import { PrimeComponent } from './components/shared/prime/prime.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';

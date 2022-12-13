@@ -18,7 +18,7 @@ import { NichesComponent } from './components/pages/niches/niches.component';
 import { OfflineFormsComponent } from './components/pages/offline-forms/offline-forms.component';
 import { ProductsComponent } from './components/pages/products/products.component';
 import { RoutableModalComponent } from './components/routable-modal/routable-modal.component';
-import { PrimeComponent } from './flashquote/prime/prime.component';
+import { PrimeComponent } from './flashquote/components/shared/prime/prime.component';
 
 const childrenRoutes = [
   {
