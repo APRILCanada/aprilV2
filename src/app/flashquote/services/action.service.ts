@@ -92,6 +92,8 @@ export class ActionService {
   hide(rule: Rule, control: FormControlState<any>, destinationId: string, groupIndex: number, pathToGroup: string) {
     const result = this.ruleService.checkRule(rule, control)
 
+    pathToGroup = this.overridePath(pathToGroup, destinationId)
+
     if (result) {
       if (!this.temp.has(groupIndex + '.' + destinationId)) {
         if ((this.formState.controls[this.activeSection.id].controls[groupIndex] as any).controls[destinationId]) {
@@ -112,6 +114,8 @@ export class ActionService {
   show(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, groupIndex: number, pathToGroup: string) {
     const result = this.ruleService.checkRule(rule, control)
 
+    pathToGroup = this.overridePath(pathToGroup, destinationId)
+
     if (result) {
       if (!this.temp.has(groupIndex + '.' + destinationId)) {
         if (!this.formState.controls[this.activeSection.id] && !(this.formState.controls[this.activeSection.id].controls[groupIndex] as any).controls[destinationId]) {
@@ -121,6 +125,7 @@ export class ActionService {
           if (question.identifier === "HasHadClaimsInLast6Years") {
             // NO CLAIMS GROUP CONTROL IN THE AUTOMOBILE FLASHQUOTE (marketId: 28) //
             if (this.marketId != 28) {
+              console.log('PATH TO GROUP', pathToGroup)
               this.store.dispatch(new AddGroupControlAction(pathToGroup, destinationId, [
                 {
                   "Claim-date": '',
@@ -136,6 +141,7 @@ export class ActionService {
           }
           else {
             if ((question.identifier !== 'MinorInfraction' && question.identifier !== 'MajorInfraction')) {
+              console.log('path2', pathToGroup)
               this.store.dispatch(new AddGroupControlAction(pathToGroup, destinationId, {}));
               this.temp.add(groupIndex + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
             }
@@ -224,5 +230,23 @@ export class ActionService {
     responseKeyList.forEach((responseKey) => {
       this.store.dispatch(new CreateGroupElementAction(responseKey, destinationId, pathToGroup));
     });
+  }
+
+  overridePath(pathToGroup: string, destinationId: string) {
+    let sectionId: string = '';
+    let destId = parseInt(destinationId)
+
+    this.sections.map(section => section.questions.map(q => {
+      if (q.id === destId) sectionId = section.id.toString();
+    })
+    )
+
+    const pathArr = pathToGroup.split('.')
+    if (sectionId && sectionId != pathArr[1]) {
+      pathArr[1] = sectionId;
+      pathArr[2] = '0';
+      return pathArr.join('.')
+    }
+    return pathToGroup
   }
 }

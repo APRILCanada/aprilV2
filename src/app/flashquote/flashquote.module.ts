@@ -63,6 +63,7 @@ import { ExclusionRulesComponent } from './components/shared/exclusion-rules/exc
 import { UspComponent } from './components/shared/usp/usp.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { EmailComponent } from './components/questions/email/email.component';
+import { SubSectionComponent } from './components/questions/sub-section/sub-section.component';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -107,7 +108,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     HeroComponent,
     ExclusionRulesComponent,
     UspComponent,
-    EmailComponent
+    EmailComponent,
+    SubSectionComponent
   ],
   imports: [
     CommonModule,
