@@ -16,7 +16,6 @@ import { CanonicalService } from './services/canonical.service';
 import { Location } from '@angular/common';
 import { SeoService } from './services/seo.service';
 import { LoadingService } from './services/loading.service';
-import { DigitalInnovatorPriceComponent } from './components/common/digital-innovator-price/digital-innovator-price.component';
 
 @Component({
   selector: 'app-root',
@@ -42,8 +41,7 @@ export class AppComponent {
     private canonicalService: CanonicalService,
     public urlService: UrlService,
     public seo: SeoService,
-    public loader: LoadingService,
-    private modalService: NgbModal
+    public loader: LoadingService
   ) {
     translate.setDefaultLang(this.language.get());
   }
@@ -67,7 +65,6 @@ export class AppComponent {
       .subscribe(() => {
         //this.loader.loading(true);
       });
-      this.modalService.open(DigitalInnovatorPriceComponent, { size: 'xl', centered: true});
   }
 
   onActivate(event: any) {

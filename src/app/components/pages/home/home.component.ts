@@ -5,6 +5,7 @@ import { LanguageService } from 'src/app/services/language.service';
 import { Title, Meta } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import { LoadingService } from 'src/app/services/loading.service';
+import { DigitalInnovatorPriceComponent } from '../../common/digital-innovator-price/digital-innovator-price.component';
 
 declare global {
   interface Window {
@@ -29,7 +30,13 @@ export class HomeComponent implements OnInit, AfterContentInit {
     private loader: LoadingService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let digitalInovatorShown = sessionStorage.getItem('digitalInovatorShown');
+    if(digitalInovatorShown != 'true') {
+      this.modalService.open(DigitalInnovatorPriceComponent, { size: 'xl', centered: true});
+      sessionStorage.setItem('digitalInovatorShown','true');
+    }
+  }
 
   ngAfterContentInit() {
     window.dataLayer = window.dataLayer || [];
