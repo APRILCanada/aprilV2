@@ -6,6 +6,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import { LoadingService } from 'src/app/services/loading.service';
 import { DigitalInnovatorPriceComponent } from '../../common/digital-innovator-price/digital-innovator-price.component';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 declare global {
   interface Window {
@@ -27,16 +28,11 @@ export class HomeComponent implements OnInit, AfterContentInit {
     private router: Router,
     private title: Title,
     private meta: Meta,
-    private loader: LoadingService
+    private loader: LoadingService,
+    public dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {
-    let digitalInovatorShown = sessionStorage.getItem('digitalInovatorShown');
-    if(digitalInovatorShown != 'true') {
-      this.modalService.open(DigitalInnovatorPriceComponent, { size: 'xl', centered: true});
-      sessionStorage.setItem('digitalInovatorShown','true');
-    }
-  }
+  ngOnInit(): void {}
 
   ngAfterContentInit() {
     window.dataLayer = window.dataLayer || [];
@@ -49,9 +45,18 @@ export class HomeComponent implements OnInit, AfterContentInit {
       'filter.type': '',
     });
     // console.log(window.dataLayer);
+    let digitalInovatorShown = sessionStorage.getItem('digitalInovatorShown');
+    if(digitalInovatorShown != 'true') {
+      // this.modalService.open(DigitalInnovatorPriceComponent, { size: 'xl', centered: true});
+      
+        this.dialog.open(DigitalInnovatorPriceComponent, {
+          // width: '250px',
+        });
+      sessionStorage.setItem('digitalInovatorShown','true');
+    }
   }
 
-  open(confirmModal: any) {
-    this.modalService.open(confirmModal, { size: 'lg' });
-  }
+  // open(confirmModal: any) {
+  //   this.modalService.open(confirmModal, { size: 'lg' });
+  // }
 }

@@ -1,4 +1,5 @@
 import { AfterViewChecked, Component, OnInit, Renderer2 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LanguageService } from 'src/app/services/language.service';
 
@@ -13,8 +14,9 @@ export class DigitalInnovatorPriceComponent implements OnInit, AfterViewChecked 
 
   constructor(
     private language: LanguageService,
-    private modalService: NgbModal,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    public dialog: MatDialog
+
     ) { }
 
   ngOnInit(): void {
@@ -41,13 +43,14 @@ getImageUrl(){
   }
 
   btnClose(){
-    this.modalService.dismissAll();
+    this.dialog.closeAll();
   }
 
   ngAfterViewChecked(): void {
-    let element = document.querySelector(".modal-content");
+    let element = document.querySelector(".mat-dialog-container");
     if(element){
     this.renderer.setStyle(element, 'background-color', 'transparent');
+    this.renderer.setStyle(element, 'padding', '0');
     }
   }
 }
