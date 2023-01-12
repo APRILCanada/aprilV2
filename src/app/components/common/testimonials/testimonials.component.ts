@@ -9,6 +9,7 @@
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-testimonials',
@@ -66,7 +67,7 @@ export class TestimonialsComponent implements OnInit, AfterViewInit {
 
 ]
 
-  constructor(private renderer: Renderer2, public router: Router) {}
+  constructor(private renderer: Renderer2, public router: Router, public language: LanguageService) {}
 
   ngOnInit() {
     function random_testimonal_rotation (testimonials: any) {
@@ -110,4 +111,10 @@ export class TestimonialsComponent implements OnInit, AfterViewInit {
       })
     );
   }  
+
+
+  getImageUrl() {
+    if(this.language.get()=== 'FR') return '../../../../assets/img/digital-innovator-price/POPUP-APRIL.CA-ORDINATEUR-FR.jpg'
+    return '../../../../assets/img/digital-innovator-price/POPUP-APRIL.CA-ORDINATEUR-EN.jpg'
+  }
 }

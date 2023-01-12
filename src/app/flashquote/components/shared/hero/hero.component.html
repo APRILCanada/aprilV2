@@ -1,6 +1,7 @@
 <section class="hero" [ngStyle]="broker.styles.hero">
     <div class="header">
-        <h1 class="headline" [ngStyle]="broker.styles.hero">{{ language.get() == "fr" ? broker.market.headline.labelFr : broker.market.headline.labelEn
+        <h1 class="headline" [ngStyle]="broker.styles.hero">{{ language.get() == "fr" ? (broker.content.headline.labelFr || broker.market.headline.labelFr)
+             :  (broker.content.headline.labelEn || broker.market.headline.labelEn)
             }}</h1>
         <span [ngStyle]="broker.styles.hero.eligibilityLink" (click)="openDialog()">{{ language.get() == "fr" ? 'Vérifiez votre admissibilité' : 'Check your
             eligibility'}}</span>

@@ -498,5 +498,8 @@
     "NO_ESTIMATION": "Nous ne pouvons pas estimer votre prime pour les raisons suivantes:",
     "ESTIMATION_NULL": "Malheureusement, nous ne pouvons pas estimer votre prime.",
     "EXCLUSION_CONTACT": "Un de nos agents vous contactera sous peu pour trouver une solution adaptée à vos besoins.",
-    "TABLE_HEADING": "Pourcentage de travail effectué pour chaque activité"
+    "TABLE_HEADING": "Pourcentage de travail effectué pour chaque activité",
+    "IBC": "Bureau d'assurance du Canada",
+    "IBC_LEADER" : "Leader de la publication spécialisé dans l'assurance"
+
 }

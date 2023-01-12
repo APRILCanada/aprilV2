@@ -43,7 +43,7 @@ import { TestComponent } from './test/test.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireFunctionsModule } from '@angular/fire/compat/functions';
-import { DigitalInnovatorPriceComponent } from './digital-innovator-price/digital-innovator-price.component';
+
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -67,7 +67,6 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     QuoteBannerComponent,
     AeroAdminComponent,
     TestComponent,
-    DigitalInnovatorPriceComponent,
   ],
   imports: [
     NgbModule,

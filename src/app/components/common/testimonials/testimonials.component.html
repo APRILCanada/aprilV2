@@ -11,6 +11,13 @@
     <div class="testimonials" #owlParent>
       <div class="testimonials-slider">
         <owl-carousel-o [options]="testimonialsSliderOptions">
+          <ng-template carouselSlide>
+
+              <img src="../../../../assets/img/digital-innovator-price/POPUP-APRIL.CA-ORDINATEUR-EN.jpg" alt="">
+              <h3 class="mt-4">{{"IBC" | translate}}</h3>
+              <span>{{"IBC_LEADER" | translate}}</span>
+           
+          </ng-template>
           <ng-template
             carouselSlide
             *ngFor="let testimonial_item of testimonials"
