@@ -26,6 +26,7 @@ export class ExclusionRulesComponent implements OnInit {
   ngOnInit(): void {
     this.lang = this.language.get()
     this.broker = this.data.broker
+    console.log(this.broker)
   }
 
   close() {
