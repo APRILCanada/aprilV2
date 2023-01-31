@@ -23,6 +23,9 @@ export class FlashquoteService {
 
 
   submitQuote(quote: any) {
+    console.log('before',quote.MarketId)
+    if(quote.MarketId == '76' && environment.production) {quote.MarketId = '74'}
+    console.log('after', quote.MarketId)
     console.log('FORM DATA', JSON.stringify(quote))
     return this.http.post<any>(`${environment.apiURL}/api/publicflash`, JSON.stringify(quote), {
       headers: { 'Content-Type': 'application/json', 'x-api-key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344' }

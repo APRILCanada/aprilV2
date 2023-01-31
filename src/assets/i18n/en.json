@@ -498,7 +498,9 @@
     "NO_ESTIMATION": "We cannot estimate your premium for the following reasons:",
     "ESTIMATION_NULL": "Unfortunately, we cannot estimate your premium.",
     "EXCLUSION_CONTACT": "One of our agents will contact you shortly to find a solution adapted to your needs.",
-    "TABLE_HEADING": "Percentage of work done for each activities"
+    "TABLE_HEADING": "Percentage of work done for each activities",
+    "IBC": "Insurance Bureau of Canada",
+    "IBC_LEADER" : "Insurance publication leader"
 }
 
  

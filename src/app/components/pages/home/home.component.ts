@@ -5,7 +5,6 @@ import { LanguageService } from 'src/app/services/language.service';
 import { Title, Meta } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import { LoadingService } from 'src/app/services/loading.service';
-import { DigitalInnovatorPriceComponent } from '../../common/digital-innovator-price/digital-innovator-price.component';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 declare global {
@@ -45,15 +44,7 @@ export class HomeComponent implements OnInit, AfterContentInit {
       'filter.type': '',
     });
     // console.log(window.dataLayer);
-    let digitalInovatorShown = sessionStorage.getItem('digitalInovatorShown');
-    if(digitalInovatorShown != 'true') {
-      // this.modalService.open(DigitalInnovatorPriceComponent, { size: 'xl', centered: true});
-      
-        this.dialog.open(DigitalInnovatorPriceComponent, {
-          // width: '250px',
-        });
-      sessionStorage.setItem('digitalInovatorShown','true');
-    }
+   
   }
 
   // open(confirmModal: any) {

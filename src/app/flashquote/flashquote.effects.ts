@@ -17,6 +17,7 @@ import { State } from './store';
 import { SectionResult } from './models/SectionResult';
 import { Question } from './models/Question';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable()
@@ -55,10 +56,12 @@ export class FlashquoteEffects {
   loadSections$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadSections),
+      tap((action) => {if(action.marketId == '76' && environment.production) {action.marketId = '74'}}),
       mergeMap((action) => {
         return this.flashquoteService.getFlashquote(action.marketId).pipe(
           switchMap((flashquote: FlashFormDTO) => {
             this.flashquote = flashquote
+            if(this.flashquote.marketId == 76 && environment.production) {this.flashquote.marketId = 74};
             return [
               loadSectionsSuccess({ flashquote }),
               createSections({ flashquote })

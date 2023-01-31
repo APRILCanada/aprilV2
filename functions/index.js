@@ -1563,6 +1563,7 @@ exports.emailClaimForm = functions.https.onCall((data) => {
                                                                             <li>Insured name: ${data.insured}</li>
                                                                             <li>Company Name: ${data.company}</li>
                                                                             <li>Email: ${data.email}</li>
+                                                                            <li>Phone number: ${data.phoneNumber}</li>
                                                                             <li>Claim date: ${data.date}</li>
                                                                             <li>Province: ${data.province}</li>
                                                                             <li>Claim type: ${data.contractType}</li>
@@ -1675,8 +1676,9 @@ exports.emailClaimForm = functions.https.onCall((data) => {
                                                                             <ul>
                                                                             <ul><li>Policy number: ${data.policyNumber}</li>
                                                                             <li>Insured name: ${data.insured}</li>
-                                                                            <li>Company Name: ${data.company}</li>
+                                                                            <li>Company name: ${data.company}</li>
                                                                             <li>Email: ${data.email}</li>
+                                                                            <li>Phone number: ${data.phoneNumber}</li>
                                                                             <li>Claim date: ${data.date}</li>
                                                                             <li>Province: ${data.province}</li>
                                                                             <li>Claim type: ${data.contractType}</li>

@@ -144,7 +144,7 @@ export class ClaimsComponent implements OnInit, AfterContentInit {
       claimReason: this.claim.reason,
     });
     this.result.subscribe();
-
+    
     this.claimForm.reset();
   }
 
