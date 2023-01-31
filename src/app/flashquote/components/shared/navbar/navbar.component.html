@@ -1,6 +1,8 @@
 <div class="navbar">
-    <img class="logo align-self-start" *ngIf="broker"
-        src="{{'https://firebasestorage.googleapis.com/v0/b/april-canada-c5f17.appspot.com/o/' + logo + '?alt=media'}}" />
+    <!-- <img class="logo align-self-start" *ngIf="broker"
+        src="{{'https://firebasestorage.googleapis.com/v0/b/april-canada-c5f17.appspot.com/o/' + logo + '?alt=media'}}" /> -->
+        <img class="logo align-self-start" *ngIf="broker"
+        src="../../../../../assets/img/nova.png" />
 
     <span *ngIf="broker.name !== 'April'" class="navbar-toggler-icon lang-form">
         <a (click)="this.language.switch()">{{"LANG" | translate}}</a>
