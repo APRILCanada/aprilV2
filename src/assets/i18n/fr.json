@@ -479,7 +479,7 @@
     "NEW_QUOTE": "Faire une nouvelle soumission",
     "EMAIL_VALIDATION": "Merci d'entrer un email valide.",
     "UNDERSTAND": "J'ai compris",
-    "SUBMISSION_RULES": "Vous ne pouvez pas faire une soumission en ligne si au moins l'une des conditions suivantes ne s'applique pas à vous.",
+    "SUBMISSION_RULES": "Vous ne pourrez pas générer de prime en ligne si au moins l'une des conditions suivantes ne s'applique pas à vous. Veuillez compléter le formulaire et un de nos agents vous rappelera pour évaluer vos besoins.",
     "CONTACT_BROKER": "Merci de contacter l'un de nos agents au ",
     "REPARTITION_EXCLUSION_POPUP": "L'utilisation professionnelle du véhicule dépasse 50%. Ce point nécessitera validation auprès d'un agent après soumission du formulaire.",
     "REPARTITION_EXCLUSION": "L'utilisation professionnelle du véhicule dépasse 50%.",
@@ -500,6 +500,5 @@
     "EXCLUSION_CONTACT": "Un de nos agents vous contactera sous peu pour trouver une solution adaptée à vos besoins.",
     "TABLE_HEADING": "Pourcentage de travail effectué pour chaque activité",
     "IBC": "Bureau d'assurance du Canada",
-    "IBC_LEADER" : "Leader de la publication spécialisé dans l'assurance"
-
+    "IBC_LEADER": "Leader de la publication spécialisé dans l'assurance"
 }
