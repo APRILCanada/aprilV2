@@ -11,10 +11,16 @@ import { ExclusionRulesComponent } from '../exclusion-rules/exclusion-rules.comp
 })
 export class HeroComponent implements OnInit {
   @Input() broker: BrokerDTO
+  heroImg: string;
+  fontHeadline: string;
+  eligibilityStyle: string;
 
   constructor(private matDialog: MatDialog, public language: LanguageService) { }
 
   ngOnInit(): void {
+    console.log(this.broker)
+     this.broker.styles.hero.image || this.broker.market.heroImg
+
   }
 
   openDialog() {

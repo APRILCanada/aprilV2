@@ -2468,6 +2468,239 @@ exports.sendDirect = functions.https.onCall((data) => {
             .catch(err => console.log(err));
     }
 });
+exports.sendDirectContractor = functions.https.onCall((data) => {
+
+
+    var mailList = [
+        `${data.brokerEmail}`
+    ]
+
+    const authData = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+            user: SENDER_EMAIL,
+            pass: SENDER_PASSWORD,
+        },
+    });
+
+    if (data.language == 'fr') {
+        authData.sendMail({
+            from: "no-reply@april.ca",
+            to: mailList,
+            subject: "Nous avons reçus votre requête -- APRIL Construction",
+            text: ``,
+            html: `<!DOCTYPE html>
+                  <html lang="fr">
+                      <head>
+                          <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+                          <link rel="preconnect" href="https://fonts.gstatic.com">
+                          <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Roboto:ital@1&display=swap" rel="stylesheet">
+                      </head>
+                      <body bgcolor="#f2f2f2">
+                          <table width="100%" bgcolor="#f2f2f2" border="0" cellspacing="0" cellpadding="0" align="center" style="border-collapse: collapse;" >
+                              <table width="668" bgcolor="#f9f9f9" border="0" cellspacing="0" cellpadding="0" align="center" style="border-collapse: collapse;" >
+                                  <tr cellspacing="0" cellpadding="0" border="0" >
+                                      <td cellspacing="0" width="668" height="166" cellpadding="0" border="0" align="center" style="background-color:#f9f9f9; color:black" >
+                                          <table width="568" height="132" bgcolor="#004161" border="0" cellspacing="0" cellpadding="0" align="center" style="border-top-right-radius:76px" >
+                                              <tr>
+                                                  <td>
+                                                      <img src="https://april-on.ca/april_logo_fr.png"  style="color:#fff; font-size: 80px; font-family:'Poppins',sans-serif;margin-left:20px;" alt="APRIL Canada">
+                                                  </td>
+                                              </tr>
+                                          </table>
+                                      </td>
+                                  </tr>
+                              </table>
+                          </table>
+                          <table width="100%" bgcolor="#f2f2f2" border="0" cellspacing="0" cellpadding="0" align="center">
+                              <table width="668" bgcolor="#f9f9f9" border="0" cellspacing="0" cellpadding="0" align="center" style="padding-bottom:30px;padding-top:30px;">
+                                  <tr>
+                                      <td align="center">
+                                          <table width="572" border="0" cellspacing="0" cellpadding="0">
+                                              <tr>
+                                                  <td>
+                                                      <table width="460" border="0" cellspacing="0" cellpadding="0" align="center">
+                                                          <tr>
+                                                              <td colspan="2">
+                                                                  <h2 style="font-family:'Poppins',sans-serif;font-size:13px;line-height:28px;color:#323132;text-align:left;text-transform:uppercase;letter-spacing:1px;font-weight:bold;padding-top:0px;padding-bottom:8px;">Vous avez reçu une demande via votre formulaire sur april.ca.</h2>
+                                                                  <p style="font-family:'Poppins',sans-serif;font-size:15px;line-height:24px;color:#656465;font-weight:300;text-align:left;">Bonjour,</p>
+                                                                  <p style="font-family:'Poppins',sans-serif;font-size:15px;font-weight:300;line-height:24px;color:#656465;text-align:justify;">Voici les informations en lien avec votre demande. Pour une version complète de la soumission, veuillez-vous rendre sur april.ca.
+                                                                      <ul>
+                                                                          <li>Nom complet: ${data.fullName}</li>
+                                                                          <li>Courriel: ${data.email}</li>
+                                                                          <li>Téléphone: ${data.phoneNumber}</li>
+                                                                          <li>Limite: ${data.limit}</li>
+                                                                          <li>Chiffre d'affaires annuel: ${data.revenue}</li>
+                                                                          <li>Années d'expérience continue dans ce type d’activité: ${data.yExperience}</li>
+                                                                          <li>Années en affaire: ${data.yBusiness}</li>
+                                                                      </ul>
+                                                                  </p>
+                                                              </td>
+                                                          </tr>    
+                                                      </table>
+                                                      <table width="460" border="0" cellspacing="0" cellpadding="0" align="center">
+                                                          <tr width="460">
+                                                              <td colspan="2" align="left">
+                                                                  <h2 style="font-family:'Poppins',sans-serif;font-size:13px;line-height:32px;color:#639e30;text-align:left;text-transform:uppercase;letter-spacing:2px;font-weight:bold;margin-top:15px;margin-bottom:5px;">Nous Joindre</h2>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td valign="top" colspan="2">
+                                                                  <p style="font-family:'Poppins',sans-serif;font-size:15px;line-height:24px;color:#656465;text-align:left;margin-bottom:15px;font-weight:300;">Pour obtenir de l'aide ou pour toutes questions, n'hésitez pas à nous contacter à l'adresse suivante: <a href="mailto:info@april.ca" >info@april.ca</a></p>
+                                                                  <p style="font-family:'Poppins',sans-serif;font-size:15px;line-height:24px;color:#656465;text-align:left;margin-bottom:15px;font-weight:300;">Cordialement,</p>
+                                                                  <h1 style="font-family:'Roboto',sans-serif;font-size:18px;line-height:32px;color:#639e30;text-align:left;letter-spacing:2px;font-weight:normal;margin-top:15px;">L'équipe d'APRIL Canada</h1>
+                                                              </td>
+                                                          </tr>
+                                                      </table>
+                                                  </td>
+                                              </tr>
+                                          </table>
+                                      </td>
+                                  </tr>
+                              </table>
+                              <table width="100%" bgcolor="#f2f2f2" border="0" cellspacing="0" cellpadding="0" align="center">
+                                  <tr>
+                                      <td align="center" cellspacing="0" cellpadding="0" border="0" align="center">
+                                          <table width="668" bgcolor="#f9f9f9" border="0" cellspacing="0" cellpadding="0" align="center" style="border-collapse: collapse;" >
+                                              <tr cellspacing="0" cellpadding="0" border="0" >
+                  
+                                              </tr>
+                                              <td cellspacing="0" width="668" height="120" cellpadding="0" border="0" align="center" style="background-color:#f9f9f9; color:black" >
+                                                  <table width="568" height="90" bgcolor="#004161" border="0" cellspacing="0" cellpadding="0" align="center" style="border-bottom-left-radius:76px">
+                                                      <tr>
+                                                          <td>
+                                                              <p style="color:rgba(0,0,0,0)">.</p>
+                                                          </td>
+                                                      </tr>
+                                                  </table>
+                                              </td>
+                                              </tr>
+                                          </table>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td align="center">
+                                          <small style="font-family:verdana,sans-serif;font-size:11px;line-height:16px;color:#656465;text-align:center;">Ne répondez pas à ce message &#8211; Les messages ne seront pas lus.</a></small>
+                                      </td>
+                                  </tr>
+                              </table>
+                          </table>
+                      </body>
+                  </html>`,
+
+        }).then(res => console.log("Succesfully sent"))
+            .catch(err => console.log(err));
+    }
+    else {
+        authData.sendMail({
+            from: "no-reply@april.ca",
+            to: mailList,
+            subject: "We have received your request -- APRIL Construction",
+            html: `<!DOCTYPE html>
+          <html lang="en">
+              <head>
+                  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+                  <link rel="preconnect" href="https://fonts.gstatic.com">
+                  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Roboto:ital@1&display=swap" rel="stylesheet">
+              </head>
+              <body bgcolor="#f2f2f2">
+                  <table width="100%" bgcolor="#f2f2f2" border="0" cellspacing="0" cellpadding="0" align="center" style="border-collapse: collapse;" >
+                      <table width="668" bgcolor="#f9f9f9" border="0" cellspacing="0" cellpadding="0" align="center" style="border-collapse: collapse;" >
+                          <tr cellspacing="0" cellpadding="0" border="0" >
+                              <td cellspacing="0" width="668" height="166" cellpadding="0" border="0" align="center" style="background-color:#f9f9f9; color:black" >
+                                  <table width="568" height="132" bgcolor="#004161" border="0" cellspacing="0" cellpadding="0" align="center" style="border-top-right-radius:76px" >
+                                      <tr>
+                                          <td>
+                                              <img src="https://april-on.ca/april_logo_en.png"  style="color:#fff; font-size: 80px; font-family:'Poppins',sans-serif;margin-left:20px;" alt="APRIL Canada">
+                                          </td>
+                                      </tr>
+                                  </table>
+                              </td>
+                          </tr>
+                      </table>
+                  </table>
+                  <table width="100%" bgcolor="#f2f2f2" border="0" cellspacing="0" cellpadding="0" align="center">
+                      <table width="668" bgcolor="#f9f9f9" border="0" cellspacing="0" cellpadding="0" align="center" style="padding-bottom:30px;padding-top:30px;">
+                          <tr>
+                              <td align="center">
+                                  <table width="572" border="0" cellspacing="0" cellpadding="0">
+                                      <tr>
+                                          <td>
+                                              <table width="460" border="0" cellspacing="0" cellpadding="0" align="center">
+                                                  <tr>
+                                                      <td colspan="2">
+                                                          <h2 style="font-family:'Poppins',sans-serif;font-size:13px;line-height:28px;color:#323132;text-align:left;text-transform:uppercase;letter-spacing:1px;font-weight:bold;padding-top:0px;padding-bottom:8px;">We have received your request.</h2>
+                                                          <p style="font-family:'Poppins',sans-serif;font-size:15px;line-height:24px;color:#656465;font-weight:300;text-align:left;">Hi,</p>
+                                                          <p style="font-family:'Poppins',sans-serif;font-size:15px;font-weight:300;line-height:24px;color:#656465;text-align:justify;">Here is the information related to your request. For a full version of the submission, please visit april.ca.
+                                                              <ul>
+                                                              <li>Full name: ${data.fullName}</li>
+                                                              <li>Email: ${data.email}</li>
+                                                              <li>Phone: ${data.phoneNumber}</li>
+                                                              <li>Limit: ${data.limit}</li>
+                                                              <li>Revenue: ${data.revenue}</li>
+                                                              <li>Number of years of experience in this field: ${data.yExperience}</li>
+                                                              <li>Number of years in business: ${data.yBusiness}</li>
+                                                              </ul>
+                                                          </p>
+                                                      </td>
+                                                  </tr>
+                                              </table>
+                                              <table width="460" border="0" cellspacing="0" cellpadding="0" align="center">
+                                                  <tr width="460">
+                                                      <td colspan="2" align="left">
+                                                          <h2 style="font-family:'Poppins',sans-serif;font-size:13px;line-height:32px;color:#639e30;text-align:left;text-transform:uppercase;letter-spacing:2px;font-weight:bold;margin-top:15px;margin-bottom:5px;">Contact Us</h2>
+                                                      </td>
+                                                  </tr>
+                                                  <tr>
+                                                      <td valign="top" colspan="2">
+                                                          <p style="font-family:'Poppins',sans-serif;font-size:15px;line-height:24px;color:#656465;text-align:left;margin-bottom:15px;font-weight:300;">If you have any questions please contact our team at <a href="info@april.ca" >info@april.ca</a></p>
+                                                          <p style="font-family:'Poppins',sans-serif;font-size:15px;line-height:24px;color:#656465;text-align:left;margin-bottom:15px;font-weight:300;">Best regards,</p>
+                                                          <h1 style="font-family:'Roboto',sans-serif;font-size:18px;line-height:32px;color:#639e30;text-align:left;letter-spacing:2px;font-weight:normal;margin-top:15px;">The APRIL Canada Team</h1>
+                                                      </td>
+                                                  </tr>
+                                              </table>
+                                          </td>
+                                      </tr>
+                                  </table>
+                              </td>
+                          </tr>
+                      </table>
+                      <table width="100%" bgcolor="#f2f2f2" border="0" cellspacing="0" cellpadding="0" align="center">
+                          <tr>
+                              <td align="center" cellspacing="0" cellpadding="0" border="0" align="center">
+                                  <table width="668" bgcolor="#f9f9f9" border="0" cellspacing="0" cellpadding="0" align="center" style="border-collapse: collapse;" >
+                                      <tr cellspacing="0" cellpadding="0" border="0" >
+          
+                                      </tr>
+                                      <td cellspacing="0" width="668" height="120" cellpadding="0" border="0" align="center" style="background-color:#f9f9f9; color:black" >
+                                          <table width="568" height="90" bgcolor="#004161" border="0" cellspacing="0" cellpadding="0" align="center" style="border-bottom-left-radius:76px">
+                                              <tr>
+                                                  <td>
+                                                      <p style="color:rgba(0,0,0,0)">.</p>
+                                                  </td>
+                                              </tr>
+                                          </table>
+                                      </td>
+                                      </tr>
+                                  </table>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td align="center">
+                                  <small style="font-family:verdana,sans-serif;font-size:11px;line-height:16px;color:#656465;text-align:center;">Please do not reply to this email.</a></small>
+                              </td>
+                          </tr>
+                      </table>
+                  </table>
+              </body> 
+          </html>`,
+
+        }).then(res => console.log("Succesfully sent"))
+            .catch(err => console.log(err));
+    }
+});
 // routes
 app.use(cors({ origin: true }));
 app.get('/brokers', getBrokers)

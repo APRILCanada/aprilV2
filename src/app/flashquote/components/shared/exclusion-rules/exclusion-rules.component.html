@@ -1,17 +1,17 @@
-<header mat-dialog-title>
-    <p>{{ "SUBMISSION_RULES" | translate }}.<br />
+<header mat-dialog-title [ngStyle]="{'background-color': bgColor}">
+    <p [ngStyle]="{'color': color}">{{ "SUBMISSION_RULES" | translate }}.<br />
         {{ "CONTACT_BROKER" | translate }} <span class="highlight">{{ broker.phone }}</span></p>
 </header>
 
 <mat-dialog-content>
-    <div *ngFor="let title of data.broker.market.exclusions[lang].sections">
-        <h3>{{ title }}</h3>
+    <div *ngFor="let title of data.broker.market.exclusions[lang].sections" >
+        <h3 [ngStyle]="{'color': bgColor}">{{ title }}</h3>
         <ul>
-            <li *ngFor="let rule of data.broker.market.exclusions[lang].rules[title]">{{ rule }}</li>
+            <li *ngFor="let rule of data.broker.market.exclusions[lang].rules[title]" [ngStyle]="{'color': bgColor}">{{ rule }}</li>
         </ul>
     </div>
 </mat-dialog-content>
 
 <mat-dialog-actions class="actions">
-    <button class="btn-april" (click)="close()">{{ "UNDERSTAND" | translate }}</button>
+    <button  (mouseover)="hover=true" (mouseleave)="hover=false" class="btn-april" (click)="close()"[ngStyle]="hover? {'background-color': '#ffffff', 'color': bgColor}:{'background-color': bgColor, 'color': '#ffffff','border-color': bgColor}" >{{ "UNDERSTAND" | translate }}</button>
 </mat-dialog-actions>

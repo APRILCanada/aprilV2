@@ -10,8 +10,12 @@ import { LanguageService } from 'src/app/services/language.service';
 export class NavbarComponent implements OnInit {
   @Input() broker: BrokerDTO
   @Input() logo: string
+  color: string;
 
   constructor(public language: LanguageService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    console.log(this.logo)
+    this.color = this.broker.styles.hero['background-color'] || '#004161';
+   }
 }

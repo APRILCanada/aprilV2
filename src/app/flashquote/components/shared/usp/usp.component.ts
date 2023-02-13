@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { BrokerDTO } from 'src/app/flashquote/models/Broker';
 
 @Component({
   selector: 'app-usp',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./usp.component.scss'],
 })
 export class UspComponent implements OnInit {
+  @Input() broker: BrokerDTO;
+  color: string;
   
   imageObject = [{
     thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/5.jpg',
@@ -17,6 +20,8 @@ export class UspComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.color = this.broker.styles.hero['background-color'] || '#004161';
+  }
 
 }

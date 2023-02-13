@@ -8,4 +8,5 @@ export class BrokerDTO {
     market: any;
     styles?: any;
     content?: any;
+    email: string;
 }

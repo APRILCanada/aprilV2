@@ -13,6 +13,9 @@ export class ExclusionRulesComponent implements OnInit {
   isOpen: false;
   lang: string;
   broker: BrokerDTO;
+  bgColor: string;
+  color: string;
+  hover : boolean = false
 
   constructor(    // injection token which allows to get access to the data passed into the dialog
     // which is made available in a data property
@@ -26,7 +29,8 @@ export class ExclusionRulesComponent implements OnInit {
   ngOnInit(): void {
     this.lang = this.language.get()
     this.broker = this.data.broker
-    console.log(this.broker)
+    this.color =this.broker.styles.hero.eligibilityLink.color
+    this.bgColor = this.broker.styles.hero['background-color'] || '#004161';
   }
 
   close() {

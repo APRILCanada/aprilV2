@@ -1,12 +1,14 @@
 <section class="hero" [ngStyle]="broker.styles.hero">
     <div class="header">
-        <h1 class="headline" [ngStyle]="broker.styles.hero">{{ language.get() == "fr" ? (broker.content.headline.labelFr || broker.market.headline.labelFr)
+        <h3 *ngIf="broker.content.subTitle" class="subTitle" [style.fontFamily]="broker.styles.hero.subTitle['font-family']" >{{ language.get() == "fr" ? broker.content.subTitle.labelFr : broker.content.subTitle.labelEn
+           }}</h3>
+        <h1 class="headline" [ngStyle]="broker.styles.hero" [style.fontFamily]="broker.styles['font-family']" [style.fontSize]="'32px'">{{ language.get() == "fr" ? (broker.content.headline.labelFr || broker.market.headline.labelFr)
              :  (broker.content.headline.labelEn || broker.market.headline.labelEn)
             }}</h1>
-        <span [ngStyle]="broker.styles.hero.eligibilityLink" (click)="openDialog()">{{ language.get() == "fr" ? 'Vérifiez votre admissibilité' : 'Check your
+        <span [ngStyle]="{'color': broker.styles.hero.eligibilityLink.color}" [style.fontFamily]="broker.styles.hero.eligibilityLink['font-family']" (click)="openDialog()">{{ language.get() == "fr" ? 'Vérifiez votre admissibilité' : 'Check your
             eligibility'}}</span>
     </div>
     <img
-        src="{{'https://april.imgix.net/products/' + broker.market.heroImg + '?auto=format%2Ccompress%2Cenhance&sharp=30&w=400&fit=crop&ar=0.85%3A1&dpr=1&q=75&ixlib=ng-1.0.0-rc.1'}}" />
-    <app-usp class="usp"></app-usp>
+        src="{{ broker.styles.hero.image }}" />
+    <app-usp class="usp" [broker]="broker"></app-usp>
 </section>

@@ -3,6 +3,9 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { FlashFormDTO } from '../models/Flashquote';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
+import { LanguageService } from 'src/app/services/language.service';
+import { BrokerDTO } from '../models/Broker';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +13,13 @@ import { FlashFormDTO } from '../models/Flashquote';
 export class FlashquoteService {
   sectionValidationKeys: any = []
   userExclusions: any = []
+  result: Observable<any>;
 
-  constructor(private http: HttpClient) { }
+
+  constructor(
+    private http: HttpClient,   
+    public language: LanguageService,  
+    private fireFunctions: AngularFireFunctions) { }
 
   getFlashquote(marketId: string): Observable<FlashFormDTO> {
     return this.http.get<any>(`${environment.apiURL}/api/publicflash/` + marketId, {
@@ -22,11 +30,11 @@ export class FlashquoteService {
   }
 
 
-  submitQuote(quote: any) {
-    console.log('before',quote.MarketId)
+  submitQuote(quote: any, broker: BrokerDTO) {
     if(quote.MarketId == '76' && environment.production) {quote.MarketId = '74'}
-    console.log('after', quote.MarketId)
-    console.log('FORM DATA', JSON.stringify(quote))
+
+    //ADD EMAIL FUNCTIONS
+    this.sendEmail(quote, broker)
     return this.http.post<any>(`${environment.apiURL}/api/publicflash`, JSON.stringify(quote), {
       headers: { 'Content-Type': 'application/json', 'x-api-key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344' }
     });
@@ -68,5 +76,25 @@ export class FlashquoteService {
       acc.push(curr.errorMessage)
       return acc
     }, [])
+  }
+
+  sendEmail(quote: any, broker: BrokerDTO){
+    if(quote){
+      console.log('result', quote.Answers)
+      console.log('broker', broker)
+      const callable = this.fireFunctions.httpsCallable('sendDirectContractor');
+      this.result = callable({
+        brokerEmail: broker.email,
+        fullName: quote?.Answers[7]?.value || '',
+        email: quote?.Answers[8]?.value || '',
+        phoneNumber: quote?.Answers[9]?.value || '',
+        limit: quote?.Answers[1]?.value || '',
+        revenue: quote?.Answers[2]?.value || '',
+        yBusiness: quote?.Answers[4]?.value || '',
+        yExperience: quote?.Answers[3]?.value || '',
+        language: this.language.get(),
+      });
+      this.result.subscribe();
+    }
   }
 }
