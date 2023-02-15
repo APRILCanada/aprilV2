@@ -57,7 +57,7 @@ export class TestComponent {
     // });
 
     const callable = this.fireFunctions.httpsCallable('sendResume');
-    console.log('before');
+   
     this.result = callable({
       email: 'michael.babin@april.ca',
       province: 'QC',
@@ -98,7 +98,6 @@ export class TestComponent {
         .pipe(
           finalize(() => {
             fileRef.getDownloadURL().subscribe((downloadURL: string) => {
-              console.log(downloadURL);
               // this.angularFirestore
               //   .collection(String(process.env.FIRESTORE_COLLECTION_FILES)) // Make sure the environmental variable is a string.
               //   .add({ downloadURL: downloadURL });

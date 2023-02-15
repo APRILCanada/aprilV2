@@ -393,7 +393,6 @@ export class NicheService {
   }
 
   getNiches(): Observable<Niche[]> {
-    console.log(this.niches);
     return this.niches;
   }
 

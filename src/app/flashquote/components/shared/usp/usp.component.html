@@ -1,5 +1,5 @@
 <aside class="usp">
-    <h2 [ngStyle]="{'color': color}">Pourquoi nous?</h2>
+    <h2 [ngStyle]="{'color': color}">{{ "WHY_US" | translate}}</h2>
     <div class="usp-wrapper">
         <div class="usp-item">
             <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -11,7 +11,7 @@
                     [attr.fill]="color" />
             </svg>
 
-            <small>Obtenez une soumission en moins d'une minute!</small>
+            <small>{{language.get() == "fr" ? broker.content.USP[0].labelFr : broker.content.USP[0].labelEn}}</small>
         </div>
 
         <div class="usp-item">
@@ -32,7 +32,7 @@
             </svg>
 
 
-            <small>Des spécialistes qui parlent votre langage.</small>
+            <small>{{language.get() == "fr" ? broker.content.USP[1].labelFr : broker.content.USP[1].labelEn}}</small>
         </div>
 
         <div class="usp-item">
@@ -42,7 +42,7 @@
                     [attr.fill]="color" />
             </svg>
 
-            <small>De meilleures solutions, au meilleur prix.</small>
+            <small>{{language.get() == "fr" ? broker.content.USP[2].labelFr : broker.content.USP[2].labelEn}}</small>
         </div>
     </div>
 </aside>

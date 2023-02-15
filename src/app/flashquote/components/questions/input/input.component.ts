@@ -13,10 +13,16 @@ export class InputComponent implements OnInit {
   @Input() control: FormControlState<any>;
   @Input() error: any
   @Input() inputType: string;
+  showError: boolean = false;
 
   constructor(public language: LanguageService) { }
 
   ngOnInit(): void {
     this.inputType = this.question.type.toLocaleLowerCase();
+    
   }
-}
+
+  validateError() {
+      this.showError = true
+    }
+  }

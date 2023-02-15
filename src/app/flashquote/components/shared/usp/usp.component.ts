@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BrokerDTO } from 'src/app/flashquote/models/Broker';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-usp',
@@ -18,7 +19,7 @@ export class UspComponent implements OnInit {
     thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/4.jpg',
   }];
 
-  constructor() { }
+  constructor(public language : LanguageService) { }
 
   ngOnInit(): void { 
     this.color = this.broker.styles.hero['background-color'] || '#004161';

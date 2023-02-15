@@ -16,7 +16,7 @@ export class HamburgerComponent implements OnInit {
 
   toggleNav() {
     this.isOpened = !this.mobile.getState();
-    console.log(this.isOpened);
+    // console.log(this.isOpened);
     this.mobile.setState(this.isOpened);
   }
 }

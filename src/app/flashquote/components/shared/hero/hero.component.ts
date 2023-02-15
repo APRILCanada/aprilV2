@@ -18,7 +18,7 @@ export class HeroComponent implements OnInit {
   constructor(private matDialog: MatDialog, public language: LanguageService) { }
 
   ngOnInit(): void {
-    console.log(this.broker)
+    // console.log(this.broker)
      this.broker.styles.hero.image || this.broker.market.heroImg
 
   }

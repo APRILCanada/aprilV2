@@ -80,8 +80,8 @@ export class FlashquoteService {
 
   sendEmail(quote: any, broker: BrokerDTO){
     if(quote){
-      console.log('result', quote.Answers)
-      console.log('broker', broker)
+      // console.log('result', quote.Answers)
+      // console.log('broker', broker)
       const callable = this.fireFunctions.httpsCallable('sendDirectContractor');
       this.result = callable({
         brokerEmail: broker.email,

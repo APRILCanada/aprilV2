@@ -13,7 +13,7 @@ export class SubSectionComponent implements OnInit {
   constructor(public language: LanguageService) { }
 
   ngOnInit(): void {
-    console.log('label', this.question)
+    // console.log('label', this.question)
   }
 
 }

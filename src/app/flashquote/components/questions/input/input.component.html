@@ -1,7 +1,7 @@
 <div class="form-group">
   <label for="{{control.id}}">{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</label>
   <input [type]="inputType" class="form-control text-form" autocomplete="disabled" [ngrxFormControlState]="control" id="{{control.id}}"
-    [mask]="question.mask" [placeholder]="question.mask" [ngClass]="{'error-border': error && !error.exclusion &&
-    (control.isDirty || control.isTouched || control.isSubmitted)}">
-  <app-exclusion-popup [error]="error"></app-exclusion-popup>
+    [mask]="question.mask != 'separator' ? question.mask : ''" [placeholder]="question.mask != 'separator' ? question.mask : ''" [ngClass]="{'error-border': error && !error.exclusion &&
+    (control.isDirty || control.isTouched || control.isSubmitted)}" (blur)='validateError()'>
+  <app-exclusion-popup [error]="showError && error"></app-exclusion-popup>
 </div>

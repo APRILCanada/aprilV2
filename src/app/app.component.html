@@ -3,5 +3,5 @@
 <router-outlet name="modals"></router-outlet>
 <router-outlet (activate)="onActivate($event)"></router-outlet>
 <app-footer *ngIf="!isDirect"></app-footer>
-<app-cookies-bar></app-cookies-bar>
+<app-cookies-bar *ngIf="!isDirect"></app-cookies-bar>
 <ngx-scrolltop></ngx-scrolltop>

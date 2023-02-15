@@ -1,6 +1,9 @@
-<app-home-hero></app-home-hero>
-<app-carousel></app-carousel>
-<app-testimonials></app-testimonials>
-<app-newsletter-form></app-newsletter-form>
-<app-career-brief></app-career-brief>
-<app-contact-form></app-contact-form>
+<ng-container *ngIf="!isDirect">
+    <app-home-hero></app-home-hero>
+    <app-carousel></app-carousel>
+    <app-testimonials></app-testimonials>
+    <app-newsletter-form></app-newsletter-form>
+    <app-career-brief></app-career-brief>
+    <app-contact-form></app-contact-form>
+</ng-container>
+

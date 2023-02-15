@@ -24,7 +24,7 @@ import { LoadingService } from './services/loading.service';
 })
 export class AppComponent {
   title = 'APRIL Canada';
-  isDirect: boolean;
+  isDirect: boolean = true;
 
   lang: string;
   previousUrl: any;

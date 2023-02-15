@@ -1,11 +1,12 @@
 import { AfterContentInit, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LanguageService } from 'src/app/services/language.service';
 import { Title, Meta } from '@angular/platform-browser';
-import { Location } from '@angular/common';
 import { LoadingService } from 'src/app/services/loading.service';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
+
+import { filter } from 'rxjs';
 
 declare global {
   interface Window {
@@ -20,18 +21,18 @@ declare global {
 })
 export class HomeComponent implements OnInit, AfterContentInit {
   pageLoaded: boolean = false;
+  isDirect: boolean = true;
 
   constructor(
-    private modalService: NgbModal,
+
     private language: LanguageService,
     private router: Router,
-    private title: Title,
-    private meta: Meta,
-    private loader: LoadingService,
     public dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isDirect = this.router.url.includes('direct')    
+  }
 
   ngAfterContentInit() {
     window.dataLayer = window.dataLayer || [];

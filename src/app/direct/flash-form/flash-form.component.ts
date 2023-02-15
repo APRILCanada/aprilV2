@@ -72,7 +72,6 @@ export class FlashFormComponent {
 
   onSubmit() {
     this.form = this.flashForm.value;
-    console.log(this.form);
     const callable = this.fireFunctions.httpsCallable('sendDirect');
     this.result = callable({
       fullName: this.form.fullName,
