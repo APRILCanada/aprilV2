@@ -2526,7 +2526,7 @@ exports.sendDirectContractor = functions.https.onCall((data) => {
                                                               <td colspan="2">
                                                                   <h2 style="font-family:'Poppins',sans-serif;font-size:13px;line-height:28px;color:#323132;text-align:left;text-transform:uppercase;letter-spacing:1px;font-weight:bold;padding-top:0px;padding-bottom:8px;">Vous avez reçu une demande via votre formulaire sur april.ca.</h2>
                                                                   <p style="font-family:'Poppins',sans-serif;font-size:15px;line-height:24px;color:#656465;font-weight:300;text-align:left;">Bonjour,</p>
-                                                                  <p style="font-family:'Poppins',sans-serif;font-size:15px;font-weight:300;line-height:24px;color:#656465;text-align:justify;">Voici les informations en lien avec votre demande. Pour une version complète de la soumission, veuillez-vous rendre sur april.ca.
+                                                                  <p style="font-family:'Poppins',sans-serif;font-size:15px;font-weight:300;line-height:24px;color:#656465;text-align:justify;">Voici les informations en lien avec votre demande. Pour une version complète de la soumission, veuillez-vous rendre sur april-on.ca.
                                                                       <ul>
                                                                           <li>Nom complet: ${data.fullName}</li>
                                                                           <li>Courriel: ${data.email}</li>
@@ -2633,7 +2633,7 @@ exports.sendDirectContractor = functions.https.onCall((data) => {
                                                       <td colspan="2">
                                                           <h2 style="font-family:'Poppins',sans-serif;font-size:13px;line-height:28px;color:#323132;text-align:left;text-transform:uppercase;letter-spacing:1px;font-weight:bold;padding-top:0px;padding-bottom:8px;">We have received your request.</h2>
                                                           <p style="font-family:'Poppins',sans-serif;font-size:15px;line-height:24px;color:#656465;font-weight:300;text-align:left;">Hi,</p>
-                                                          <p style="font-family:'Poppins',sans-serif;font-size:15px;font-weight:300;line-height:24px;color:#656465;text-align:justify;">Here is the information related to your request. For a full version of the submission, please visit april.ca.
+                                                          <p style="font-family:'Poppins',sans-serif;font-size:15px;font-weight:300;line-height:24px;color:#656465;text-align:justify;">Here is the information related to your request. For a full version of the submission, please visit april-on.ca.
                                                               <ul>
                                                               <li>Full name: ${data.fullName}</li>
                                                               <li>Email: ${data.email}</li>

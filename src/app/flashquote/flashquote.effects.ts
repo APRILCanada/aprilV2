@@ -18,6 +18,8 @@ import { SectionResult } from './models/SectionResult';
 import { Question } from './models/Question';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { selectBroker } from './selectors';
+import { RequestAonService } from './services/request-aon.service';
 
 
 @Injectable()
@@ -29,7 +31,8 @@ export class FlashquoteEffects {
     private flashquoteService: FlashquoteService,
     private brokerService: BrokerService,
     private store: Store<State>,
-    private router: Router
+    private router: Router,
+    private request: RequestAonService
   ) { }
 
   // https://newdevzone.com/posts/how-to-dispatch-multiple-actions-in-ngrxeffect-redux-observable
@@ -57,8 +60,10 @@ export class FlashquoteEffects {
     this.actions$.pipe(
       ofType(loadSections),
       tap((action) => {if(action.marketId == '76' && environment.production) {action.marketId = '74'}}),
+      
       mergeMap((action) => {
-        return this.flashquoteService.getFlashquote(action.marketId).pipe(
+      
+        return this.flashquoteService.getFlashquote(action.marketId, this.request.getApiKey()).pipe(
           switchMap((flashquote: FlashFormDTO) => {
             this.flashquote = flashquote
             if(this.flashquote.marketId == 76 && environment.production) {this.flashquote.marketId = 74};

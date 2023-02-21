@@ -370,7 +370,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
         
         // if(data.marketId == '76' && environment.production) marketId = '74';
         this.flashquoteService.submitQuote(data, this.broker).subscribe({
-          next: quoteResult => {
+          next: (quoteResult:any) => {
             console.log('QUOTE RESULT', quoteResult)
             this.quoteResult = quoteResult
 
@@ -425,7 +425,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
             this.store.dispatch(new ResetAction('generic'));
 
           },
-          error: err => {
+          error: (err:any) => {
             console.error(err)
           }
         })

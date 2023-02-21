@@ -21,10 +21,10 @@ export class FlashquoteService {
     public language: LanguageService,  
     private fireFunctions: AngularFireFunctions) { }
 
-  getFlashquote(marketId: string): Observable<FlashFormDTO> {
+  getFlashquote(marketId: string, apiKey: string): Observable<FlashFormDTO> {
     return this.http.get<any>(`${environment.apiURL}/api/publicflash/` + marketId, {
       headers: {
-        'x-api-key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344'
+        'x-api-key': apiKey
       }
     });
   }
@@ -33,10 +33,9 @@ export class FlashquoteService {
   submitQuote(quote: any, broker: BrokerDTO) {
     if(quote.MarketId == '76' && environment.production) {quote.MarketId = '74'}
 
-    //ADD EMAIL FUNCTIONS
-    this.sendEmail(quote, broker)
+  
     return this.http.post<any>(`${environment.apiURL}/api/publicflash`, JSON.stringify(quote), {
-      headers: { 'Content-Type': 'application/json', 'x-api-key': '5f9ddde6-4601-49e8-ba9c-7e0195ff3344' }
+      headers: { 'Content-Type': 'application/json', 'x-api-key': broker.aprilonId }
     });
   }
 
@@ -78,23 +77,5 @@ export class FlashquoteService {
     }, [])
   }
 
-  sendEmail(quote: any, broker: BrokerDTO){
-    if(quote){
-      // console.log('result', quote.Answers)
-      // console.log('broker', broker)
-      const callable = this.fireFunctions.httpsCallable('sendDirectContractor');
-      this.result = callable({
-        brokerEmail: broker.email,
-        fullName: quote?.Answers[7]?.value || '',
-        email: quote?.Answers[8]?.value || '',
-        phoneNumber: quote?.Answers[9]?.value || '',
-        limit: quote?.Answers[1]?.value || '',
-        revenue: quote?.Answers[2]?.value || '',
-        yBusiness: quote?.Answers[4]?.value || '',
-        yExperience: quote?.Answers[3]?.value || '',
-        language: this.language.get(),
-      });
-      this.result.subscribe();
-    }
-  }
+
 }
