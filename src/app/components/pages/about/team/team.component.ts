@@ -104,8 +104,8 @@ export class TeamComponent implements OnInit {
     {
       fullName: 'Tracey Paish',
       title: {
-        en: 'Business development manager for Ontario and Western Canada',
-        fr: 'Responsable du développement des affaires, Ontario et Ouest Canadien',
+        en: 'Business development manager for Ontario and West',
+        fr: 'Responsable du développement des affaires, Ontario et Ouest',
       },
       picture: 'tracey-paish.png',
       email: 'tracey.paish@april.ca',

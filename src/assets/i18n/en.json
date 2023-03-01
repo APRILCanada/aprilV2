@@ -217,7 +217,7 @@
     "BDM": "Business development",
     "BDM_FOR_QC": "manager for Quebec",
     "BDM_FOR_ON": "manager for Ontario",
-    "BDM_FOR_WEST": "manager for Ontario and Western Canada",
+    "BDM_FOR_WEST": "manager for Ontario and West",
     "BDM_FOR_MARINE": "manager for APRIL Marine",
     "OFFLINE_FORMS": "Application Forms",
     "OFFLINE_FORMS_DETAILS": "You will find a list of all the downloadable proposal forms. Nothing is easier to send them to us. Download and complete the document for which you would like a quote. Send it to us using the document submission form.",
@@ -501,5 +501,7 @@
     "TABLE_HEADING": "Percentage of work done for each activities",
     "IBC": "Insurance Bureau of Canada",
     "IBC_LEADER": "Insurance publication leader",
-    "WHY_US": "WHY US?"
+    "WHY_US": "WHY US?",
+    "LEARN_OR_IMPLEMENT_THESE_TOOLS": "Would you like to learn more or implement these tools in your company?"
+
 }

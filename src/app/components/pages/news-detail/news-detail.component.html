@@ -69,17 +69,59 @@
             sizes="100vw"
           />
           <div *ngIf="language.get() == 'fr'">
-            <div *ngFor="let p of article?.fr.paragraphs">
+            <div *ngFor="let p of article?.fr.paragraphs; let i = index">
               <span class="d-block mb-3" [innerHtml]="p.title"></span>
               <span class="d-block mb-4" [innerHtml]="p.desc"></span>
+              <a *ngIf="i == 0 && id=='april-on-360'"  href="https://april-on.ca" target="_blank">
+                <button class="btn-april mb-4">Accéder à APRIL ON</button>
+              </a>
             </div>
           </div>
           <div *ngIf="language.get() == 'en'">
-            <div *ngFor="let p of article?.en.paragraphs">
+            <div *ngFor="let p of article?.en.paragraphs; let i = index">
               <span class="d-block mb-3" [innerHtml]="p.title"></span>
               <span class="d-block mb-4" [innerHtml]="p.desc"></span>
+              <a *ngIf="i == 0 && id=='april-on-360'"  href="https://april-on.ca" target="_blank">
+                <button class="btn-april mb-4">Access to APRIL ON</button>
+              </a>
             </div>
-          </div>  
+          </div> 
+          <div *ngIf="id=='april-on-360'">
+              <h3>{{'LEARN_OR_IMPLEMENT_THESE_TOOLS' | translate}}</h3>
+              <div class="row  mt-4">
+                <div
+                  class="col-md-6 d-flex justify-content-center mb-5"
+                  data-analytics="ContactBDM"
+                >
+                  <img ixImg class="thumb" path="a-propos/directors/mathieu-pelletier.png" />
+                  <div class="ps-5 w-80">
+                    <div class="fw-bold">Mathieu Pelletier</div>
+                    <div>{{ "BDM" | translate }}<br />{{ "BDM_FOR_QC" | translate }}</div>
+                    <a href="mailTo:mathieu.pelletier@april.ca" class="d-block"
+                      >mathieu.pelletier@april.ca</a
+                    >
+                    <a href="tel:514-246-7717" class="d-block">514-246-7717</a>
+                    <a href="tel:1 855 745-2020" class="d-block">T.: {{ "PHONE_NUMBER" | translate }} | Ext: 1264</a>
+                  </div>
+                </div>
+                <div
+                  class="col-md-6 d-flex justify-content-center mb-5"
+                  data-analytics="ContactBDM"
+                >
+                <img ixImg class="thumb" path="a-propos/directors/tracey-paish.png"  />
+                  <div class="ps-5 w-80">
+                    <div class="fw-bold">Tracey Paish</div>
+                    <div>{{ "BDM" | translate }}<br />{{ "BDM_FOR_WEST" | translate }}</div>
+                    <a href="mailTo:tracey.paish@april.ca" class="d-block">tracey.paish@april.ca</a>
+                    <a href="tel:403-464-8901" class="d-block">403-464-8901</a>
+                    <a href="tel:1 855 745-1010" class="d-block">T.: {{ "PHONE_NUMBER" | translate }} | Ext: 4207</a>
+                  </div>
+                </div>
+               
+                
+            
+              </div>
+          </div>
         </div>
       </div>
     </div>

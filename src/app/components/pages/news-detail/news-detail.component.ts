@@ -43,16 +43,16 @@ export class NewsDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
+    console.log(this.id)
     this.tagList = this.articleService.createTagList();
-    // console.log(this.tagList);
+
 
     this.articleService.getArticles().subscribe((articles) => {
       this.articles = articles;
       this.article = this.articles.find((x) => x.id == this.id);
       this.frTag = this.tagList.find((x) => x.id == this.article.tags[0]);
       this.pushGTM();
-      // console.log(this.article.tags[0]);
-      // console.log(this.frTag);
+    
     });
   }
 

@@ -218,7 +218,7 @@
     "BDM": "Responsable développement",
     "BDM_FOR_QC": "des affaires pour le Québec",
     "BDM_FOR_ON": "des affaires pour l'Ontario",
-    "BDM_FOR_WEST": "des affaires pour l'Ontario et l'Ouest Canadien",
+    "BDM_FOR_WEST": "des affaires pour l'Ontario et l'Ouest",
     "BDM_FOR_MARINE": "des affaires pour APRIL Marine",
     "OFFLINE_FORMS": "Formulaire de propositions",
     "OFFLINE_FORMS_DETAILS": "Vous trouverez une liste de tous les formulaires de propositions téléchargeable. Rien de plus simple pour nous les faire parvenir. Téléchargez et complétez le document pour lequel vous souhaitez obtenir un soumission. Faites nous le parvenir à l’aide du formulaire d’envoi de documents.",
@@ -501,5 +501,6 @@
     "TABLE_HEADING": "Pourcentage de travail effectué pour chaque activité",
     "IBC": "Bureau d'assurance du Canada",
     "IBC_LEADER": "Leader de la publication spécialisé dans l'assurance",
-    "WHY_US": "POURQUOI NOUS?"
+    "WHY_US": "POURQUOI NOUS?",
+    "LEARN_OR_IMPLEMENT_THESE_TOOLS": "Vous souhaitez en savoir encore plus ou mettre en place ces outils ou sein de votre cabinet ?"
 }

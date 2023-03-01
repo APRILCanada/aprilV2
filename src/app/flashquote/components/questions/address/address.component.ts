@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Console } from 'console';
 import { FormControlState, SetValueAction } from 'ngrx-forms';
 import { debounceTime, Observable, pluck, switchMap, tap } from 'rxjs';
 import { ActiveSection } from 'src/app/flashquote/models/ActiveSection';
