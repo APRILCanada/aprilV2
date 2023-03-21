@@ -28,7 +28,6 @@ export function formStateReducer(
 
   const marketId = localStorage.getItem('market') ?? ''
   const validateForm = updateGroup<FormValue>(validation[marketId])
-
   switch (action.type) {
     case AddGroupSectionAction.TYPE:
       state = updateGroup<FormValue>(state, {
@@ -79,7 +78,6 @@ export function formStateReducer(
         })
       }
       break;
-
 
     case CreateGroupElementAction.TYPE:
       const path = action.pathToGroup.split('.')

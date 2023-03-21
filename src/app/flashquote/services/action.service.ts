@@ -91,7 +91,7 @@ export class ActionService {
 
   hide(rule: Rule, control: FormControlState<any>, destinationId: string, groupIndex: number, pathToGroup: string) {
     const result = this.ruleService.checkRule(rule, control)
-
+    // console.log('hide', rule.destinationId, destinationId)
     pathToGroup = this.overridePath(pathToGroup, destinationId)
 
     if (result) {
@@ -104,8 +104,11 @@ export class ActionService {
     } else if (rule.value !== control.value) {
       if (this.temp.has(groupIndex + '.' + destinationId)) {
         if (!(this.formState.controls[this.activeSection.id].controls[groupIndex] as any).controls[destinationId]) {
-          this.store.dispatch(new AddGroupControlAction(pathToGroup, destinationId, ''));
-          this.temp.delete(groupIndex + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+          // console.log(this.formState.controls[this.activeSection.id].controls[groupIndex])
+          if(destinationId == '3074') return;
+            this.store.dispatch(new AddGroupControlAction(pathToGroup, destinationId, ''));
+            this.temp.delete(groupIndex + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+          
         }
       }
     }
@@ -113,7 +116,7 @@ export class ActionService {
 
   show(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, groupIndex: number, pathToGroup: string) {
     const result = this.ruleService.checkRule(rule, control)
-
+    // console.log('show', destinationId, result)
     pathToGroup = this.overridePath(pathToGroup, destinationId)
 
     if (result) {
@@ -141,9 +144,10 @@ export class ActionService {
           }
           else {
             if ((question.identifier !== 'MinorInfraction' && question.identifier !== 'MajorInfraction')) {
-              console.log('path2', pathToGroup)
+              if(destinationId != '3074'){
               this.store.dispatch(new AddGroupControlAction(pathToGroup, destinationId, {}));
-              this.temp.add(groupIndex + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
+              this.temp.add(groupIndex + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH 
+              }
             }
           }
         }

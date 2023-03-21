@@ -16,7 +16,6 @@ export class RequestAonService {
     this.store.pipe(select(selectBroker)).subscribe(broker => {
       this.apiKey = broker.aprilonId
     })
-    console.log(this.apiKey)
     return this.apiKey;
   }
 }

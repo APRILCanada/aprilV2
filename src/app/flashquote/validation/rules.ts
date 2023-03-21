@@ -229,4 +229,36 @@ export const validation: any = {
       })
     ),
   },
+  80: {
+    163: updateArray(
+      updateGroup<SectionControl>({
+        3325: validate(required),
+        3330: validate(required),
+        3331: validate(required),
+        3426: validate(required),
+        3326: validate(required),
+        3327: validate(required),
+        3328: validate(required),
+        3329: validate(required),
+        3469: validate(required),
+        3333: validate(required),
+        3324: validate(required),
+        2718: validate(required),
+        2719: validate(required),
+        2723: validate(required),
+        3337: validate(required),
+        2725: validate(required),
+        2691: validate(required),
+        2692: validate(required),
+        2963: validate(required),
+      })
+    ),
+    169: updateArray(
+      updateGroup<SectionControl>({
+        2964: validate(required),
+        3717: validate(required),
+        3718: validate(required),
+      })
+    ),
+  },
 };

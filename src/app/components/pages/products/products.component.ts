@@ -66,7 +66,7 @@ export class ProductsComponent implements OnInit, AfterViewChecked {
         products,
         this.product.parent
       );
-      console.log(this.product);
+      // console.log(this.product);
 
       this.getNicheString(this.product.parent.toString());
       this.pushGTM();

@@ -119,10 +119,11 @@ export class FlashquoteEffects {
       pluck('flashquote', 'sections'),
       switchMap((sections) => {
         let flattenedSections: any[] = []
-
+        
         flattenedSections = sections.map(section => {
           return section.questions.filter((q: any) => !q.isHidden)
             .map(q => {
+              // console.log(q.id);
               // we need to insert the question into the first object of the section array
               if (q.type === 'REPARTITION') {
                 let responses: any = {}
@@ -159,11 +160,13 @@ export class FlashquoteEffects {
             })
         })
 
+     
         // we get an array of arrays (each section) that must be flattened
         return [...new Set(flattenedSections.flatMap(x => x))]
-
+        debugger;
       }),
       distinct(({ name }) => name),
+      
       switchMap((res: any) => [res, formLoaded({ isFormLoaded: true })]
       )
     )

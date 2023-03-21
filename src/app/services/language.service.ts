@@ -12,7 +12,7 @@ export class LanguageService {
   constructor(private translate: TranslateService, private seo: SeoService) {}
 
   get() {
-    this.lang = localStorage.getItem('lang') || 'fr';
+    this.lang = localStorage.getItem('lang') || ((navigator.language == 'fr' || navigator.language == 'en' ) ? navigator.language : 'en');
     return this.lang;
   }
 

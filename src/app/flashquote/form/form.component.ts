@@ -3,7 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store, select, ActionsSubject } from '@ngrx/store';
 import { Question } from '../models/Question';
 import { MarkAsSubmittedAction, ResetAction } from 'ngrx-forms';
-import { distinctUntilChanged, map, take } from 'rxjs/operators';
+import { distinctUntilChanged, map, take, tap } from 'rxjs/operators';
 import { FormValue, State } from '../store';
 import { ActionService } from '../services/action.service';
 import { Answer } from '../models/Answer';
@@ -99,13 +99,16 @@ export class FormComponent implements OnInit, AfterContentChecked {
 
   onFormChange() {
     this.formState$.pipe(
+      tap(x => console.log(x)),
       // get fields of current active section
       map((sections) => sections.controls[this.activeSection.id]),
       distinctUntilChanged()
     ).subscribe(section => {
       if (section) {
+        console.log(section)
         // get all the questions of this section with the section Id
         this.questionsBySection = this.sections.find(section => section.id == this.activeSection.id)?.questions
+        // console.log(this.questionsBySection)
         // get all keys for each group in this section
         for (let group of section.controls) {
           for (let key in group.controls) {
@@ -253,6 +256,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
     this.formState$
       .pipe(
         take(1),
+        tap(x => console.log(x)),
         map((form) => {
           this.submittingForm = true;
 
@@ -268,6 +272,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
               const i = index + 1
 
               for (let key in groupSection) {
+                console.log('key',key)
                 const identifier = questionsSection.find((q: Question) => q.id === parseInt(key))?.identifier
                 const questionType = questionsSection.find((q: Question) => q.id === parseInt(key))?.type
 
@@ -359,7 +364,8 @@ export class FormComponent implements OnInit, AfterContentChecked {
           };
 
           return new SetSubmittedValueAction(formData);
-        })
+        }),
+        tap(x => console.log(x))
       ).subscribe(this.store)
 
     this.submittedValue$.subscribe((data) => {
