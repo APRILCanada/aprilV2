@@ -28,12 +28,15 @@ export function exclusion<T>(mustBe: string, comparand: T, errorMessagePopup: st
         //value = unbox(value) as T as TV;
         value = unbox(value) as any
 
-        if (mustBe === 'equal') {
-            if (value === comparand || (value as any) === '') {
-                return {};
-            }
+        if (mustBe === 'equal') {  
+            if (value !== comparand) return {};
+        }
+        if (mustBe === 'notEqual') {  
+            if (value === comparand || (value as any) === '') return {};
+
         }
 
+    
         if (mustBe === 'dateBefore') {
             const inputDate = new Date((value as any)).getTime()
             if (inputDate && inputDate < (comparand as any) || (value as any) === '') {
@@ -70,7 +73,7 @@ export function exclusion<T>(mustBe: string, comparand: T, errorMessagePopup: st
                 return {}
             }
         }
-
+       
         return {
             'exclusion': {
                 comparand,
@@ -99,7 +102,7 @@ export function contractorExclusion<T>(isSpecializedContractor: boolean) {
                     errors.push(k)
                 }
             } else {
-                if (exclusions.includes(parseInt(k)) && value[k] < 80 && Object.keys(value).length < 4) {
+                if (exclusions.includes(parseInt(k)) && value[k] < 80 && Object.keys(value as any).length < 4) {
                     errors.push(k)
                 }
             }
@@ -114,7 +117,6 @@ export function contractorExclusion<T>(isSpecializedContractor: boolean) {
         } : {}
     };
 }
-
 
 export function validateRepartition(values: any): ValidationErrors {
     let total = 0;
@@ -131,13 +133,95 @@ export function validateRepartition(values: any): ValidationErrors {
     }
 }
 
-
 export function patterns(patternParams: RegExp[]) {
     const patternValidators = patternParams.map(pattern);
 
     return <T extends string | Boxed<string> | null | undefined>(value: T): ValidationErrors => {
         const results = patternValidators.map(v => v(value).pattern).filter(r => !!r)
         return results.length === 0 ? {} : { patterns: results }
-    };
+    }; 
 }
+
+export function propertyProvinceExclusion(isVacant: any, isShortTermRental: any) {
+    return (value: any): ValidationErrors => {
+        let province = value['Address-Province']
+        const errors: any[] = []
+   
+            if (isVacant) {
+                if(province !== "QC") {
+                    errors.push(province)
+                }
+            } else if(isShortTermRental){
+                console.log(value['Address-Province'])
+                if(province !== "QC" && province !== "ON" && province !== "AB") {
+                    errors.push(province)
+                }
+            } else {
+                if(province !== "ON" &&  province !=="QC") {
+                    errors.push(province)
+                }
+            }
+   
+        return errors.length ? {
+                'exclusion': {
+                actual: [...errors],
+                errorMessagePopup: 'PROPERTY_PROVINCE_EXCLUSION_POPUP',
+                errorMessage: "PROPERTY_PROVINCE_EXCLUSION"
+            },
+        } : {}
+    }
+}
+
+export function propertyValueExclusion(property: any) {
+    return (value: any): ValidationErrors => {
+        value = parseInt(value)
+
+        const errors: any[] = []
+   
+            if (property === 'Protected') {
+                if(value > 900000) {
+                    errors.push(value)
+                }
+            } else if(property === 'SemiProtected'){
+                if(value > 625000) {
+                    errors.push(value)
+                }
+            } else {
+                if(value > 425000) {
+                    errors.push(value)
+                }
+            }
+   
+        return errors.length ? {
+                'exclusion': {
+                actual: [...errors],
+                errorMessagePopup: 'PROPERTY_VALUE_EXCLUSION_POPUP',
+                errorMessage: "PROPERTY_VALUE_EXCLUSION"
+            },
+        } : {}
+    }
+}
+
+export function contentValueExclusion(property: any, occupancy: any) {
+    return (value: any): ValidationErrors => {
+        value = parseInt(value)
+       
+        const errors: any[] = []
+   
+            if (property === 'Condo' || occupancy === 'Tenant') {
+                if(value > 75000 || value < 10000) {
+                    errors.push(value)
+                }
+            }
+   
+        return errors.length ? {
+                'exclusion': {
+                actual: [...errors],
+                errorMessagePopup: 'CONTENT_VALUE_EXCLUSION_POPUP',
+                errorMessage: "CONTENT_VALUE_EXCLUSION"
+            },
+        } : {}
+    }
+}
+
 

@@ -99,16 +99,13 @@ export class FormComponent implements OnInit, AfterContentChecked {
 
   onFormChange() {
     this.formState$.pipe(
-      tap(x => console.log(x)),
       // get fields of current active section
       map((sections) => sections.controls[this.activeSection.id]),
       distinctUntilChanged()
     ).subscribe(section => {
       if (section) {
-        console.log(section)
         // get all the questions of this section with the section Id
         this.questionsBySection = this.sections.find(section => section.id == this.activeSection.id)?.questions
-        // console.log(this.questionsBySection)
         // get all keys for each group in this section
         for (let group of section.controls) {
           for (let key in group.controls) {
@@ -116,7 +113,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
 
             // validate rules if question has any
             if (question && this.hasRules(question)) {
-              this.actionService.validate(question, group.controls[key], group.id);
+              this.actionService.validate(question, group.controls, key, group.id, this.questionsBySection, );
             }
           }
         }
@@ -256,13 +253,11 @@ export class FormComponent implements OnInit, AfterContentChecked {
     this.formState$
       .pipe(
         take(1),
-        tap(x => console.log(x)),
         map((form) => {
           this.submittingForm = true;
 
           let allAnswers: any[] = []
           // LOOP OVER EACH SECTION [{}, {}]
-          console.log('FORM VALUE', form.value)
           for (let sectionKey in form.value) {
             const questionsSection = this.sections.filter((s: Section) => s.id === parseInt(sectionKey))[0].questions
             const sectionIsRepeat = this.sections.filter((s: Section) => s.id === parseInt(sectionKey))[0].isRepeat
@@ -272,7 +267,6 @@ export class FormComponent implements OnInit, AfterContentChecked {
               const i = index + 1
 
               for (let key in groupSection) {
-                console.log('key',key)
                 const identifier = questionsSection.find((q: Question) => q.id === parseInt(key))?.identifier
                 const questionType = questionsSection.find((q: Question) => q.id === parseInt(key))?.type
 
@@ -365,7 +359,6 @@ export class FormComponent implements OnInit, AfterContentChecked {
 
           return new SetSubmittedValueAction(formData);
         }),
-        tap(x => console.log(x))
       ).subscribe(this.store)
 
     this.submittedValue$.subscribe((data) => {

@@ -64,6 +64,7 @@ import { UspComponent } from './components/shared/usp/usp.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { EmailComponent } from './components/questions/email/email.component';
 import { SubSectionComponent } from './components/questions/sub-section/sub-section.component';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -109,9 +110,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ExclusionRulesComponent,
     UspComponent,
     EmailComponent,
-    SubSectionComponent
+    SubSectionComponent,
   ],
   imports: [
+ NgbTooltipModule,
     CommonModule,
     HttpClientModule,
     FlashquoteRoutingModule,

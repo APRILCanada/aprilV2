@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AddArrayControlAction, AddGroupControlAction, FormControlState, RemoveGroupControlAction, SetValueAction } from 'ngrx-forms';
+import { Component, Input, OnInit,ViewEncapsulation } from '@angular/core';
+import { FormControlState, RemoveGroupControlAction, SetValueAction } from 'ngrx-forms';
 import { Question } from 'src/app/flashquote/models/Question';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SelectDialogComponent } from '../select-dialog/select-dialog.component';
@@ -12,6 +12,8 @@ import { LanguageService } from 'src/app/services/language.service';
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+
 })
 export class SelectComponent implements OnInit {
   @Input() question: Question;
@@ -19,16 +21,19 @@ export class SelectComponent implements OnInit {
   @Input() error: any;
   selectedOptions: any[] = [];
   groupPath: string;
+  showError: boolean = false;
 
   constructor(private matDialog: MatDialog, private store: Store, public language: LanguageService) { }
 
   // get all the options (Responses) for this question
   public get options(): Response[] {
+  
     return this.question.responses || [];
   }
 
   // retrieve the options (Responses) selected by the user if any
   ngOnInit(): void {
+   
     this.groupPath = this.control.id.replace(/\.[^.]*$/, '') // get the group the control to remove belongs to (ex: generic.35.0)
 
     if (this.control.value && this.options.length) {
@@ -109,6 +114,7 @@ export class SelectComponent implements OnInit {
       acc.push(opt.responseKey)
       return acc
     }, []).join()));
+    this.showError = true
   }
 
   // apply some styles if the option is selected
@@ -125,5 +131,4 @@ export class SelectComponent implements OnInit {
       this.store.dispatch(new RemoveGroupControlAction(this.groupPath, this.question.id as never))
     }
   }
-
 }

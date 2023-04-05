@@ -85,8 +85,8 @@ export class ClaimsComponent implements OnInit, AfterContentInit {
   ngOnInit(): void {}
 
   ngAfterContentInit() {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({
       event: 'pageLoad',
       'page.language': this.language.get(),
       'page.type': 'Réclamations',

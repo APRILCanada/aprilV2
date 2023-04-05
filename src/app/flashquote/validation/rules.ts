@@ -10,6 +10,9 @@ import {
   validateRepartition,
   exclusion,
   contractorExclusion,
+  propertyProvinceExclusion,
+  propertyValueExclusion,
+  contentValueExclusion,
 } from './functions';
 
 export const validation: any = {
@@ -33,7 +36,7 @@ export const validation: any = {
           'MailingAddress-Province': validate(
             required,
             exclusion(
-              'equal',
+              'notEqual',
               'QC',
               'PROVINCE_EXCLUSION_POPUP',
               'PROVINCE_EXCLUSION'
@@ -122,7 +125,7 @@ export const validation: any = {
             ? validate<any>(
                 formState.controls[318],
                 exclusion(
-                  'equal',
+                  'notEqual',
                   'true',
                   'AUTO_VALUE_AGE_EXCLUSION_POPUP',
                   'AUTO_VALUE_AGE_EXCLUSION'
@@ -242,11 +245,43 @@ export const validation: any = {
         3329: validate(required),
         3469: validate(required),
         3333: validate(required),
-        3324: validate(required),
-        2718: validate(required),
+        3324: validate<any>(
+          required,
+          exclusion(
+            'equal',
+            'MobileHome',
+            'MOBILE_HOME_EXCLUSION_POPUP',
+            'MOBILE_HOME_EXCLUSION'
+          ),
+        ),
+        // 2718: validate(required),
+        2718: (control: FormControlState<any>, formState: any) => {
+          let isVacant = formState.value[3325] === "Vacant";
+          let isShortTermRental = formState.value[3331] == "false";
+          return validate(
+            control,
+            required,
+            propertyProvinceExclusion(isVacant, isShortTermRental)
+          );
+        },
         2719: validate(required),
-        2723: validate(required),
-        3337: validate(required),
+        2723: (control: FormControlState<any>, formState: any) => {
+          let protection = formState.value[2719];
+          return validate(
+            control,
+            required,
+            propertyValueExclusion(protection)
+          );
+        },
+        2724: (control: FormControlState<any>, formState: any) => {
+          let property = formState.value[3324];
+          let occupancy = formState.value[3325]
+          return validate(
+            control,
+            required,
+            contentValueExclusion(property, occupancy)
+          );
+        },
         2725: validate(required),
         2691: validate(required),
         2692: validate(required),

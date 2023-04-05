@@ -25,6 +25,7 @@ button {
   -moz-appearance: none;
 }
 
+
 button:hover {
   background: $main-focus;
   color: $bg-contrast-focus;
@@ -34,12 +35,19 @@ button:active {
   transform: scale(0.99);
 }
 
+.button-tooltip {
+  border-radius: 50%;
+  padding: 0 7.7px;
+  margin-left: 0.5rem;
+  font-weight: 500;
+  background-color: transparent !important;
+  transform: scale(0.8);
+}
+
 // Links
 .navigation-link,
 .lang {
   text-decoration: none;
-  font-family: $font-main;
-  color: $bg-contrast;
   font-weight: 600;
   transition: all $short-tran ease-in;
 }

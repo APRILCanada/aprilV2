@@ -20,6 +20,7 @@ export class AddressComponent implements OnInit {
   @Input() control: FormControlState<any>;
   errors$: Observable<any>;
   activeSection: ActiveSection;
+  showError: boolean = false;
 
   group$: Observable<any>
   showAddressForm = true;
@@ -35,6 +36,7 @@ export class AddressComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // console.log('identifier',this.question.identifier)
     if(Object.values(this.control.value).reduce((acc: string, curr) => acc += curr, '') !== '') {
       this.showAddressForm = true;
       this.addressAutoCompleteHidden = true;
@@ -89,12 +91,12 @@ export class AddressComponent implements OnInit {
         next: addressResult => {
           this.store.dispatch(new SetValueAction(this.control.id, {
             "search": '',
-            "MailingAddress-Street": addressResult['street'] || '',
-            "MailingAddress-PostalCode": addressResult['postalCode'] || '',
-            "MailingAddress-City": addressResult['city'] || '',
-            "MailingAddress-StreetNumber": addressResult['houseNumber'] || '',
-            "MailingAddress-Province": addressResult['state'] || '',
-            "MailingAddress-Unit": ''
+            [`${this.question.identifier}-Street`]: addressResult['street'] || '',
+            [`${this.question.identifier}-PostalCode`]: addressResult['postalCode'] || '',
+            [`${this.question.identifier}-City`]: addressResult['city'] || '',
+            [`${this.question.identifier}-StreetNumber`]: addressResult['houseNumber'] || '',
+            [`${this.question.identifier}-Province`]: addressResult['state'] || '',
+            [`${this.question.identifier}-Unit`]: ''
           }));
         }
       });
@@ -105,12 +107,12 @@ export class AddressComponent implements OnInit {
     this.addressAutoCompleteHidden = false
     this.store.dispatch(new SetValueAction(this.control.id, {
       "search": '',
-      "MailingAddress-Street": '',
-      "MailingAddress-PostalCode": '',
-      "MailingAddress-City": '',
-      "MailingAddress-StreetNumber": '',
-      "MailingAddress-Province": '',
-      "MailingAddress-Unit": ''
+      [`${this.question.identifier}-Street`]: '',
+      [`${this.question.identifier}-PostalCode`]: '',
+      [`${this.question.identifier}-City`]: '',
+      [`${this.question.identifier}-StreetNumber`]: '',
+      [`${this.question.identifier}-Province`]: '',
+      [`${this.question.identifier}-Unit`]: ''
     }));
   }
 

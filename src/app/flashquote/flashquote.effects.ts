@@ -123,7 +123,7 @@ export class FlashquoteEffects {
         flattenedSections = sections.map(section => {
           return section.questions.filter((q: any) => !q.isHidden)
             .map(q => {
-              // console.log(q.id);
+
               // we need to insert the question into the first object of the section array
               if (q.type === 'REPARTITION') {
                 let responses: any = {}
@@ -137,16 +137,17 @@ export class FlashquoteEffects {
                   "Driver-LastName": ''
                 })
 
-              if (q.type === 'ADDRESS')
+              if (q.type === 'ADDRESS'){
+                
                 return new AddGroupControlAction('generic.' + section.id + '.0', q.id, {
                   "search": '',
-                  "MailingAddress-Street": '',
-                  "MailingAddress-PostalCode": '',
-                  "MailingAddress-City": '',
-                  "MailingAddress-StreetNumber": '',
-                  "MailingAddress-Province": '',
-                  "MailingAddress-Unit": ''
-                });
+                  [`${q.identifier}-Street`]: '',
+                  [`${q.identifier}-PostalCode`]: '',
+                  [`${q.identifier}-City`]: '',
+                  [`${q.identifier}-StreetNumber`]: '',
+                  [`${q.identifier}-Province`]: '',
+                  [`${q.identifier}-Unit`]: '',
+                });}
 
               if (q.type === 'AUTO')
                 return new AddGroupControlAction('generic.' + section.id + '.0', q.id, {

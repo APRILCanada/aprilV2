@@ -472,6 +472,8 @@
     "CONTRACTOR_EXCLUSION": "You are carrying out activities in a sector at risk.",
     "YEARS_EXPERIENCE_EXCLUSION": "You have less than 3 years of experience.",
     "YEARS_EXPERIENCE_EXCLUSION_POPUP": "You have less than 3 years of experience. This point will require validation with an agent after submission of the form.",
+    "MOBILE_HOME_EXCLUSION": "You have selected mobile home.",
+    "MOBILE_HOME_EXCLUSION_POPUP": "You have selected mobile home. This point will require validation with an agent after submission of the form.",
     "ANNUAL_REVENUE_GREATER_EXCLUSION_POPUP": "Your revenue is lesser than $30 000. This point will require validation with an agent after submission of the form.",
     "ANNUAL_REVENUE_LESSER_EXCLUSION_POPUP": "Your revenue is greater than 1 million$. This point will require validation with an agent after submission of the form.",
     "ANNUAL_REVENUE_GREATER_EXCLUSION": "Your revenue is lesser than $30 000.",
@@ -502,6 +504,12 @@
     "IBC": "Insurance Bureau of Canada",
     "IBC_LEADER": "Insurance publication leader",
     "WHY_US": "WHY US?",
-    "LEARN_OR_IMPLEMENT_THESE_TOOLS": "Would you like to learn more or implement these tools in your company?"
+    "LEARN_OR_IMPLEMENT_THESE_TOOLS": "Would you like to learn more or implement these tools in your company?",
+    "PROPERTY_PROVINCE_EXCLUSION_POPUP": "The province you are living in will require validation with an agent after submission of the form.",
+    "PROPERTY_PROVINCE_EXCLUSION": "The province you are living in will require validation with an agent.",
+    "PROPERTY_VALUE_EXCLUSION_POPUP": "The combination of the property value and the fire protection you have selected will require validation with an agent after submission of the form.",
+    "PROPERTY_VALUE_EXCLUSION": "The combination of the property value and the fire protection you have selected will require validation with an agent.",
+    "CONTENT_VALUE_EXCLUSION_POPUP": "The combination of the content value and the type of property or occupancy you have selected will require validation with an agent after submission of the form.",
+    "CONTENT_VALUE_EXCLUSION": "The combination of the content value and the type of property or occupancy you have selected will require validation with an agent."
 
 }

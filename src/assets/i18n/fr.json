@@ -472,6 +472,8 @@
     "CONTRACTOR_EXCLUSION": "Vous effectuez des activités dans un secteur à risque.",
     "YEARS_EXPERIENCE_EXCLUSION_POPUP": "Vous avez moins de 3 ans d'expérience. Ce point nécessitera une validation auprès d'un agent après soumission du formulaire.",
     "YEARS_EXPERIENCE_EXCLUSION": "Vous avez moins de 3 ans d'expérience.",
+    "MOBILE_HOME_EXCLUSION_POPUP": "Vous avez sélectionné maison mobile . Ce point nécessitera une validation auprès d'un agent après soumission du formulaire.",
+    "MOBILE_HOME_EXCLUSION": "Vous avez sélectionné maison mobile .",
     "ANNUAL_REVENUE_GREATER_EXCLUSION_POPUP": "Vos revenus sont inférieurs à 30 000 $. Ce point nécessitera une validation auprès d'un agent après soumission du formulaire.",
     "ANNUAL_REVENUE_LESSER_EXCLUSION_POPUP": "Vos revenus sont supérieurs à 1 million$. Ce point nécessitera une validation auprès d'un agent après soumission du formulaire.",
     "ANNUAL_REVENUE_GREATER_EXCLUSION": "Vos revenus sont inférieurs à 30 000 $.",
@@ -502,5 +504,12 @@
     "IBC": "Bureau d'assurance du Canada",
     "IBC_LEADER": "Leader de la publication spécialisé dans l'assurance",
     "WHY_US": "POURQUOI NOUS?",
-    "LEARN_OR_IMPLEMENT_THESE_TOOLS": "Vous souhaitez en savoir encore plus ou mettre en place ces outils ou sein de votre cabinet ?"
+    "LEARN_OR_IMPLEMENT_THESE_TOOLS": "Vous souhaitez en savoir encore plus ou mettre en place ces outils ou sein de votre cabinet ?",
+    "PROPERTY_EXCLUSION_POP_UP": "Cette propriété est une maison mobile. Ce point nécessitera une validation auprès d'un agent après soumission du formulaire." ,
+    "PROPERTY_PROVINCE_EXCLUSION_POPUP": "La province dans laquelle vous habitez nécessitera une validation auprès d'un agent après la soumission du formulaire.",
+    "PROPERTY_PROVINCE_EXCLUSION": "La province dans laquelle vous habitez nécessitera une validation auprès d'un agent .",
+    "PROPERTY_VALUE_EXCLUSION_POPUP": "La combinaison de la valeur de votre propriété et de la protection incendie que vous avez choisie nécessitera une validation auprès d'un agent après la soumission du formulaire.",
+    "PROPERTY_VALUE_EXCLUSION": "La combinaison de la valeur de votre propriété et de la protection incendie que vous avez choisie nécessitera une validation auprès d'un agent.",
+    "CONTENT_VALUE_EXCLUSION_POPUP": "La combinaison de la valeur du contenu et du type d'habitation ou d'occupation que vous avez choisie nécessitera une validation auprès d'un agent après la soumission du formulaire.",
+    "CONTENT_VALUE_EXCLUSION": "La combinaison de la valeur du contenu et du type d'habitation ou d'occupation que vous avez choisie nécessitera une validation auprès d'un agent."
 }

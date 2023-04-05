@@ -35,30 +35,37 @@ export class ActionService {
   }
 
   // validate the rules for any questions
-  validate(question: Question, control: FormControlState<any>, pathToGroup: string) {
+  validate(question: Question, controls: FormControlState<any>[], key: any, pathToGroup: string, questions: Question[] | undefined) {
     question.rules.forEach((rule) => {
       const destinationId = rule.destinationId.toString();
       const groupIndex = parseInt(pathToGroup.slice(-1))
 
       switch (rule.action) {
         case 'RETRIEVE_RESPONSE':
-          this.getResponsesFromPreviousAnswer(question, control, parseInt(destinationId), groupIndex, pathToGroup);
+          this.getResponsesFromPreviousAnswer(question, controls[key], parseInt(destinationId), groupIndex, pathToGroup);
           break;
         case 'SHOW':
-          this.show(question, rule, control, destinationId, groupIndex, pathToGroup);
+          this.show(question, rule, controls[key], destinationId, groupIndex, pathToGroup, false, false);
           break;
         case 'HIDE':
-          this.hide(rule, control, destinationId, groupIndex, pathToGroup);
+          this.hide(rule, controls[key], destinationId, groupIndex, pathToGroup, false);
           break;
         case 'RETRIEVE':
-          this.getOptionsFromPreviousAnswer(question, rule, control, destinationId, groupIndex);
+          this.getOptionsFromPreviousAnswer(question, rule, controls[key], destinationId, groupIndex);
           break;
         case 'SEQUENCE':
+          if (rule.operation === "EQUALS" || rule.operation === "NOT_EQUAL" ){
+            const nextQuestion = questions?.filter(question => question.rules.filter(r => r.id === rule.referenceId).length > 0)[0]
+            if(nextQuestion) {
+              const nextRule = nextQuestion?.rules.filter(r => r.id === rule.referenceId)[0]
+              if(nextRule.action === 'SHOW')this.show(nextQuestion, nextRule, controls[nextQuestion.id], nextRule.destinationId.toString(), groupIndex, pathToGroup, true, this.ruleService.checkRule(rule, controls[key]))
+            }
+          } 
           if (rule.operation === "COUNT_LESSER_THAN") {
-            const firstValueInSequence = this.ruleService.checkRule(rule, control)
+            const firstValueInSequence = this.ruleService.checkRule(rule, controls[key])
             const questionRule = this.sections.find(s => s.id == this.activeSection.id)?.questions.find(q => q.id == rule.questionId)?.rules.find(r => r.id == rule?.referenceId)
             if (questionRule?.action === 'SET_VALUE') {
-              this.setValue(questionRule, control, questionRule.destinationId.toString(), groupIndex, pathToGroup, firstValueInSequence);
+              this.setValue(questionRule, controls[key], questionRule.destinationId.toString(), groupIndex, pathToGroup, firstValueInSequence);
             }
           }
           break;
@@ -89,13 +96,23 @@ export class ActionService {
     }
   }
 
-  hide(rule: Rule, control: FormControlState<any>, destinationId: string, groupIndex: number, pathToGroup: string) {
+  hide(rule: Rule, control: FormControlState<any>, destinationId: string, groupIndex: number, pathToGroup: string, fromSequence: boolean) {
+    if(!fromSequence && rule.isSequenceEnd) return;
     const result = this.ruleService.checkRule(rule, control)
-    // console.log('hide', rule.destinationId, destinationId)
+   
+    
     pathToGroup = this.overridePath(pathToGroup, destinationId)
 
     if (result) {
+      if(rule.destinationId === 3337 || rule.destinationId === 2723){
+        // console.log(fromSequence, rule)
+        // console.log('hide', rule.destinationId, destinationId)
+        // console.log(!this.temp.has(groupIndex + '.' + destinationId), this.temp)
+      }
+
       if (!this.temp.has(groupIndex + '.' + destinationId)) {
+        // let controls = this.formState.controls[this.activeSection.id].controls[groupIndex].controls
+        // if(destinationId === '3337' || destinationId === '2723')console.log(destinationId, (controls as any))
         if ((this.formState.controls[this.activeSection.id].controls[groupIndex] as any).controls[destinationId]) {
           this.store.dispatch(new RemoveGroupControlAction(pathToGroup, destinationId));
           this.temp.add(groupIndex + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
@@ -105,7 +122,7 @@ export class ActionService {
       if (this.temp.has(groupIndex + '.' + destinationId)) {
         if (!(this.formState.controls[this.activeSection.id].controls[groupIndex] as any).controls[destinationId]) {
           // console.log(this.formState.controls[this.activeSection.id].controls[groupIndex])
-          if(destinationId == '3074') return;
+          if(destinationId == '3074' ) return;
             this.store.dispatch(new AddGroupControlAction(pathToGroup, destinationId, ''));
             this.temp.delete(groupIndex + '.' + destinationId) // FIX FOR DOUBLE ACTION DISPATCH
           
@@ -114,14 +131,19 @@ export class ActionService {
     }
   }
 
-  show(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, groupIndex: number, pathToGroup: string) {
-    const result = this.ruleService.checkRule(rule, control)
-    // console.log('show', destinationId, result)
-    pathToGroup = this.overridePath(pathToGroup, destinationId)
+  show(question: Question, rule: Rule, control: FormControlState<any>, destinationId: string, groupIndex: number, pathToGroup: string, fromSequence: boolean, previousResult: boolean | undefined) {
+   
+    if(!fromSequence && rule.isSequenceEnd) return
 
-    if (result) {
+    const result = this.ruleService.checkRule(rule, control)
+
+    pathToGroup = this.overridePath(pathToGroup, destinationId)
+    if ((rule.isSequenceEnd && result && previousResult) || (!fromSequence && result)) {
+      
       if (!this.temp.has(groupIndex + '.' + destinationId)) {
+        
         if (!this.formState.controls[this.activeSection.id] && !(this.formState.controls[this.activeSection.id].controls[groupIndex] as any).controls[destinationId]) {
+         
           return
         }
         else if (this.formState.controls[this.activeSection.id] && !(this.formState.controls[this.activeSection.id].controls[groupIndex] as any).controls[destinationId]) {
@@ -143,6 +165,7 @@ export class ActionService {
             }
           }
           else {
+          
             if ((question.identifier !== 'MinorInfraction' && question.identifier !== 'MajorInfraction')) {
               if(destinationId != '3074'){
               this.store.dispatch(new AddGroupControlAction(pathToGroup, destinationId, {}));

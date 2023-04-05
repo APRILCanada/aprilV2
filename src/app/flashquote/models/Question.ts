@@ -17,4 +17,5 @@ export class Question {
   selectedOptions?: any[];
   questionLinkId?: number;
   rules: Rule[];
+  writable = true;
 }

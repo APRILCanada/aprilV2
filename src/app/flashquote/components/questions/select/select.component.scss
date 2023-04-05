@@ -44,3 +44,18 @@ mat-label {
 label {
   font-weight: 300 !important;
 }
+
+.button-tooltip{
+  color:2px solid var(--mainColor);
+  border: 2px solid var(--mainColor);
+
+  &:hover{
+    color:2px solid var(--mainColor);
+  }
+}
+
+.tooltip .tooltip-inner{
+  padding:1rem;
+  background-color: var(--mainColor);
+  opacity: 1;
+}
