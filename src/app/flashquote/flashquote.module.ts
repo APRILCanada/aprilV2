@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { InputComponent } from './components/questions/input/input.component';
 
-import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MatDialogModule, } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
@@ -43,7 +43,7 @@ import { BooleanComponent } from './components/questions/boolean/boolean.compone
 import { DateComponent } from './components/questions/date/date.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatAutocompleteModule, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY } from "@angular/material/autocomplete";
+import { MatAutocompleteModule, } from "@angular/material/autocomplete";
 import { AddressComponent } from './components/questions/address/address.component';
 import { MatSelectModule } from '@angular/material/select';
 import { NgrxMatSelectViewAdapter } from './shared/mat-select-view-adapter';
@@ -51,7 +51,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { IdentificationComponent } from './components/questions/identification/identification.component';
 import { ReclamationComponent } from './components/questions/reclamation/reclamation.component';
 import { LoaderInlineComponent } from './components/shared/loader-inline/loader-inline.component';
-import { Overlay, OverlayModule } from '@angular/cdk/overlay';
+import {  OverlayModule } from '@angular/cdk/overlay';
 import { AutoComponent } from './components/questions/auto/auto.component';
 import { TextareaComponent } from './components/questions/textarea/textarea.component';
 import { SectionComponent } from './components/shared/section/section.component';

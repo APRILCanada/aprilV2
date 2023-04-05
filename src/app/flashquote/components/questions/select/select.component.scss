@@ -58,4 +58,10 @@ label {
   padding:1rem;
   background-color: var(--mainColor);
   opacity: 1;
+  max-width: 90vw;
+
+  ul{
+    list-style: none;
+    padding-left: 0px;
+  }
 }

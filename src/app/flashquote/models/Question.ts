@@ -1,5 +1,6 @@
 import { Label } from './Label';
 import { Rule } from './Rule';
+import { Tooltip } from './Tooltip'
 
 export class Question {
   id: number;
@@ -17,5 +18,5 @@ export class Question {
   selectedOptions?: any[];
   questionLinkId?: number;
   rules: Rule[];
-  writable = true;
+  tooltip: Tooltip;
 }

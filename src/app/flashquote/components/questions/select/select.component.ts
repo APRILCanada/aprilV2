@@ -33,7 +33,6 @@ export class SelectComponent implements OnInit {
 
   // retrieve the options (Responses) selected by the user if any
   ngOnInit(): void {
-   
     this.groupPath = this.control.id.replace(/\.[^.]*$/, '') // get the group the control to remove belongs to (ex: generic.35.0)
 
     if (this.control.value && this.options.length) {

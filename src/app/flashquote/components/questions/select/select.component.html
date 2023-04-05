@@ -22,7 +22,7 @@
 <!-- SELECT UNIQUE/MULTIPLE WITH LESS THAN 10 CHOICES-->
 <ng-container *ngIf="question.responses.length <= 10">
   <label>{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</label> 
-  <button type="button" class="button-tooltip" placement="top" [ngbTooltip]="tipContent" tooltipClass="tooltip">
+  <button *ngIf="question.tooltip.message.LabelFr !== null" type="button" class="button-tooltip" placement="top" [ngbTooltip]="tipContent" tooltipClass="tooltip">
     ?
   </button>
   <div class="select-single container" [ngClass]="{'error-border':error &&
@@ -36,9 +36,5 @@
   </div>
 </ng-container>
 <ng-template #tipContent>
-  <ul>
-  <li>This</li>
-  <li>is a</li>
-  <li>tooltip</li>
-</ul>
+  <div [innerHTML]="language.get() == 'fr' ?question.tooltip.message.LabelFr : question.tooltip.message.LabelEn"></div>
 </ng-template>
