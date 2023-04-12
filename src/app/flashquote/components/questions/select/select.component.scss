@@ -41,6 +41,10 @@ mat-label {
   font-family: 'Roboto';
 }
 
+mat-chip-list {
+  position: relative;
+}
+
 label {
   font-weight: 300 !important;
 }
@@ -64,4 +68,11 @@ label {
     list-style: none;
     padding-left: 0px;
   }
+}
+
+mat-chip{
+
+  min-height: 40px !important;
+  padding: 1rem !important;
+  border-radius: 20px !important;
 }

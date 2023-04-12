@@ -254,7 +254,6 @@ export const validation: any = {
             'MOBILE_HOME_EXCLUSION'
           ),
         ),
-        // 2718: validate(required),
         2718: (control: FormControlState<any>, formState: any) => {
           let isVacant = formState.value[3325] === "Vacant";
           let isShortTermRental = formState.value[3331] == "false";
@@ -266,6 +265,14 @@ export const validation: any = {
         },
         2719: validate(required),
         2723: (control: FormControlState<any>, formState: any) => {
+          let protection = formState.value[2719];
+          return validate(
+            control,
+            required,
+            propertyValueExclusion(protection)
+          );
+        },
+        3337: (control: FormControlState<any>, formState: any) => {
           let protection = formState.value[2719];
           return validate(
             control,

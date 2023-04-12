@@ -5,12 +5,12 @@
     <button class="add" type="button" (click)="openMultiSelectDialog()" mat-mini-fab color="basic">
       <mat-icon>add</mat-icon>
     </button>
-    <mat-label>{{ language.get() == "fr" ? question.title.LabelFr : question.title.LabelEn }}</mat-label>
+    <mat-label class="ps-3">{{ language.get() == "fr" ? question.title.LabelFr : question.title.LabelEn }}</mat-label>
   </div>
 
   <mat-chip-list #chipList *ngIf="selectedOptions.length > 0">
     <mat-chip *ngFor="let opt of selectedOptions" (removed)="remove(opt.id)">
-      <small>{{ language.get() == "fr" ? opt.label.LabelFr : opt.label.LabelEn }}</small>
+      <small >{{ language.get() == "fr" ? opt.label.LabelFr : opt.label.LabelEn }}</small>
       <button matChipRemove>
         <mat-icon>cancel</mat-icon>
       </button>
@@ -21,20 +21,26 @@
 
 <!-- SELECT UNIQUE/MULTIPLE WITH LESS THAN 10 CHOICES-->
 <ng-container *ngIf="question.responses.length <= 10">
-  <label>{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</label> 
-  <button *ngIf="question.tooltip.message.LabelFr !== null" type="button" class="button-tooltip" placement="top" [ngbTooltip]="tipContent" tooltipClass="tooltip">
-    ?
-  </button>
-  <div class="select-single container" [ngClass]="{'error-border':error &&
-  (control.isDirty || control.isTouched || control.isSubmitted)}">
-    <mat-chip-list>
-      <app-chip *ngFor="let option of question.responses" (click)="select(option)" [selected]="isSelected(option.id)">
-        {{ language.get() == "fr" ? option.label.LabelFr : option.label.LabelEn }}
-      </app-chip>
-    </mat-chip-list>
-    <input type="hidden" [ngrxFormControlState]="control" />
+  <div class="position-relative">
+    <app-exclusion-popup [error]="showError && error"></app-exclusion-popup>
+    <label>{{ language.get() == "fr" ? question.title.LabelFr: question.title.LabelEn }}</label> 
+    <button *ngIf="question.tooltip.message.LabelFr !== null" type="button" class="button-tooltip" placement="top" [ngbTooltip]="tipContent" tooltipClass="tooltip">
+      ?
+    </button>
+    <div class="select-single container" [ngClass]="{'error-border':error &&
+    (control.isDirty || control.isTouched || control.isSubmitted)}">
+      <mat-chip-list>
+        <app-chip *ngFor="let option of question.responses" (click)="select(option)" [selected]="isSelected(option.id)">
+          {{ language.get() == "fr" ? option.label.LabelFr : option.label.LabelEn }}
+        </app-chip>
+      </mat-chip-list>
+      <input type="hidden" [ngrxFormControlState]="control" />
+    </div>
+    
   </div>
+  
 </ng-container>
 <ng-template #tipContent>
   <div [innerHTML]="language.get() == 'fr' ?question.tooltip.message.LabelFr : question.tooltip.message.LabelEn"></div>
 </ng-template>
+

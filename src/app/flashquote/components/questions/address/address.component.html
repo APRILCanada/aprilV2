@@ -30,7 +30,7 @@
     <!-- address form -->
     <div *ngIf="showAddressForm"
         [ngClass]="{'d-none':!addressAutoCompleteHidden, 'd-flex flex-column':addressAutoCompleteHidden}">
-        <div class="container text-form mt-3" style="padding:0 !important;">
+        <div class="text-form mt-3" style="padding:0 !important;">
             <div class="row">
                 <div class="col-12 col-sm-4 col-md-3">
                     <div class="d-flex flex-column justify-content-center">
@@ -91,7 +91,7 @@
                 <div class="d-flex flex-column justify-content-center relative">
                     <span>Province</span>
                     <div class="input-group mb-1" tabindex="3">
-                        <mat-select class="form-control" [required]="question.isRequired"
+                        <mat-select class="form-control dropdown" [required]="question.isRequired"
                             [ngrxFormControlState]="group && group[this.question.identifier + '-Province']">
                             <mat-option *ngFor="let p of ['AB', 'BC','MB','ON','QC','SK']" value="{{ p }}">
                                 {{ p }}

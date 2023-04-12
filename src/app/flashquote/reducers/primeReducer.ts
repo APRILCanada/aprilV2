@@ -58,7 +58,7 @@ export const primeReducer = createReducer(
             return {
                 ...state,
                 prime,
-                applicantName: 'TODO',
+                applicantName: formValue.value[169][0][2964],
             }
         }
 

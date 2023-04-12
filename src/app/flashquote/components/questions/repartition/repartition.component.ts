@@ -107,6 +107,7 @@ export class RepartitionComponent implements OnInit {
   @Input() question: Question;
   @Input() control: FormControlState<any>;
   @Input() error: any;
+  public customPatterns = { '0': { pattern: new RegExp('^0*(?:[1-9][0-9]?|100)$')} };
 
   constructor(private store: Store<State>, public language: LanguageService, public translate: TranslateService) { }
 

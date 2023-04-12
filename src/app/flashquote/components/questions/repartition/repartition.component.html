@@ -16,8 +16,7 @@
       <th mat-header-cell *matHeaderCellDef>%</th>
       <td mat-cell *matCellDef="let element">
         <input InputNumberFormat class="table-input"
-          [ngrxFormControlState]="(groupOptions$ | async)[element.responseKey]" placeholder="0" matInput min="0"
-          max="100" type="number" />
+          [ngrxFormControlState]="(groupOptions$ | async)[element.responseKey]" placeholder="0" [patterns]="customPatterns" matInput type="number" />
       </td>
       <td mat-footer-cell *matFooterCellDef>{{ getTotalPercentage() }}</td>
     </ng-container>

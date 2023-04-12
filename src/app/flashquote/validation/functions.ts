@@ -73,7 +73,8 @@ export function exclusion<T>(mustBe: string, comparand: T, errorMessagePopup: st
                 return {}
             }
         }
-       
+        
+        console.log(value, comparand, value == comparand, errorMessagePopup)
         return {
             'exclusion': {
                 comparand,
