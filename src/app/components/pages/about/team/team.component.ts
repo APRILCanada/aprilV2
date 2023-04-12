@@ -54,17 +54,10 @@ export class TeamComponent implements OnInit {
       linkedIn: 'https://www.linkedin.com/in/samira-durand/',
     },
     {
-      fullName: 'Karine Chiasson',
-      title: { en: 'Residential Director', fr: 'Directrice Résidentiel' },
-      picture: 'karine-chiasson.png',
-      email: 'karine.chiasson@april.ca',
-      linkedIn: 'https://www.linkedin.com/in/karine-chiasson-234406148/',
-    },
-    {
       fullName: 'Sophie Bergeron',
       title: {
-        en: 'Transport and Vehicles Line Director',
-        fr: 'Directrice de lignes automobile, transport et commerciale',
+        en: 'Quebec Underwriting Director',
+        fr: 'Directrice de la souscription Québec',
       },
       picture: 'sophie-bergeron.png',
       email: 'sophie.bergeron@april.ca',
