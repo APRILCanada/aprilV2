@@ -2,12 +2,16 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 import { finalize, catchError } from 'rxjs/operators';
 import { Contact } from 'src/app/components/common/model/Contact';
 import { LanguageService } from 'src/app/services/language.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
+import { MultiselectService } from 'src/app/services/multiselect.service';
+import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from 'ngx-bootstrap-multiselect';
+import { HrService } from 'src/app/components/firebase/services/hr.service';
+import { JobApplicationService } from 'src/app/services/job-application.service';
 
 @Component({
   selector: 'app-send-resume',
@@ -21,6 +25,13 @@ export class SendResumeComponent implements OnInit {
   public maxFileSize = 20971520;
   // @Output() onCompletion: EventEmitter<void> = new EventEmitter();
   // filePath;
+  language$: Observable<string>;
+  jobsEn: IMultiSelectOption[];
+  jobsFr: IMultiSelectOption[];
+  textJobsEn: IMultiSelectTexts = this.dropDown.textJobsEn
+  textJobsFr: IMultiSelectTexts = this.dropDown.textJobsFr
+  settings: IMultiSelectSettings = this.dropDown.settings;
+
   result: Observable<any>;
   result2: Observable<any>;
   // fileName: string;
@@ -33,6 +44,7 @@ export class SendResumeComponent implements OnInit {
       Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[A-Za-z]{2,9}'),
     ]),
     phone: new FormControl(null, Validators.required),
+    position: new FormControl(null, Validators.required),
     message: new FormControl(null, Validators.required),
     newsLetter: new FormControl(false),
     file: new FormControl('', [Validators.required]),
@@ -43,13 +55,40 @@ export class SendResumeComponent implements OnInit {
     private modalService: NgbModal,
     private fireFunctions: AngularFireFunctions,
     private angularFirestore: AngularFirestore,
-    private angularFireStorage: AngularFireStorage
+    private angularFireStorage: AngularFireStorage,
+    private dropDown: MultiselectService,
+    private hrService: HrService,
+    private jobApplication: JobApplicationService,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Getting jobs to populate the dropdown
+    this.hrService.getJobs().subscribe((jobs) => {
+
+      let jobsList = jobs.filter((job) => job.isActive == 'isActive');
+      // Making the array of Jobs into an array of IMultiSelectOption
+      this.jobsEn = jobsList.map((job) => {
+        return { id: job.en.title, name: job.en.title || ""}
+      })
+
+      this.jobsFr = jobsList.map((job) => {
+        return { id: job.fr.title, name: job.fr.title || ""}
+      })
+    });
+  
+
+    this.jobApplication._job.subscribe(job => {
+      this.language.get() == 'fr' ? 
+      this.contactForm.controls["position"].setValue(job.fr.title) : 
+      this.contactForm.controls["position"].setValue(job.en.title);
+    })
+
+
+  }
 
   onSubmit() {
     this.contact = this.contactForm.value;
+    console.log(this.contact)
 
     const callable = this.fireFunctions.httpsCallable('sendResume');
     this.result = callable({
@@ -59,6 +98,7 @@ export class SendResumeComponent implements OnInit {
       lastName: this.contact.lastName,
       language: this.language.get(),
       phone: this.contact.phone,
+      position: this.contact.position[0],
       message: this.contact.message,
       file: this.fileName,
       filePath: this.downloadURL.toString(),

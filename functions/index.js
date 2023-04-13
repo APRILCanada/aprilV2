@@ -1754,7 +1754,8 @@ exports.sendResume = functions.https.onCall((data) => {
 
         var mailList = [
             `${data.email}`,
-            // 'michael.babin@april.ca',
+            'michael.babin@april.ca',
+            'mariam.hammoud@april.ca',
             'ressources.humaines@april.ca '
         ]
 
@@ -1818,6 +1819,7 @@ exports.sendResume = functions.https.onCall((data) => {
                                                               <li>Courriel: ${data.email}</li>
                                                               <li>Téléphone: ${data.phone}</li>
                                                               <li>Nom du ficher: ${data.file}</li>
+                                                              <li>Poste: ${data.position}</li>
                                                               <li>Message: ${data.message}</li>
                                                           </ul>
                                                       </p>
@@ -1926,6 +1928,7 @@ exports.sendResume = functions.https.onCall((data) => {
                                                       <li>Email: ${data.email}</li>
                                                       <li>Phone: ${data.phone}</li>
                                                       <li>File Name: ${data.file}</li>
+                                                      <li>Position: ${data.position}</li>
                                                       <li>Message: ${data.message}</li>
                                                   </ul>
                                               </p>

@@ -351,6 +351,8 @@ export class MultiselectService {
     searchPlaceholder: 'Search',
   };
   textProv: IMultiSelectTexts = { defaultTitle: 'Province' };
+  textJobsEn: IMultiSelectTexts = { defaultTitle: 'Position'};
+  textJobsFr: IMultiSelectTexts = { defaultTitle: 'Poste'};
 
   // Settings
   settings: IMultiSelectSettings = {
