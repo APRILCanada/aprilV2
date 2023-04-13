@@ -6,43 +6,44 @@ import { TranslateService } from '@ngx-translate/core';
 import {  Router } from '@angular/router';
 import { SearchFilterPipe } from 'src/app/pipes/search-filter.pipe';
 import { LoadingService } from 'src/app/services/loading.service';
+import { BrokerService } from '../../services/brokers.service';
+import { Broker } from '../../models/Broker';
+
 
 @Component({
-  selector: 'app-interface-jobs',
-  templateUrl: './interface-jobs.component.html',
-  styleUrls: ['./interface-jobs.component.scss'],
-  providers: [SearchFilterPipe],
+  selector: 'app-interface-brokers',
+  templateUrl: './interface-brokers.component.html',
+  styleUrls: ['./interface-brokers.component.scss']
 })
-export class InterfaceJobsComponent implements OnInit {
-  jobs: Job[];
+export class InterfaceBrokersComponent implements OnInit {
+  brokers: Broker[];
   totalLength: number;
   page: number = 1;
   searchValue: string;
   lang: string;
 
   constructor(
-    private hrService: HrService,
+    private brokerService :  BrokerService,
     public language: LanguageService,
-    private translate: TranslateService,
-    private router: Router,
-    private searchFilter: SearchFilterPipe,
     private loader: LoadingService
   ) {}
 
   ngOnInit(): void {
-    this.hrService.getJobs().subscribe((jobs) => {
-      this.jobs = this.searchFilter.transform(jobs, this.searchValue);
-      this.totalLength = this.jobs.length;
+   this.brokerService.getBrokers().subscribe((brokers) => {
+    this.brokers = brokers
+      this.totalLength = this.brokers.length;
       this.loader.loading(false);
+      console.log(this.brokers)
     });
   }
 
   onSearchChange(event: Event): void {
     this.searchValue = (event.target as HTMLInputElement)?.value;
-    this.hrService.getJobs().subscribe((jobs) => {
-      this.jobs = this.searchFilter.transform(jobs, this.searchValue);
-      this.totalLength = this.jobs.length;
-      this.page = 1;
-    });
+    // this.hrService.getJobs().subscribe((jobs) => {
+    //   // this.jobs = this.searchFilter.transform(jobs, this.searchValue);
+    //   this.totalLength = this.jobs.length;
+    //   this.page = 1;
+    // });
   }
 }
+

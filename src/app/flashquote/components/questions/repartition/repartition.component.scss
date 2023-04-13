@@ -82,5 +82,6 @@ input::-webkit-inner-spin-button {
 
 /* Works for Firefox */
 input[type="number"] {
+  appearance: textfield;
   -moz-appearance: textfield;
 }

@@ -55,6 +55,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { InterfaceBrokersComponent } from './pages/interface-brokers/interface-brokers.component';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -88,7 +89,8 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     UpdateNicheComponent,
     CreateArticleComponent,
     ArticleDetailsComponent,
-    UpdateArticleComponent
+    UpdateArticleComponent,
+    InterfaceBrokersComponent
   ],
   imports: [
     RouterModule,

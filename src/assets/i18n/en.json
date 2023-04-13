@@ -510,6 +510,9 @@
     "PROPERTY_VALUE_EXCLUSION_POPUP": "The combination of the property value and the fire protection you have selected will require validation with an agent after submission of the form.",
     "PROPERTY_VALUE_EXCLUSION": "The combination of the property value and the fire protection you have selected will require validation with an agent.",
     "CONTENT_VALUE_EXCLUSION_POPUP": "The combination of the content value and the type of property or occupancy you have selected will require validation with an agent after submission of the form.",
-    "CONTENT_VALUE_EXCLUSION": "The combination of the content value and the type of property or occupancy you have selected will require validation with an agent."
-
+    "CONTENT_VALUE_EXCLUSION": "The combination of the content value and the type of property or occupancy you have selected will require validation with an agent.",
+    "BROKERS" : "Brokers (White label)",
+    "BROKERS_LIST" : "White label page list",
+    "CREATE_NEW_BROKER" : "New Page",
+    "BROKER_NAME" : "Brokerage Name"
 }

@@ -511,5 +511,9 @@
     "PROPERTY_VALUE_EXCLUSION_POPUP": "La combinaison de la valeur de votre propriété et de la protection incendie que vous avez choisie nécessitera une validation auprès d'un agent après la soumission du formulaire.",
     "PROPERTY_VALUE_EXCLUSION": "La combinaison de la valeur de votre propriété et de la protection incendie que vous avez choisie nécessitera une validation auprès d'un agent.",
     "CONTENT_VALUE_EXCLUSION_POPUP": "La combinaison de la valeur du contenu et du type d'habitation ou d'occupation que vous avez choisie nécessitera une validation auprès d'un agent après la soumission du formulaire.",
-    "CONTENT_VALUE_EXCLUSION": "La combinaison de la valeur du contenu et du type d'habitation ou d'occupation que vous avez choisie nécessitera une validation auprès d'un agent."
+    "CONTENT_VALUE_EXCLUSION": "La combinaison de la valeur du contenu et du type d'habitation ou d'occupation que vous avez choisie nécessitera une validation auprès d'un agent.",
+    "BROKERS" : "Courtiers (Marque blanche)",
+    "BROKERS_LIST" : "Liste des pages en marque blanche",
+    "CREATE_NEW_BROKER" : "Nouvelle page",
+    "BROKER_NAME" : "Brokerage Name"
 }

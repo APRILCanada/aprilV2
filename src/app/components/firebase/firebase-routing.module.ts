@@ -20,6 +20,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { CreateArticleComponent } from './pages/interface-articles/create-article/create-article.component';
 import { UpdateArticleComponent } from './pages/interface-articles/update-article/update-article.component';
 import { ArticleDetailsComponent } from './pages/interface-articles/article-details/article-details.component';
+import { InterfaceBrokersComponent } from './pages/interface-brokers/interface-brokers.component';
 
 const routes: Routes = [
   {
@@ -111,6 +112,26 @@ const routes: Routes = [
     component: JobDetailsComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: "interface/brokers",
+    component: InterfaceBrokersComponent,
+    canActivate: [AuthGuard]
+  },
+  // {
+  //   path: "interface/create-job",
+  //   component: CreateJobComponent,
+  //   canActivate: [AuthGuard]
+  // },
+  // {
+  //   path: "interface/jobs/update/:id",
+  //   component: UpdateJobComponent,
+  //   canActivate: [AuthGuard]
+  // },
+  // {
+  //   path: "interface/jobs/details/:id",
+  //   component: JobDetailsComponent,
+  //   canActivate: [AuthGuard]
+  // },
 
 ];
 
