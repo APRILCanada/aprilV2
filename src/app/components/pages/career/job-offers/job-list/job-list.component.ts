@@ -16,6 +16,7 @@ import { Job } from 'src/app/components/firebase/models/Job';
 import { HrService } from 'src/app/components/firebase/services/hr.service';
 import { CityFilterPipe } from 'src/app/pipes/city-filter.pipe';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { JobApplicationService } from 'src/app/services/job-application.service';
 
 declare var require: any;
 const FileSaver = require('file-saver');
@@ -68,7 +69,8 @@ export class JobListComponent implements OnInit {
     private dropDown: MultiselectService,
     private cityFilter: CityFilterPipe,
     public loader: LoadingService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private jobApplication: JobApplicationService,
   ) {}
 
   ngOnInit(): void {
@@ -102,6 +104,7 @@ export class JobListComponent implements OnInit {
 
   apply() {
     this.modalService.dismissAll();
+    this.jobApplication.setJob(this.job);
     document.getElementById('resumeForm')?.scrollIntoView({
       behavior: 'smooth',
       block: 'start',

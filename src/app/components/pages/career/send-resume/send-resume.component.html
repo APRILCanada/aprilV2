@@ -52,6 +52,15 @@
           mask="(000) 000-0000"
         />
       </div>
+      <div class="col-md-6 pb-3">
+        <ngx-bootstrap-multiselect
+            class="form-control p-0 no-border"
+            [options]="language.get() == 'fr' ? jobsFr : jobsEn"
+            [texts]="language.get() == 'fr' ? textJobsFr : textJobsEn"
+            [settings]="settings"
+            formControlName="position"
+        ></ngx-bootstrap-multiselect>
+      </div>
       <div class="col-12 pb-3">
         <textarea
           rows="5"
@@ -84,7 +93,7 @@
           <span
             *ngIf="!contactForm.get('file')?.valid"
             class="ps-5 txt-optional d-none d-lg-block"
-            >{{ "UPLOAD_POLICY_CLAIM" | translate }}</span
+            >{{ "UPLOAD_RESUME" | translate }}</span
           >
           <span
             *ngIf="contactForm.get('file')?.valid"

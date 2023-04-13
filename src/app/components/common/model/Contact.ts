@@ -4,6 +4,7 @@ export class Contact {
   email?: string;
   phone?: string;
   province?: string;
+  position: string;
   language?: string;
   message?: string;
   newsLetter?: boolean;
