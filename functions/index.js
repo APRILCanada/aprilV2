@@ -1754,8 +1754,6 @@ exports.sendResume = functions.https.onCall((data) => {
 
         var mailList = [
             `${data.email}`,
-            'michael.babin@april.ca',
-            'mariam.hammoud@april.ca',
             'ressources.humaines@april.ca '
         ]
 

@@ -1,20 +1,21 @@
 import { Label } from "./label";
 
 export class Broker {
+  id?: string;
   aprilonId: string;
   isActive: string;
-  content?: {
-    USP?: Label[];
-    headline?: Label;
+  content: {
+    USP: Label[];
+    headline: Label;
   };
   email?: string;
   logo?: string;
   marketId?: string;
   name?: string;
-  openingHours?: {
-    en?: string[];
-    fr?: string[];
-    phone?: string;
+  phone?: string;
+  openingHours: {
+    en: string[];
+    fr: string[];
   };
   styles?: {
     buttons?: {

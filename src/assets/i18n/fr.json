@@ -515,5 +515,11 @@
     "BROKERS" : "Courtiers (Marque blanche)",
     "BROKERS_LIST" : "Liste des pages en marque blanche",
     "CREATE_NEW_BROKER" : "Nouvelle page",
-    "BROKER_NAME" : "Brokerage Name"
+    "BROKER_NAME" : "Brokerage Name",
+    "BROKER_INFORMATION": "Information sur le cabinet de courtage",
+    "CONTENT": "Contenu",
+    "NAV_BUTTONS": "Bouton de navigations",
+    "OUTLINED_BUTTONS": "Boutons avec contour",
+    "PREMIUM": "Prime",
+    "CREATE_BROKER_FORM": "Formulaire de création d'une page en marque blanche pour cabinet de courtage"
 }

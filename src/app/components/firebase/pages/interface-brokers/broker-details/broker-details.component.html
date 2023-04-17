@@ -1,0 +1,124 @@
+<section class="interface-style mt-3 pb-100 pt-200">
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto form-container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a routerLink="/interface/brokers" class="btn btn-secondary px-3">{{ 'BACK' | translate }}</a>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="float-end">
+                            <div class="btn-group "><a routerLink="../../update/{{id}}" class="btn btn-secondary px-3">{{ 'EDIT' | translate }}</a></div>
+                            <button (click)="onDelete()" class="btn btn-danger ms-3">{{ 'DELETE' | translate }}</button>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="form-action my-4" >
+                    <div  class="card">
+                        <h3 class="card-header text-center">{{  broker.name }} - {{ broker.marketId }}</h3>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    ID: {{broker.id}}
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="float-end">{{ 'ONLINE' | translate }}: <span *ngIf="broker.isActive == 'isActive'"> {{ 'YES' | translate }}</span><span  *ngIf="broker.isActive == 'notActive'"> {{ 'NO' | translate }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <h3>{{ 'BROKER_INFORMATION' | translate }}</h3>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item" *ngIf="broker.aprilonId">
+                                    <h5>April ON ID:</h5>
+                                    <p [innerHtml]="broker.aprilonId"></p>
+                                </li>
+                                <li class="list-group-item" *ngIf="broker.email">
+                                    <h5>Email:</h5>
+                                    <p [innerHtml]="broker.email"></p>
+                                </li>
+                                <li class="list-group-item" *ngIf="broker.phone">
+                                    <h5>Phone:</h5>
+                                    <p [innerHtml]="broker.phone"></p>
+                                </li>
+                            </ul>
+                            <h3>{{ 'CONTENT' | translate }}: </h3>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item" *ngIf="broker.logo">
+                                    <h5>Logo:</h5>
+                                    <p [innerHtml]="broker.logo"></p>
+                                </li>
+                                <li class="list-group-item" *ngIf="broker.openingHours">
+                                    <h5>{{ 'OPENING_HOURS' | translate }}</h5>
+                                    <p *ngFor="let openingHours of broker?.openingHours[this.language.get()]" [innerHtml]="openingHours"></p>
+                                </li>
+                                <li class="list-group-item" *ngIf="broker?.content.USP">
+                                    <h5>USP:</h5>
+                                    <p *ngFor="let usp of broker?.content.USP" [innerHtml]="this.language.get() == 'fr' ? usp.labelFr : usp.labelEn"></p>
+                                </li>
+                                <li class="list-group-item" *ngIf="broker?.content.headline">
+                                    <h5>Label:</h5>
+                                    <p [innerHtml]="this.language.get() == 'fr' ? broker.content.headline.labelFr : broker.content.headline.labelEn"></p>
+                                </li>   
+                            </ul>
+                            <h3>Styles: </h3>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item" *ngIf="broker?.styles.buttons.nav">
+                                    <h5>{{"NAV_BUTTONS" | translate}}</h5>
+                                    <p>Background color: {{broker.styles.buttons.nav['background-color']}}</p>
+                                    <p>Border: {{broker.styles.buttons.nav.border}}</p>
+                                    <p>Border radius: {{broker.styles.buttons.nav['border-radius']}}</p>
+                                    <p>Color: {{broker.styles.buttons.nav.color}}</p>
+                                </li>
+                                <li class="list-group-item" *ngIf="broker?.styles.buttons.outlined">
+                                    <h5>{{"OUTLINED_BUTTONS" | translate}}</h5>
+                                    <p>Background color: {{broker.styles.buttons.outlined['background-color']}}</p>
+                                    <p>Border: {{broker.styles.buttons.outlined.border}}</p>
+                                    <p>Color: {{broker.styles.buttons.outlined.color}}</p>
+                                </li>
+                                <li class="list-group-item" *ngIf="broker?.styles.chips">
+                                    <h5>Chips:</h5>
+                                    <p>Background color: {{broker.styles.chips['background-color']}}</p>
+                                    <p>Border: {{broker.styles.chips.border}}</p>
+                                    <p>Color: {{broker.styles.chips.color}}</p>
+                                </li>
+                                <li class="list-group-item" *ngIf="broker?.styles.hero">
+                                    <h5>Hero:</h5>
+                                    <p>Background color: {{broker.styles.hero['background-color']}}</p>
+                                    <p>Color: {{broker.styles.hero.color}}</p>
+                                    <p>Image: {{broker.styles.hero.image}}</p>
+                                    <h6 calss="mt-3">Eligibility Link</h6>
+                                    <p class="mt-2">Color: {{broker.styles.hero.eligibilityLink.color}}</p>
+                                </li>
+                                <li class="list-group-item" *ngIf="broker?.styles.prime">
+                                    <h5>{{"PREMIUM" | translate}}:</h5>
+                                    <p>Background color: {{broker.styles.prime['background-color']}}</p>
+                                    <p>Color: {{broker.styles.prime.color}}</p>
+                                    <h6 calss="mt-3">Header</h6>
+                                    <p class="mt-2">Color: {{broker.styles.prime.header.color}}</p>
+                                    <h6 calss="mt-3">Highlighted Text</h6>
+                                    <p class="mt-2">Color: {{broker.styles.prime.highlightedText.color}}</p>
+                                    <h6 calss="mt-3">Text</h6>
+                                    <p class="mt-2">Color: {{broker.styles.prime.text.color}}</p>
+                                </li>
+                                <li class="list-group-item" *ngIf="broker?.styles.shared">
+                                    <h5>Shared:</h5>
+                                    <h6 calss="mt-4">Section Headers</h6>
+                                    <p class="mt-2">Color: {{broker.styles.shared.sectionHeaders.color}}</p>
+                                    <h6 calss="mt-3">Stepper:</h6>
+                                    <p>Background color: {{broker.styles.shared.stepper['background-color']}}</p>
+                                    <p>Border: {{broker.styles.shared.stepper.border}}</p>
+                                </li>
+                            </ul>
+
+                          
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

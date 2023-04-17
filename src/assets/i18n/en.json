@@ -514,5 +514,11 @@
     "BROKERS" : "Brokers (White label)",
     "BROKERS_LIST" : "White label page list",
     "CREATE_NEW_BROKER" : "New Page",
-    "BROKER_NAME" : "Brokerage Name"
+    "BROKER_NAME" : "Brokerage Name",
+    "BROKER_INFORMATION": "Brokerage information",
+    "CONTENT": "Content",
+    "NAV_BUTTONS": "Nav buttons",
+    "OUTLINED_BUTTONS": "Outlined buttons",
+    "PREMIUM": "Premium",
+    "CREATE_BROKER_FORM": "Brokerage white label page creation form"
 }

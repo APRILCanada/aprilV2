@@ -21,6 +21,9 @@ import { CreateArticleComponent } from './pages/interface-articles/create-articl
 import { UpdateArticleComponent } from './pages/interface-articles/update-article/update-article.component';
 import { ArticleDetailsComponent } from './pages/interface-articles/article-details/article-details.component';
 import { InterfaceBrokersComponent } from './pages/interface-brokers/interface-brokers.component';
+import { CreateBrokerComponent } from './pages/interface-brokers/create-broker/create-broker.component';
+import { BrokerDetailsComponent } from './pages/interface-brokers/broker-details/broker-details.component';
+
 
 const routes: Routes = [
   {
@@ -117,21 +120,21 @@ const routes: Routes = [
     component: InterfaceBrokersComponent,
     canActivate: [AuthGuard]
   },
-  // {
-  //   path: "interface/create-job",
-  //   component: CreateJobComponent,
-  //   canActivate: [AuthGuard]
-  // },
-  // {
-  //   path: "interface/jobs/update/:id",
-  //   component: UpdateJobComponent,
-  //   canActivate: [AuthGuard]
-  // },
-  // {
-  //   path: "interface/jobs/details/:id",
-  //   component: JobDetailsComponent,
-  //   canActivate: [AuthGuard]
-  // },
+  {
+    path: "interface/create-broker",
+    component: CreateBrokerComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "interface/brokers/update/:id",
+    component: CreateBrokerComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "interface/brokers/details/:id",
+    component: BrokerDetailsComponent,
+    canActivate: [AuthGuard]
+  },
 
 ];
 

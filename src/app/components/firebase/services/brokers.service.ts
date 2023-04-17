@@ -40,7 +40,7 @@ export class BrokerService {
           return null;
         } else {
             const data = action.payload.data() as Broker;
-            data.aprilonId = action.payload.id;
+            data.id = action.payload.id;
             return data;
         }
       }))
@@ -48,12 +48,12 @@ export class BrokerService {
   }
 
   updateBroker(broker:Broker){
-    this.brokerDoc = this.afs.doc(`brokers/${broker.aprilonId}`);
+    this.brokerDoc = this.afs.doc(`brokers/${broker.id}`);
     this.brokerDoc.update(broker);
   }
 
   deleteBroker(broker:Broker){
-    this.brokerDoc = this.afs.doc(`brokers/${broker.aprilonId}`);
+    this.brokerDoc = this.afs.doc(`brokers/${broker.id}`);
     this.brokerDoc.delete();
   }
 }

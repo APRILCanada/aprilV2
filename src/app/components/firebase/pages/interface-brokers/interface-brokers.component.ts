@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HrService } from '../../services/hr.service';
-import { Job } from '../../models/Job';
 import { LanguageService } from 'src/app/services/language.service';
-import { TranslateService } from '@ngx-translate/core';
-import {  Router } from '@angular/router';
-import { SearchFilterPipe } from 'src/app/pipes/search-filter.pipe';
 import { LoadingService } from 'src/app/services/loading.service';
 import { BrokerService } from '../../services/brokers.service';
 import { Broker } from '../../models/Broker';
@@ -37,13 +32,5 @@ export class InterfaceBrokersComponent implements OnInit {
     });
   }
 
-  onSearchChange(event: Event): void {
-    this.searchValue = (event.target as HTMLInputElement)?.value;
-    // this.hrService.getJobs().subscribe((jobs) => {
-    //   // this.jobs = this.searchFilter.transform(jobs, this.searchValue);
-    //   this.totalLength = this.jobs.length;
-    //   this.page = 1;
-    // });
-  }
 }
 
