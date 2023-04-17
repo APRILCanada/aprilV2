@@ -23,8 +23,6 @@ export class SendResumeComponent implements OnInit {
   public downloadURL: string[] = [];
   public fileName: string = '';
   public maxFileSize = 20971520;
-  // @Output() onCompletion: EventEmitter<void> = new EventEmitter();
-  // filePath;
   language$: Observable<string>;
   jobsEn: IMultiSelectOption[];
   jobsFr: IMultiSelectOption[];
@@ -34,7 +32,7 @@ export class SendResumeComponent implements OnInit {
 
   result: Observable<any>;
   result2: Observable<any>;
-  // fileName: string;
+
   contact: Contact;
   contactForm: FormGroup = new FormGroup({
     firstName: new FormControl(null),
@@ -76,14 +74,11 @@ export class SendResumeComponent implements OnInit {
       })
     });
   
-
     this.jobApplication._job.subscribe(job => {
       this.language.get() == 'fr' ? 
       this.contactForm.controls["position"].setValue(job.fr.title) : 
       this.contactForm.controls["position"].setValue(job.en.title);
     })
-
-
   }
 
   onSubmit() {
@@ -98,7 +93,7 @@ export class SendResumeComponent implements OnInit {
       lastName: this.contact.lastName,
       language: this.language.get(),
       phone: this.contact.phone,
-      position: this.contact.position[0],
+      position: this.contact.position,
       message: this.contact.message,
       file: this.fileName,
       filePath: this.downloadURL.toString(),
