@@ -83,7 +83,6 @@ export class SendResumeComponent implements OnInit {
 
   onSubmit() {
     this.contact = this.contactForm.value;
-    console.log(this.contact)
 
     const callable = this.fireFunctions.httpsCallable('sendResume');
     this.result = callable({

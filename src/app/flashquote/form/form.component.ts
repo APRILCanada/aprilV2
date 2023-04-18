@@ -124,6 +124,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
   getBroker() {
     this.store.pipe(select(selectBroker)).subscribe(broker => {
       this.broker = broker
+      console.log(broker)
     })
   }
 

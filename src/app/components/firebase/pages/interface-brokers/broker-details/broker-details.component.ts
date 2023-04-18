@@ -27,7 +27,7 @@ export class BrokerDetailsComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.brokerService.getBroker(this.id).subscribe((broker) => {
       this.broker = broker;
-      console.log(this.broker)
+      // console.log(this.broker)
       this.loader.loading(false);
     });
   }

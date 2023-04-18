@@ -1,0 +1,22 @@
+.close-btn{
+    position: absolute;
+    top: 0;
+    right: 5px;
+    font-weight: bold;
+}
+
+.add-btn{
+    width: 75px;
+    color: white;
+    background-color: #004161;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    border-radius: 8px;
+    border: 1px solid #004161;
+    transition: all 0.2s ease;
+
+    &:hover{
+        color: #004161;
+        background-color: #ffffff;
+    }
+}

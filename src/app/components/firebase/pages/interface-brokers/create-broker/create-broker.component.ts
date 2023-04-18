@@ -46,8 +46,22 @@ export class CreateBrokerComponent implements OnInit {
       email: [broker.email, [Validators.required]],
       phone: [broker.phone, [Validators.required]],
       logo: [broker.logo, [Validators.required]],
+      openingHours: this.fb.array(this.getOpeningHours(broker)),
       content: this.fb.group({
-        USP: this.fb.array([]),
+        USP: this.fb.array([
+          this.fb.group({
+          labelFr: [broker.content.USP[0].labelFr, [Validators.required]],
+          labelEn: [broker.content.USP[0].labelEn, [Validators.required]]
+          }),
+          this.fb.group({
+          labelFr: [broker.content.USP[1].labelFr, [Validators.required]],
+          labelEn: [broker.content.USP[1].labelEn, [Validators.required]]
+          }),
+          this.fb.group({
+          labelFr: [broker.content.USP[2].labelFr, [Validators.required]],
+          labelEn: [broker.content.USP[2].labelEn, [Validators.required]]
+          }),
+        ]),
         headline: this.fb.group({
           labelFr: [broker.content.headline.labelFr, [Validators.required]],
           labelEn: [broker.content.headline.labelEn, [Validators.required]]
@@ -58,18 +72,46 @@ export class CreateBrokerComponent implements OnInit {
   }
 
   get USP() {
-    // console.log(this.brokerForm)
     return (this.brokerForm.controls['content'] as FormGroup).controls['USP'] as FormArray;
   }
 
-  addUSP() {
+  // addUSP() {
+  //     const USPForm = this.fb.group({
+  //         labelFr: ['', [Validators.required]],
+  //         labelEn: ['', [Validators.required]]
+  //     })
+  //     this.USP?.push(USPForm)
+  // }
+  // deleteUSP(index: number) {
+  //     this.USP.removeAt(index)
+  //     this.broker.content.USP.splice(index, 1)
+  // }
+  get openingHours() {
+    return this.brokerForm.controls['openingHours'] as FormArray;
+  }
 
-      const USPForm = this.fb.group({
-          labelFr: ['', [Validators.required]],
-          labelEn: ['', [Validators.required]]
-      })
-      this.USP?.push(USPForm)
-      console.log(this.brokerForm)
+  getOpeningHours(broker: Broker) {
+    return [this.fb.group({
+      labelFr: [broker.openingHours[0].labelFr, [Validators.required]],
+      labelEn: [broker.openingHours[0].labelEn, [Validators.required]]
+      }),
+      this.fb.group({
+      labelFr: [broker.openingHours[1].labelFr, [Validators.required]],
+      labelEn: [broker.openingHours[1].labelEn, [Validators.required]]
+      }),]
+  }
+ 
+  addHours() {
+    const openingHoursForm = this.fb.group({
+              labelFr: ['', [Validators.required]],
+              labelEn: ['', [Validators.required]]
+          })
+          this.openingHours?.push(openingHoursForm)
+
+  }
+  removeHours(index: number) {
+      this.openingHours.removeAt(index)
+      this.broker.openingHours.splice(index, 1)
   }
 
 
@@ -77,84 +119,11 @@ export class CreateBrokerComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.brokerService.getBroker(this.id).subscribe((broker) => {
       this.broker = broker;
+      console.log(broker)
       this.brokerForm = this.createForm(broker)
-      console.log(broker, this.brokerForm)
+      console.log(this.brokerForm)
       this.loader.loading(false);
-    });
-
-    
-    // this.brokerForm = new FormGroup({
-    //   content: new FormGroup({
-    //     UPS: new FormGroup({
-    //       labelEn:  new FormControl(null),
-    //       labelFr:  new FormControl(null)
-    //     })
-    //   }),
-    //   
-    //   logo: new FormControl(null),
-    //   marketId: new FormControl(null),
-    //   name: new FormControl(null),
-    //   openingHours: new FormGroup({
-    //     en:  new FormControl(null),
-    //     fr:  new FormControl(null),
-
-    //   }),
-    //   styles: new FormGroup({
-    //     buttons: new FormGroup({
-    //       nav: new FormGroup({
-    //         ['background-color'] : new FormControl(null),
-    //         border : new FormControl(null),
-    //         ['border-radius'] : new FormControl(null),
-    //         color : new FormControl(null),
-    //       }),
-    //       outlined: new FormGroup({
-    //         ['background-color'] : new FormControl(null),
-    //         border : new FormControl(null),
-    //         color : new FormControl(null),
-    //       }),
-    //       phone: new FormGroup({
-    //         ['background-color'] : new FormControl(null),
-    //         color : new FormControl(null),
-    //       }),
-    //     }),
-    //     chips: new FormGroup({
-    //       ['background-color'] : new FormControl(null),
-    //       border : new FormControl(null),
-    //       color : new FormControl(null),
-    //     }),
-    //     hero: new FormGroup({
-    //       ['background-color'] : new FormControl(null),
-    //       color : new FormControl(null),
-    //       eligibilityLink: new FormGroup({
-    //         color: new FormControl(null)
-    //       }),
-    //       image: new FormControl(null),
-    //     }),
-    //     prime: new FormGroup({
-    //       ['background-color'] : new FormControl(null),
-    //       color : new FormControl(null),
-    //       header: new FormGroup({
-    //         color: new FormControl(null)
-    //       }),
-    //       highlightedText: new FormGroup({
-    //         color: new FormControl(null)
-    //       }),
-    //       text: new FormGroup({
-    //         color: new FormControl(null)
-    //       }),
-    //     }),
-    //     shared: new FormGroup({
-    //       sectionHeaders: new FormGroup({
-    //         color: new FormControl(null)
-    //       }),
-    //       stepper: new FormGroup({
-    //         ['background-color']: new FormControl(null),
-    //         border: new FormControl(null)
-    //       }),
-    //     }),
-    //   })
-    // });
-    
+    });    
   }
 
  
@@ -162,60 +131,42 @@ export class CreateBrokerComponent implements OnInit {
     this.modalService.open(content, { size: 'lg' });
   }
 
-  completeIntro() {
-    this.frCompleted = false;
-    this.enCompleted = false;
-    this.progress = 0;
-    this.sectionIntro = true;
-    this.sectionFr = false;
-    this.sectionEn = false;
-  }
+  // completeIntro() {
+  //   this.frCompleted = false;
+  //   this.enCompleted = false;
+  //   this.progress = 0;
+  //   this.sectionIntro = true;
+  //   this.sectionFr = false;
+  //   this.sectionEn = false;
+  // }
 
-  completeFr() {
-    this.frCompleted = true;
-    this.enCompleted = false;
-    this.progress = 50;
-    this.sectionIntro = false;
-    this.sectionFr = true;
-    this.sectionEn = false;
-  }
+  // previous() {
+  //   if (this.sectionFr == true) {
+  //     this.sectionFr = false;
+  //     this.sectionIntro = true;
+  //     this.frCompleted = false;
+  //     this.progress = 0;
+  //   } else if (this.sectionEn == true) {
+  //     this.sectionEn = false;
+  //     this.sectionFr = true;
+  //     this.enCompleted = false;
+  //     this.progress = 50;
+  //   }
+  // }
 
-  completeEn() {
-    this.enCompleted = true;
-    this.progress = 100;
-    this.sectionIntro = false;
-    this.sectionFr = false;
-    this.sectionEn = true;
-  }
-
-  previous() {
-    if (this.sectionFr == true) {
-      this.sectionFr = false;
-      this.sectionIntro = true;
-      this.frCompleted = false;
-      this.progress = 0;
-    } else if (this.sectionEn == true) {
-      this.sectionEn = false;
-      this.sectionFr = true;
-      this.enCompleted = false;
-      this.progress = 50;
-    }
-  }
-
-  next() {
-    //  popup if error
-    if (this.sectionIntro == true) {
-      this.sectionIntro = false;
-      this.sectionFr = true;
-      this.frCompleted = true;
-      this.progress = 50;
-    } else if (this.sectionFr == true) {
-      this.sectionFr = false;
-      this.sectionEn = true;
-      this.enCompleted = true;
-      this.progress = 100;
-    }
-  }
+  // next() {
+  //   if (this.sectionIntro == true) {
+  //     this.sectionIntro = false;
+  //     this.sectionFr = true;
+  //     this.frCompleted = true;
+  //     this.progress = 50;
+  //   } else if (this.sectionFr == true) {
+  //     this.sectionFr = false;
+  //     this.sectionEn = true;
+  //     this.enCompleted = true;
+  //     this.progress = 100;
+  //   }
+  // }
 
   onSubmit() {
     this.broker = this.brokerForm.value;

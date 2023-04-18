@@ -28,7 +28,7 @@ export class InterfaceBrokersComponent implements OnInit {
     this.brokers = brokers
       this.totalLength = this.brokers.length;
       this.loader.loading(false);
-      console.log(this.brokers)
+      // console.log(this.brokers)
     });
   }
 

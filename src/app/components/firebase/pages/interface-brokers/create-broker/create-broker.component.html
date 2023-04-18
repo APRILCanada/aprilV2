@@ -63,7 +63,23 @@
                                         <input class="form-control" type="text" formControlName="logo" [value]="broker.logo" > 
                                         <span *ngIf="!brokerForm.get('logo')?.valid && brokerForm.get('logo')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                             
                                     </div>
-                                 
+                                    <ng-container formArrayName="openingHours" *ngIf="openingHours">
+                                        <ng-container *ngFor="let hours of openingHours?.controls; let i = index">
+                                            <h6>{{i}}</h6>
+                                            <div [formGroup]="hours" class="position-relative">
+                                                <div class="form-group">
+                                                    <label>Label Fr:</label>
+                                                    <input class="form-control" type="text" formControlName="labelFr" [value]="broker?.openingHours[i].labelFr"> 
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Label En:</label>
+                                                    <input class="form-control" type="text" formControlName="labelEn" [value]="broker?.openingHours[i].labelEn"> 
+                                                </div>
+                                                <span (click)="removeHours(i)" class="text-danger pointer close-btn">&#x2715;</span>
+                                            </div>
+                                        </ng-container>
+                                    </ng-container>
+                                    <div (click)="addHours()" class="add-btn">Add</div>
                                     
                                 </div>
                             </div>
@@ -74,21 +90,22 @@
                             <h5 class="mt-4">USP:</h5>
                         
                                 <ng-container formArrayName="USP" >
-                                    <ng-container *ngFor="let usp of USP?.controls; let index">
-                                        <div [formGroup]="brokerForm.controls['content'].controls['USP']">
+                                    <ng-container *ngFor="let usp of USP.controls; let i = index">
+                                        <h6>{{i}}</h6>
+                                        <div [formGroup]="usp" class="position-relative">
                                             <div class="form-group">
                                                 <label>Label Fr:</label>
-                                                <input class="form-control" type="text" [formControl]="brokerForm.controls['content'].controls['USP'].controls[index].labelFr" [value]=""> 
+                                                <input class="form-control" type="text" formControlName="labelFr" [value]="broker.content.USP[i].labelFr"> 
                                             </div>
                                             <div class="form-group">
                                                 <label>Label En:</label>
-                                                <input class="form-control" type="text" formControlName="labelEn" [value]=""> 
+                                                <input class="form-control" type="text" formControlName="labelEn" [value]="broker.content.USP[i].labelEn"> 
                                             </div>
+                                            <!-- <span (click)="deleteUSP(i)" class="text-danger pointer close-btn">&#x2715;</span> -->
                                         </div>
                                     </ng-container>
                                 </ng-container>
-                               
-                                <div (click)="addUSP()">Add</div>
+                                <!-- <div (click)="addUSP()" class="add-btn">Add</div> -->
                          
                             <div formGroupName="headline" >
                                 <h5 class="mt-4">Headline:</h5>

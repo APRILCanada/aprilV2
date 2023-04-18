@@ -13,10 +13,7 @@ export class Broker {
   marketId?: string;
   name?: string;
   phone?: string;
-  openingHours: {
-    en: string[];
-    fr: string[];
-  };
+  openingHours: Label [];
   styles?: {
     buttons?: {
       nav?:{

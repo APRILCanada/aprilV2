@@ -73,8 +73,6 @@ export function exclusion<T>(mustBe: string, comparand: T, errorMessagePopup: st
                 return {}
             }
         }
-        
-        console.log(value, comparand, value == comparand, errorMessagePopup)
         return {
             'exclusion': {
                 comparand,
@@ -153,7 +151,6 @@ export function propertyProvinceExclusion(isVacant: any, isShortTermRental: any)
                     errors.push(province)
                 }
             } else if(isShortTermRental){
-                console.log(value['Address-Province'])
                 if(province !== "QC" && province !== "ON" && province !== "AB") {
                     errors.push(province)
                 }

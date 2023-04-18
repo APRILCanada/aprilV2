@@ -180,8 +180,8 @@
           <div *ngIf="broker.openingHours">
             {{ "OPENING_HOURS" | translate }}
             <ul class="contact__hours">
-              <li *ngFor="let hour of broker.openingHours[lang]">
-                {{ hour }}
+              <li *ngFor="let hour of broker.openingHours">
+                {{ this.language.get() === 'fr' ? hour.labelFr : hour.labelEn }}
               </li>
             </ul>
           </div>
