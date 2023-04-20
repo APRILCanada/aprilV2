@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LanguageService } from 'src/app/services/language.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { BrokerService } from '../../../services/brokers.service';
@@ -27,7 +27,6 @@ export class BrokerDetailsComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.brokerService.getBroker(this.id).subscribe((broker) => {
       this.broker = broker;
-      // console.log(this.broker)
       this.loader.loading(false);
     });
   }

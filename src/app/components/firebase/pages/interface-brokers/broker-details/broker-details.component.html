@@ -16,42 +16,42 @@
                 </div>
                 <div class="form-action my-4" >
                     <div  class="card">
-                        <h3 class="card-header text-center">{{  broker.name }} - {{ broker.marketId }}</h3>
+                        <h3 class="card-header text-center">{{  broker?.name }} - {{ broker?.marketId }}</h3>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    ID: {{broker.id}}
+                                    ID: {{broker?.id}}
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="float-end">{{ 'ONLINE' | translate }}: <span *ngIf="broker.isActive == 'isActive'"> {{ 'YES' | translate }}</span><span  *ngIf="broker.isActive == 'notActive'"> {{ 'NO' | translate }}</span>
+                                    <div class="float-end">{{ 'ONLINE' | translate }}: <span *ngIf="broker?.isActive == 'isActive'"> {{ 'YES' | translate }}</span><span  *ngIf="broker?.isActive == 'notActive'"> {{ 'NO' | translate }}</span>
                                     </div>
                                 </div>
                             </div>
                             <hr>
                             <h3>{{ 'BROKER_INFORMATION' | translate }}</h3>
                             <ul class="list-group mb-3">
-                                <li class="list-group-item" *ngIf="broker.aprilonId">
+                                <li class="list-group-item" *ngIf="broker?.aprilonId">
                                     <h5>April ON ID:</h5>
-                                    <p [innerHtml]="broker.aprilonId"></p>
+                                    <p [innerHtml]="broker?.aprilonId"></p>
                                 </li>
-                                <li class="list-group-item" *ngIf="broker.email">
+                                <li class="list-group-item" *ngIf="broker?.email">
                                     <h5>Email:</h5>
-                                    <p [innerHtml]="broker.email"></p>
+                                    <p [innerHtml]="broker?.email"></p>
                                 </li>
-                                <li class="list-group-item" *ngIf="broker.phone">
+                                <li class="list-group-item" *ngIf="broker?.phone">
                                     <h5>Phone:</h5>
-                                    <p [innerHtml]="broker.phone"></p>
+                                    <p [innerHtml]="broker?.phone"></p>
                                 </li>
                             </ul>
                             <h3>{{ 'CONTENT' | translate }}: </h3>
                             <ul class="list-group mb-3">
-                                <li class="list-group-item" *ngIf="broker.logo">
+                                <li class="list-group-item" *ngIf="broker?.logo">
                                     <h5>Logo:</h5>
-                                    <p [innerHtml]="broker.logo"></p>
+                                    <p [innerHtml]="broker?.logo"></p>
                                 </li>
-                                <li class="list-group-item" *ngIf="broker.openingHours">
+                                <li class="list-group-item" *ngIf="broker?.openingHours">
                                     <h5>{{ 'OPENING_HOURS' | translate }}</h5>
-                                    <p *ngFor="let openingHours of broker?.openingHours[this.language.get()]" [innerHtml]="openingHours"></p>
+                                    <p *ngFor="let openingHours of broker?.openingHours" [innerHtml]="language.get() === 'fr' ? openingHours.labelFr : openingHours.labelEn"></p>
                                 </li>
                                 <li class="list-group-item" *ngIf="broker?.content.USP">
                                     <h5>USP:</h5>
@@ -59,61 +59,68 @@
                                 </li>
                                 <li class="list-group-item" *ngIf="broker?.content.headline">
                                     <h5>Label:</h5>
-                                    <p [innerHtml]="this.language.get() == 'fr' ? broker.content.headline.labelFr : broker.content.headline.labelEn"></p>
+                                    <p [innerHtml]="this.language.get() == 'fr' ? broker?.content.headline.labelFr : broker?.content.headline.labelEn"></p>
+                                </li>   
+                                <li class="list-group-item" *ngIf="broker?.content.subTitle">
+                                    <h5>Label:</h5>
+                                    <p [innerHtml]="this.language.get() == 'fr' ? broker?.content.subTitle.labelFr : broker?.content.subTitle.labelEn"></p>
                                 </li>   
                             </ul>
                             <h3>Styles: </h3>
                             <ul class="list-group mb-3">
-                                <li class="list-group-item" *ngIf="broker?.styles.buttons.nav">
+                                <li class="list-group-item" *ngIf="broker?.styles?.buttons.nav">
                                     <h5>{{"NAV_BUTTONS" | translate}}</h5>
-                                    <p>Background color: {{broker.styles.buttons.nav['background-color']}}</p>
-                                    <p>Border: {{broker.styles.buttons.nav.border}}</p>
-                                    <p>Border radius: {{broker.styles.buttons.nav['border-radius']}}</p>
-                                    <p>Color: {{broker.styles.buttons.nav.color}}</p>
+                                    <p>Background color: {{broker?.styles?.buttons.nav['background-color']}}</p>
+                                    <p>Border: {{broker?.styles?.buttons.nav.border}}</p>
+                                    <p>Border radius: {{broker?.styles?.buttons.nav['border-radius']}}</p>
+                                    <p>Color: {{broker?.styles?.buttons.nav.color}}</p>
                                 </li>
-                                <li class="list-group-item" *ngIf="broker?.styles.buttons.outlined">
+                                <li class="list-group-item" *ngIf="broker?.styles?.buttons.outlined">
                                     <h5>{{"OUTLINED_BUTTONS" | translate}}</h5>
-                                    <p>Background color: {{broker.styles.buttons.outlined['background-color']}}</p>
-                                    <p>Border: {{broker.styles.buttons.outlined.border}}</p>
-                                    <p>Color: {{broker.styles.buttons.outlined.color}}</p>
+                                    <p>Background color: {{broker?.styles?.buttons.outlined['background-color']}}</p>
+                                    <p>Border: {{broker?.styles?.buttons.outlined.border}}</p>
+                                    <p>Color: {{broker?.styles?.buttons.outlined.color}}</p>
                                 </li>
-                                <li class="list-group-item" *ngIf="broker?.styles.chips">
+                                <li class="list-group-item" *ngIf="broker?.styles?.chips">
                                     <h5>Chips:</h5>
-                                    <p>Background color: {{broker.styles.chips['background-color']}}</p>
-                                    <p>Border: {{broker.styles.chips.border}}</p>
-                                    <p>Color: {{broker.styles.chips.color}}</p>
+                                    <p>Background color: {{broker?.styles?.chips['background-color']}}</p>
+                                    <p>Border: {{broker?.styles?.chips.border}}</p>
+                                    <p>Color: {{broker?.styles?.chips.color}}</p>
                                 </li>
-                                <li class="list-group-item" *ngIf="broker?.styles.hero">
+                                <li class="list-group-item" *ngIf="broker?.styles?.hero">
                                     <h5>Hero:</h5>
-                                    <p>Background color: {{broker.styles.hero['background-color']}}</p>
-                                    <p>Color: {{broker.styles.hero.color}}</p>
-                                    <p>Image: {{broker.styles.hero.image}}</p>
+                                    <p>Alignement: {{broker?.styles?.hero.alignment}}</p>
+                                    <p>Background color: {{broker?.styles?.hero['background-color']}}</p>
+                                    <p>Color: {{broker?.styles?.hero.color}}</p>
+                                    <p>Font-family: {{broker?.styles?.hero['font-family']}}</p>
+                                    <p>Image: {{broker?.styles?.hero.image}}</p>   
+                                    <p>Size: {{broker?.styles?.hero.size}}</p>
                                     <h6 calss="mt-3">Eligibility Link</h6>
-                                    <p class="mt-2">Color: {{broker.styles.hero.eligibilityLink.color}}</p>
+                                    <p class="mt-2">Color: {{broker?.styles?.hero.eligibilityLink.color}}</p>
+                                    <h6 calss="mt-3">{{'SUBTITLE' | translate}}</h6>
+                                    <p>Font-family: {{broker?.styles?.hero?.subTitle['font-family']}}</p>
+                                    <p>Size: {{broker?.styles?.hero.subTitle?.size}}</p>
                                 </li>
-                                <li class="list-group-item" *ngIf="broker?.styles.prime">
+                                <li class="list-group-item" *ngIf="broker?.styles?.prime">
                                     <h5>{{"PREMIUM" | translate}}:</h5>
-                                    <p>Background color: {{broker.styles.prime['background-color']}}</p>
-                                    <p>Color: {{broker.styles.prime.color}}</p>
+                                    <p>Background color: {{broker?.styles?.prime['background-color']}}</p>
+                                    <p>Color: {{broker?.styles?.prime.color}}</p>
                                     <h6 calss="mt-3">Header</h6>
-                                    <p class="mt-2">Color: {{broker.styles.prime.header.color}}</p>
+                                    <p class="mt-2">Color: {{broker?.styles?.prime.header.color}}</p>
                                     <h6 calss="mt-3">Highlighted Text</h6>
-                                    <p class="mt-2">Color: {{broker.styles.prime.highlightedText.color}}</p>
+                                    <p class="mt-2">Color: {{broker?.styles?.prime.highlightedText.color}}</p>
                                     <h6 calss="mt-3">Text</h6>
-                                    <p class="mt-2">Color: {{broker.styles.prime.text.color}}</p>
+                                    <p class="mt-2">Color: {{broker?.styles?.prime.text.color}}</p>
                                 </li>
-                                <li class="list-group-item" *ngIf="broker?.styles.shared">
+                                <li class="list-group-item" *ngIf="broker?.styles?.shared">
                                     <h5>Shared:</h5>
                                     <h6 calss="mt-4">Section Headers</h6>
-                                    <p class="mt-2">Color: {{broker.styles.shared.sectionHeaders.color}}</p>
+                                    <p class="mt-2">Color: {{broker?.styles?.shared.sectionHeaders.color}}</p>
                                     <h6 calss="mt-3">Stepper:</h6>
-                                    <p>Background color: {{broker.styles.shared.stepper['background-color']}}</p>
-                                    <p>Border: {{broker.styles.shared.stepper.border}}</p>
+                                    <p>Background color: {{broker?.styles?.shared.stepper['background-color']}}</p>
+                                    <p>Border: {{broker?.styles?.shared.stepper.border}}</p>
                                 </li>
-                            </ul>
-
-                          
-                                
+                            </ul>      
                         </div>
                     </div>
                 </div>

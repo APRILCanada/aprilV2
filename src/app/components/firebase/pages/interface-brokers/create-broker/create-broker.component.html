@@ -22,58 +22,59 @@
                             <div class="form-group"> 
                                 <label>{{ 'IS_ACTIVE' | translate}}:</label>
                                 <div class="btn-group-toggle" ngbRadioGroup formControlName="isActive" ngDefaultControl>
-                                    <label  ngbButtonLabel class="btn-primary px-4"  [ngClass]="broker.isActive == 'isActive' && !brokerForm.get('isActive')?.dirty ? 'active': '' ">
+                                    <label  ngbButtonLabel class="btn-primary px-4"  [ngClass]="broker?.isActive == 'isActive' && !brokerForm.get('isActive')?.dirty ? 'active': '' ">
                                         <input  ngbButton type="radio"  value="isActive">{{ 'YES' | translate}}
                                     </label>
-                                    <label ngbButtonLabel class="btn-primary px-4 ms-5" [ngClass]="broker.isActive == 'notActive' && !brokerForm.get('isActive')?.dirty ? 'active': '' ">
+                                    <label ngbButtonLabel class="btn-primary px-4 ms-5" [ngClass]="broker?.isActive == 'notActive' && !brokerForm.get('isActive')?.dirty ? 'active': '' ">
                                         <input ngbButton type="radio" value="notActive"> {{ 'NO' | translate}}
                                     </label>
                                     <div class="form-group">
                                         <label>Firebase ID:</label>
-                                        <input class="form-control" type="text" formControlName="id" [value]="broker.id" > 
+                                        <input class="form-control" type="text" formControlName="id" [value]="broker?.id" > 
                                         <span *ngIf="!brokerForm.get('id')?.valid && brokerForm.get('id')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                             
                                     </div>
                                     <div class="form-group">
                                         <label>{{'BROKER_NAME' | translate}}:</label>
-                                        <input class="form-control" type="text" formControlName="name" [value]="broker.name" > 
+                                        <input class="form-control" type="text" formControlName="name" [value]="broker?.name" > 
                                         <span *ngIf="!brokerForm.get('name')?.valid && brokerForm.get('name')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                             
                                     </div>
                                     <div class="form-group">
                                         <label>Market ID:</label>
-                                        <input class="form-control" type="text" formControlName="marketId" [value]="broker.marketId" > 
+                                        <input class="form-control" type="text" formControlName="marketId" [value]="broker?.marketId" > 
                                         <span *ngIf="!brokerForm.get('marketId')?.valid && brokerForm.get('marketId')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                             
                                     </div>
                                     <div class="form-group">
                                         <label>APRIL ON ID:</label>
-                                        <input class="form-control" type="text" formControlName="aprilonId" [value]="broker.aprilonId" > 
+                                        <input class="form-control" type="text" formControlName="aprilonId" [value]="broker?.aprilonId" > 
                                         <span *ngIf="!brokerForm.get('aprilonId')?.valid && brokerForm.get('aprilonId')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                             
                                     </div>
                                     <div class="form-group">
                                         <label>Email:</label>
-                                        <input class="form-control" type="text" formControlName="email" [value]="broker.email" > 
+                                        <input class="form-control" type="text" formControlName="email" [value]="broker?.email" > 
                                         <span *ngIf="!brokerForm.get('email')?.valid && brokerForm.get('email')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                             
                                     </div>
                                     <div class="form-group">
                                         <label>Phone:</label>
-                                        <input class="form-control" type="text" formControlName="phone" [value]="broker.phone" > 
+                                        <input class="form-control" type="text" formControlName="phone" [value]="broker?.phone" > 
                                         <span *ngIf="!brokerForm.get('phone')?.valid && brokerForm.get('phone')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                             
                                     </div>
                                     <div class="form-group">
                                         <label>Logo:</label>
-                                        <input class="form-control" type="text" formControlName="logo" [value]="broker.logo" > 
+                                        <input class="form-control" type="text" formControlName="logo" [value]="broker?.logo" > 
                                         <span *ngIf="!brokerForm.get('logo')?.valid && brokerForm.get('logo')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                             
                                     </div>
+                                    <h5>{{"OPENING_HOURS" | translate}}</h5>
                                     <ng-container formArrayName="openingHours" *ngIf="openingHours">
                                         <ng-container *ngFor="let hours of openingHours?.controls; let i = index">
                                             <h6>{{i}}</h6>
                                             <div [formGroup]="hours" class="position-relative">
                                                 <div class="form-group">
                                                     <label>Label Fr:</label>
-                                                    <input class="form-control" type="text" formControlName="labelFr" [value]="broker?.openingHours[i].labelFr"> 
+                                                    <input class="form-control" type="text" formControlName="labelFr" [value]="broker?.openingHours ? broker?.openingHours[i]?.labelFr : ''"> 
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Label En:</label>
-                                                    <input class="form-control" type="text" formControlName="labelEn" [value]="broker?.openingHours[i].labelEn"> 
+                                                    <input class="form-control" type="text" formControlName="labelEn" [value]="broker?.openingHours ?broker?.openingHours[i]?.labelEn : ''"> 
                                                 </div>
                                                 <span (click)="removeHours(i)" class="text-danger pointer close-btn">&#x2715;</span>
                                             </div>
@@ -95,11 +96,11 @@
                                         <div [formGroup]="usp" class="position-relative">
                                             <div class="form-group">
                                                 <label>Label Fr:</label>
-                                                <input class="form-control" type="text" formControlName="labelFr" [value]="broker.content.USP[i].labelFr"> 
+                                                <input class="form-control" type="text" formControlName="labelFr" [value]="broker?.content?.USP[i].labelFr"> 
                                             </div>
                                             <div class="form-group">
                                                 <label>Label En:</label>
-                                                <input class="form-control" type="text" formControlName="labelEn" [value]="broker.content.USP[i].labelEn"> 
+                                                <input class="form-control" type="text" formControlName="labelEn" [value]="broker?.content?.USP[i].labelEn"> 
                                             </div>
                                             <!-- <span (click)="deleteUSP(i)" class="text-danger pointer close-btn">&#x2715;</span> -->
                                         </div>
@@ -111,96 +112,207 @@
                                 <h5 class="mt-4">Headline:</h5>
                                 <div class="form-group">
                                     <label>Label Fr:</label>
-                                    <input class="form-control" type="text" formControlName="labelFr" [value]="broker.content.headline.labelFr"> 
+                                    <input class="form-control" type="text" formControlName="labelFr" [value]="broker?.content?.headline.labelFr"> 
                                 </div>
                                 <div class="form-group">
                                     <label>Label En:</label>
-                                    <input class="form-control" type="text" formControlName="labelEn" [value]="broker.content.headline.labelEn"> 
+                                    <input class="form-control" type="text" formControlName="labelEn" [value]="broker?.content?.headline.labelEn"> 
+                                </div>
+                            </div>
+                            <div formGroupName="subTitle" >
+                                <h5 class="mt-4">{{'SUBTITLE' | translate}}</h5>
+                                <div class="form-group">
+                                    <label>Label Fr:</label>
+                                    <input class="form-control" type="text" formControlName="labelFr" [value]="broker?.content?.subTitle?.labelFr"> 
+                                </div>
+                                <div class="form-group">
+                                    <label>Label En:</label>
+                                    <input class="form-control" type="text" formControlName="labelEn" [value]="broker?.content?.subTitle?.labelEn"> 
                                 </div>
                             </div>
                             
                        
                         </div>
 
-                        <!-- SECTION EN -->
-                        <!-- <div class="section-wrapper"   formGroupName="en">
-                            <h3>{{ 'ENGLISH' | translate}}</h3>
-                            <div class="form-group">
-                                <label>{{ 'JOB_TITLE' | translate}}:</label>
-                                <input class="form-control" type="text" formControlName="title" [value]="broker.en.title"> 
-                                <span *ngIf="!brokerForm.get('en.title')?.valid && brokerForm.get('en.title')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                            
-                            </div>
-                            <div class="form-group">
-                                <label>{{ 'PICTURE' | translate}} alt:</label>
-                                <input class="form-control" type="text" formControlName="pictureAlt" [value]="broker.en.pictureAlt" > 
-                            </div>
-                            <div class="form-group">
-                                <label>{{ 'CITY' | translate}}:</label>
-                                <input class="form-control" type="text" formControlName="city" [value]="broker.en.city"> 
-                                <span *ngIf="!brokerForm.get('en.city')?.valid && brokerForm.get('en.city')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>
-                            </div>
-                            <h5 class="mt-4">{{'APRIL_DESCRIPTION' | translate }}</h5>
-                            <div formGroupName="aprilDesc">
+                        <!-- SECTION Styles -->
+                        <div class="section-wrapper"   [formGroup]="brokerForm.controls.styles">
+                            <h3>Styles</h3>
+                             <!-- Buttons -->
+                            <h4>{{"BUTTONS" | translate}}</h4>
+                            <ng-container [formGroup]="brokerForm.controls.styles?.controls.buttons">
+                                <ng-container [formGroup]="brokerForm.controls.styles.controls.buttons.controls.nav">
+                                    <h5>Nav:</h5>
+                                    <div class="form-group">
+                                        <label>Background-color:</label>
+                                        <input class="form-control" type="text" formControlName="background-color" [value]="broker?.styles?.buttons.nav[background-color]">                            
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Border:</label>
+                                        <input class="form-control" type="text" formControlName="border" [value]="broker?.styles?.buttons.nav.border">                            
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Border-radius:</label>
+                                        <input class="form-control" type="text" formControlName="border-radius" [value]="broker?.styles?.buttons.nav[border-radius]">                            
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Color:</label>
+                                        <input class="form-control" type="text" formControlName="color" [value]="broker?.styles?.buttons.nav.color">                            
+                                    </div>
+                                </ng-container>
+                                <ng-container [formGroup]="brokerForm.controls.styles?.controls.buttons.controls.outlined">
+                                    <h5>Outlined:</h5>
+                                    <div class="form-group">
+                                        <label>Background-color:</label>
+                                        <input class="form-control" type="text" formControlName="background-color" [value]="broker?.styles?.buttons.outlined[background-color]">                            
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Border:</label>
+                                        <input class="form-control" type="text" formControlName="border" [value]="broker?.styles?.buttons.outlined.border">                            
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Color:</label>
+                                        <input class="form-control" type="text" formControlName="color" [value]="broker?.styles?.buttons.outlined.color">                            
+                                    </div>
+                                </ng-container>
+                                <ng-container [formGroup]="brokerForm.controls.styles?.controls.buttons.controls.phone">
+                                    <h5>Phone:</h5>
+                                    <div class="form-group">
+                                        <label>Background-color:</label>
+                                        <input class="form-control" type="text" formControlName="background-color" [value]="broker?.styles?.buttons.phone[background-color]">                            
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Color:</label>
+                                        <input class="form-control" type="text" formControlName="color" [value]="broker?.styles?.buttons.phone.color">                            
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                             <!-- Chips -->
+                            <h4>Chips</h4>
+                            <ng-container [formGroup]="brokerForm.controls.styles?.controls.chips">
                                 <div class="form-group">
-                                    <label>{{ 'TITLE' | translate}}:</label>
-                                    <input class="form-control" type="text" formControlName="title" [value]="broker.en.aprilDesc.title"> 
+                                    <label>Background-color:</label>
+                                    <input class="form-control" type="text" formControlName="background-color" [value]="broker?.styles?.chips[background-color]">                            
+                                </div>
+                                <div class="form-group">
+                                    <label>Border:</label>
+                                    <input class="form-control" type="text" formControlName="border" [value]="broker?.styles?.chips.border">                            
+                                </div>
+                                <div class="form-group">
+                                    <label>Color:</label>
+                                    <input class="form-control" type="text" formControlName="color" [value]="broker?.styles?.chips.color">                            
+                                </div>
+                            </ng-container>
+                          
+                             <!-- Hero -->
+                            <h4>Hero</h4>
+                            <ng-container [formGroup]="brokerForm.controls.styles?.controls.hero">
+                                <div class="form-group">
+                                    <label>Alignement:</label>
+                                    <input class="form-control" type="text" formControlName="alignment" [value]="broker?.styles?.hero.alignment">                            
+                                </div>
+                                <div class="form-group">
+                                    <label>Background-color:</label>
+                                    <input class="form-control" type="text" formControlName="background-color" [value]="broker?.styles?.hero[background-color]">                            
+                                </div>
+                                <div class="form-group">
+                                    <label>Color:</label>
+                                    <input class="form-control" type="text" formControlName="color" [value]="broker?.styles?.hero.color">                            
+                                </div>
+                                <div class="form-group">
+                                    <label>Font-family:</label>
+                                    <input class="form-control" type="text" formControlName="font-family" [value]="broker?.styles?.hero[font-family]">                            
+                                </div>
+                                <div class="form-group">
+                                    <label>Image:</label>
+                                    <input class="form-control" type="text" formControlName="image" [value]="broker?.styles?.hero.image">                            
+                                </div>
+                                <div class="form-group">
+                                    <label>Size:</label>
+                                    <input class="form-control" type="text" formControlName="size" [value]="broker?.styles?.hero.size">                            
+                                </div>
+                                <ng-container [formGroup]="brokerForm.controls.styles?.controls.hero.controls.eligibilityLink"> 
+                                    <h5>Eligibility Link</h5>
+                                    <div class="form-group">
+                                        <label>Color:</label>
+                                        <input class="form-control" type="text" formControlName="color" [value]="broker?.styles?.hero.eligibilityLink.color">                            
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Font-family:</label>
+                                        <input class="form-control" type="text" formControlName="font-family" [value]="broker?.styles?.hero.eligibilityLink[font-family]">                            
+                                    </div>
+                                </ng-container>
+                                <ng-container [formGroup]="brokerForm.controls.styles?.controls.hero.controls.subTitle"> 
+                                    <h5>{{'SUBTITLE' | translate}}</h5>
                                     
-                                </div>
+                                    <div class="form-group">
+                                        <label>Font-family:</label>
+                                        <input class="form-control" type="text" formControlName="font-family" [value]="broker?.styles?.hero.subTitle[font-family]">                            
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Size:</label>
+                                        <input class="form-control" type="text" formControlName="size" [value]="broker?.styles?.hero.subTitle?.size">                            
+                                    </div>
+                                </ng-container>
+                            </ng-container>
 
-                                <div class="form-group">
-                                    <label>{{ 'DESCRIPTION' | translate}}: </label>
-                                    <textarea class="form-control" formControlName="desc"  rows="4" cols="50" [value]="broker.en.aprilDesc.desc"></textarea>
-                                </div>
-                            </div>
-                            <h5 class="mt-4">{{'JOB_SUMMARY' | translate }}</h5>
-                            <div formGroupName="brokerSummary">
-                                <div class="form-group">
-                                    <label>{{ 'TITLE' | translate}}:</label>
-                                    <input class="form-control" type="text" formControlName="title" [value]="broker.en.brokerSummary.title"> 
-                                </div>
+                             <!-- Prime -->
+                             <h4>Prime</h4>
+                             <ng-container [formGroup]="brokerForm.controls.styles?.controls.prime">
+                                
+                                 <div class="form-group">
+                                     <label>Background-color:</label>
+                                     <input class="form-control" type="text" formControlName="background-color" [value]="broker?.styles?.prime[background-color]">                            
+                                 </div>
+                                 <div class="form-group">
+                                     <label>Color:</label>
+                                     <input class="form-control" type="text" formControlName="color" [value]="broker?.styles?.prime.color">                            
+                                 </div>
+                                 <ng-container [formGroup]="brokerForm.controls.styles?.controls.prime.controls.header"> 
+                                     <h5>Header</h5>
+                                     <div class="form-group">
+                                         <label>Color:</label>
+                                         <input class="form-control" type="text" formControlName="color" [value]="broker?.styles?.prime.header.color">                            
+                                     </div>
+                                 </ng-container>
+                                 <ng-container [formGroup]="brokerForm.controls.styles?.controls.prime.controls.highlightedText"> 
+                                     <h5>Highlighted Text</h5>
+                                     <div class="form-group">
+                                         <label>Color:</label>
+                                         <input class="form-control" type="text" formControlName="color" [value]="broker?.styles?.prime.highlightedText.color">                            
+                                     </div>
+                                 </ng-container>
+                                 <ng-container [formGroup]="brokerForm.controls.styles?.controls.prime.controls.text"> 
+                                     <h5>Text</h5>
+                                     <div class="form-group">
+                                         <label>Color:</label>
+                                         <input class="form-control" type="text" formControlName="color" [value]="broker?.styles?.prime.text.color">                            
+                                     </div>
+                                 </ng-container>
+                             </ng-container>
 
-                                <div class="form-group">
-                                    <label>{{ 'DESCRIPTION' | translate}}: </label>
-                                    <textarea class="form-control" formControlName="desc"  rows="4" cols="50" [value]="broker.en.brokerSummary.desc"></textarea>
-                                </div>
-                            </div>
-                            <h5 class="mt-4">{{'REQUIREMENT' | translate }}</h5>
-                            <div formGroupName="requirement">
-                                <div class="form-group">
-                                    <label>{{ 'TITLE' | translate}}:</label>
-                                    <input class="form-control" type="text" formControlName="title" [value]="broker.en.requirement.title"> 
-                                </div>
-
-                                <div class="form-group">
-                                    <label>{{ 'DESCRIPTION' | translate}}: </label>
-                                    <textarea class="form-control" formControlName="desc"  rows="4" cols="50" [value]="broker.en.requirement.desc"></textarea>
-                                </div>
-                            </div>
-                            <h5 class="mt-4">{{'SKILLS' | translate }}</h5>
-                            <div formGroupName="skills">
-                                <div class="form-group">
-                                    <label>{{ 'TITLE' | translate}}:</label>
-                                    <input class="form-control" type="text" formControlName="title" [value]="broker.en.skills.title"> 
-                                </div>
-
-                                <div class="form-group">
-                                    <label>{{ 'DESCRIPTION' | translate}}: </label>
-                                    <textarea class="form-control" formControlName="desc"  rows="4" cols="50" [value]="broker.en.skills.desc"></textarea>
-                                </div>
-                            </div>
-                            <h5 class="mt-4">{{'APRIL_ADVANTAGES' | translate }}</h5>
-                            <div formGroupName="aprilAdvantages">
-                                <div class="form-group">
-                                    <label>{{ 'TITLE' | translate}}:</label>
-                                    <input class="form-control" type="text" formControlName="title" [value]="broker.en.aprilAdvantages.title"> 
-                                </div>
-
-                                <div class="form-group">
-                                    <label>{{ 'DESCRIPTION' | translate}}: </label>
-                                    <textarea class="form-control" formControlName="desc"  rows="4" cols="50" [value]="broker.en.aprilAdvantages.desc"></textarea>
-                                </div>
-                            </div>
-                        </div> -->
+                             <h4>shared</h4>
+                             <ng-container [formGroup]="brokerForm.controls.styles?.controls.shared">
+                                 <ng-container [formGroup]="brokerForm.controls.styles?.controls.shared.controls.sectionHeaders"> 
+                                     <h5>Section Headers</h5>
+                                     <div class="form-group">
+                                         <label>Color:</label>
+                                         <input class="form-control" type="text" formControlName="color" [value]="broker?.styles?.shared.sectionHeaders.color">                            
+                                     </div>
+                                 </ng-container>
+                                 <ng-container [formGroup]="brokerForm.controls.styles?.controls.shared.controls.stepper"> 
+                                     <h5>Stepper</h5>
+                                     <div class="form-group">
+                                         <label>Background-color:</label>
+                                         <input class="form-control" type="text" formControlName="background-color" [value]="broker?.styles?.shared.stepper['background-color']">                            
+                                     </div>
+                                     <div class="form-group">
+                                         <label>Border:</label>
+                                         <input class="form-control" type="text" formControlName="border" [value]="broker?.styles?.shared.stepper.border">                            
+                                     </div>
+                                 </ng-container>
+                             </ng-container>
+                            
+                        </div>
                         
                         <!-- Buttons -->
                         <div class="row align-items-center mt-5 mb-3">
