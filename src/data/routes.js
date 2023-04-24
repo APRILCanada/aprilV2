@@ -52,7 +52,6 @@ const products = [
     "technology-professionals-eo",
 ];
 
-
 const articles = [
     "8-conseils-pour-signer-un-bail-avec-des-etudiants",
     "april-construction-flashquote",
@@ -75,9 +74,8 @@ const articles = [
 
 const direct = [
    "gaudreau-assurances",
+   "cg-assurances",
    "nova-assurances",
-    "76",
-
 ];
 
 module.exports = { niches, products, articles, direct }
