@@ -13,6 +13,7 @@ export class Broker {
   link?: string = "";
   logo?: string = "";
   marketId?: string = "";
+  defaultLang: string = "";
   name?: string = "";
   phone?: string= "";
   openingHours: Label [];

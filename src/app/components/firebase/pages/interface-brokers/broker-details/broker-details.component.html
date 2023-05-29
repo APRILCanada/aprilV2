@@ -34,6 +34,10 @@
                                     <h5>April ON ID:</h5>
                                     <p [innerHtml]="broker?.aprilonId"></p>
                                 </li>
+                                <li class="list-group-item" *ngIf="broker?.defaultLang">
+                                    <h5>Default Lang:</h5>
+                                    <p [innerHtml]="broker?.defaultLang"></p>
+                                </li>
                                 <li class="list-group-item" *ngIf="broker?.email">
                                     <h5>Email:</h5>
                                     <p [innerHtml]="broker?.email"></p>

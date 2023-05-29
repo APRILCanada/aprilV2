@@ -50,6 +50,7 @@ export class CreateBrokerComponent implements OnInit {
       marketId: [broker.marketId, [Validators.required]],
       aprilonId: [broker.aprilonId, [Validators.required]],
       isActive: [broker.isActive, [Validators.required]],
+      defaultLang: [broker.defaultLang, [Validators.required]],
       email: [broker.email, [Validators.required]],
       phone: [broker.phone, [Validators.required]],
       link: [broker.link, [Validators.required]],
@@ -184,7 +185,8 @@ export class CreateBrokerComponent implements OnInit {
 
   onSubmit() {
     this.broker = this.brokerForm.value;
-    if(this.id) {
+    console.log(this.brokerForm.value['id'])
+    if(this.id == this.brokerForm.value['id']) {
       this.brokerService.updateBroker(this.broker);
       this.router.navigate(['/interface/brokers/details/' + this.id]);
     } else {

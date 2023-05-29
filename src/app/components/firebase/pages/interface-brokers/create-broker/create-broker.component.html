@@ -49,6 +49,11 @@
                                         <span *ngIf="!brokerForm.get('aprilonId')?.valid && brokerForm.get('aprilonId')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                             
                                     </div>
                                     <div class="form-group">
+                                        <label>Default Language:</label>
+                                        <input class="form-control" type="text" formControlName="defaultLang" [value]="broker?.defaultLang" > 
+                                        <span *ngIf="!brokerForm.get('defaultLang')?.valid && brokerForm.get('defaultLang')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                             
+                                    </div>
+                                    <div class="form-group">
                                         <label>Email:</label>
                                         <input class="form-control" type="text" formControlName="email" [value]="broker?.email" > 
                                         <span *ngIf="!brokerForm.get('email')?.valid && brokerForm.get('email')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                             

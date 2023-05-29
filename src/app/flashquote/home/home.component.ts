@@ -4,6 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable, map, tap } from 'rxjs';
 import { selectBroker, selectFormSubmitted, selectFormValid, selectUi } from '../selectors';
 import { State } from '../store';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit {
   logo: string;
   currentRoute: string;
 
-  constructor(private route: ActivatedRoute, private store: Store<State>,) { }
+  constructor(private route: ActivatedRoute, private store: Store<State>, private language: LanguageService) { }
 
   ngOnInit(): void {
     this.route.params.pipe(map(route => {
@@ -35,7 +36,13 @@ export class HomeComponent implements OnInit {
 
 
   getBroker() {
-    this.store.pipe(select(selectBroker)).subscribe(broker => {
+    this.store.pipe(
+      select(selectBroker), 
+      tap(broker => {
+        if(broker.defaultLang)this.language.set(broker.defaultLang)
+      })
+    )
+    .subscribe(broker => {
       this.broker = broker
       this.logo = encodeURIComponent(broker.logo)
     })

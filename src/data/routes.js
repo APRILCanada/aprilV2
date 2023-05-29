@@ -74,9 +74,11 @@ const articles = [
 
 const direct = [
    "gaudreau-assurances",
-   "gc-assurances",
-   "nova-assurances",
-   "gc-assurances-entrepreneur-construction"
+   "gc-assurances-habitation",
+   "gc-assurances-cyber",
+   "gc-assurances-automobile",
+   "gc-assurances-entrepreneur-construction",
+   "nova-assurances"
 ];
 
 module.exports = { niches, products, articles, direct }
