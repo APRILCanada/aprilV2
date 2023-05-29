@@ -12,6 +12,6 @@
     
 
     <span *ngIf="broker.name !== 'April'" class="navbar-toggler-icon lang-form justify-self-center align-self-center" [ngStyle]="{'color': color, 'border': '1px solid ' + color}">
-        <a (click)="this.language.switch()">{{"LANG" | translate}}</a>
+        <a data-analytics="SwitchLanguage" [attr.click-text]="language.get() == 'fr' ? 'en' : 'fr'" (click)="this.language.switch()">{{"LANG" | translate}}</a>
     </span>
 </div>
