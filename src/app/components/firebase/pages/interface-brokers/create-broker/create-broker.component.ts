@@ -52,6 +52,7 @@ export class CreateBrokerComponent implements OnInit {
       isActive: [broker.isActive, [Validators.required]],
       email: [broker.email, [Validators.required]],
       phone: [broker.phone, [Validators.required]],
+      link: [broker.link, [Validators.required]],
       logo: [broker.logo, [Validators.required]],
       openingHours: this.fb.array(this.getOpeningHours(broker)),
       content: this.fb.group({
@@ -185,7 +186,7 @@ export class CreateBrokerComponent implements OnInit {
     this.broker = this.brokerForm.value;
     if(this.id) {
       this.brokerService.updateBroker(this.broker);
-      this.router.navigate(['/interface/brokers' + this.broker.id]);
+      this.router.navigate(['/interface/brokers/details/' + this.id]);
     } else {
      this.brokerService.createBroker(this.broker.id, this.broker);
      this.router.navigate(['/interface/brokers']);

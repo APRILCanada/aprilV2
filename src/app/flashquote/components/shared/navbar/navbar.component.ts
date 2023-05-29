@@ -15,7 +15,6 @@ export class NavbarComponent implements OnInit {
   constructor(public language: LanguageService) { }
 
   ngOnInit(): void {
-    // console.log(this.logo)
     this.color = this.broker.styles.hero['background-color'] || '#004161';
    }
 }

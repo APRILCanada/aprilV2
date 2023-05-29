@@ -520,5 +520,6 @@
     "NAV_BUTTONS": "Nav buttons",
     "OUTLINED_BUTTONS": "Outlined buttons",
     "PREMIUM": "Premium",
-    "CREATE_BROKER_FORM": "Brokerage white label page creation form"
+    "CREATE_BROKER_FORM": "Brokerage white label page creation form",
+    "HELLO_WORLD": "I am a sentence"
 }

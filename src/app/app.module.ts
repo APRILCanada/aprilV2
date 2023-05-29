@@ -96,7 +96,7 @@ registerLocaleData(en);
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, '/assets/i18n/', '.json?cb=' + new Date().getTime());;
 }
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 

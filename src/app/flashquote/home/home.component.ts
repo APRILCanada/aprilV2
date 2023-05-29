@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { selectBroker, selectFormSubmitted, selectFormValid, selectUi } from '../selectors';
 import { State } from '../store';
 
@@ -18,10 +18,14 @@ export class HomeComponent implements OnInit {
   broker: any;
   load = false;
   logo: string;
+  currentRoute: string;
 
   constructor(private route: ActivatedRoute, private store: Store<State>,) { }
 
   ngOnInit(): void {
+    this.route.params.pipe(map(route => {
+      this.currentRoute = route['id']
+    })).subscribe()
     this.getUi()
     this.getFormSubmitted()
     this.getFormValid()

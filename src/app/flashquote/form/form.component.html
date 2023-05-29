@@ -233,19 +233,19 @@
     <div *ngIf="!activeSection.isPrime && !activeSection.isExcluded" class="section-buttons">
       <!-- PREVIOUS -->
       <button [ngStyle]="broker.styles.buttons.nav" type="button" *ngIf="!activeSection.isFirst" class="btn-april"
-        (click)="setActiveSection(-1)">
+        (click)="setActiveSection(-1)"  data-analytics="DirectFormPrevious" [attr.click-text]="activeSection.title.LabelFr">
         {{ "BACK" | translate }}
       </button>
 
       <!-- NEXT -->
       <button [ngStyle]="broker.styles.buttons.nav" type="button" *ngIf="!activeSection.isLast" class="btn-april next"
-        (click)="setActiveSection(1)">
+        (click)="setActiveSection(1)"  data-analytics="DirectFormNext"  [attr.click-text]="activeSection.title.LabelFr">
         {{ "NEXT" | translate }}
       </button>
 
       <!-- SUBMIT -->
       <button [ngStyle]="broker.styles.buttons.nav" *ngIf="activeSection.isLast" class="btn-april" type="submit"
-        data-analytics="DirectForm" [disabled]="!(formValid$ | async) && (formSubmitted$ | async)">
+        data-analytics="DirectFormSubmit" [disabled]="!(formValid$ | async) && (formSubmitted$ | async)">
         {{ "SUBMIT_QUOTE" | translate }}
       </button>
     </div>

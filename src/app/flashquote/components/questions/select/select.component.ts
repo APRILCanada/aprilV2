@@ -35,7 +35,7 @@ export class SelectComponent implements OnInit {
   ngOnInit(): void {
     this.groupPath = this.control.id.replace(/\.[^.]*$/, '') // get the group the control to remove belongs to (ex: generic.35.0)
 
-    if (this.control.value && this.options.length) {
+    if (this.control.value && this.options.length && this.control.value.length > 0) {
       for (let currentOption of this.control.value.split(',')) {
         for (let option of this.options) {
           option.responseKey === currentOption && this.selectedOptions.push(option)

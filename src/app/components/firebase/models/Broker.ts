@@ -10,6 +10,7 @@ export class Broker {
     subTitle: Label;
   };
   email?: string = "";
+  link?: string = "";
   logo?: string = "";
   marketId?: string = "";
   name?: string = "";

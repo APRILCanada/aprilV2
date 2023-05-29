@@ -521,5 +521,6 @@
     "NAV_BUTTONS": "Bouton de navigations",
     "OUTLINED_BUTTONS": "Boutons avec contour",
     "PREMIUM": "Prime",
-    "CREATE_BROKER_FORM": "Formulaire de création d'une page en marque blanche pour cabinet de courtage"
+    "CREATE_BROKER_FORM": "Formulaire de création d'une page en marque blanche pour cabinet de courtage",
+    "HELLO_WORLD": "I am a sentence! But in french"
 }

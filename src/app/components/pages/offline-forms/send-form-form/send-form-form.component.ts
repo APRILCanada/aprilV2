@@ -65,7 +65,7 @@ export class SendFormFormComponent implements OnInit {
 
   onSubmit() {
     this.form = this.formForm.value;
-    console.log(this.form);
+
     const callable = this.fireFunctions.httpsCallable('sendForm');
     this.result = callable({
       fullName: this.form.fullName,
@@ -126,7 +126,6 @@ export class SendFormFormComponent implements OnInit {
         .pipe(
           finalize(() => {
             fileRef.getDownloadURL().subscribe((downloadURL: string) => {
-              console.log(downloadURL);
               // this.angularFirestore
               //   .collection(String(process.env.FIRESTORE_COLLECTION_FILES)) // Make sure the environmental variable is a string.
               //   .add({ downloadURL: downloadURL });

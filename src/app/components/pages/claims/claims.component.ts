@@ -101,7 +101,7 @@ export class ClaimsComponent implements OnInit, AfterContentInit {
   onSubmit() {
     this.claim = this.claimForm.value;
     this.auto = this.autoForm.value;
-    console.log(this.claim);
+
     console.log(
       this.claim.date?.day +
         ' - ' +
@@ -183,7 +183,6 @@ export class ClaimsComponent implements OnInit, AfterContentInit {
         .pipe(
           finalize(() => {
             fileRef.getDownloadURL().subscribe((downloadURL: string) => {
-              console.log(downloadURL);
               // this.angularFirestore
               //   .collection(String(process.env.FIRESTORE_COLLECTION_FILES)) // Make sure the environmental variable is a string.
               //   .add({ downloadURL: downloadURL });

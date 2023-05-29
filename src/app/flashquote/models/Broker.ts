@@ -9,4 +9,5 @@ export class BrokerDTO {
     styles?: any;
     content?: any;
     email: string;
+    link?: string;
 }

@@ -56,7 +56,6 @@ export class FormComponent implements OnInit, AfterContentChecked {
   primeReady = false;
   quoteResult: any;
   lang: string;
-
   constructor(
     private store: Store<State>,
     private actionService: ActionService,
@@ -124,7 +123,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
   getBroker() {
     this.store.pipe(select(selectBroker)).subscribe(broker => {
       this.broker = broker
-      console.log(broker)
+
     })
   }
 
@@ -371,7 +370,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
         // if(data.marketId == '76' && environment.production) marketId = '74';
         this.flashquoteService.submitQuote(data, this.broker).subscribe({
           next: (quoteResult:any) => {
-            console.log('QUOTE RESULT', quoteResult)
+            // console.log('QUOTE RESULT', quoteResult)
             this.quoteResult = quoteResult
 
             // temp code: get the exclusions because contractor sends premium even if exclusions exist

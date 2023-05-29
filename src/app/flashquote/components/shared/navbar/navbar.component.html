@@ -1,6 +1,14 @@
 <div class="navbar">
-    <img class="logo align-self-start" *ngIf="broker"
-        src="{{'https://firebasestorage.googleapis.com/v0/b/april-canada-c5f17.appspot.com/o/' + logo + '?alt=media'}}" />
+    <ng-container *ngIf="broker?.link">
+        <a [href]="broker?.link" target="_blank" rel="noreferrer">
+            <img class="logo align-self-start" *ngIf="broker"
+            src="{{'https://firebasestorage.googleapis.com/v0/b/april-canada-c5f17.appspot.com/o/' + logo + '?alt=media'}}" />
+        </a>
+    </ng-container>
+    <ng-container *ngIf="!broker?.link">        
+        <img class="logo align-self-start" *ngIf="broker"
+            src="{{'https://firebasestorage.googleapis.com/v0/b/april-canada-c5f17.appspot.com/o/' + logo + '?alt=media'}}" />
+    </ng-container>
     
 
     <span *ngIf="broker.name !== 'April'" class="navbar-toggler-icon lang-form justify-self-center align-self-center" [ngStyle]="{'color': color, 'border': '1px solid ' + color}">
