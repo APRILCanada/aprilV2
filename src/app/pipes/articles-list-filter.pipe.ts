@@ -6,6 +6,8 @@ import { Article } from '../components/firebase/models/Article';
 })
 export class ArticlesListFilterPipe implements PipeTransform {
   transform(Articles: Article[], articleTag: string[]): Article[] {
+    
+    Articles = Articles.filter(x => x.isActive == 'isActive' && x.isFeatured != 'isFeatured')
     if (!Articles || !articleTag) {
       return Articles;
     }

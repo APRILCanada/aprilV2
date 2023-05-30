@@ -67,6 +67,7 @@ export class NewsComponent
   ) {}
 
   ngOnInit(): void {
+    this.loader.loading(true)
     // getIdfromUrl
     this.id = this.route.snapshot.params['id'] || '';
     this.articleService.getArticles().subscribe((articles) => {

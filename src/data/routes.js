@@ -73,12 +73,16 @@ const articles = [
     "les-proprietaires-de-cuves-sexposent-des-problemes-de-responsabilite-en-cas-de-fuite"]
 
 const direct = [
-   "gaudreau-assurances",
-   "gc-assurances-habitation",
-   "gc-assurances-cyber",
-   "gc-assurances-automobile",
-   "gc-assurances-entrepreneur-construction",
-   "nova-assurances"
+    "gaudreau-assurances",
+    "nova-assurances",
+    "gc-assurances-habitation",
+    "gc-assurances-home",
+    "gc-assurances-cyber-fr",
+    "gc-assurances-cyber-en",
+    "gc-assurances-auto",
+    "gc-assurances-car",
+    "gc-assurances-entrepreneur-construction",
+    "gc-assurances-contractor"
 ];
 
 module.exports = { niches, products, articles, direct }
