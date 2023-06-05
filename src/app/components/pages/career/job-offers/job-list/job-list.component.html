@@ -90,11 +90,12 @@
               : job.en.aprilDesc.title
           }}
         </h3>
+        <!-- If there is no job description in English, display the French one. There are 2 fields for job descriptions: aprilDesc and jobSummary -->
         <div
           [innerHtml]="
-            language.get() == 'fr'
-              ? job.fr.aprilDesc.desc
-              : job.en.aprilDesc.desc
+            ((language.get() == 'fr') || (language.get() == 'en' && job.en.aprilDesc.desc == null && job.en.jobSummary.desc == null))
+            ? (job.fr.aprilDesc.desc || job.fr.jobSummary.desc)
+            : (job.en.aprilDesc.desc || job.en.jobSummary.desc)
           "
         ></div>
       </div>
