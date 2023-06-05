@@ -23,16 +23,6 @@ export class TeamComponent implements OnInit {
 
   directors: Director[] = [
     {
-      fullName: 'Patricia Desjardins',
-      title: {
-        en: 'Chief Underwriting Officer (CUO)',
-        fr: 'Directeur de la souscription',
-      },
-      picture: 'patricia-desjardins.png',
-      email: 'patricia.desjardins@april.ca',
-      linkedIn: 'https://www.linkedin.com/in/patricia-desjardins-ab976924/',
-    },
-    {
       fullName: 'Marie-Eve Paquette',
       title: {
         en: 'APRIL Marine Canada Director',
