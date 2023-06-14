@@ -1,47 +1,24 @@
-<div *ngIf="!!broker.marketId; else showLoading">
 
+<app-loader [hidden]="!starting"></app-loader>
+<div *ngIf="!!broker.marketId && !starting; else showLoading">
   <div class="wrapper" [ngClass]="{'loading-wrapper': (formValid$ | async) && (formSubmitted$ | async)}">
-    <div *ngIf="broker.name === 'April'; else notApril">
-      <app-direct-nav></app-direct-nav>
-      <app-direct-hero [id]="broker.marketId"></app-direct-hero>
-      <app-flash-quote [id]="broker.marketId"></app-flash-quote>
-
-      <app-steps [id]="broker.marketId"></app-steps>
-      <app-extensions></app-extensions>
-      <app-direct-cta class="d-none d-sm-block"></app-direct-cta>
-      <app-exclusion></app-exclusion>
-      <app-new-footer></app-new-footer>
-    </div>
-
-    <ng-template #notApril>
       <div *ngIf="(ui$ | async).isFormLoaded; else showLoading">
         <app-navbar [broker]="broker" [logo]="logo"></app-navbar>
         <main>
           <app-hero [broker]="broker"></app-hero>
-          <!-- <app-flash-quote [id]="broker.marketId"></app-flash-quote> -->
           <app-form></app-form>
         </main>
       </div>
-    </ng-template>
-
   </div>
   <app-loader *ngIf="(formValid$ | async) && (formSubmitted$ | async)"></app-loader>
 </div>
-
-<!-- <ng-template #notApril>
-  <app-flash-quote [id]="broker.marketId"></app-flash-quote>
-</ng-template> -->
-
-
 <!-- LOADING TEMPLATE -->
 <ng-template #showLoading>
   <app-loader></app-loader>
 </ng-template>
 
 <ng-container *ngIf="currentRoute.includes('gc-assurances')">
-
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N9SRWDX"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
 </ng-container>
   

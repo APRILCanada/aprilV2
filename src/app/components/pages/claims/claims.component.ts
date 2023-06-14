@@ -154,7 +154,7 @@ export class ClaimsComponent implements OnInit, AfterContentInit {
 
   openModal(content: any) {
     this.modalService.dismissAll();
-    this.modalService.open(content, { size: 'md', centered: true });
+    this.modalService.open(content, { size: 'lg', centered: true });
   }
 
   public uploadFile(event: any): void {

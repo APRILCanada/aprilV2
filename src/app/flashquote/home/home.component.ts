@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, finalize, map, tap } from 'rxjs';
 import { selectBroker, selectFormSubmitted, selectFormValid, selectUi } from '../selectors';
 import { State } from '../store';
 import { LanguageService } from 'src/app/services/language.service';
@@ -20,13 +20,13 @@ export class HomeComponent implements OnInit {
   load = false;
   logo: string;
   currentRoute: string;
+  starting: boolean = true;
 
   constructor(private route: ActivatedRoute, private store: Store<State>, private language: LanguageService) { }
 
   ngOnInit(): void {
-    this.route.params.pipe(map(route => {
-      this.currentRoute = route['id']
-    })).subscribe()
+    setTimeout(()=>{this.starting = false},2000)
+    this.route.params.pipe(map(route => this.currentRoute = route['id'])).subscribe()
     this.getUi()
     this.getFormSubmitted()
     this.getFormValid()

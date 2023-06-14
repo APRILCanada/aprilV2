@@ -33,12 +33,10 @@ export class JobListComponent implements OnInit {
 
   cityEn: IMultiSelectOption[] = [
     { id: 'Brossard', name: 'Brossard' },
-    { id: 'Laval', name: 'Laval' },
     { id: 'Toronto', name: 'Toronto' },
   ];
   cityFr: IMultiSelectOption[] = [
     { id: 'Brossard', name: 'Brossard' },
-    { id: 'Laval', name: 'Laval' },
     { id: 'Toronto', name: 'Toronto' },
   ];
   cityTitleFr: IMultiSelectTexts = { defaultTitle: 'Ville' };
