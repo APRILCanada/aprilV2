@@ -26,6 +26,8 @@ import { LanguageService } from 'src/app/services/language.service';
 import { Section } from '../models/Section';
 import { ActiveSection } from '../models/ActiveSection'
 import { BrokerDTO } from '../models/Broker';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ContactMeDialogComponent } from '../components/shared/contact-me-dialog/contact-me-dialog.component'
 
 
 @Component({
@@ -62,7 +64,8 @@ export class FormComponent implements OnInit, AfterContentChecked {
     private flashquoteService: FlashquoteService,
     public language: LanguageService,
     private cdr: ChangeDetectorRef,
-    private actionsSubject: ActionsSubject
+    private actionsSubject: ActionsSubject,
+    private modalService: NgbModal,
   ) { }
 
   // keep input focused in for loop: https://github.com/ngrx/store/issues/176
@@ -123,7 +126,6 @@ export class FormComponent implements OnInit, AfterContentChecked {
   getBroker() {
     this.store.pipe(select(selectBroker)).subscribe(broker => {
       this.broker = broker
-
     })
   }
 
@@ -430,5 +432,9 @@ export class FormComponent implements OnInit, AfterContentChecked {
         })
       }
     });
+  }
+
+  openContactModal() {
+    this.modalService.open(ContactMeDialogComponent , { size: 'md', centered: true })
   }
 }

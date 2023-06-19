@@ -1,24 +1,48 @@
-
-<app-loader [hidden]="!starting"></app-loader>
-<div *ngIf="!!broker.marketId && !starting; else showLoading">
-  <div class="wrapper" [ngClass]="{'loading-wrapper': (formValid$ | async) && (formSubmitted$ | async)}">
-      <div *ngIf="(ui$ | async).isFormLoaded; else showLoading">
-        <app-navbar [broker]="broker" [logo]="logo"></app-navbar>
-        <main>
-          <app-hero [broker]="broker"></app-hero>
-          <app-form></app-form>
-        </main>
+<div class="wrapper">
+  <div class="wrapper-fullscreen" [ngClass]="!scullyBuffer && 'd-none'">
+    <div class="center-loading">
+      <div class="container">
+        <div class="row">
+          <div id="loader">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="loading"></div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
-  <app-loader *ngIf="(formValid$ | async) && (formSubmitted$ | async)"></app-loader>
-</div>
-<!-- LOADING TEMPLATE -->
-<ng-template #showLoading>
-  <app-loader></app-loader>
-</ng-template>
 
-<ng-container *ngIf="currentRoute.includes('gc-assurances')">
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N9SRWDX"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-</ng-container>
+
+  <div *ngIf="!!broker.marketId; else showLoading">
+    <div class="wrapper" [ngClass]="{'loading-wrapper': (formValid$ | async) && (formSubmitted$ | async)}">
+        <div *ngIf="(ui$ | async).isFormLoaded; else showLoading">
+          <app-navbar [broker]="broker" [logo]="logo"></app-navbar>
+          <main>
+            <app-hero [broker]="broker"></app-hero>
+            <app-form></app-form>
+          </main>
+        </div>
+    </div>
+    <app-loader *ngIf="(formValid$ | async) && (formSubmitted$ | async)"></app-loader>
+  </div>
+  <!-- LOADING TEMPLATE -->
+  <ng-template #showLoading>
+    <app-loader></app-loader>
+  </ng-template>
+  
+  <ng-container *ngIf="currentRoute.includes('gc-assurances')">
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N9SRWDX"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  </ng-container>
+</div>
+
+
+
   

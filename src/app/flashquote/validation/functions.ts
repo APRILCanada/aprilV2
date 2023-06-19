@@ -28,12 +28,11 @@ export function exclusion<T>(mustBe: string, comparand: T, errorMessagePopup: st
         //value = unbox(value) as T as TV;
         value = unbox(value) as any
 
-        if (mustBe === 'equal') {  
+        if (mustBe === 'equal') { 
             if (value !== comparand) return {};
         }
         if (mustBe === 'notEqual') {  
             if (value === comparand || (value as any) === '') return {};
-
         }
 
     
@@ -63,6 +62,7 @@ export function exclusion<T>(mustBe: string, comparand: T, errorMessagePopup: st
         }
 
         if (mustBe === 'greaterThan') {
+
             if (value > (comparand as any) || (value as any) === '') {
                 return {}
             }
@@ -73,6 +73,7 @@ export function exclusion<T>(mustBe: string, comparand: T, errorMessagePopup: st
                 return {}
             }
         }
+
         return {
             'exclusion': {
                 comparand,
@@ -220,6 +221,30 @@ export function contentValueExclusion(property: any, occupancy: any) {
             },
         } : {}
     }
+}
+
+export function cyberActivityValidation<T>(activity: any) {
+    return <TV extends T | Boxed<T> = T>(value: TV): ValidationErrors => {
+        value = unbox(value) as any
+        activity = parseInt(activity);
+
+        const exclusions = [3,4,5,10,12,18,19,21,22,23,28,31,32,35,40,44,45,47,48,49,50,52,53,59]
+        const errors: number[] = []
+
+            if (exclusions.includes(activity)) {
+                errors.push(activity)
+            } else {
+                errors.pop();
+            }
+
+        return errors.length ? {
+            'exclusion': {
+                actual: [...errors],
+                errorMessagePopup: 'CYBER_ACTIVITY_EXCLUSION_POPUP',
+                errorMessage: "CYBER_ACTIVITY_EXCLUSION"
+            },
+        } : {}
+    };
 }
 
 

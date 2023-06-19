@@ -14,6 +14,7 @@ export class BooleanComponent implements OnInit {
   @Input() control: FormControlState<any>;
   @Input() error: any
   selected: string = ''
+  showError: boolean = false;
 
 
   constructor(public language: LanguageService, private store: Store) { }
@@ -23,5 +24,6 @@ export class BooleanComponent implements OnInit {
   select(value: string) {
     this.selected = value;
     this.store.dispatch(new SetValueAction(this.control.id, this.selected));
+    this.showError = true;
   }
 }

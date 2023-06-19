@@ -9,5 +9,5 @@
         </app-chip>
     </mat-chip-list>
     <input type="hidden" [ngrxFormControlState]="control" />
-    <app-exclusion-popup [error]="error"></app-exclusion-popup>
+    <app-exclusion-popup [error]="showError && error"></app-exclusion-popup>
 </div>

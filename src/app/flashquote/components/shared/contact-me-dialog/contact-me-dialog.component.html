@@ -1,0 +1,36 @@
+<div class="routable-modal p-2 p-sm-3">
+    <div class="modal-header d-block w-100">
+      <div class="d-flex justify-content-center">
+        <h2 class="modal-title m-0 text-center">
+          {{ "THANK_YOU" | translate }}
+        </h2>
+      </div>
+  
+      <button type="button" class="close" (click)="close()">
+        <span aria-hidden="true"
+          ><img
+            class="icon"
+            src="../../../../../assets/img/icons/close.svg"
+            alt=""
+        /></span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="py-4">
+        <p>
+          {{ "WE_WILL_CONTACT_YOU" | translate }}
+        </p>  
+      </div>
+      <div class="d-flex justify-content-end">
+          <button
+            class="btn-april btn-april-white px-4"
+            data-analytics="SubmissionBrokerIndividual"
+            (click)="close()"
+            click-text="Je suis un particulier"
+          >
+            {{ "CLOSE" | translate }}
+          </button>
+      </div>
+    </div>
+  </div>
+  

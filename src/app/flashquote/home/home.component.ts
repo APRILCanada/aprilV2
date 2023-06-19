@@ -20,12 +20,12 @@ export class HomeComponent implements OnInit {
   load = false;
   logo: string;
   currentRoute: string;
-  starting: boolean = true;
+  scullyBuffer: boolean = true;
 
   constructor(private route: ActivatedRoute, private store: Store<State>, private language: LanguageService) { }
 
   ngOnInit(): void {
-    setTimeout(()=>{this.starting = false},2000)
+    setTimeout(()=>{this.scullyBuffer = false},1500)
     this.route.params.pipe(map(route => this.currentRoute = route['id'])).subscribe()
     this.getUi()
     this.getFormSubmitted()

@@ -140,8 +140,8 @@
           <div *ngIf="broker.openingHours">
             {{ "OPENING_HOURS" | translate }}
             <ul class="contact__hours">
-              <li *ngFor="let hour of broker.openingHours[lang]">
-                {{ hour }}
+              <li *ngFor="let hour of broker.openingHours">
+                {{ hour[lang] }}
               </li>
             </ul>
           </div>
@@ -174,8 +174,9 @@
         <!-- PRIME CONTACT -->
         <div class="contact">
           <p>{{ "CONTACT_SOON" | translate }}</p>
+          <button class="btn-april mb-4 mt-3" (click)="openContactModal()">{{'CONTACT_ME' | translate}}</button>
           <p>{{ "TALK_TO_AGENT" | translate }}</p>
-          <a class="contact__phone" [ngStyle]="broker.styles.buttons.phone" [href]="'tel:' + broker.phone">{{
+          <a class="contact__phone"  [ngStyle]="{ color: broker.styles.buttons.phone.color}" [href]="'tel:' + broker.phone">{{
             broker?.phone }}</a>
           <div *ngIf="broker.openingHours">
             {{ "OPENING_HOURS" | translate }}

@@ -73,6 +73,7 @@ export class SelectComponent implements OnInit {
     dialogRef.afterClosed().subscribe((data) => {
       this.selectedOptions = data || this.selectedOptions || [];
       this.setControlValue();
+      this.showError = true
     });
   }
 
@@ -114,6 +115,8 @@ export class SelectComponent implements OnInit {
       return acc
     }, []).join()));
     this.showError = true
+
+
   }
 
   // apply some styles if the option is selected

@@ -65,6 +65,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { EmailComponent } from './components/questions/email/email.component';
 import { SubSectionComponent } from './components/questions/sub-section/sub-section.component';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { ContactMeDialogComponent } from './components/shared/contact-me-dialog/contact-me-dialog.component';
 
 // Exports
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -111,6 +112,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     UspComponent,
     EmailComponent,
     SubSectionComponent,
+    ContactMeDialogComponent,
   ],
   imports: [
  NgbTooltipModule,

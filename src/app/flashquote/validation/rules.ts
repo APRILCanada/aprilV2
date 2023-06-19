@@ -13,6 +13,7 @@ import {
   propertyProvinceExclusion,
   propertyValueExclusion,
   contentValueExclusion,
+  cyberActivityValidation,
 } from './functions';
 
 export const validation: any = {
@@ -209,26 +210,55 @@ export const validation: any = {
   50: {
     62: updateArray(
       updateGroup<SectionControl>({
+        849: validate(required),
         851: validate(required),
+        852: validate(required),
+        857: (control: FormControlState<any>, formState: any) => {
+          let activity =
+            formState.value[857];
+          return validate(
+            control,
+            required,
+            cyberActivityValidation(activity)
+          );
+        },
+        859: validate<any>(
+          required,
+          exclusion(
+            'lesserThan',
+            5000000,
+            'ANNUAL_REVENUE_GREATER_5M_EXCLUSION_POPUP',
+            'ANNUAL_REVENUE_GREATER_5M_EXCLUSION'
+          ),
+        ),
         3519: validate(required),
         3520: validate(required),
         897: validate(required),
-        859: validate(required),
+        861: validate(required),
       })
     ),
     63: updateArray(
       updateGroup<SectionControl>({
-        // 862: validate(required),
-        // 884: validate(required),
-        // 863: validate(required),
-        // 865: validate(required),
-        // 868: validate(required),
-        // 870: validate(required),
-        // 871: validate(required),
-        // 872: validate(required),
-        // 873: validate(required),
-        // 875: validate(required),
-        // 876: validate(required),
+        862: validate(required),
+        884: validate(required),
+        863: validate<any>(
+          required,
+          exclusion(
+            'equal',
+            'true',
+            'CYBER_LOSS_GREATER_THAN_5K_EXCLUSION_POPUP',
+            'CYBER_LOSS_GREATER_THAN_5K_EXCLUSION'
+          ),
+        ),
+        865: validate<any>(
+          required,
+          exclusion(
+            'equal',
+            'true',
+            'CYBER_MORE_THAN_3_INCIDENT_EXCLUSION_POPUP',
+            'CYBER_MORE_THAN_3_INCIDENT_EXCLUSION'
+          ),
+        ),
       })
     ),
   },

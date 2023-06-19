@@ -17,6 +17,7 @@
     </mat-chip>
   </mat-chip-list>
   <input type="hidden" [ngrxFormControlState]="control" />
+  <app-exclusion-popup [error]="showError && error"></app-exclusion-popup>
 </div>
 
 <!-- SELECT UNIQUE/MULTIPLE WITH LESS THAN 10 CHOICES-->
