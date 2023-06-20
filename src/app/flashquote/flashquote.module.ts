@@ -26,18 +26,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { ChipComponent } from './components/questions/chip/chip.component';
 import { RepartitionComponent } from './components/questions/repartition/repartition.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ErrorComponent } from './components/shared/error/error.component';
-import { PrimeComponent } from './components/shared/prime/prime.component';
+import { ErrorComponent } from './components/shared/error/error.component'
 import { LoaderComponent } from './shared/loader/loader.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { DirectHeroComponent } from './home/direct-hero/direct-hero.component';
-import { StepsComponent } from './home/steps/steps.component';
-import { ExtensionsComponent } from './home/extensions/extensions.component';
-import { DirectCtaComponent } from './home/direct-cta/direct-cta.component';
-import { ExclusionComponent } from './home/exclusion/exclusion.component';
-import { FlashQuoteComponent } from './home/flash-quote/flash-quote.component';
-import { CardsComponent } from './home/flash-quote/cards/cards.component';
 import { NavigationModule } from '../navigation/navigation.module';
 import { BooleanComponent } from './components/questions/boolean/boolean.component';
 import { DateComponent } from './components/questions/date/date.component';
@@ -85,15 +77,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ChipComponent,
     RepartitionComponent,
     ErrorComponent,
-    PrimeComponent,
     LoaderComponent,
-    DirectHeroComponent,
-    StepsComponent,
-    ExtensionsComponent,
-    DirectCtaComponent,
-    ExclusionComponent,
-    FlashQuoteComponent,
-    CardsComponent,
     BooleanComponent,
     DateComponent,
     AddressComponent,

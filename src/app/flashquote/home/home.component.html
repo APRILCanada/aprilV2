@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div class="wrapper-fullscreen" [ngClass]="!scullyBuffer && 'd-none'">
+  <div class="wrapper-fullscreen" id="loadingContainer">
     <div class="center-loading">
       <div class="container">
         <div class="row">
@@ -20,8 +20,8 @@
   </div>
 
 
-  <div *ngIf="!!broker.marketId; else showLoading">
-    <div class="wrapper" [ngClass]="{'loading-wrapper': (formValid$ | async) && (formSubmitted$ | async)}">
+<div *ngIf="!!broker.marketId; else showLoading">
+  <div class="wrapper" [ngClass]="{'loading-wrapper': (formValid$ | async) && (formSubmitted$ | async)}">
         <div *ngIf="(ui$ | async).isFormLoaded; else showLoading">
           <app-navbar [broker]="broker" [logo]="logo"></app-navbar>
           <main>
@@ -29,9 +29,9 @@
             <app-form></app-form>
           </main>
         </div>
-    </div>
-    <app-loader *ngIf="(formValid$ | async) && (formSubmitted$ | async)"></app-loader>
   </div>
+  <app-loader *ngIf="(formValid$ | async) && (formSubmitted$ | async)"></app-loader>
+</div>
   <!-- LOADING TEMPLATE -->
   <ng-template #showLoading>
     <app-loader></app-loader>

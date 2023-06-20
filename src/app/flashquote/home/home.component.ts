@@ -25,7 +25,12 @@ export class HomeComponent implements OnInit {
   constructor(private route: ActivatedRoute, private store: Store<State>, private language: LanguageService) { }
 
   ngOnInit(): void {
-    setTimeout(()=>{this.scullyBuffer = false},1500)
+    setTimeout(()=>{ 
+      let container = document.getElementById('loadingContainer')
+      if(container) {
+        container.classList.add('d-none');
+      };
+    },1500)
     this.route.params.pipe(map(route => this.currentRoute = route['id'])).subscribe()
     this.getUi()
     this.getFormSubmitted()
