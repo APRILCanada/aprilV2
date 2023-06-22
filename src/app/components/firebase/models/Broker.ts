@@ -12,6 +12,7 @@ export class Broker {
   email?: string = "";
   link?: string = "";
   logo?: string = "";
+  redirectURL: string = "";
   marketId?: string = "";
   defaultLang: string = "";
   name?: string = "";

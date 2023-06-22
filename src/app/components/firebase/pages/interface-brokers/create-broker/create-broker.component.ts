@@ -55,6 +55,7 @@ export class CreateBrokerComponent implements OnInit {
       phone: [broker.phone, [Validators.required]],
       link: [broker.link, [Validators.required]],
       logo: [broker.logo, [Validators.required]],
+      redirectURL: [broker.redirectURL, [Validators.required]],
       openingHours: this.fb.array(this.getOpeningHours(broker)),
       content: this.fb.group({
         USP: this.fb.array(this.getUSP(broker.content?.USP)),

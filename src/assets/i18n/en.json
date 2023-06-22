@@ -532,5 +532,7 @@
     "PREMIUM": "Premium",
     "CREATE_BROKER_FORM": "Brokerage white label page creation form",
     "WE_WILL_CONTACT_YOU": "Thank you for contacting us. Your request has been received. Our team will process your inquiry as soon as possible and will contact you shortly.",
-    "CONTACT_ME": "Contact me"
+    "CONTACT_ME": "Contact me",
+    "ERROR_OCCURED":"An error as occured!",
+    "TRY_AGAIN_LATER": "Please try again later."
 }

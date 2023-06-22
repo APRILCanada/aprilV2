@@ -57,6 +57,10 @@
                                     <h5>Logo:</h5>
                                     <p [innerHtml]="broker?.logo"></p>
                                 </li>
+                                <li class="list-group-item" *ngIf="broker?.logo">
+                                    <h5>Qualified leads redirect url:</h5>
+                                    <p [innerHtml]="broker?.redirectURL"></p>
+                                </li>
                                 <li class="list-group-item" *ngIf="broker?.openingHours">
                                     <h5>{{ 'OPENING_HOURS' | translate }}</h5>
                                     <p *ngFor="let openingHours of broker?.openingHours" [innerHtml]="language.get() === 'fr' ? openingHours.labelFr : openingHours.labelEn"></p>

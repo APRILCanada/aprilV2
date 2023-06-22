@@ -3,7 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store, select, ActionsSubject } from '@ngrx/store';
 import { Question } from '../models/Question';
 import { MarkAsSubmittedAction, ResetAction } from 'ngrx-forms';
-import { distinctUntilChanged, map, take, tap } from 'rxjs/operators';
+import { catchError, distinctUntilChanged, finalize, map, shareReplay, take, tap } from 'rxjs/operators';
 import { FormValue, State } from '../store';
 import { ActionService } from '../services/action.service';
 import { Answer } from '../models/Answer';
@@ -27,7 +27,7 @@ import { Section } from '../models/Section';
 import { ActiveSection } from '../models/ActiveSection'
 import { BrokerDTO } from '../models/Broker';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ContactMeDialogComponent } from '../components/shared/contact-me-dialog/contact-me-dialog.component'
+import { ErrorDialogComponent } from '../components/shared/error-dialog/error-dialog.component'
 
 
 @Component({
@@ -58,6 +58,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
   primeReady = false;
   quoteResult: any;
   lang: string;
+
   constructor(
     private store: Store<State>,
     private actionService: ActionService,
@@ -162,7 +163,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
   }
 
   getPrime() {
-    this.prime$ = this.store.pipe(select(selectPrime));
+    this.prime$ = this.store.pipe(select(selectPrime), shareReplay());
   }
 
   getExclusions() {
@@ -370,16 +371,17 @@ export class FormComponent implements OnInit, AfterContentChecked {
         window.scrollTo(0, 700);
         
         // if(data.marketId == '76' && environment.production) marketId = '74';
-        this.flashquoteService.submitQuote(data, this.broker).subscribe({
-          next: (quoteResult:any) => {
-            // console.log('QUOTE RESULT', quoteResult)
-            this.quoteResult = quoteResult
+        this.flashquoteService.submitQuote(data, this.broker).pipe(tap(dto => this.flashquoteService.setGUID(dto.quoteGUID))).subscribe({
+          next: (dto:any) => {
+            // console.log('QUOTE RESULT', dto)
+            this.quoteResult = dto.quoteResult
+            // this.guid = dto.quoteGUID;
 
             // temp code: get the exclusions because contractor sends premium even if exclusions exist
             //this.exclusions$.subscribe(exclusions => this.userExclusions = exclusions)
 
             //if (quoteResult && quoteResult.total.premium > 0 && !this.userExclusions.length) {
-            if (quoteResult && quoteResult.total.premium > 0 && quoteResult.total.title.LabelEn != 'EXCLUDED') {
+            if (dto.quoteResult && dto.quoteResult.total.premium > 0 && dto.quoteResult.total.title.LabelEn != 'EXCLUDED') {
               this.store.dispatch(setActiveSection({
                 activeSection: {
                   id: this.sections.length,
@@ -397,7 +399,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
 
               // set prime
               this.formState$.subscribe(formValue => {
-                this.store.dispatch(setPrime({ marketId: this.broker.marketId, formValue, prime: quoteResult.total.premium }))
+                this.store.dispatch(setPrime({ marketId: this.broker.marketId, formValue, prime: dto.quoteResult.total.premium }))
               })
 
             }
@@ -434,7 +436,12 @@ export class FormComponent implements OnInit, AfterContentChecked {
     });
   }
 
-  openContactModal() {
-    this.modalService.open(ContactMeDialogComponent , { size: 'md', centered: true })
+  qualifyLead(broker: BrokerDTO) {
+    this.flashquoteService.submitQualifiedLead(broker).pipe(
+      finalize(() => window.open(broker.redirectURL, "_blank"))).subscribe({
+        error: () => {
+        this.modalService.open(ErrorDialogComponent, { size: 'sm' })
+        }
+    });
   }
 }

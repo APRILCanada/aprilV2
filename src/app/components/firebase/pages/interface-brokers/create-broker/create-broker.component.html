@@ -73,6 +73,11 @@
                                         <input class="form-control" type="text" formControlName="logo" [value]="broker?.logo" > 
                                         <span *ngIf="!brokerForm.get('logo')?.valid && brokerForm.get('logo')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                             
                                     </div>
+                                    <div class="form-group">
+                                        <label>Qualified Leads redirection:</label>
+                                        <input class="form-control" type="text" formControlName="redirectURL" [value]="broker?.redirectURL" > 
+                                        <span *ngIf="!brokerForm.get('redirectURL')?.valid && brokerForm.get('redirectURL')?.touched" class="help-block text-danger">{{ 'REQUIRED_FIELD' | translate}}</span>                             
+                                    </div>
                                     <h5>{{"OPENING_HOURS" | translate}}</h5>
                                     <ng-container formArrayName="openingHours" *ngIf="openingHours">
                                         <ng-container *ngFor="let hours of openingHours?.controls; let i = index">

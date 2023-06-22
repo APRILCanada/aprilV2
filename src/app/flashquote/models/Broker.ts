@@ -5,6 +5,7 @@ export class BrokerDTO {
     aprilonId: string;
     phone: string;
     openingHours: any;
+    redirectURL: string;
     market: any;
     styles?: any;
     content?: any;

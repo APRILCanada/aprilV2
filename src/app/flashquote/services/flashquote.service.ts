@@ -14,7 +14,11 @@ export class FlashquoteService {
   sectionValidationKeys: any = []
   userExclusions: any = []
   result: Observable<any>;
+  guid: string;
 
+  setGUID(guid:string) {
+    this.guid = guid
+  }
 
   constructor(
     private http: HttpClient,   
@@ -29,13 +33,19 @@ export class FlashquoteService {
     });
   }
 
-
   submitQuote(quote: any, broker: BrokerDTO) {
     if(quote.MarketId == '76' && environment.production) {quote.MarketId = '74'}
 
-  
+
     return this.http.post<any>(`${environment.apiURL}/api/publicflash`, JSON.stringify(quote), {
       headers: { 'Content-Type': 'application/json', 'x-api-key': broker.aprilonId }
+    });
+  }
+
+  submitQualifiedLead(broker: BrokerDTO) {
+    let dto = { quoteGUID: this.guid };
+    return this.http.post<any>(`${environment.apiURL}/api/publicflash/qualified`, JSON.stringify(dto), {
+      headers: { 'Content-Type': 'application/json', 'x-api-key': broker.aprilonId },
     });
   }
 
@@ -76,6 +86,5 @@ export class FlashquoteService {
       return acc
     }, [])
   }
-
 
 }

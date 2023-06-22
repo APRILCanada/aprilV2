@@ -534,5 +534,7 @@
     "CREATE_BROKER_FORM": "Formulaire de création d'une page en marque blanche pour cabinet de courtage",
     "HELLO_WORLD": "I am a sentence! But in french",
     "WE_WILL_CONTACT_YOU": "Nous vous remercions de nous avoir contactés. Votre demande a bien été reçue. Notre équipe traitera votre demande dans les meilleurs délais et vous contactera sous peu.",
-    "CONTACT_ME": "Contactez-moi"
+    "CONTACT_ME": "Contactez-moi",
+    "ERROR_OCCURED":"Une erreur est survenue!",
+    "TRY_AGAIN_LATER": "Prière de réessayer plus tard."
 }
