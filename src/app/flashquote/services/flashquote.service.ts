@@ -15,6 +15,13 @@ export class FlashquoteService {
   userExclusions: any = []
   result: Observable<any>;
   guid: string;
+  customerEmail: string;
+  customerPhone: string;
+
+  setClientInfo(customerEmail: string, customerPhone: string) {
+    this.customerEmail = customerEmail;
+    this.customerPhone = customerPhone;
+  }
 
   setGUID(guid:string) {
     this.guid = guid
@@ -26,7 +33,7 @@ export class FlashquoteService {
     private fireFunctions: AngularFireFunctions) { }
 
   getFlashquote(marketId: string, apiKey: string): Observable<FlashFormDTO> {
-    return this.http.get<any>(`${environment.apiURL}/api/publicflash/` + marketId, {
+    return this.http.get<any>(`${environment.apiURL}/api/flash/` + marketId, {
       headers: {
         'x-api-key': apiKey
       }
@@ -37,14 +44,14 @@ export class FlashquoteService {
     if(quote.MarketId == '76' && environment.production) {quote.MarketId = '74'}
 
 
-    return this.http.post<any>(`${environment.apiURL}/api/publicflash`, JSON.stringify(quote), {
+    return this.http.post<any>(`${environment.apiURL}/api/flash`, JSON.stringify(quote), {
       headers: { 'Content-Type': 'application/json', 'x-api-key': broker.aprilonId }
     });
   }
 
   submitQualifiedLead(broker: BrokerDTO) {
-    let dto = { quoteGUID: this.guid };
-    return this.http.post<any>(`${environment.apiURL}/api/publicflash/qualified`, JSON.stringify(dto), {
+    let dto = { QuoteGUID: this.guid, CustomerEmail: this.customerEmail, CustomerPhone: this.customerPhone, Language: this.language.get()};
+    return this.http.post<any>(`${environment.apiURL}/api/flash/qualified`, JSON.stringify(dto), {
       headers: { 'Content-Type': 'application/json', 'x-api-key': broker.aprilonId },
     });
   }

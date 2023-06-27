@@ -369,7 +369,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
       this.store.dispatch(formLoaded({ isFormLoaded: false }))
       if (data) {
         window.scrollTo(0, 700);
-        
+        console.log(data);
         // if(data.marketId == '76' && environment.production) marketId = '74';
         this.flashquoteService.submitQuote(data, this.broker).pipe(tap(dto => this.flashquoteService.setGUID(dto.quoteGUID))).subscribe({
           next: (dto:any) => {
