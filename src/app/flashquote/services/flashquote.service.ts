@@ -33,7 +33,7 @@ export class FlashquoteService {
     private fireFunctions: AngularFireFunctions) { }
 
   getFlashquote(marketId: string, apiKey: string): Observable<FlashFormDTO> {
-    return this.http.get<any>(`${environment.apiURL}/api/flash/` + marketId, {
+    return this.http.get<any>(`${environment.apiURL}/api/flash/questions/` + marketId, {
       headers: {
         'x-api-key': apiKey
       }
