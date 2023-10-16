@@ -22,7 +22,7 @@ export const Values = [
   {
     fr: {
       title: 'L’attention aux autres',
-      desc: 'Nous cultivons un esprit de conquête depuis toujours. Afin de réussir sur nos marchés, nous partageons, quel que soit notre métier, une même démarche constante d’amélioration pour apporter les bonnes réponses à nos clients.',
+      desc: "Nous avons toujours eu un esprit de conquête. Pour réussir sur nos marchés, nous partageons, quel que soit notre métier, une démarche constante d'amélioration pour apporter les bonnes réponses à nos clients. Nous cultivons une approche bienveillante en étant présents quand il le faut, pour nous soutenir mutuellement et progresser ensemble. Nous savons écouter attentivement et comprendre le point de vue des personnes avec lesquelles nous travaillons, et nous mettre à leur place, qu'il s'agisse de collègues, de partenaires ou de clients.",
     },
     en: {
       title: 'An awareness of others',
