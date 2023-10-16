@@ -75,9 +75,9 @@ export class SendResumeComponent implements OnInit {
     });
   
     this.jobApplication._job.subscribe(job => {
-      this.language.get() == 'fr' ? 
-      this.contactForm.controls["position"].setValue(job.fr.title) : 
-      this.contactForm.controls["position"].setValue(job.en.title);
+      // this.language.get() == 'fr' ? 
+      // this.contactForm.controls["position"].setValue(job.fr.title) : 
+      // this.contactForm.controls["position"].setValue(job.en.title);
     })
   }
 

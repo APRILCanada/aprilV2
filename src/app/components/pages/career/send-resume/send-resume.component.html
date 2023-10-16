@@ -52,14 +52,13 @@
           mask="(000) 000-0000"
         />
       </div>
-      <div class="col-12 pb-3">
-        <ngx-bootstrap-multiselect
-            class="form-control p-0 no-border"
-            [options]="language.get() == 'fr' ? jobsFr : jobsEn"
-            [texts]="language.get() == 'fr' ? textJobsFr : textJobsEn"
-            [settings]="settings"
-            formControlName="position"
-        ></ngx-bootstrap-multiselect>
+    <div class="col-12 pb-3">
+        <input
+          type="text"
+          class="form-control grey-input no-border"
+          formControlName="position"
+          [placeholder]="language.get() == 'fr' ? 'Poste' : 'Position'"
+        />
       </div>
       <div class="col-12 pb-3">
         <textarea
