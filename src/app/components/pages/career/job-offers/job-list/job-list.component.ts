@@ -17,6 +17,8 @@ import { HrService } from 'src/app/components/firebase/services/hr.service';
 import { CityFilterPipe } from 'src/app/pipes/city-filter.pipe';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { JobApplicationService } from 'src/app/services/job-application.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable, combineLatest, tap } from 'rxjs';
 
 declare var require: any;
 const FileSaver = require('file-saver');
@@ -28,6 +30,11 @@ const FileSaver = require('file-saver');
   providers: [CityFilterPipe],
 })
 export class JobListComponent implements OnInit {
+  jobsEn: any;
+  jobsFr: any;
+
+  joinJobs: any[];
+
   jobs: Job[];
   job: Job;
 
@@ -69,44 +76,50 @@ export class JobListComponent implements OnInit {
     public loader: LoadingService,
     private modalService: NgbModal,
     private jobApplication: JobApplicationService,
+    private httpClient: HttpClient,
   ) {}
 
   ngOnInit(): void {
-    this.hrService.getJobs().subscribe((jobs) => {
-      this.jobs = jobs.filter((job) => job.isActive == 'isActive');
-      // console.log(this.jobs);
+    this.httpClient.get('https://april.talentnest.com/en/feed/latest/100').subscribe((jobsEn) => {
+      this.jobsEn = jobsEn;
+      this.jobsEn = this.jobsEn.jobs;
     });
-    this.totalLength = this.jobs.length;
 
-    this.cityCategory.controls['city'].valueChanges.subscribe((filter) => {
-      if (filter) {
-        // window.dataLayer = window.dataLayer || [];
-        // window.dataLayer.push({
-        //   event: 'pageLoad',
-        //   'page.language': this.language.get(),
-        //   'page.type': 'Formulaire hors ligne',
-        //   'niche.type': '',
-        //   'product.type': '',
-        //   'filter.type': filter,
-        // });
-        // console.log(window.dataLayer)
+    this.httpClient.get('https://april.talentnest.com/fr/feed/latest/100').subscribe((jobsFr) => {
+      this.jobsFr = jobsFr;
+      this.jobsFr = this.jobsFr.jobs;
+
+      this.joinJobs = [];
+      // Ne pas oublier le cas ou des jobs existent en anglais, mais pas en francais.
+      // Mettre un cas par défaut
+      for (let i = 0; i < this.jobsFr.length ; i++) {
+        this.joinJobs.push({
+          fr: this.jobsFr[i],
+          en: this.jobsEn[i]
+        })
       }
-
-      this.page = 1;
     });
+
+    
+
+
+
+    this.totalLength = this.joinJobs.length;
+
+    // this.cityCategory.controls['city'].valueChanges.subscribe((filter) => {
+
+
+    //   this.page = 1;
+    // });
   }
+
+  resetPagination() {
+    this.page = 1;
+  }
+
   openModal(content: any, data: any) {
     this.job = data;
     this.modalService.open(content, { size: 'xl', centered: true });
   }
 
-  apply() {
-    this.modalService.dismissAll();
-    this.jobApplication.setJob(this.job);
-    document.getElementById('resumeForm')?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-      inline: 'nearest',
-    });
-  }
 }

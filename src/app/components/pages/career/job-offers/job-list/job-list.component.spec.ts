@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JobListComponent } from './job-list.component';
+import { JobListComponent } from './JobListComponent';
 
 describe('JobListComponent', () => {
   let component: JobListComponent;

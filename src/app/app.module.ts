@@ -152,7 +152,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     JobListComponent,
     NichesLandingComponent,
     ClaimsComponent,
-    ClaimsHeroComponent
+    ClaimsHeroComponent,
   ],
   imports: [
     FlashquoteDemoModule,

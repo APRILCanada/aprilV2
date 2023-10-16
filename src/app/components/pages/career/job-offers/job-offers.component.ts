@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -74,10 +75,14 @@ export class JobOffersComponent implements OnInit {
     public language: LanguageService,
     private modalService: NgbModal,
     private hrService: HrService,
-    private cityFilter: CityFilterPipe
+    private cityFilter: CityFilterPipe,
+    private httpClient: HttpClient,
   ) {}
 
   ngOnInit(): void {
+    this.httpClient.get('https://april.talentnest.com/en/feed/latest')
+
+
     this.hrService.getJobs().subscribe((jobs) => {
       this.filteredJobs = jobs.filter((job) => job.isActive == 'isActive');
     });

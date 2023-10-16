@@ -4,6 +4,7 @@
       class="form-control p-0 pe-2 no-border"
       [options]="this.language.get() == 'fr' ? cityFr : cityEn"
       formControlName="city"
+      (ngModelChange)="resetPagination()"
       [texts]="this.language.get() == 'fr' ? cityTitleFr : cityTitleEn"
       [settings]="settings"
       [(ngModel)]="cityModel"
@@ -15,7 +16,7 @@
   <div
     class="col-md-6 mb-3"
     *ngFor="
-      let job of jobs
+      let job of joinJobs
         | cityFilter: cityModel
         | paginate
           : { itemsPerPage: 4, currentPage: page, totalItems: totalLength }
@@ -24,17 +25,15 @@
     <div
       class="mt-3 small-card p-2 pointer"
       (click)="openModal(jobModal, job)"
-      data-analytics="CareerJobs"
-      [attr.click-text]="job.fr.title"
     >
       <div class="row">
         <div class="col-4 p-3">
           <img
-            [src]="'.../../../../../assets/img/icons/' + job.picture"
+            src="../../../../../assets/img/icons/grey-briefcase.svg"
             [alt]="
               this.language.get() == 'fr'
-                ? job.fr.pictureAlt
-                : job.en.pictureAlt
+                ? job.fr.title
+                : job.en.title
             "
           />
         </div>
@@ -43,8 +42,14 @@
             {{ this.language.get() == "fr" ? job.fr.title : job.en.title }}
           </div>
           <div class="fst-italic pt-1">
-            {{ this.language.get() == "fr" ? job.fr.city : job.en.city }}
+            {{ this.language.get() == "fr" ? job.fr.business_unit.city : job.en.business_unit.city }}
           </div>
+          <!-- <div>
+            {{ this.language.get() == "fr" ? job.fr.title : job.en.title }}
+          </div>
+          <div class="fst-italic pt-1">
+            {{ this.language.get() == "fr" ? job.fr.city : job.en.city }}
+          </div> -->
         </div>
       </div>
     </div>
@@ -78,90 +83,20 @@
       {{ language.get() == "fr" ? job.fr.title : job.en.title }}
     </h2>
     <div class="text-center mb-3">
-      {{ language.get() == "fr" ? job.fr.city : job.en.city }}
+      {{ language.get() == "fr" ? job.fr.business_unit.city : job.en.business_unit.city }}
     </div>
     <div class="mx-3 mx-sm-5">
       <hr />
       <div class="mb-3 pt-4">
-        <h3>
-          {{
-            language.get() == "fr"
-              ? job.fr.aprilDesc.title
-              : job.en.aprilDesc.title
-          }}
-        </h3>
-        <!-- If there is no job description in English, display the French one. There are 2 fields for job descriptions: aprilDesc and jobSummary -->
+
         <div
-          [innerHtml]="
-            ((language.get() == 'fr') || (language.get() == 'en' && job.en.aprilDesc.desc == null && job.en.jobSummary.desc == null))
-            ? (job.fr.aprilDesc.desc || job.fr.jobSummary.desc)
-            : (job.en.aprilDesc.desc || job.en.jobSummary.desc)
-          "
+          [innerHtml]="language.get() == 'fr' ? job.fr.description.replaceAll('img ', 'span ') : job.en.description.replaceAll('img ', 'span ')"
         ></div>
       </div>
-      <div class="mb-3">
-        <h3>
-          {{
-            language.get() == "fr"
-              ? job.fr.jobSummary.title
-              : job.en.jobSummary.title
-          }}
-        </h3>
-        <div
-          [innerHtml]="
-            language.get() == 'fr'
-              ? job.fr.jobSummary.desc
-              : job.en.jobSummary.desc
-          "
-        ></div>
-      </div>
-      <div class="mb-3">
-        <h3>
-          {{
-            language.get() == "fr"
-              ? job.fr.requirement.title
-              : job.en.requirement.title
-          }}
-        </h3>
-        <div
-          [innerHtml]="
-            language.get() == 'fr'
-              ? job.fr.requirement.desc
-              : job.en.requirement.desc
-          "
-        ></div>
-      </div>
-      <div class="mb-3">
-        <h3>
-          {{
-            language.get() == "fr" ? job.fr.skills.title : job.en.skills.title
-          }}
-        </h3>
-        <div
-          [innerHtml]="
-            language.get() == 'fr' ? job.fr.skills.desc : job.en.skills.desc
-          "
-        ></div>
-      </div>
-      <div class="mb-3">
-        <h3>
-          {{
-            language.get() == "fr"
-              ? job.fr.aprilAdvantages.title
-              : job.en.aprilAdvantages.title
-          }}
-        </h3>
-        <div
-          [innerHtml]="
-            language.get() == 'fr'
-              ? job.fr.aprilAdvantages.desc
-              : job.en.aprilAdvantages.desc
-          "
-        ></div>
-      </div>
-      <div class="btn-april float-end" (click)="apply()">
+
+      <a class="btn-april float-end" [href]="language.get() == 'fr' ? job.fr.apply_url : job.en.apply_url" target="_blank">
         {{ "APPLY_NOW" | translate }}
-      </div>
+      </a>
     </div>
   </div>
 </ng-template>
