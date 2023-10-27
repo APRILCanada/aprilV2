@@ -18,7 +18,7 @@ import { CityFilterPipe } from 'src/app/pipes/city-filter.pipe';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { JobApplicationService } from 'src/app/services/job-application.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable, combineLatest, tap } from 'rxjs';
+import { Observable, combineLatest, forkJoin, map, tap } from 'rxjs';
 
 declare var require: any;
 const FileSaver = require('file-saver');
@@ -33,7 +33,7 @@ export class JobListComponent implements OnInit {
   jobsEn: any;
   jobsFr: any;
 
-  joinJobs: any[];
+  joinJobs: any[] = [];
 
   jobs: Job[];
   job: Job;
@@ -76,41 +76,26 @@ export class JobListComponent implements OnInit {
     public loader: LoadingService,
     private modalService: NgbModal,
     private jobApplication: JobApplicationService,
-    private httpClient: HttpClient,
+
   ) {}
 
   ngOnInit(): void {
-    this.httpClient.get('https://april.talentnest.com/en/feed/latest/100').subscribe((jobsEn) => {
-      this.jobsEn = jobsEn;
-      this.jobsEn = this.jobsEn.jobs;
-    });
+   let jobFr$ =  this.jobApplication.getJobsFr().pipe(map(jobs => jobs.jobs));
+   let jobEn$ =  this.jobApplication.getJobsEn().pipe(map(jobs => jobs.jobs));
 
-    this.httpClient.get('https://april.talentnest.com/fr/feed/latest/100').subscribe((jobsFr) => {
-      this.jobsFr = jobsFr;
-      this.jobsFr = this.jobsFr.jobs;
-
-      this.joinJobs = [];
-      // Ne pas oublier le cas ou des jobs existent en anglais, mais pas en francais.
-      // Mettre un cas par défaut
-      for (let i = 0; i < this.jobsFr.length ; i++) {
-        this.joinJobs.push({
-          fr: this.jobsFr[i],
-          en: this.jobsEn[i]
-        })
-      }
-    });
-
-    
-
-
-
-    this.totalLength = this.joinJobs.length;
-
-    // this.cityCategory.controls['city'].valueChanges.subscribe((filter) => {
-
-
-    //   this.page = 1;
-    // });
+   forkJoin<any[]>([jobFr$, jobEn$]).pipe(tap(x => console.log(x))).subscribe(
+    {next: (jobs: any[]) => {
+        this.joinJobs=[];
+        for (let i = 0; i < jobs[0].length ; i++) {
+              this.joinJobs.push({
+                fr: jobs[0][i],
+                en: jobs[1][i]
+              })
+            }
+        console.log(this.joinJobs)
+      }}
+      
+   )
   }
 
   resetPagination() {
