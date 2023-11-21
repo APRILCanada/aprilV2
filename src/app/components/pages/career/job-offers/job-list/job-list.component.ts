@@ -96,6 +96,7 @@ export class JobListComponent implements OnInit {
       }}
       
    )
+   
   }
 
   resetPagination() {

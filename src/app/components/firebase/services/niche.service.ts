@@ -342,11 +342,11 @@ export class NicheService {
                 titleEn: 'Janitoral Insurance',
                 id: 'janitoral-insurance',
               },
-              {
-                titleFr: 'Assurance responsabilité civile excédentaire',
-                titleEn: 'Umbrella & Excess Insurance',
-                id: 'assurance-responsabilite-civile-excedentaire',
-              },
+              // {
+              //   titleFr: 'Assurance responsabilité civile excédentaire',
+              //   titleEn: 'Umbrella & Excess Insurance',
+              //   id: 'assurance-responsabilite-civile-excedentaire',
+              // },
               {
                 titleFr: 'Assurance bijoutiers & beaux-arts',
                 titleEn: 'Jewellers’ Block & Fine Arts',

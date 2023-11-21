@@ -45,7 +45,8 @@ export class NichesLandingComponent implements OnInit {
     // getIdfromUrl
     this.id = this.route.snapshot.params['id'];
     this.productService.getProducts().subscribe((products) => {
-      this.products = products;
+      this.products = products.filter(p => p.isActive == 'isActive');
+      console.log(this.products)
       this.product = this.products.find((x) => x.id == this.id);
       this.filteredProducts = this.productsListFilter.transform(
         products,
