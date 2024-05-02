@@ -17,32 +17,7 @@
   </div>
   <!-- Directors grid -->
   <div class="row">
-    <div class="col-lg-4 my-md-5 col-md-6" (click)="openModal(contact, ceo)" [attr.click-text]="ceo.fullName"
-      data-analytics="AboutExpert">
-      <div class="
-          d-flex
-          flex-column
-          justify-content-center
-          align-items-center
-          text-center
-          pointer
-          mt-5 mt-xl-0
-          mb-5
-        ">
-        <img ixImg class="directors" path="a-propos/directors/{{ceo?.picture}}"
-        sizes="280px"
-         />
-
-        <div class="h3 pt-3">{{ ceo.fullName }}</div>
-        <div class="mx-4" [innerHtml]="language.get() == 'fr' ? ceo.title?.fr : ceo.title?.en"></div>
-      </div>
-    </div>
-    <div class="col-lg-8 col-md-6 d-flex align-items-center">
-      <div class="featured-block py-5 my-md-5 ms-lg-5">
-        {{ "SEO_DESC" | translate }}
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-6" *ngFor="let d of directors" (click)="openModal(contact, d)"
+    <div class="col-lg-3 col-md-6" *ngFor="let d of directors" (click)="openModal(contact, d)"
       data-analytics="AboutExpert" [attr.click-text]="d.fullName">
       <div class="
           d-flex
@@ -53,49 +28,11 @@
           pointer
           my-5
         ">
-        <img ixImg class="directors" path="a-propos/directors/{{d.picture}}" 
-        sizes="280px" />
-        <div class="h3 pt-3">{{ d.fullName }}</div>
-        <div class="mx-4" [innerHtml]="language.get() == 'fr' ? d.title?.fr : d.title?.en"></div>
-      </div>
-    </div>
-    <!-- BDM grid-->
-    <div class="row">
-      <div class="
-          col-12 col-md-0 col-lg-4
-          px-4
-          my-5
-          pb-5
-          d-block d-md-none d-lg-block
-        ">
-        <div class="featured-links-bubble">
-          <div class="d-flex flex-column justify-content-center align-items-center">
-            <h2 class="">{{ "YOUR_CONTACTS" | translate }}</h2>
-            <p class="text-white d-lg-none d-xl-block text-small">
-              {{ "YOUR_CONTACTS_DETAILS" | translate }}
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-8">
-        <div class="row">
-          <div class="col-md-6" *ngFor="let b of bdm" (click)="openModal(contact, b)" data-analytics="AboutExpert"
-            [attr.click-text]="b.fullName">
-            <div class="
-                d-flex
-                flex-column
-                justify-content-center
-                align-items-center
-                text-center
-                pointer
-                my-5
-              ">
-              <img ixImg class="directors" path="a-propos/directors/{{b.picture}}" sizes="280px" />
-              <div class="h3 pt-3">{{ b.fullName }}</div>
-              <div [innerHtml]="language.get() == 'fr' ? b.title?.fr : b.title?.en" class="mx-4"></div>
-            </div>
-          </div>
-        </div>
+        <img class="directors" [src]="'../../../../assets/img/a-propos/directors/' + d.picture" />
+   
+          <div class="h3 pt-4">{{ d.fullName }}</div>
+          <div class="mx-4" [innerHtml]="language.get() == 'fr' ? d.title?.fr : d.title?.en"></div>
+   
       </div>
     </div>
   </div>
@@ -112,7 +49,7 @@
     <div class="row">
       <div class="col-lg-6 d-flex justify-content-center">
 
-        <img ixImg class="directors" path="a-propos/directors/{{data.picture}}" sizes="280px" />
+        <img class="directors" [src]="'../../../../assets/img/a-propos/directors/' + data.picture" />
       </div>
       <div class="col-lg-6">
         <div class="

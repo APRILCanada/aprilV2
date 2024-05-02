@@ -40,9 +40,9 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
       if (position.top >= 0 && position.bottom <= window.innerHeight) {
         if (this.animated == false) {
           this.animateValue(this.year, 0, 1988, 1500);
-          this.animateValue(this.country, 0, 16, 1500);
-          this.animateValue(this.people, 0, 2300, 1500);
-          this.animateValue(this.building, 0, 3, 1500);
+          this.animateValue(this.country, 0, 18, 1500);
+          this.animateValue(this.people, 0, 2500, 1500);
+          this.animateValue(this.building, 0, 2, 1500);
           this.animated = true;
         }
       }

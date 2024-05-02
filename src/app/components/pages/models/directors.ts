@@ -6,4 +6,5 @@ export class Director {
     email?: string;
     linkedIn?: string;
     bio?:{en?: string, fr?: string }
+    color:string;
 }

@@ -10,112 +10,56 @@ import { Director } from '../../models/directors';
 })
 export class TeamComponent implements OnInit {
   data: Director;
-  ceo: Director = {
-    fullName: 'Daphné de Vitton',
-    title: {
-      en: 'CEO APRIL Canada Inc',
-      fr: 'Directrice Générale APRIL Canada Inc',
-    },
-    picture: 'daphne-devitton.png',
-    email: 'daphne.devitton@april.ca',
-    linkedIn: 'https://www.linkedin.com/in/daphn%C3%A9-de-vitton-363487/',
-  };
+
 
   directors: Director[] = [
     {
       fullName: 'Marie-Eve Paquette',
       title: {
-        en: 'APRIL Marine Canada Director',
-        fr: 'Directrice APRIL Marine Canada',
+        en: 'DCEO Operations and Customer Experience',
+        fr: 'DGD Opérations et Expérience client',
       },
-      picture: 'marie-eve-paquette.png',
+      picture: 'marie-eve.svg',
       email: 'marie.eve.paquette@april.ca',
       linkedIn: 'https://www.linkedin.com/in/marie-eve-paquette-baa-38aa0295/',
+      color: '#004161',
     },
 
     {
-      fullName: 'Samira Durand',
+      fullName: 'Florian Chabanette',
       title: {
-        en: 'Chief Marketing and Digital Officer ',
-        fr: 'Directrice Marketing et Digital',
+        en: 'DCEO Offer and Performance',
+        fr: 'DGD Offre et Performance',
       },
-      picture: 'samira-durand.png',
-      email: 'samira.durand@april.ca',
-      linkedIn: 'https://www.linkedin.com/in/samira-durand/',
+      picture: 'florian.svg',
+      email: 'florian.chabanette@april.ca',
+      linkedIn: 'https://www.linkedin.com/in/chabanette/',
+      color: '#f7aa36',
     },
     {
-      fullName: 'Sophie Bergeron',
+      fullName: 'Bianca Collin',
       title: {
-        en: 'Quebec Underwriting Director',
-        fr: 'Directrice de la souscription Québec',
+        en: 'HR Manager',
+        fr: 'Responsable RH',
       },
-      picture: 'sophie-bergeron.png',
-      email: 'sophie.bergeron@april.ca',
+      picture: 'bianca.svg',
+      email: 'bianca.collin@april.ca',
+      linkedIn: 'https://www.linkedin.com/in/bianca-collin-1179861b8/',
+      color: '#d7488f',
     },
     {
-      fullName: 'Russel Morisson',
+      fullName: 'Stéphane Cochet',
       title: {
-        en: 'Insurance Relation Advisor',
-        fr: 'Conseiller Relations Assureurs',
+        en: 'CTO Infrastructure and Transactional Flows',
+        fr: 'Directeur IT infra et flux transactionnels',
       },
-      picture: 'russel-morisson.png',
-      email: 'russel.morisson@april.ca',
-      linkedIn: 'https://www.linkedin.com/in/russel-morrison-08561389/',
-    },
-    {
-      fullName: 'John Azzarello',
-      title: {
-        en: 'Commercial Line Director',
-        fr: 'Directeur de lignes commerciales',
-      },
-      picture: 'john-azzarello.png',
-      email: 'john.azzarello@april.ca',
+      picture: 'stephane.svg',
+      email: 'stephane.cochet@april.ca',
+      linkedIn: 'https://www.linkedin.com/in/st%C3%A9phane-cochet-878101141/',
+      color: '#639e30',
     },
   ];
-
-  bdm: Director[] = [
-    {
-      fullName: 'Mathieu Pelletier',
-      title: {
-        en: 'Business development manager, Quebec',
-        fr: 'Responsable du développement des affaires, Québec',
-      },
-      picture: 'mathieu-pelletier.png',
-      email: 'mathieu.pelletier@april.ca',
-      linkedIn: 'https://www.linkedin.com/in/mathieu-pelletier-b7382a70/',
-    },
-    {
-      fullName: 'Tracey Paish',
-      title: {
-        en: 'Business development manager for Ontario and West',
-        fr: 'Responsable du développement des affaires, Ontario et Ouest',
-      },
-      picture: 'tracey-paish.png',
-      email: 'tracey.paish@april.ca',
-      linkedIn: 'https://www.linkedin.com/in/tracey-paish-421b0449/',
-    },
-    {
-      fullName: 'Camille Arian-Dupuis',
-      title: {
-        en: 'Business development manager for Ontario, APRIL Marine',
-        fr: "Responsable du développement des affaires pour l'Ontario, APRIL Marine",
-      },
-      picture: 'camille-arian-dupuis.png',
-      email: 'camille.arian@april.ca',
-      linkedIn: 'https://www.linkedin.com/in/camille-arian-dupuis-3b23a1a8/',
-    },
-    {
-      fullName: 'Stephan Bernard',
-      title: {
-        en: 'Business development manager for Quebec, APRIL Marine',
-        fr: 'Responsable du développement des affaires pour le Québec, APRIL Marine',
-      },
-      picture: 'stephan.png',
-      email: 'stephan.bernard@april.ca',
-      linkedIn:
-        'https://www.linkedin.com/in/stephan-bernard-78a436102?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BvZnGR4V9S1%2BAA166Lg%2FYeA%3D%3D',
-    },
-  ];
+;
 
   constructor(
     public language: LanguageService,

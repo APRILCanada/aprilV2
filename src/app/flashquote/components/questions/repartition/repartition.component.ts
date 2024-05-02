@@ -149,7 +149,7 @@ export class RepartitionComponent implements OnInit {
   /** Gets the total percentage of the repartition */
   getTotalPercentage() {
     let total = 0;
-    for (let i in this.control.value) total += this.control.value[i];
+    for (let i in this.control.value) total += parseInt(this.control.value[i]);
     return total;
   }
 }
