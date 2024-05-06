@@ -123,9 +123,11 @@ export function validateRepartition(values: any): ValidationErrors {
     //let unfilledValues = false
 
     for (let k in values) {
+        console.log(k, values[k], typeof values[k])
+        if(values[k] == '') values[k] = 0
         total += values[k]
     }
-
+    console.log('total', total, total === 100, typeof total)
     return (total === 100) || Object.entries(values).length === 0 ? {} : {
         valRep: {
             actual: total
