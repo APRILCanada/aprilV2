@@ -81,7 +81,7 @@
                                 <input class="form-control" type="text" formControlName="smallImgAlt" [value]="article.fr.smallImgAlt" > 
                             </div>
                             <div formGroupName="paragraphs">
-                                <div *ngFor="let p of paragraphsFormArrayFr; let i = index">
+                                <div *ngFor="let p of paragraphsFormArrayFr; let i = index" [formGroupName]="i">
                                     <h5>Section {{ p.get("order")?.value }}</h5>
                                     <div class="form-group">
                                         <label>{{ 'ORDER' | translate}}:</label>
@@ -120,7 +120,7 @@
                                 <input class="form-control" type="text" formControlName="smallImgAlt" [value]="article.en.smallImgAlt" > 
                             </div>
                             <div  formGroupName="paragraphs">
-                                <div *ngFor="let p of paragraphsFormArrayEn">
+                                <div *ngFor="let p of paragraphsFormArrayEn; let i = index" [formGroupName]="i">
                                     <h5>Section {{ p.get("order")?.value  }}</h5>
                                     <div class="form-group">
                                         <label>{{ 'ORDER' | translate}}:</label>
