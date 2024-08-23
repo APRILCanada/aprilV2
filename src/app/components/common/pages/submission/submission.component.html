@@ -1,4 +1,5 @@
-<div class="submission">
+<!-- Uncomment to bring back broker or client panel -->
+<!-- <div class="submission">
   <div class="modal-header mx-0 mx-sm-3 py-0 mt-4">
     <h2 class="m-0">{{ "BROKER_INDIVIDUAL" | translate }}</h2>
     <button type="button" class="close" aria-label="Close" (click)="close()">
@@ -31,6 +32,50 @@
       >
         {{ "I_AM_INDIVIDUAL" | translate }}
       </button>
+    </div>
+  </div>
+</div> -->
+
+<!-- Comment to bring back broker vs client panel -->
+<div class="submission">
+  <div class="modal-header mx-0 mx-sm-3 py-0 mt-4">
+    <h2 class="m-0">{{ "I_AM_BROKER" | translate }}</h2>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+      <span aria-hidden="true"
+        ><img
+          class="icon"
+          src="../../../../../assets/img/icons/close.svg"
+          alt=""
+      /></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="m-2 mx-0 mx-sm-3 px-3 mb-4">
+      {{ "BROKER_STEP_2_DETAILS" | translate }}
+    </p>
+    <div class="d-flex justify-content-between px-0 px-sm-4">
+      <a href="https://april-on.ca" rel="noreferrer noopener" target="_blank"
+        ><button
+          class="btn-april btn-april-full-green px-4 me-2"
+          data-analytics="SubmissionBroker"
+          click-text="Visitez APRIL ON"
+        >
+          {{ "VISIT_APRIL_ON" | translate }}
+        </button></a
+      >
+      <a
+        href="https://april-on.ca/partner"
+        target="_blank"
+        ref="noreferrer noopener"
+      >
+        <button
+          class="btn-april btn-april-white px-4 ms-2"
+          data-analytics="SubmissionBroker"
+          click-text="M'inscrire gratuitement"
+        >
+          {{ "REGISTER_FOR_FREE" | translate }}
+        </button>
+      </a>
     </div>
   </div>
 </div>
