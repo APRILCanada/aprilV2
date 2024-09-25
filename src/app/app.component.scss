@@ -1,3 +1,45 @@
 :root {
     --mainColor: #004161;
 }
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('/assets/fonts/Gotham/Gotham-Book.otf') format('opentype');
+    font-weight: 400; /* Regular */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('/assets/fonts/Gotham/Gotham-Medium.otf') format('opentype');
+    font-weight: 500; /* Medium */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('/assets/fonts/Gotham/Gotham-Bold.otf') format('opentype');
+    font-weight: 700; /* Bold */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('/assets/fonts/Gotham/Gotham-BoldItalic.otf') format('opentype');
+    font-weight: 700; /* Bold Italic */
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('/assets/fonts/Gotham/Gotham-Black.otf') format('opentype');
+    font-weight: 800; /* You can adjust this if needed */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('/assets/fonts/Gotham/Gotham-Ultra.otf') format('opentype');
+    font-weight: 900; /* Ultra */
+    font-style: normal;
+}
