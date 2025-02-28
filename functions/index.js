@@ -2,44 +2,38 @@ const functions = require("firebase-functions");
 const nodemailer = require("nodemailer");
 const admin = require("firebase-admin");
 
-
 admin.initializeApp();
 require("dotenv").config();
 const { SENDER_EMAIL, SENDER_PASSWORD } = process.env;
 
-const app = require('express')()
-const cors = require('cors')
-const { getBrokers, getBrokerById } = require('./handlers/brokers')
+const app = require("express")();
+const cors = require("cors");
+const { getBrokers, getBrokerById } = require("./handlers/brokers");
 
 // email
 exports.sendEmailBrokerRequest = functions.https.onCall((data) => {
-    if (data.province == 'QC' || data.province == 'ON') {
-        var mailList = [
-            `${data.email}`,
-            'assurances@elco.ca'
-        ]
-    } else {
-        var mailList = [
-            `${data.email}`,
-            'tracey.paish@april.ca'
-        ]
-    }
-    const authData = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: {
-            user: SENDER_EMAIL,
-            pass: SENDER_PASSWORD,
-        },
-    });
-    if (data.language == 'fr') {
-        authData.sendMail({
-            from: "no-reply@april.ca",
-            to: mailList,
-            subject: "Demande d'accès à un courtier",
-            text: ``,
-            html: `<!DOCTYPE html>
+  if (data.province == "QC" || data.province == "ON") {
+    var mailList = [`${data.email}`, "assurances@elco.ca"];
+  } else {
+    var mailList = [`${data.email}`, "commercial@april.ca"];
+  }
+  const authData = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: SENDER_EMAIL,
+      pass: SENDER_PASSWORD,
+    },
+  });
+  if (data.language == "fr") {
+    authData
+      .sendMail({
+        from: "no-reply@april.ca",
+        to: mailList,
+        subject: "Demande d'accès à un courtier",
+        text: ``,
+        html: `<!DOCTYPE html>
             <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -138,17 +132,17 @@ exports.sendEmailBrokerRequest = functions.https.onCall((data) => {
         </table>
     </body>
 </html>`,
-
-        }).then(res => console.log("Succesfully sent"))
-            .catch(err => console.log(err));
-    }
-    else {
-        authData.sendMail({
-            from: "no-reply@april.ca",
-            to: mailList,
-            subject: "Request to be contacted by a broker",
-            text: ``,
-            html: `<!DOCTYPE html>
+      })
+      .then((res) => console.log("Succesfully sent"))
+      .catch((err) => console.log(err));
+  } else {
+    authData
+      .sendMail({
+        from: "no-reply@april.ca",
+        to: mailList,
+        subject: "Request to be contacted by a broker",
+        text: ``,
+        html: `<!DOCTYPE html>
               <html lang="en">
                   <head>
                       <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -246,36 +240,33 @@ exports.sendEmailBrokerRequest = functions.https.onCall((data) => {
                       </table>
                   </body> 
               </html>`,
-
-        }).then(res => console.log("Succesfully sent"))
-            .catch(err => console.log(err));
-    }
+      })
+      .then((res) => console.log("Succesfully sent"))
+      .catch((err) => console.log(err));
+  }
 });
 
 exports.subscribeNewsletter = functions.https.onCall((data) => {
+  var mailList = [`${data.email}`, "melanie.hardy@april.ca"];
 
-    var mailList = [
-        `${data.email}`,
-        'melanie.hardy@april.ca'
-    ]
+  const authData = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: SENDER_EMAIL,
+      pass: SENDER_PASSWORD,
+    },
+  });
 
-    const authData = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: {
-            user: SENDER_EMAIL,
-            pass: SENDER_PASSWORD,
-        }
-    })
-
-    if (data.language == 'fr') {
-        authData.sendMail({
-            from: "no-reply@april.ca",
-            to: mailList,
-            subject: "Inscription à l'infolettre",
-            text: ``,
-            html: `<!DOCTYPE html>
+  if (data.language == "fr") {
+    authData
+      .sendMail({
+        from: "no-reply@april.ca",
+        to: mailList,
+        subject: "Inscription à l'infolettre",
+        text: ``,
+        html: `<!DOCTYPE html>
             <html lang="fr">
                 <head>
                     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -370,17 +361,17 @@ exports.subscribeNewsletter = functions.https.onCall((data) => {
                     </table>
                 </body>
             </html>`,
-
-        }).then(res => console.log("Succesfully sent"))
-            .catch(err => console.log(err));
-    }
-    else {
-        authData.sendMail({
-            from: "no-reply@april.ca",
-            to: mailList,
-            subject: "Newsletter subscription",
-            text: ``,
-            html: `<!DOCTYPE html>
+      })
+      .then((res) => console.log("Succesfully sent"))
+      .catch((err) => console.log(err));
+  } else {
+    authData
+      .sendMail({
+        from: "no-reply@april.ca",
+        to: mailList,
+        subject: "Newsletter subscription",
+        text: ``,
+        html: `<!DOCTYPE html>
               <html lang="en">
                   <head>
                       <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -475,37 +466,33 @@ exports.subscribeNewsletter = functions.https.onCall((data) => {
                       </table>
                   </body> 
               </html>`,
-
-        }).then(res => console.log("Succesfully sent"))
-            .catch(err => console.log(err));
-    }
-
+      })
+      .then((res) => console.log("Succesfully sent"))
+      .catch((err) => console.log(err));
+  }
 });
 
 exports.emailContactForm = functions.https.onCall((data) => {
+  var mailList = [`${data.email}`, "info@april.ca"];
 
-    var mailList = [
-        `${data.email}`,
-        'info@april.ca'
-    ]
+  const authData = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: SENDER_EMAIL,
+      pass: SENDER_PASSWORD,
+    },
+  });
 
-    const authData = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: {
-            user: SENDER_EMAIL,
-            pass: SENDER_PASSWORD,
-        },
-    });
-
-    if (data.language == 'fr') {
-        authData.sendMail({
-            from: "no-reply@april.ca",
-            to: mailList,
-            subject: "Nous avons reçus votre requête",
-            text: ``,
-            html: `<!DOCTYPE html>
+  if (data.language == "fr") {
+    authData
+      .sendMail({
+        from: "no-reply@april.ca",
+        to: mailList,
+        subject: "Nous avons reçus votre requête",
+        text: ``,
+        html: `<!DOCTYPE html>
                       <html lang="en">
                           <head>
                               <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -599,17 +586,17 @@ exports.emailContactForm = functions.https.onCall((data) => {
                               </table>
                           </body>
                       </html>`,
-
-        }).then(res => console.log("Succesfully sent"))
-            .catch(err => console.log(err));
-    }
-    else {
-        authData.sendMail({
-            from: "no-reply@april.ca",
-            to: mailList,
-            subject: "We have received your request",
-            text: ``,
-            html: `<!DOCTYPE html>
+      })
+      .then((res) => console.log("Succesfully sent"))
+      .catch((err) => console.log(err));
+  } else {
+    authData
+      .sendMail({
+        from: "no-reply@april.ca",
+        to: mailList,
+        subject: "We have received your request",
+        text: ``,
+        html: `<!DOCTYPE html>
               <html lang="en">
                   <head>
                       <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -703,65 +690,69 @@ exports.emailContactForm = functions.https.onCall((data) => {
                       </table>
                   </body> 
               </html>`,
-
-        }).then(res => console.log("Succesfully sent"))
-            .catch(err => console.log(err));
-    }
+      })
+      .then((res) => console.log("Succesfully sent"))
+      .catch((err) => console.log(err));
+  }
 });
 
 exports.emailClaimForm = functions.https.onCall((data) => {
-
-    if (data.province == 'QC') {
-        if (data.contractType == 'automobile' || data.contractType == 'trucking-and-towing') {
-            var mailList = [
-                `${data.email}`,
-                // 'michael.babin@april.ca',
-                'reclamation.transport@april.ca'
-            ]
-        } else {
-            var mailList = [
-                `${data.email}`,
-                // 'michael.babin@april.ca',
-                'reclamations@april.ca'
-            ]
-        }
+  if (data.province == "QC") {
+    if (
+      data.contractType == "automobile" ||
+      data.contractType == "trucking-and-towing"
+    ) {
+      var mailList = [
+        `${data.email}`,
+        // 'michael.babin@april.ca',
+        "reclamation.transport@april.ca",
+      ];
     } else {
-        var mailList = [
-            `${data.email}`,
-            // 'michael.babin@april.ca', 
-            'claims@april.ca'
-        ]
+      var mailList = [
+        `${data.email}`,
+        // 'michael.babin@april.ca',
+        "reclamations@april.ca",
+      ];
     }
+  } else {
+    var mailList = [
+      `${data.email}`,
+      // 'michael.babin@april.ca',
+      "claims@april.ca",
+    ];
+  }
 
-
-    const authData = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: {
-            user: SENDER_EMAIL,
-            pass: SENDER_PASSWORD,
-        },
-    });
-    if (data.language == 'fr') {
-        if (data.contractType == 'automobile') {
-            if (data.filePath != '') {
-                authData.sendMail({
-                    from: "no-reply@april.ca",
-                    to: mailList,
-                    subject: "Nous avons reçus votre demande de réclamation",
-                    text: ``,
-                    headers: {
-                        "x-priority": "1",
-                        "x-msmail-priority": "High",
-                        importance: "high"
-                    },
-                    priority: 'high',
-                    attachments: [{
-                        filename: data.file,
-                        path: data.filePath
-                    }],
-                    html: `<!DOCTYPE html>
+  const authData = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: SENDER_EMAIL,
+      pass: SENDER_PASSWORD,
+    },
+  });
+  if (data.language == "fr") {
+    if (data.contractType == "automobile") {
+      if (data.filePath != "") {
+        authData
+          .sendMail({
+            from: "no-reply@april.ca",
+            to: mailList,
+            subject: "Nous avons reçus votre demande de réclamation",
+            text: ``,
+            headers: {
+              "x-priority": "1",
+              "x-msmail-priority": "High",
+              importance: "high",
+            },
+            priority: "high",
+            attachments: [
+              {
+                filename: data.file,
+                path: data.filePath,
+              },
+            ],
+            html: `<!DOCTYPE html>
                                   <html lang="en">
                                       <head>
                                           <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -874,22 +865,23 @@ exports.emailClaimForm = functions.https.onCall((data) => {
                                           </table>
                                       </body>
                                   </html>`,
-
-                }).then(res => console.log("Succesfully sent"))
-                    .catch(err => console.log(err));
-            } else {
-                authData.sendMail({
-                    from: "no-reply@april.ca",
-                    to: mailList,
-                    subject: "Nous avons reçus votre demande de réclamation",
-                    text: ``,
-                    headers: {
-                        "x-priority": "1",
-                        "x-msmail-priority": "High",
-                        importance: "high"
-                    },
-                    priority: 'high',
-                    html: `<!DOCTYPE html>
+          })
+          .then((res) => console.log("Succesfully sent"))
+          .catch((err) => console.log(err));
+      } else {
+        authData
+          .sendMail({
+            from: "no-reply@april.ca",
+            to: mailList,
+            subject: "Nous avons reçus votre demande de réclamation",
+            text: ``,
+            headers: {
+              "x-priority": "1",
+              "x-msmail-priority": "High",
+              importance: "high",
+            },
+            priority: "high",
+            html: `<!DOCTYPE html>
                                   <html lang="en">
                                       <head>
                                           <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -1001,28 +993,30 @@ exports.emailClaimForm = functions.https.onCall((data) => {
                                           </table>
                                       </body>
                                   </html>`,
-
-                }).then(res => console.log("Succesfully sent"))
-                    .catch(err => console.log(err));
-            }
-
-        } else {
-            if (data.filePath != '') {
-                authData.sendMail({
-                    from: "no-reply@april.ca",
-                    to: mailList,
-                    subject: "Nous avons reçus votre demande de réclamation",
-                    headers: {
-                        "x-priority": "1",
-                        "x-msmail-priority": "High",
-                        importance: "high"
-                    },
-                    priority: 'high',
-                    attachments: [{
-                        filename: data.file,
-                        path: data.filePath
-                    }],
-                    html: `<!DOCTYPE html>
+          })
+          .then((res) => console.log("Succesfully sent"))
+          .catch((err) => console.log(err));
+      }
+    } else {
+      if (data.filePath != "") {
+        authData
+          .sendMail({
+            from: "no-reply@april.ca",
+            to: mailList,
+            subject: "Nous avons reçus votre demande de réclamation",
+            headers: {
+              "x-priority": "1",
+              "x-msmail-priority": "High",
+              importance: "high",
+            },
+            priority: "high",
+            attachments: [
+              {
+                filename: data.file,
+                path: data.filePath,
+              },
+            ],
+            html: `<!DOCTYPE html>
                                   <html lang="en">
                                       <head>
                                           <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -1122,22 +1116,22 @@ exports.emailClaimForm = functions.https.onCall((data) => {
                                           </table>
                                       </body>
                                   </html>`,
-
-                }).then(res => console.log("Succesfully sent"))
-                    .catch(err => console.log(err));
-
-            } else {
-                authData.sendMail({
-                    from: "no-reply@april.ca",
-                    to: mailList,
-                    subject: "Nous avons reçus votre demande de réclamation",
-                    headers: {
-                        "x-priority": "1",
-                        "x-msmail-priority": "High",
-                        importance: "high"
-                    },
-                    priority: 'high',
-                    html: `<!DOCTYPE html>
+          })
+          .then((res) => console.log("Succesfully sent"))
+          .catch((err) => console.log(err));
+      } else {
+        authData
+          .sendMail({
+            from: "no-reply@april.ca",
+            to: mailList,
+            subject: "Nous avons reçus votre demande de réclamation",
+            headers: {
+              "x-priority": "1",
+              "x-msmail-priority": "High",
+              importance: "high",
+            },
+            priority: "high",
+            html: `<!DOCTYPE html>
                                   <html lang="en">
                                       <head>
                                           <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -1237,31 +1231,32 @@ exports.emailClaimForm = functions.https.onCall((data) => {
                                           </table>
                                       </body>
                                   </html>`,
-
-                }).then(res => console.log("Succesfully sent"))
-                    .catch(err => console.log(err));
-            }
-
-        }
+          })
+          .then((res) => console.log("Succesfully sent"))
+          .catch((err) => console.log(err));
+      }
     }
-    else {
-        if (data.contractType == 'automobile') {
-            if (data.filePath != '') {
-                authData.sendMail({
-                    from: "no-reply@april.ca",
-                    to: mailList,
-                    subject: "We have received your claim request",
-                    headers: {
-                        "x-priority": "1",
-                        "x-msmail-priority": "High",
-                        importance: "high"
-                    },
-                    priority: 'high',
-                    attachments: [{
-                        filename: data.file,
-                        path: data.filePath
-                    }],
-                    html: `<!DOCTYPE html>
+  } else {
+    if (data.contractType == "automobile") {
+      if (data.filePath != "") {
+        authData
+          .sendMail({
+            from: "no-reply@april.ca",
+            to: mailList,
+            subject: "We have received your claim request",
+            headers: {
+              "x-priority": "1",
+              "x-msmail-priority": "High",
+              importance: "high",
+            },
+            priority: "high",
+            attachments: [
+              {
+                filename: data.file,
+                path: data.filePath,
+              },
+            ],
+            html: `<!DOCTYPE html>
                         <html lang="en">
                             <head>
                                 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -1374,21 +1369,22 @@ exports.emailClaimForm = functions.https.onCall((data) => {
                                 </table>
                             </body> 
                         </html>`,
-
-                }).then(res => console.log("Succesfully sent"))
-                    .catch(err => console.log(err));
-            } else {
-                authData.sendMail({
-                    from: "no-reply@april.ca",
-                    to: mailList,
-                    subject: "We have received your claim request",
-                    headers: {
-                        "x-priority": "1",
-                        "x-msmail-priority": "High",
-                        importance: "high"
-                    },
-                    priority: 'high',
-                    html: `<!DOCTYPE html>
+          })
+          .then((res) => console.log("Succesfully sent"))
+          .catch((err) => console.log(err));
+      } else {
+        authData
+          .sendMail({
+            from: "no-reply@april.ca",
+            to: mailList,
+            subject: "We have received your claim request",
+            headers: {
+              "x-priority": "1",
+              "x-msmail-priority": "High",
+              importance: "high",
+            },
+            priority: "high",
+            html: `<!DOCTYPE html>
                         <html lang="en">
                             <head>
                                 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -1501,28 +1497,30 @@ exports.emailClaimForm = functions.https.onCall((data) => {
                                 </table>
                             </body> 
                         </html>`,
-
-                }).then(res => console.log("Succesfully sent"))
-                    .catch(err => console.log(err));
-            }
-
-        } else {
-            if (data.filePath != '') {
-                authData.sendMail({
-                    from: "no-reply@april.ca",
-                    to: mailList,
-                    subject: "We have received your claim request",
-                    headers: {
-                        "x-priority": "1",
-                        "x-msmail-priority": "High",
-                        importance: "high"
-                    },
-                    priority: 'high',
-                    attachments: [{
-                        filename: data.file,
-                        path: data.filePath
-                    }],
-                    html: `<!DOCTYPE html>
+          })
+          .then((res) => console.log("Succesfully sent"))
+          .catch((err) => console.log(err));
+      }
+    } else {
+      if (data.filePath != "") {
+        authData
+          .sendMail({
+            from: "no-reply@april.ca",
+            to: mailList,
+            subject: "We have received your claim request",
+            headers: {
+              "x-priority": "1",
+              "x-msmail-priority": "High",
+              importance: "high",
+            },
+            priority: "high",
+            attachments: [
+              {
+                filename: data.file,
+                path: data.filePath,
+              },
+            ],
+            html: `<!DOCTYPE html>
                         <html lang="en">
                             <head>
                                 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -1622,22 +1620,23 @@ exports.emailClaimForm = functions.https.onCall((data) => {
                                 </table>
                             </body> 
                         </html>`,
+          })
+          .then((res) => console.log("Succesfully sent"))
+          .catch((err) => console.log(err));
+      } else {
+        authData
+          .sendMail({
+            from: "no-reply@april.ca",
+            to: mailList,
+            subject: "We have received your claim request",
+            headers: {
+              "x-priority": "1",
+              "x-msmail-priority": "High",
+              importance: "high",
+            },
+            priority: "high",
 
-                }).then(res => console.log("Succesfully sent"))
-                    .catch(err => console.log(err));
-            } else {
-                authData.sendMail({
-                    from: "no-reply@april.ca",
-                    to: mailList,
-                    subject: "We have received your claim request",
-                    headers: {
-                        "x-priority": "1",
-                        "x-msmail-priority": "High",
-                        importance: "high"
-                    },
-                    priority: 'high',
-
-                    html: `<!DOCTYPE html>
+            html: `<!DOCTYPE html>
                         <html lang="en">
                             <head>
                                 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -1737,47 +1736,42 @@ exports.emailClaimForm = functions.https.onCall((data) => {
                                 </table>
                             </body> 
                         </html>`,
-
-                }).then(res => console.log("Succesfully sent"))
-                    .catch(err => console.log(err));
-            }
-
-        }
+          })
+          .then((res) => console.log("Succesfully sent"))
+          .catch((err) => console.log(err));
+      }
     }
-
+  }
 });
 
-
 exports.sendResume = functions.https.onCall((data) => {
+  async function main() {
+    var mailList = [`${data.email}`, "ressources.humaines@april.ca "];
 
-    async function main() {
+    const authData = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: SENDER_EMAIL,
+        pass: SENDER_PASSWORD,
+      },
+    });
 
-        var mailList = [
-            `${data.email}`,
-            'ressources.humaines@april.ca '
-        ]
-
-        const authData = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 465,
-            secure: true,
-            auth: {
-                user: SENDER_EMAIL,
-                pass: SENDER_PASSWORD,
+    if (data.language == "fr") {
+      authData
+        .sendMail({
+          from: "no-reply@april.ca",
+          to: mailList,
+          subject: "Nous avons reçus votre requête",
+          text: ``,
+          attachments: [
+            {
+              filename: data.file,
+              path: data.filePath,
             },
-        });
-
-        if (data.language == 'fr') {
-            authData.sendMail({
-                from: "no-reply@april.ca",
-                to: mailList,
-                subject: "Nous avons reçus votre requête",
-                text: ``,
-                attachments: [{
-                    filename: data.file,
-                    path: data.filePath
-                }],
-                html: `<!DOCTYPE html>
+          ],
+          html: `<!DOCTYPE html>
       <html lang="fr">
           <head>
               <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -1873,20 +1867,22 @@ exports.sendResume = functions.https.onCall((data) => {
               </table>
           </body>
       </html>`,
-
-            }).then(res => console.log("Succesfully sent"))
-                .catch(err => console.log(err));
-        }
-        else {
-            authData.sendMail({
-                from: "no-reply@april.ca",
-                to: mailList,
-                subject: "We have received your request",
-                attachments: [{
-                    filename: data.file,
-                    path: data.filePath
-                }],
-                html: `<!DOCTYPE html>
+        })
+        .then((res) => console.log("Succesfully sent"))
+        .catch((err) => console.log(err));
+    } else {
+      authData
+        .sendMail({
+          from: "no-reply@april.ca",
+          to: mailList,
+          subject: "We have received your request",
+          attachments: [
+            {
+              filename: data.file,
+              path: data.filePath,
+            },
+          ],
+          html: `<!DOCTYPE html>
 <html lang="en">
   <head>
       <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -1982,51 +1978,46 @@ exports.sendResume = functions.https.onCall((data) => {
       </table>
   </body> 
 </html>`,
-
-            }).then(res => console.log("Succesfully sent"))
-                .catch(err => console.log(err));
-        }
-
-
-
-
+        })
+        .then((res) => console.log("Succesfully sent"))
+        .catch((err) => console.log(err));
     }
+  }
 
-    main().catch(console.error);
-
-
+  main().catch(console.error);
 });
 
 exports.sendForm = functions.https.onCall((data) => {
+  var mailList = [
+    `${data.email}`,
+    "info@april.ca",
+    // 'michael.babin@april.ca'
+  ];
 
+  const authData = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: SENDER_EMAIL,
+      pass: SENDER_PASSWORD,
+    },
+  });
 
-    var mailList = [
-        `${data.email}`,
-        'info@april.ca',
-        // 'michael.babin@april.ca'
-    ]
-
-    const authData = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: {
-            user: SENDER_EMAIL,
-            pass: SENDER_PASSWORD,
-        },
-    });
-
-    if (data.language == 'fr') {
-        authData.sendMail({
-            from: "no-reply@april.ca",
-            to: mailList,
-            subject: "Nous avons reçus votre requête",
-            text: ``,
-            attachments: [{
-                filename: data.file,
-                path: data.filePath
-            }],
-            html: `<!DOCTYPE html>
+  if (data.language == "fr") {
+    authData
+      .sendMail({
+        from: "no-reply@april.ca",
+        to: mailList,
+        subject: "Nous avons reçus votre requête",
+        text: ``,
+        attachments: [
+          {
+            filename: data.file,
+            path: data.filePath,
+          },
+        ],
+        html: `<!DOCTYPE html>
                   <html lang="fr">
                       <head>
                           <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -2122,20 +2113,22 @@ exports.sendForm = functions.https.onCall((data) => {
                           </table>
                       </body>
                   </html>`,
-
-        }).then(res => console.log("Succesfully sent"))
-            .catch(err => console.log(err));
-    }
-    else {
-        authData.sendMail({
-            from: "no-reply@april.ca",
-            to: mailList,
-            subject: "We have received your request",
-            attachments: [{
-                filename: data.file,
-                path: data.filePath
-            }],
-            html: `<!DOCTYPE html>
+      })
+      .then((res) => console.log("Succesfully sent"))
+      .catch((err) => console.log(err));
+  } else {
+    authData
+      .sendMail({
+        from: "no-reply@april.ca",
+        to: mailList,
+        subject: "We have received your request",
+        attachments: [
+          {
+            filename: data.file,
+            path: data.filePath,
+          },
+        ],
+        html: `<!DOCTYPE html>
           <html lang="en">
               <head>
                   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -2231,38 +2224,37 @@ exports.sendForm = functions.https.onCall((data) => {
                   </table>
               </body> 
           </html>`,
-
-        }).then(res => console.log("Succesfully sent"))
-            .catch(err => console.log(err));
-    }
+      })
+      .then((res) => console.log("Succesfully sent"))
+      .catch((err) => console.log(err));
+  }
 });
 
 exports.sendDirect = functions.https.onCall((data) => {
+  var mailList = [
+    `${data.email}`,
+    "info@elco.ca",
+    // 'michael.babin@april.ca'
+  ];
 
+  const authData = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: SENDER_EMAIL,
+      pass: SENDER_PASSWORD,
+    },
+  });
 
-    var mailList = [
-        `${data.email}`,
-        'info@elco.ca',
-        // 'michael.babin@april.ca'
-    ]
-
-    const authData = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: {
-            user: SENDER_EMAIL,
-            pass: SENDER_PASSWORD,
-        },
-    });
-
-    if (data.language == 'fr') {
-        authData.sendMail({
-            from: "no-reply@april.ca",
-            to: mailList,
-            subject: "Nous avons reçus votre requête -- APRIL Construction",
-            text: ``,
-            html: `<!DOCTYPE html>
+  if (data.language == "fr") {
+    authData
+      .sendMail({
+        from: "no-reply@april.ca",
+        to: mailList,
+        subject: "Nous avons reçus votre requête -- APRIL Construction",
+        text: ``,
+        html: `<!DOCTYPE html>
                   <html lang="fr">
                       <head>
                           <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -2358,16 +2350,16 @@ exports.sendDirect = functions.https.onCall((data) => {
                           </table>
                       </body>
                   </html>`,
-
-        }).then(res => console.log("Succesfully sent"))
-            .catch(err => console.log(err));
-    }
-    else {
-        authData.sendMail({
-            from: "no-reply@april.ca",
-            to: mailList,
-            subject: "We have received your request -- APRIL Construction",
-            html: `<!DOCTYPE html>
+      })
+      .then((res) => console.log("Succesfully sent"))
+      .catch((err) => console.log(err));
+  } else {
+    authData
+      .sendMail({
+        from: "no-reply@april.ca",
+        to: mailList,
+        subject: "We have received your request -- APRIL Construction",
+        html: `<!DOCTYPE html>
           <html lang="en">
               <head>
                   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -2464,35 +2456,32 @@ exports.sendDirect = functions.https.onCall((data) => {
                   </table>
               </body> 
           </html>`,
-
-        }).then(res => console.log("Succesfully sent"))
-            .catch(err => console.log(err));
-    }
+      })
+      .then((res) => console.log("Succesfully sent"))
+      .catch((err) => console.log(err));
+  }
 });
 exports.sendDirectContractor = functions.https.onCall((data) => {
+  var mailList = [`${data.brokerEmail}`];
 
+  const authData = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: SENDER_EMAIL,
+      pass: SENDER_PASSWORD,
+    },
+  });
 
-    var mailList = [
-        `${data.brokerEmail}`
-    ]
-
-    const authData = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: {
-            user: SENDER_EMAIL,
-            pass: SENDER_PASSWORD,
-        },
-    });
-
-    if (data.language == 'fr') {
-        authData.sendMail({
-            from: "no-reply@april.ca",
-            to: mailList,
-            subject: "Nous avons reçus votre requête -- APRIL Construction",
-            text: ``,
-            html: `<!DOCTYPE html>
+  if (data.language == "fr") {
+    authData
+      .sendMail({
+        from: "no-reply@april.ca",
+        to: mailList,
+        subject: "Nous avons reçus votre requête -- APRIL Construction",
+        text: ``,
+        html: `<!DOCTYPE html>
                   <html lang="fr">
                       <head>
                           <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -2590,16 +2579,16 @@ exports.sendDirectContractor = functions.https.onCall((data) => {
                           </table>
                       </body>
                   </html>`,
-
-        }).then(res => console.log("Succesfully sent"))
-            .catch(err => console.log(err));
-    }
-    else {
-        authData.sendMail({
-            from: "no-reply@april.ca",
-            to: mailList,
-            subject: "We have received your request -- APRIL Construction",
-            html: `<!DOCTYPE html>
+      })
+      .then((res) => console.log("Succesfully sent"))
+      .catch((err) => console.log(err));
+  } else {
+    authData
+      .sendMail({
+        from: "no-reply@april.ca",
+        to: mailList,
+        subject: "We have received your request -- APRIL Construction",
+        html: `<!DOCTYPE html>
           <html lang="en">
               <head>
                   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -2697,14 +2686,14 @@ exports.sendDirectContractor = functions.https.onCall((data) => {
                   </table>
               </body> 
           </html>`,
-
-        }).then(res => console.log("Succesfully sent"))
-            .catch(err => console.log(err));
-    }
+      })
+      .then((res) => console.log("Succesfully sent"))
+      .catch((err) => console.log(err));
+  }
 });
 // routes
 app.use(cors({ origin: true }));
-app.get('/brokers', getBrokers)
-app.get('/brokers/:id', getBrokerById)
+app.get("/brokers", getBrokers);
+app.get("/brokers/:id", getBrokerById);
 
-exports.api = functions.https.onRequest(app)
+exports.api = functions.https.onRequest(app);
