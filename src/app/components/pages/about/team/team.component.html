@@ -3,36 +3,35 @@
   <div class="row">
     <div class="col-md-6"></div>
     <div class="col-md-6">
-      <div class="
-          half-circle
-          bg-optional
-          d-flex
-          text-center
-          justify-content-center
-          align-items-center
-        ">
+      <div
+        class="half-circle bg-optional d-flex text-center justify-content-center align-items-center"
+      >
         <h2 class="mx-5 px-5">{{ "MEET_TEAM" | translate }}</h2>
       </div>
     </div>
   </div>
   <!-- Directors grid -->
   <div class="row">
-    <div class="col-lg-3 col-md-6" *ngFor="let d of directors" (click)="openModal(contact, d)"
-      data-analytics="AboutExpert" [attr.click-text]="d.fullName">
-      <div class="
-          d-flex
-          flex-column
-          justify-content-center
-          align-items-center
-          text-center
-          pointer
-          my-5
-        ">
-        <img class="directors" [src]="'../../../../assets/img/a-propos/directors/' + d.picture" />
-   
-          <div class="h3 pt-4">{{ d.fullName }}</div>
-          <div class="mx-4" [innerHtml]="language.get() == 'fr' ? d.title?.fr : d.title?.en"></div>
-   
+    <div
+      class="col-lg-4 col-md-6"
+      *ngFor="let d of directors"
+      (click)="openModal(contact, d)"
+      data-analytics="AboutExpert"
+      [attr.click-text]="d.fullName"
+    >
+      <div
+        class="d-flex flex-column justify-content-center align-items-center text-center pointer my-5"
+      >
+        <img
+          class="directors"
+          [src]="'../../../../assets/img/a-propos/directors/' + d.picture"
+        />
+
+        <div class="h3 pt-4">{{ d.fullName }}</div>
+        <div
+          class="mx-4"
+          [innerHtml]="language.get() == 'fr' ? d.title?.fr : d.title?.en"
+        ></div>
       </div>
     </div>
   </div>
@@ -41,38 +40,63 @@
 <!-- Modal -->
 <ng-template #contact let-modal>
   <div class="modal-header d-flex justify-content-center align-items-center">
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true"><img class="icon" src="../../../../../assets/img/icons/close.svg" alt="" /></span>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true"
+        ><img
+          class="icon"
+          src="../../../../../assets/img/icons/close.svg"
+          alt=""
+      /></span>
     </button>
   </div>
   <div class="modal-body move-up">
     <div class="row">
       <div class="col-lg-6 d-flex justify-content-center">
-
-        <img class="directors" [src]="'../../../../assets/img/a-propos/directors/' + data.picture" />
+        <img
+          class="directors"
+          [src]="'../../../../assets/img/a-propos/directors/' + data.picture"
+        />
       </div>
       <div class="col-lg-6">
-        <div class="
-            d-flex
-            flex-column
-            justify-content-center
-            align-items-center
-            text-center
-            pointer
-            my-5
-          ">
+        <div
+          class="d-flex flex-column justify-content-center align-items-center text-center pointer my-5"
+        >
           <div class="h3 pt-3">{{ data.fullName }}</div>
-          <div [innerHtml]="language.get() == 'fr' ? data.title?.fr : data.title?.en" class="m-4"></div>
+          <div
+            [innerHtml]="
+              language.get() == 'fr' ? data.title?.fr : data.title?.en
+            "
+            class="m-4"
+          ></div>
           <div class="social-icon d-flex">
             <div class="mx-3">
-              <a [href]="'mailto:' + data.email" target="_blank" data-analytics="AboutExpertContact"
-                [attr.click-text]="data.fullName + ' email'"><img class="icon"
-                  src="../../../../assets/img/icons/envelope.svg" alt="" /></a>
+              <a
+                [href]="'mailto:' + data.email"
+                target="_blank"
+                data-analytics="AboutExpertContact"
+                [attr.click-text]="data.fullName + ' email'"
+                ><img
+                  class="icon"
+                  src="../../../../assets/img/icons/envelope.svg"
+                  alt=""
+              /></a>
             </div>
             <div class="mx-3" *ngIf="data.linkedIn">
-              <a [href]="data.linkedIn" target="_blank" data-analytics="AboutExpertContact"
-                [attr.click-text]="data.fullName + ' LinkedIn'"><img class="icon"
-                  src="../../../../assets/img/icons/linkedin.svg" alt="" /></a>
+              <a
+                [href]="data.linkedIn"
+                target="_blank"
+                data-analytics="AboutExpertContact"
+                [attr.click-text]="data.fullName + ' LinkedIn'"
+                ><img
+                  class="icon"
+                  src="../../../../assets/img/icons/linkedin.svg"
+                  alt=""
+              /></a>
             </div>
           </div>
         </div>

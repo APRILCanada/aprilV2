@@ -11,7 +11,6 @@ import { Director } from '../../models/directors';
 export class TeamComponent implements OnInit {
   data: Director;
 
-
   directors: Director[] = [
     {
       fullName: 'Marie-Eve Paquette',
@@ -47,20 +46,7 @@ export class TeamComponent implements OnInit {
       linkedIn: 'https://www.linkedin.com/in/bianca-collin-1179861b8/',
       color: '#d7488f',
     },
-    {
-      fullName: 'Stéphane Cochet',
-      title: {
-        en: 'CTO Infrastructure and Transactional Flows',
-        fr: 'Directeur IT infra et flux transactionnels',
-      },
-      picture: 'stephane.svg',
-      email: 'stephane.cochet@april.ca',
-      linkedIn: 'https://www.linkedin.com/in/st%C3%A9phane-cochet-878101141/',
-      color: '#639e30',
-    },
   ];
-;
-
   constructor(
     public language: LanguageService,
     private modalService: NgbModal
