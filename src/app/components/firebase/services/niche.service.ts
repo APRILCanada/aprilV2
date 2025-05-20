@@ -82,7 +82,7 @@ export class NicheService {
         id: 'april-construction',
         name: 'Construction',
         icon: 'construction.svg',
-        titleFr: 'Contracteurs',
+        titleFr: 'Entrepreneurs',
         titleEn: 'Contractors',
         subsection: [
           {
