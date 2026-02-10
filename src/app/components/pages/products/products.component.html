@@ -37,7 +37,7 @@
           <h1 class="pb-5 pt-5">
             {{ language.get() == "fr" ? product.fr?.title : product.en?.title }}
           </h1>
-          <div class="me-lg-5 pe-lg-5">
+          <div *ngIf="!isCommercialLine(id)" class="me-lg-5 pe-lg-5">
             <p
               [innerHtml]="
                 language.get() == 'fr' ? product.fr?.desc : product.en?.desc
@@ -45,19 +45,42 @@
               class="pb-5 product-desc"
             ></p>
             <!-- boutons soumission -->
+            <!-- boutons soumission -->
             <div class="d-flex">
               <a
                 class="btn-april btn-april-blue fw-bold me-5"
                 href="https://april-on.ca"
                 data-analytics="AprilOnSubmission"
-                >{{ "ON_APRIL_ON" | translate }}</a
-              >
+                >{{ "ON_APRIL_ON" | translate }}</a>
 
               <!-- <a class="btn-april btn-april-white fw-bold" routerLink="../../formulaires"
                 data-analytics="ProductsSubmission">{{ "FORMS_TO_DOWNLOAD" | translate }}
               </a> -->
             </div>
           </div>
+          <div *ngIf="isCommercialLine(id)" class="me-lg-5 pe-lg-5">
+            <div class="pb-3">
+              <h2 class="d-inline">{{ "TARGET" | translate }}</h2>
+            </div>
+            <p
+              [innerHtml]="
+                language.get() == 'fr' ? product.fr?.target : product.en?.target
+              "
+              class="pb-5 product-desc"
+            ></p>
+            <!-- boutons soumission -->
+            <!-- boutons soumission -->
+
+            <div class="d-flex">
+                <a
+                  class="btn-april btn-april-blue fw-bold me-5"
+                  href="mailto:{{ language.get() == 'fr' ? parseEmail(product.department?.email).fr : parseEmail(product.department?.email).en }}"
+                  data-analytics="AprilOnSubmission"
+                  >{{ "TALK_TO_UW" | translate }}</a>
+            </div>
+
+          </div>
+          
         </div>
         <!-- Image -->
         <div class="col-lg-4">
@@ -104,6 +127,7 @@
       <div class="container products-wrapper pt-5">
         <div class="row pt-4">
           <div
+            *ngIf="!isCommercialLine(id)"
             class="col-xl-8 col-lg-7 ps-0 pe-lg-5 d-flex flex-column justify-content-center"
           >
             <!-- Target -->
@@ -113,6 +137,18 @@
             <p
               [innerHtml]="
                 language.get() == 'fr' ? product.fr?.target : product.en?.target
+              "
+            ></p>
+
+          </div>
+          <div *ngIf="isCommercialLine(id)"
+          class="col-xl-8 col-lg-7 ps-0 pe-lg-5 d-flex flex-column justify-content-center">
+            <div class="pb-3">
+              <h2 class="d-inline">{{ "PRODUCT_ABOUT" | translate }}</h2>
+            </div>
+            <p
+              [innerHtml]="
+                language.get() == 'fr' ? product.fr?.desc : product.en?.desc
               "
             ></p>
           </div>
@@ -132,16 +168,30 @@
               >
                 {{ "TO_CONTACT_US" | translate }}
               </h5>
-              <div class="my-2">
+              <div *ngIf="parseEmail(product.department?.email).fr" class="my-2">
                 <img
                   src="../../../../assets/img/icons/email.svg"
                   class="icon"
                 />
+                FR:
                 <a
                   class="text-decoration-underline d-inline"
-                  [href]="'mailTo:' + product.department?.email"
+                  [href]="'mailTo:' + parseEmail(product.department?.email).fr"
                 >
-                  {{ product?.department?.email }}</a
+                  {{ parseEmail(product.department?.email).fr }}</a
+                >
+              </div>
+              <div *ngIf="parseEmail(product.department?.email).en" class="my-2">
+                <img
+                  src="../../../../assets/img/icons/email.svg"
+                  class="icon"
+                />
+                EN:
+                <a
+                  class="text-decoration-underline d-inline"
+                  [href]="'mailTo:' + parseEmail(product.department?.email).en"
+                >
+                  {{ parseEmail(product.department?.email).en }}</a
                 >
               </div>
               <div class="my-2">

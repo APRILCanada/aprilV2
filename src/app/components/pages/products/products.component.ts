@@ -16,6 +16,7 @@ import { Niche } from '../../firebase/models/Niche';
 import { Product } from '../../firebase/models/Product';
 import { NicheService } from '../../firebase/services/niche.service';
 import { ProductService } from '../../firebase/services/product.service';
+import { result } from 'lodash';
 
 declare global {
   interface Window {
@@ -45,6 +46,20 @@ export class ProductsComponent implements OnInit, AfterViewChecked {
   niche: Niche;
   niches: any[];
   filteredMenu: Product[];
+
+  readonly personalLinesIds = [
+    'automobile-personnelle',
+    'assurance-location-court-terme',
+    'assurance-proprietaires-etranger',
+    'batiment-vacant',
+    'rented-residence-and-condos',
+    'residences-secondaires-saisonnieres',
+    'situation-financiere-plumitif'
+  ]
+
+  isCommercialLine(id: string): boolean {
+    return !this.personalLinesIds.includes(id);
+  }
 
   constructor(
     private productService: ProductService,
@@ -172,5 +187,19 @@ export class ProductsComponent implements OnInit, AfterViewChecked {
       'filter.type': '',
     });
     // console.log(window.dataLayer)
+  }
+
+  parseEmail(emailString: string): { fr: string, en: string } {
+    let email = this.product.department?.email;
+    console.log('Parsing email:', email);
+    if (!email) return { fr: '', en: '' };
+
+    // Let's choose that we will split email, by comma, with FR being the first one and En the second one
+    let emailArray = email.split(',').map((e: string) => e.trim());
+
+    let result ={ fr: emailArray[0], en: emailArray[1] };
+    console.log('Parsed email:', result);
+
+    return { fr: emailArray[0], en: emailArray[1] };
   }
 }
