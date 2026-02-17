@@ -74,6 +74,11 @@ export class NicheService {
                 titleEn: 'Insurance for Towing Companies',
                 id: 'assurance-pour-remorqueurs',
               },
+              {
+                titleFr: 'Transport de vrac',
+                titleEn: 'Bulk Transport',
+                id: 'transport-de-vrac',
+              },
             ],
           },
         ],
