@@ -60,6 +60,11 @@ export class NicheService {
                 id: 'assurance-pour-demenageurs',
               },
               {
+                titleFr: 'Responsabilité des services de cargo',
+                titleEn: 'Motor Truck Cargo',
+                id: 'motor-truck-cargo',
+              },
+              {
                 titleFr: 'Assurance pour garagistes',
                 titleEn: 'Garage Owners Insurance',
                 id: 'assurance-pour-garagistes',
@@ -165,11 +170,6 @@ export class NicheService {
                 titleFr: 'Assurance marinas et concessionnaires nautiques',
                 titleEn: 'Marina and marine dealer insurance',
                 id: 'marinas-concessionnaires-nautiques',
-              },
-              {
-                titleFr: 'Responsabilité des services de cargo',
-                titleEn: 'Motor Truck Cargo',
-                id: 'motor-truck-cargo',
               },
               {
                 titleFr: 'Assurance responsabilités maritimes',

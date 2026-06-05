@@ -74,7 +74,7 @@
             <div class="d-flex">
                 <a
                   class="btn-april btn-april-blue fw-bold me-5"
-                  href="mailto:{{ language.get() == 'fr' ? parseEmail(product.department?.email).fr : parseEmail(product.department?.email).en }}"
+                  [href]="'mailto:' + (language.get() == 'fr' ? (parsedEmail.fr || parsedEmail.en) : (parsedEmail.en || parsedEmail.fr))"
                   data-analytics="AprilOnSubmission"
                   >{{ "TALK_TO_UW" | translate }}</a>
             </div>
@@ -168,39 +168,62 @@
               >
                 {{ "TO_CONTACT_US" | translate }}
               </h5>
-              <div *ngIf="parseEmail(product.department?.email).fr" class="my-2">
-                <img
-                  src="../../../../assets/img/icons/email.svg"
-                  class="icon"
-                />
-                FR:
-                <a
-                  class="text-decoration-underline d-inline"
-                  [href]="'mailTo:' + parseEmail(product.department?.email).fr"
-                >
-                  {{ parseEmail(product.department?.email).fr }}</a
-                >
+              <div *ngIf="parsedEmail.fr && parsedEmail.en; else singleEmail" class="my-2">
+                <div *ngIf="parsedEmail.fr" class="my-2">
+                    <img
+                      src="../../../../assets/img/icons/email.svg"
+                      class="icon"
+                    />
+                    FR:
+                  <a
+                    class="text-decoration-underline d-inline"
+                    [href]="'mailTo:' + parsedEmail.fr"
+                  >
+                    {{ parsedEmail.fr }}</a
+                  >
+                </div>
+
+                <div *ngIf="parsedEmail.en" class="my-2">
+                  <img
+                    src="../../../../assets/img/icons/email.svg"
+                    class="icon"
+                  />
+                  EN:
+                  <a
+                    class="text-decoration-underline d-inline"
+                    [href]="'mailTo:' + parsedEmail.en"
+                  >
+                    {{ parsedEmail.en }}</a
+                  >
+                </div>
               </div>
-              <div *ngIf="parseEmail(product.department?.email).en" class="my-2">
-                <img
-                  src="../../../../assets/img/icons/email.svg"
-                  class="icon"
-                />
-                EN:
-                <a
-                  class="text-decoration-underline d-inline"
-                  [href]="'mailTo:' + parseEmail(product.department?.email).en"
-                >
-                  {{ parseEmail(product.department?.email).en }}</a
-                >
-              </div>
+              <ng-template #singleEmail>
+                <div class="my-2">
+                  <img
+                    src="../../../../assets/img/icons/email.svg"
+                    class="icon"
+                  />
+                  <a
+                    class="text-decoration-underline d-inline"
+                    [href]="'mailTo:' + (parsedEmail.fr || parsedEmail.en)"
+                  >
+                    {{ parsedEmail.fr || parsedEmail.en }}</a
+                  >
+                </div>
+              </ng-template>
+
               <div class="my-2">
                 <img
                   src="../../../../assets/img/icons/phone.svg"
                   class="icon"
                 />
-                <a class="d-inline py-3">
+                <a *ngIf="product.id !== 'motor-truck-cargo'" class="d-inline py-3">
                   {{ "PHONE_NUMBER_QC" | translate }} Ext.: {{
+                    product?.department?.extension
+                  }}</a
+                >
+                <a *ngIf="product.id === 'motor-truck-cargo'" class="d-inline py-3">
+                  {{ "PHONE_NUMBER_ON" | translate }} Ext.: {{
                     product?.department?.extension
                   }}</a
                 >

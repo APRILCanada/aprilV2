@@ -46,6 +46,7 @@ export class ProductsComponent implements OnInit, AfterViewChecked {
   niche: Niche;
   niches: any[];
   filteredMenu: Product[];
+  parsedEmail: { fr: string; en: string } = { fr: '', en: '' };
 
   readonly personalLinesIds = [
     'automobile-personnelle',
@@ -74,9 +75,11 @@ export class ProductsComponent implements OnInit, AfterViewChecked {
   ngOnInit(): void {
     // getIdfromUrl
     this.id = this.route.snapshot.params['id'];
+
     this.productService.getProducts().subscribe((products) => {
       this.products = products;
       this.product = this.products.find((x) => x.id == this.id);
+      this.parsedEmail = this.parseEmail(this.product.department?.email);
       this.filteredProducts = this.productsListFilter.transform(
         products,
         this.product.parent
@@ -108,6 +111,7 @@ export class ProductsComponent implements OnInit, AfterViewChecked {
   switchProduct(id: any) {
     this.id = id;
     this.product = this.products.find((x) => x.id == this.id);
+    this.parsedEmail = this.parseEmail(this.product.department?.email);
     window.scroll(0, 0);
     this.getNicheString(this.product.parent.toString());
 
@@ -190,16 +194,14 @@ export class ProductsComponent implements OnInit, AfterViewChecked {
   }
 
   parseEmail(emailString: string): { fr: string, en: string } {
-    let email = this.product.department?.email;
-    console.log('Parsing email:', email);
-    if (!email) return { fr: '', en: '' };
+    if (!emailString) return { fr: '', en: '' };
 
-    // Let's choose that we will split email, by comma, with FR being the first one and En the second one
-    let emailArray = email.split(',').map((e: string) => e.trim());
-
-    let result ={ fr: emailArray[0], en: emailArray[1] };
-    console.log('Parsed email:', result);
-
-    return { fr: emailArray[0], en: emailArray[1] };
+    let emailArray = emailString.split(',').map((e: string) => e.trim());
+    
+    // Keep FR and EN separate, no fallback
+    return { 
+      fr: emailArray[0] || '', 
+      en: emailArray[1] || '' 
+    };
   }
 }
